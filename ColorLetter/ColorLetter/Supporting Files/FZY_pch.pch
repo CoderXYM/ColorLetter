@@ -18,5 +18,12 @@
 #import "AppDelegate.h"
 #import "UIButton+Block.h"
 #import "FileManagerUtils.h"
+#import <Masonry.h>
+#import "UIButton+Block.h"
+#import "EMSDK.h"
+#import "UIView+ShowMessage.h"
+
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
 
 #endif /* FZY_pch_pch */

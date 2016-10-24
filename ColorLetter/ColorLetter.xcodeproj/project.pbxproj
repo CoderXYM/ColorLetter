@@ -8,19 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		1A6CD44C83B5DDC46C23487C /* libPods-ColorLetter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */; };
+		491656AC1DBA56E100975DE6 /* FZY_SliderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */; };
+		492AEE761DB9B2710014E9BB /* FZY_CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEE751DB9B2710014E9BB /* FZY_CommonViewController.m */; };
+		492AEE791DB9B42C0014E9BB /* FZY_SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEE781DB9B42C0014E9BB /* FZY_SettingViewController.m */; };
+		492AEEAA1DBA0B440014E9BB /* FZY_SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEEA91DBA0B440014E9BB /* FZY_SettingTableViewCell.m */; };
+		492AEEAD1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEEAC1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m */; };
+		4969E14D1DB85D6A007D0A06 /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E14C1DB85D6A007D0A06 /* AddViewController.m */; };
+		4969E1511DB85EDB007D0A06 /* FZYTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E1501DB85EDB007D0A06 /* FZYTabBarViewController.m */; };
+		4969E1891DB8AF78007D0A06 /* DrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E1881DB8AF78007D0A06 /* DrawerTableViewCell.m */; };
+		4975B1BF1DBD9AD000B6987D /* FZY_MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1BE1DBD9AD000B6987D /* FZY_MessageViewController.m */; };
+		4975B1C21DBD9B9A00B6987D /* FZY_BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */; };
+		4975B1C51DBD9BB500B6987D /* FZY_MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1C41DBD9BB500B6987D /* FZY_MessageTableViewCell.m */; };
+		4975B1CF1DBDB44700B6987D /* FZY_ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1CE1DBDB44700B6987D /* FZY_ChatViewController.m */; };
+		4975B1E11DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1DE1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m */; };
+		4975B2101DBDEB0900B6987D /* TheContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B20F1DBDEB0900B6987D /* TheContactViewController.m */; };
+		4975B2131DBDEB5900B6987D /* FZYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2121DBDEB5900B6987D /* FZYBaseViewController.m */; };
+		4975B2161DBDF17000B6987D /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2151DBDF17000B6987D /* DrawerViewController.m */; };
+		4975B25F1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B25E1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.m */; };
+		4975B2751DBE42FB00B6987D /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2621DBE42FB00B6987D /* NSData+Categories.m */; };
+		4975B2761DBE42FB00B6987D /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2641DBE42FB00B6987D /* NSString+Categories.m */; };
+		4975B2771DBE42FB00B6987D /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2661DBE42FB00B6987D /* NSString+Regex.m */; };
+		4975B2781DBE42FB00B6987D /* NSUserDefaults+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2681DBE42FB00B6987D /* NSUserDefaults+Categories.m */; };
+		4975B2791DBE42FB00B6987D /* UIBarButtonItem+SetImage_Click.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B26A1DBE42FB00B6987D /* UIBarButtonItem+SetImage_Click.m */; };
+		4975B27A1DBE42FB00B6987D /* UIButton+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B26C1DBE42FB00B6987D /* UIButton+Block.m */; };
+		4975B27B1DBE42FB00B6987D /* UIImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B26E1DBE42FB00B6987D /* UIImage+Categories.m */; };
+		4975B27C1DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2701DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m */; };
+		4975B27D1DBE42FB00B6987D /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2721DBE42FB00B6987D /* UIView+Frame.m */; };
+		4975B27E1DBE42FB00B6987D /* UIView+ShowMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2741DBE42FB00B6987D /* UIView+ShowMessage.m */; };
 		49B0327A1DB79C0800D36732 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032791DB79C0800D36732 /* main.m */; };
 		49B0327D1DB79C0800D36732 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0327C1DB79C0800D36732 /* AppDelegate.m */; };
 		49B032851DB79C0800D36732 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49B032841DB79C0800D36732 /* Assets.xcassets */; };
 		49B032881DB79C0800D36732 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49B032861DB79C0800D36732 /* LaunchScreen.storyboard */; };
-		49B032A11DB79F4500D36732 /* FZYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032A01DB79F4500D36732 /* FZYBaseViewController.m */; };
 		49B032A41DB79F5A00D36732 /* FZYBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032A31DB79F5A00D36732 /* FZYBaseModel.m */; };
 		49B032A71DB79FB000D36732 /* FZYBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032A61DB79FB000D36732 /* FZYBaseView.m */; };
-		49B032B11DB7A10400D36732 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032B01DB7A10400D36732 /* NSData+Categories.m */; };
-		49B032B41DB7A15C00D36732 /* NSUserDefaults+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032B31DB7A15C00D36732 /* NSUserDefaults+Categories.m */; };
-		49B032B71DB7A23C00D36732 /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032B61DB7A23C00D36732 /* NSString+Categories.m */; };
-		49B032BA1DB7A2BC00D36732 /* NSString+Regex.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032B91DB7A2BC00D36732 /* NSString+Regex.m */; };
-		49B032BD1DB7A2FA00D36732 /* UIButton+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032BC1DB7A2FA00D36732 /* UIButton+Block.m */; };
-		49B032C01DB7A3A000D36732 /* UIImage+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032BF1DB7A3A000D36732 /* UIImage+Categories.m */; };
 		49B032C31DB7A41600D36732 /* AppStoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C21DB7A41600D36732 /* AppStoreUtils.m */; };
 		49B032C61DB7A47900D36732 /* FileManagerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C51DB7A47900D36732 /* FileManagerUtils.m */; };
 /* End PBXBuildFile section */
@@ -28,6 +48,61 @@
 /* Begin PBXFileReference section */
 		16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ColorLetter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FAC0A049392D2BE8F8E4C6 /* Pods-ColorLetter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.debug.xcconfig"; sourceTree = "<group>"; };
+		491656AA1DBA56E100975DE6 /* FZY_SliderScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SliderScrollView.h; sourceTree = "<group>"; };
+		491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SliderScrollView.m; sourceTree = "<group>"; };
+		491656AE1DBA576500975DE6 /* TheContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheContactViewController.h; sourceTree = "<group>"; };
+		492AEE741DB9B2710014E9BB /* FZY_CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_CommonViewController.h; sourceTree = "<group>"; };
+		492AEE751DB9B2710014E9BB /* FZY_CommonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_CommonViewController.m; sourceTree = "<group>"; };
+		492AEE771DB9B42C0014E9BB /* FZY_SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SettingViewController.h; sourceTree = "<group>"; };
+		492AEE781DB9B42C0014E9BB /* FZY_SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SettingViewController.m; sourceTree = "<group>"; };
+		492AEEA81DBA0B440014E9BB /* FZY_SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SettingTableViewCell.h; sourceTree = "<group>"; };
+		492AEEA91DBA0B440014E9BB /* FZY_SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SettingTableViewCell.m; sourceTree = "<group>"; };
+		492AEEAB1DBA30E90014E9BB /* FZY_SwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SwitchTableViewCell.h; sourceTree = "<group>"; };
+		492AEEAC1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SwitchTableViewCell.m; sourceTree = "<group>"; };
+		4969E14B1DB85D6A007D0A06 /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
+		4969E14C1DB85D6A007D0A06 /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
+		4969E14F1DB85EDB007D0A06 /* FZYTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZYTabBarViewController.h; sourceTree = "<group>"; };
+		4969E1501DB85EDB007D0A06 /* FZYTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZYTabBarViewController.m; sourceTree = "<group>"; };
+		4969E1871DB8AF78007D0A06 /* DrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerTableViewCell.h; sourceTree = "<group>"; };
+		4969E1881DB8AF78007D0A06 /* DrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerTableViewCell.m; sourceTree = "<group>"; };
+		4975B1BD1DBD9AD000B6987D /* FZY_MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_MessageViewController.h; sourceTree = "<group>"; };
+		4975B1BE1DBD9AD000B6987D /* FZY_MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_MessageViewController.m; sourceTree = "<group>"; };
+		4975B1C01DBD9B9A00B6987D /* FZY_BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_BaseTableViewCell.h; sourceTree = "<group>"; };
+		4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_BaseTableViewCell.m; sourceTree = "<group>"; };
+		4975B1C31DBD9BB500B6987D /* FZY_MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_MessageTableViewCell.h; sourceTree = "<group>"; };
+		4975B1C41DBD9BB500B6987D /* FZY_MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_MessageTableViewCell.m; sourceTree = "<group>"; };
+		4975B1CD1DBDB44700B6987D /* FZY_ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_ChatViewController.h; sourceTree = "<group>"; };
+		4975B1CE1DBDB44700B6987D /* FZY_ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatViewController.m; sourceTree = "<group>"; };
+		4975B1DD1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_LoginAndRegisterViewController.h; sourceTree = "<group>"; };
+		4975B1DE1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_LoginAndRegisterViewController.m; sourceTree = "<group>"; };
+		4975B20F1DBDEB0900B6987D /* TheContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheContactViewController.m; sourceTree = "<group>"; };
+		4975B2111DBDEB5900B6987D /* FZYBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZYBaseViewController.h; sourceTree = "<group>"; };
+		4975B2121DBDEB5900B6987D /* FZYBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZYBaseViewController.m; sourceTree = "<group>"; };
+		4975B2141DBDF17000B6987D /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
+		4975B2151DBDF17000B6987D /* DrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerViewController.m; sourceTree = "<group>"; };
+		4975B25D1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_LoginOrRegisterViewController.h; sourceTree = "<group>"; };
+		4975B25E1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_LoginOrRegisterViewController.m; sourceTree = "<group>"; };
+		4975B2611DBE42FB00B6987D /* NSData+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Categories.h"; sourceTree = "<group>"; };
+		4975B2621DBE42FB00B6987D /* NSData+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = "<group>"; };
+		4975B2631DBE42FB00B6987D /* NSString+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Categories.h"; sourceTree = "<group>"; };
+		4975B2641DBE42FB00B6987D /* NSString+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Categories.m"; sourceTree = "<group>"; };
+		4975B2651DBE42FB00B6987D /* NSString+Regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regex.h"; sourceTree = "<group>"; };
+		4975B2661DBE42FB00B6987D /* NSString+Regex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regex.m"; sourceTree = "<group>"; };
+		4975B2671DBE42FB00B6987D /* NSUserDefaults+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Categories.h"; sourceTree = "<group>"; };
+		4975B2681DBE42FB00B6987D /* NSUserDefaults+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Categories.m"; sourceTree = "<group>"; };
+		4975B2691DBE42FB00B6987D /* UIBarButtonItem+SetImage_Click.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+SetImage_Click.h"; sourceTree = "<group>"; };
+		4975B26A1DBE42FB00B6987D /* UIBarButtonItem+SetImage_Click.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+SetImage_Click.m"; sourceTree = "<group>"; };
+		4975B26B1DBE42FB00B6987D /* UIButton+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Block.h"; sourceTree = "<group>"; };
+		4975B26C1DBE42FB00B6987D /* UIButton+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Block.m"; sourceTree = "<group>"; };
+		4975B26D1DBE42FB00B6987D /* UIImage+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Categories.h"; sourceTree = "<group>"; };
+		4975B26E1DBE42FB00B6987D /* UIImage+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Categories.m"; sourceTree = "<group>"; };
+		4975B26F1DBE42FB00B6987D /* UILabel+SizeToFit_W_H.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+SizeToFit_W_H.h"; sourceTree = "<group>"; };
+		4975B2701DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+SizeToFit_W_H.m"; sourceTree = "<group>"; };
+		4975B2711DBE42FB00B6987D /* UIView+Frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Frame.h"; sourceTree = "<group>"; };
+		4975B2721DBE42FB00B6987D /* UIView+Frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Frame.m"; sourceTree = "<group>"; };
+		4975B2731DBE42FB00B6987D /* UIView+ShowMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ShowMessage.h"; sourceTree = "<group>"; };
+		4975B2741DBE42FB00B6987D /* UIView+ShowMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ShowMessage.m"; sourceTree = "<group>"; };
+		4975B27F1DBE431A00B6987D /* FZY_pch.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZY_pch.pch; sourceTree = "<group>"; };
 		49B032751DB79C0800D36732 /* ColorLetter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorLetter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B032791DB79C0800D36732 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49B0327B1DB79C0800D36732 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -35,31 +110,16 @@
 		49B032841DB79C0800D36732 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49B032871DB79C0800D36732 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49B032891DB79C0800D36732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49B0329E1DB79DF000D36732 /* FZY_pch.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZY_pch.pch; sourceTree = "<group>"; };
-		49B0329F1DB79F4500D36732 /* FZYBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZYBaseViewController.h; path = ColorLetter/FZYBaseViewController.h; sourceTree = SOURCE_ROOT; };
-		49B032A01DB79F4500D36732 /* FZYBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZYBaseViewController.m; path = ColorLetter/FZYBaseViewController.m; sourceTree = SOURCE_ROOT; };
-		49B032A21DB79F5A00D36732 /* FZYBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZYBaseModel.h; path = ColorLetter/FZYBaseModel.h; sourceTree = SOURCE_ROOT; };
-		49B032A31DB79F5A00D36732 /* FZYBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZYBaseModel.m; path = ColorLetter/FZYBaseModel.m; sourceTree = SOURCE_ROOT; };
-		49B032A51DB79FB000D36732 /* FZYBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZYBaseView.h; path = ColorLetter/FZYBaseView.h; sourceTree = SOURCE_ROOT; };
-		49B032A61DB79FB000D36732 /* FZYBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZYBaseView.m; path = ColorLetter/FZYBaseView.m; sourceTree = SOURCE_ROOT; };
-		49B032AF1DB7A10400D36732 /* NSData+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Categories.h"; sourceTree = SOURCE_ROOT; };
-		49B032B01DB7A10400D36732 /* NSData+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Categories.m"; sourceTree = SOURCE_ROOT; };
-		49B032B21DB7A15C00D36732 /* NSUserDefaults+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Categories.h"; sourceTree = SOURCE_ROOT; };
-		49B032B31DB7A15C00D36732 /* NSUserDefaults+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Categories.m"; sourceTree = SOURCE_ROOT; };
-		49B032B51DB7A23C00D36732 /* NSString+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Categories.h"; sourceTree = SOURCE_ROOT; };
-		49B032B61DB7A23C00D36732 /* NSString+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Categories.m"; sourceTree = SOURCE_ROOT; };
-		49B032B81DB7A2BC00D36732 /* NSString+Regex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Regex.h"; sourceTree = SOURCE_ROOT; };
-		49B032B91DB7A2BC00D36732 /* NSString+Regex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Regex.m"; sourceTree = SOURCE_ROOT; };
-		49B032BB1DB7A2FA00D36732 /* UIButton+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Block.h"; sourceTree = SOURCE_ROOT; };
-		49B032BC1DB7A2FA00D36732 /* UIButton+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Block.m"; sourceTree = SOURCE_ROOT; };
-		49B032BE1DB7A3A000D36732 /* UIImage+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Categories.h"; sourceTree = SOURCE_ROOT; };
-		49B032BF1DB7A3A000D36732 /* UIImage+Categories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Categories.m"; sourceTree = SOURCE_ROOT; };
-		49B032C11DB7A41600D36732 /* AppStoreUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppStoreUtils.h; sourceTree = SOURCE_ROOT; };
-		49B032C21DB7A41600D36732 /* AppStoreUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreUtils.m; sourceTree = SOURCE_ROOT; };
-		49B032C41DB7A47900D36732 /* FileManagerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManagerUtils.h; sourceTree = SOURCE_ROOT; };
-		49B032C51DB7A47900D36732 /* FileManagerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManagerUtils.m; sourceTree = SOURCE_ROOT; };
-		49B032C71DB7A4C300D36732 /* SystemUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemUnit.h; sourceTree = SOURCE_ROOT; };
-		49B032C81DB7A59700D36732 /* FZYMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZYMacro.h; sourceTree = SOURCE_ROOT; };
+		49B032A21DB79F5A00D36732 /* FZYBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZYBaseModel.h; sourceTree = "<group>"; };
+		49B032A31DB79F5A00D36732 /* FZYBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZYBaseModel.m; sourceTree = "<group>"; };
+		49B032A51DB79FB000D36732 /* FZYBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZYBaseView.h; sourceTree = "<group>"; };
+		49B032A61DB79FB000D36732 /* FZYBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZYBaseView.m; sourceTree = "<group>"; };
+		49B032C11DB7A41600D36732 /* AppStoreUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppStoreUtils.h; sourceTree = "<group>"; };
+		49B032C21DB7A41600D36732 /* AppStoreUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppStoreUtils.m; sourceTree = "<group>"; };
+		49B032C41DB7A47900D36732 /* FileManagerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManagerUtils.h; sourceTree = "<group>"; };
+		49B032C51DB7A47900D36732 /* FileManagerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManagerUtils.m; sourceTree = "<group>"; };
+		49B032C71DB7A4C300D36732 /* SystemUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemUnit.h; sourceTree = "<group>"; };
+		49B032C81DB7A59700D36732 /* FZYMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZYMacro.h; sourceTree = "<group>"; };
 		D52A69A9BF3156D310586722 /* Pods-ColorLetter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +135,305 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		491656A81DBA56E100975DE6 /* Encapsulation */ = {
+			isa = PBXGroup;
+			children = (
+				491656A91DBA56E100975DE6 /* View */,
+			);
+			path = Encapsulation;
+			sourceTree = "<group>";
+		};
+		491656A91DBA56E100975DE6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				491656AA1DBA56E100975DE6 /* FZY_SliderScrollView.h */,
+				491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		491656AD1DBA576500975DE6 /* TheContact */ = {
+			isa = PBXGroup;
+			children = (
+				491656AE1DBA576500975DE6 /* TheContactViewController.h */,
+				4975B20F1DBDEB0900B6987D /* TheContactViewController.m */,
+			);
+			path = TheContact;
+			sourceTree = "<group>";
+		};
+		492AEE6D1DB9B0280014E9BB /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				492AEE6E1DB9B04A0014E9BB /* Controller */,
+				492AEE701DB9B04E0014E9BB /* Model */,
+				492AEE6F1DB9B04C0014E9BB /* View */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		492AEE6E1DB9B04A0014E9BB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				492AEE771DB9B42C0014E9BB /* FZY_SettingViewController.h */,
+				492AEE781DB9B42C0014E9BB /* FZY_SettingViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		492AEE6F1DB9B04C0014E9BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				492AEEA81DBA0B440014E9BB /* FZY_SettingTableViewCell.h */,
+				492AEEA91DBA0B440014E9BB /* FZY_SettingTableViewCell.m */,
+				492AEEAB1DBA30E90014E9BB /* FZY_SwitchTableViewCell.h */,
+				492AEEAC1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		492AEE701DB9B04E0014E9BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		492AEE7A1DB9C8500014E9BB /* Help */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Help;
+			sourceTree = "<group>";
+		};
+		4969E13F1DB85849007D0A06 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4969E1401DB8584B007D0A06 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4969E1411DB8584D007D0A06 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4969E1421DB85C98007D0A06 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				4969E14B1DB85D6A007D0A06 /* AddViewController.h */,
+				4969E14C1DB85D6A007D0A06 /* AddViewController.m */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		4969E1441DB85C9B007D0A06 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1C61DBDB15C00B6987D /* Chat */,
+				4975B1B91DBD9A7700B6987D /* Root */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		4969E14E1DB85E9C007D0A06 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				4969E14F1DB85EDB007D0A06 /* FZYTabBarViewController.h */,
+				4969E1501DB85EDB007D0A06 /* FZYTabBarViewController.m */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		4969E1801DB8A8FD007D0A06 /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				4969E1841DB8AF40007D0A06 /* Controller */,
+				4969E1861DB8AF44007D0A06 /* Model */,
+				4969E1851DB8AF42007D0A06 /* View */,
+			);
+			path = Drawer;
+			sourceTree = "<group>";
+		};
+		4969E1841DB8AF40007D0A06 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4975B2141DBDF17000B6987D /* DrawerViewController.h */,
+				4975B2151DBDF17000B6987D /* DrawerViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4969E1851DB8AF42007D0A06 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4969E1871DB8AF78007D0A06 /* DrawerTableViewCell.h */,
+				4969E1881DB8AF78007D0A06 /* DrawerTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4969E1861DB8AF44007D0A06 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4975B1B91DBD9A7700B6987D /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1BC1DBD9A8800B6987D /* Controller */,
+				4975B1BB1DBD9A8200B6987D /* Model */,
+				4975B1BA1DBD9A7D00B6987D /* View */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		4975B1BA1DBD9A7D00B6987D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1C31DBD9BB500B6987D /* FZY_MessageTableViewCell.h */,
+				4975B1C41DBD9BB500B6987D /* FZY_MessageTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4975B1BB1DBD9A8200B6987D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4975B1BC1DBD9A8800B6987D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1BD1DBD9AD000B6987D /* FZY_MessageViewController.h */,
+				4975B1BE1DBD9AD000B6987D /* FZY_MessageViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4975B1C61DBDB15C00B6987D /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1C91DBDB18600B6987D /* Controller */,
+				4975B1C81DBDB18000B6987D /* Model */,
+				4975B1C71DBDB17800B6987D /* View */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		4975B1C71DBDB17800B6987D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		4975B1C81DBDB18000B6987D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4975B1C91DBDB18600B6987D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1CD1DBDB44700B6987D /* FZY_ChatViewController.h */,
+				4975B1CE1DBDB44700B6987D /* FZY_ChatViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		4975B1D31DBDBF3800B6987D /* LoginAndRegister */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1D41DBDBF3800B6987D /* RegisterAndLogin */,
+				4975B1DB1DBDBF3800B6987D /* Root */,
+			);
+			path = LoginAndRegister;
+			sourceTree = "<group>";
+		};
+		4975B1D41DBDBF3800B6987D /* RegisterAndLogin */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1D51DBDBF3800B6987D /* Controller */,
+				4975B1D81DBDBF3800B6987D /* View */,
+			);
+			path = RegisterAndLogin;
+			sourceTree = "<group>";
+		};
+		4975B1D51DBDBF3800B6987D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4975B25D1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.h */,
+				4975B25E1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4975B1D81DBDBF3800B6987D /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4975B1DB1DBDBF3800B6987D /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1DC1DBDBF3800B6987D /* Controller */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		4975B1DC1DBDBF3800B6987D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4975B1DD1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.h */,
+				4975B1DE1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4975B2601DBE42FB00B6987D /* Categoies */ = {
+			isa = PBXGroup;
+			children = (
+				4975B2611DBE42FB00B6987D /* NSData+Categories.h */,
+				4975B2621DBE42FB00B6987D /* NSData+Categories.m */,
+				4975B2631DBE42FB00B6987D /* NSString+Categories.h */,
+				4975B2641DBE42FB00B6987D /* NSString+Categories.m */,
+				4975B2651DBE42FB00B6987D /* NSString+Regex.h */,
+				4975B2661DBE42FB00B6987D /* NSString+Regex.m */,
+				4975B2671DBE42FB00B6987D /* NSUserDefaults+Categories.h */,
+				4975B2681DBE42FB00B6987D /* NSUserDefaults+Categories.m */,
+				4975B2691DBE42FB00B6987D /* UIBarButtonItem+SetImage_Click.h */,
+				4975B26A1DBE42FB00B6987D /* UIBarButtonItem+SetImage_Click.m */,
+				4975B26B1DBE42FB00B6987D /* UIButton+Block.h */,
+				4975B26C1DBE42FB00B6987D /* UIButton+Block.m */,
+				4975B26D1DBE42FB00B6987D /* UIImage+Categories.h */,
+				4975B26E1DBE42FB00B6987D /* UIImage+Categories.m */,
+				4975B26F1DBE42FB00B6987D /* UILabel+SizeToFit_W_H.h */,
+				4975B2701DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m */,
+				4975B2711DBE42FB00B6987D /* UIView+Frame.h */,
+				4975B2721DBE42FB00B6987D /* UIView+Frame.m */,
+				4975B2731DBE42FB00B6987D /* UIView+ShowMessage.h */,
+				4975B2741DBE42FB00B6987D /* UIView+ShowMessage.m */,
+			);
+			path = Categoies;
+			sourceTree = "<group>";
+		};
 		49B0326C1DB79C0800D36732 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +457,7 @@
 			children = (
 				49B0328F1DB79C7800D36732 /* Base */,
 				49B032901DB79C8700D36732 /* Common */,
+				491656A81DBA56E100975DE6 /* Encapsulation */,
 				49B032971DB79D0F00D36732 /* Macro */,
 				49B032981DB79D2600D36732 /* Modules */,
 				49B032781DB79C0800D36732 /* Supporting Files */,
@@ -113,7 +473,7 @@
 		49B032781DB79C0800D36732 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				49B0329E1DB79DF000D36732 /* FZY_pch.pch */,
+				4975B27F1DBE431A00B6987D /* FZY_pch.pch */,
 				49B032791DB79C0800D36732 /* main.m */,
 			);
 			path = "Supporting Files";
@@ -132,7 +492,7 @@
 		49B032901DB79C8700D36732 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				49B032931DB79C9E00D36732 /* Categoies */,
+				4975B2601DBE42FB00B6987D /* Categoies */,
 				49B032921DB79C9D00D36732 /* DateBase */,
 				49B032911DB79C9B00D36732 /* Util */,
 			);
@@ -158,30 +518,13 @@
 			path = DateBase;
 			sourceTree = "<group>";
 		};
-		49B032931DB79C9E00D36732 /* Categoies */ = {
-			isa = PBXGroup;
-			children = (
-				49B032AF1DB7A10400D36732 /* NSData+Categories.h */,
-				49B032B01DB7A10400D36732 /* NSData+Categories.m */,
-				49B032B21DB7A15C00D36732 /* NSUserDefaults+Categories.h */,
-				49B032B31DB7A15C00D36732 /* NSUserDefaults+Categories.m */,
-				49B032B51DB7A23C00D36732 /* NSString+Categories.h */,
-				49B032B61DB7A23C00D36732 /* NSString+Categories.m */,
-				49B032B81DB7A2BC00D36732 /* NSString+Regex.h */,
-				49B032B91DB7A2BC00D36732 /* NSString+Regex.m */,
-				49B032BB1DB7A2FA00D36732 /* UIButton+Block.h */,
-				49B032BC1DB7A2FA00D36732 /* UIButton+Block.m */,
-				49B032BE1DB7A3A000D36732 /* UIImage+Categories.h */,
-				49B032BF1DB7A3A000D36732 /* UIImage+Categories.m */,
-			);
-			path = Categoies;
-			sourceTree = "<group>";
-		};
 		49B032941DB79CEC00D36732 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				49B0329F1DB79F4500D36732 /* FZYBaseViewController.h */,
-				49B032A01DB79F4500D36732 /* FZYBaseViewController.m */,
+				4975B2111DBDEB5900B6987D /* FZYBaseViewController.h */,
+				4975B2121DBDEB5900B6987D /* FZYBaseViewController.m */,
+				492AEE741DB9B2710014E9BB /* FZY_CommonViewController.h */,
+				492AEE751DB9B2710014E9BB /* FZY_CommonViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +534,8 @@
 			children = (
 				49B032A51DB79FB000D36732 /* FZYBaseView.h */,
 				49B032A61DB79FB000D36732 /* FZYBaseView.m */,
+				4975B1C01DBD9B9A00B6987D /* FZY_BaseTableViewCell.h */,
+				4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -215,8 +560,15 @@
 		49B032981DB79D2600D36732 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4975B1D31DBDBF3800B6987D /* LoginAndRegister */,
+				4969E1421DB85C98007D0A06 /* Add */,
+				4969E1801DB8A8FD007D0A06 /* Drawer */,
+				492AEE7A1DB9C8500014E9BB /* Help */,
 				49B0329A1DB79D3E00D36732 /* Home */,
-				49B0329B1DB79D4B00D36732 /* LoginAndRegister */,
+				4969E1441DB85C9B007D0A06 /* Message */,
+				492AEE6D1DB9B0280014E9BB /* Setting */,
+				4969E14E1DB85E9C007D0A06 /* TabBar */,
+				491656AD1DBA576500975DE6 /* TheContact */,
 				49B0329C1DB79D7800D36732 /* User */,
 			);
 			path = Modules;
@@ -225,15 +577,11 @@
 		49B0329A1DB79D3E00D36732 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4969E13F1DB85849007D0A06 /* Controller */,
+				4969E1411DB8584D007D0A06 /* Model */,
+				4969E1401DB8584B007D0A06 /* View */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		49B0329B1DB79D4B00D36732 /* LoginAndRegister */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LoginAndRegister;
 			sourceTree = "<group>";
 		};
 		49B0329C1DB79D7800D36732 /* User */ = {
@@ -289,11 +637,13 @@
 		49B0326D1DB79C0800D36732 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = FZY_;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = yzy;
 				TargetAttributes = {
 					49B032741DB79C0800D36732 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = QWKQAE7W9B;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -381,18 +731,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49B032B11DB7A10400D36732 /* NSData+Categories.m in Sources */,
-				49B032BD1DB7A2FA00D36732 /* UIButton+Block.m in Sources */,
-				49B032B71DB7A23C00D36732 /* NSString+Categories.m in Sources */,
+				4975B2761DBE42FB00B6987D /* NSString+Categories.m in Sources */,
+				4975B2131DBDEB5900B6987D /* FZYBaseViewController.m in Sources */,
+				4975B2101DBDEB0900B6987D /* TheContactViewController.m in Sources */,
+				4975B27C1DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m in Sources */,
+				4975B2161DBDF17000B6987D /* DrawerViewController.m in Sources */,
+				4975B1E11DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m in Sources */,
+				4975B1C21DBD9B9A00B6987D /* FZY_BaseTableViewCell.m in Sources */,
 				49B0327D1DB79C0800D36732 /* AppDelegate.m in Sources */,
-				49B032A11DB79F4500D36732 /* FZYBaseViewController.m in Sources */,
+				4975B1CF1DBDB44700B6987D /* FZY_ChatViewController.m in Sources */,
+				4969E1511DB85EDB007D0A06 /* FZYTabBarViewController.m in Sources */,
+				491656AC1DBA56E100975DE6 /* FZY_SliderScrollView.m in Sources */,
+				4975B27A1DBE42FB00B6987D /* UIButton+Block.m in Sources */,
+				4975B25F1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.m in Sources */,
+				492AEEAD1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m in Sources */,
+				4969E14D1DB85D6A007D0A06 /* AddViewController.m in Sources */,
+				4975B1C51DBD9BB500B6987D /* FZY_MessageTableViewCell.m in Sources */,
+				4975B27E1DBE42FB00B6987D /* UIView+ShowMessage.m in Sources */,
 				49B032C31DB7A41600D36732 /* AppStoreUtils.m in Sources */,
+				4975B2781DBE42FB00B6987D /* NSUserDefaults+Categories.m in Sources */,
+				4975B2791DBE42FB00B6987D /* UIBarButtonItem+SetImage_Click.m in Sources */,
+				492AEE761DB9B2710014E9BB /* FZY_CommonViewController.m in Sources */,
 				49B032C61DB7A47900D36732 /* FileManagerUtils.m in Sources */,
+				4975B2771DBE42FB00B6987D /* NSString+Regex.m in Sources */,
+				4975B27B1DBE42FB00B6987D /* UIImage+Categories.m in Sources */,
+				492AEE791DB9B42C0014E9BB /* FZY_SettingViewController.m in Sources */,
+				4975B27D1DBE42FB00B6987D /* UIView+Frame.m in Sources */,
 				49B032A71DB79FB000D36732 /* FZYBaseView.m in Sources */,
-				49B032B41DB7A15C00D36732 /* NSUserDefaults+Categories.m in Sources */,
+				4975B2751DBE42FB00B6987D /* NSData+Categories.m in Sources */,
+				492AEEAA1DBA0B440014E9BB /* FZY_SettingTableViewCell.m in Sources */,
+				4975B1BF1DBD9AD000B6987D /* FZY_MessageViewController.m in Sources */,
+				4969E1891DB8AF78007D0A06 /* DrawerTableViewCell.m in Sources */,
 				49B032A41DB79F5A00D36732 /* FZYBaseModel.m in Sources */,
-				49B032C01DB7A3A000D36732 /* UIImage+Categories.m in Sources */,
-				49B032BA1DB7A2BC00D36732 /* NSString+Regex.m in Sources */,
 				49B0327A1DB79C0800D36732 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,6 +800,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -478,6 +849,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -507,13 +879,19 @@
 			baseConfigurationReference = 27FAC0A049392D2BE8F8E4C6 /* Pods-ColorLetter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Lefeng Guo (QWKQAE7W9B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QWKQAE7W9B;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ColorLetter/Supporting Files/FZY_pch.pch";
 				INFOPLIST_FILE = ColorLetter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yizhiyang.ColorLetter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lanou.3g.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -522,13 +900,19 @@
 			baseConfigurationReference = D52A69A9BF3156D310586722 /* Pods-ColorLetter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Lefeng Guo (QWKQAE7W9B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QWKQAE7W9B;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ColorLetter/Supporting Files/FZY_pch.pch";
 				INFOPLIST_FILE = ColorLetter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yizhiyang.ColorLetter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lanou.3g.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

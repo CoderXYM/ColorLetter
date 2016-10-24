@@ -6,5 +6,6 @@ target 'ColorLetter' do
   # use_frameworks!
 
   # Pods for ColorLetter
+  pod 'Masonry', '~> 1.0.2'
   pod 'HyphenateFullSDK', '~> 3.1.5'
 end
