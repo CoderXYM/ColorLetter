@@ -27,16 +27,16 @@
 //     背景图片
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-736"]];
     self.view.userInteractionEnabled = YES;
-    [self create];
-   }
 
-- (void)createDrawer {
-    self.drawerVC = [[DrawerViewController alloc] init];
-    _drawerVC.view.transform = CGAffineTransformMakeTranslation(-414, 0);
-    [self addChildViewController:_drawerVC];
-    [self.view addSubview:_drawerVC.view];
-    [self.view bringSubviewToFront:_drawerVC.view];
 }
+
+//- (void)createDrawer {
+//    self.drawerVC = [[DrawerViewController alloc] init];
+//    _drawerVC.view.transform = CGAffineTransformMakeTranslation(-414, 0);
+//    [self addChildViewController:_drawerVC];
+//    [self.view addSubview:_drawerVC.view];
+//    [self.view bringSubviewToFront:_drawerVC.view];
+//}
 
 
 - (void)create {
@@ -53,17 +53,20 @@
     self.drawerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_drawerButton setImage:[UIImage imageNamed:@"btn-profile"] forState:UIControlStateNormal];
     [_drawerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [UIView animateWithDuration:0.1 animations:^{
-            _drawerVC.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.5];
-            _drawerVC.view.transform = CGAffineTransformMakeTranslation(0, 0);
-        }];
+//        [UIView animateWithDuration:0.1 animations:^{
+//            _drawerVC.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.5];
+//            _drawerVC.view.transform = CGAffineTransformMakeTranslation(0, 0);
+//        }];
     
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
-//        self.drawerVC = [[DrawerViewController alloc] init];
-//        _drawerVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//        _drawerVC.modalPresentationStyle = UIModalPresentationCurrentContext;
-//        _drawerVC.viewController = self;
-//        [self presentViewController:_drawerVC animated:YES completion:nil];
+        self.drawerVC = [[DrawerViewController alloc] init];
+         _drawerVC.myImage = [UIImage captureImageFromView: self.view];
+        CATransition * animation = [CATransition animation];
+        animation.duration = 0.5;
+        animation.type = kCATransitionPush;
+        _drawerVC.viewController = self;
+         [self.view.window.layer addAnimation:animation forKey:nil];      
+        [self presentViewController:_drawerVC animated:YES completion:nil];
 
     }];
     [self.view addSubview:_drawerButton];

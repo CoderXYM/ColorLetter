@@ -36,7 +36,8 @@ UITableViewDelegate
     [self presentViewController:VC animated:YES completion:nil];
     
     [self creatTableView];
-    [super createDrawer];
+    [super create];
+
     
 }
 

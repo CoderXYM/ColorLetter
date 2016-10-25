@@ -27,13 +27,19 @@ UIScrollViewDelegate
 
 @implementation TheContactViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
+    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     slideLength = (WIDTH - 120) / 2;
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
-    [super createDrawer];
+    [super create];
+
 }
 
 #pragma mark - 创建滑块

@@ -508,7 +508,7 @@ UITextFieldDelegate
             NSLog(@"登录成功");
              [UIView showMessage:@"登录成功"];
             [_loginPasswordTextField endEditing:YES];
-
+            [self.delegate dismissViewController];
             [self dismissViewControllerAnimated:YES completion:nil];
             
         }else {

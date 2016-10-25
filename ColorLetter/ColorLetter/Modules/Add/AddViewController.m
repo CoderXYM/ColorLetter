@@ -14,10 +14,15 @@
 
 @implementation AddViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
+    self.navigationController.navigationBar.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [super createDrawer];
+    [super create];
 }
 
 - (void)didReceiveMemoryWarning {

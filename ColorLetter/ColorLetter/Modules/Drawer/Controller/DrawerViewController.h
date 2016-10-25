@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong) UIViewController *viewController;
 
+@property (nonatomic, strong) UIImage *myImage;
+
+
 @end

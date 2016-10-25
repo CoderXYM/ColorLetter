@@ -43,6 +43,16 @@
 		49B032A71DB79FB000D36732 /* FZYBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032A61DB79FB000D36732 /* FZYBaseView.m */; };
 		49B032C31DB7A41600D36732 /* AppStoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C21DB7A41600D36732 /* AppStoreUtils.m */; };
 		49B032C61DB7A47900D36732 /* FileManagerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C51DB7A47900D36732 /* FileManagerUtils.m */; };
+		49C43F7E1DBEE4590060092C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7D1DBEE4590060092C /* CoreMedia.framework */; };
+		49C43F801DBEE4770060092C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7F1DBEE4770060092C /* AudioToolbox.framework */; };
+		49C43F821DBEE4880060092C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F811DBEE4880060092C /* AVFoundation.framework */; };
+		49C43F841DBEE4B20060092C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F831DBEE4B20060092C /* MobileCoreServices.framework */; };
+		49C43F861DBEE4C80060092C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F851DBEE4C80060092C /* ImageIO.framework */; };
+		49C43F881DBEE4EA0060092C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F871DBEE4EA0060092C /* libc++.tbd */; };
+		49C43F8A1DBEE4FE0060092C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F891DBEE4FE0060092C /* libz.tbd */; };
+		49C43F8C1DBEE5260060092C /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F8B1DBEE5260060092C /* libstdc++.6.0.9.tbd */; };
+		49C43F8E1DBEE5410060092C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F8D1DBEE5410060092C /* libsqlite3.tbd */; };
+		49C43F901DBEE5690060092C /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F8F1DBEE5690060092C /* libiconv.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +130,16 @@
 		49B032C51DB7A47900D36732 /* FileManagerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManagerUtils.m; sourceTree = "<group>"; };
 		49B032C71DB7A4C300D36732 /* SystemUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemUnit.h; sourceTree = "<group>"; };
 		49B032C81DB7A59700D36732 /* FZYMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZYMacro.h; sourceTree = "<group>"; };
+		49C43F7D1DBEE4590060092C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		49C43F7F1DBEE4770060092C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		49C43F811DBEE4880060092C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		49C43F831DBEE4B20060092C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		49C43F851DBEE4C80060092C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		49C43F871DBEE4EA0060092C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		49C43F891DBEE4FE0060092C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		49C43F8B1DBEE5260060092C /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		49C43F8D1DBEE5410060092C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		49C43F8F1DBEE5690060092C /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		D52A69A9BF3156D310586722 /* Pods-ColorLetter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +148,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C43F901DBEE5690060092C /* libiconv.tbd in Frameworks */,
+				49C43F8E1DBEE5410060092C /* libsqlite3.tbd in Frameworks */,
+				49C43F8C1DBEE5260060092C /* libstdc++.6.0.9.tbd in Frameworks */,
+				49C43F8A1DBEE4FE0060092C /* libz.tbd in Frameworks */,
+				49C43F881DBEE4EA0060092C /* libc++.tbd in Frameworks */,
+				49C43F861DBEE4C80060092C /* ImageIO.framework in Frameworks */,
+				49C43F841DBEE4B20060092C /* MobileCoreServices.framework in Frameworks */,
+				49C43F821DBEE4880060092C /* AVFoundation.framework in Frameworks */,
+				49C43F801DBEE4770060092C /* AudioToolbox.framework in Frameworks */,
+				49C43F7E1DBEE4590060092C /* CoreMedia.framework in Frameworks */,
 				1A6CD44C83B5DDC46C23487C /* libPods-ColorLetter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,6 +624,16 @@
 		88BE9261FE5BDA5D941EC341 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49C43F8F1DBEE5690060092C /* libiconv.tbd */,
+				49C43F8D1DBEE5410060092C /* libsqlite3.tbd */,
+				49C43F8B1DBEE5260060092C /* libstdc++.6.0.9.tbd */,
+				49C43F891DBEE4FE0060092C /* libz.tbd */,
+				49C43F871DBEE4EA0060092C /* libc++.tbd */,
+				49C43F851DBEE4C80060092C /* ImageIO.framework */,
+				49C43F831DBEE4B20060092C /* MobileCoreServices.framework */,
+				49C43F811DBEE4880060092C /* AVFoundation.framework */,
+				49C43F7F1DBEE4770060092C /* AudioToolbox.framework */,
+				49C43F7D1DBEE4590060092C /* CoreMedia.framework */,
 				16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */,
 			);
 			name = Frameworks;

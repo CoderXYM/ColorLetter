@@ -37,9 +37,14 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:_myImage];
+    [self.view addSubview:imageView];
+    [self.view sendSubviewToBack:imageView];
+    
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(WIDTH / 7 * 5, 0, WIDTH / 7 * 2, HEIGHT)];
+    bgView.backgroundColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:0.5];
     [self.view addSubview:bgView];
     // 轻拍手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
@@ -56,20 +61,26 @@ UITableViewDataSource
     [self createTableView];
 }
 
+- (void)reduction {
+    //    [UIView animateWithDuration:0.001 animations:^{
+    //        self.view.transform = CGAffineTransformMakeTranslation(-500, 0);
+    //    }];
+    //    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
+    CATransition * animation = [CATransition animation];
+    animation.duration = 0.5;
+//    animation.type = @"suckEffect";
+    animation.type = kCATransitionFromRight;
+     [self.view.window.layer addAnimation:animation forKey:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)swipeAction:(UISwipeGestureRecognizer *)swipe {
-    [UIView animateWithDuration:0.001 animations:^{
-        self.view.transform = CGAffineTransformMakeTranslation(-500, 0);
-    }];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self reduction];
+    
 }
 
 - (void)tapAction:(UITapGestureRecognizer *)tap {
-    [UIView animateWithDuration:0.001 animations:^{
-        self.view.transform = CGAffineTransformMakeTranslation(-500, 0);
-    }];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self reduction];
 }
 
 - (void)createArray {
@@ -116,7 +127,14 @@ UITableViewDataSource
     switch (indexPath.row) {
         case 0:{
             FZY_SettingViewController *setting = [[FZY_SettingViewController alloc] init];
-            [self.navigationController pushViewController:setting animated:YES];
+            CATransition * animation = [CATransition animation];
+            animation.duration = 0.5;
+            animation.type = kCATransitionFade;
+            [self.view.window.layer addAnimation:animation forKey:nil];
+            [self dismissViewControllerAnimated:NO completion:^{
+                [_viewController presentViewController:setting animated:YES completion:nil];
+            }];
+//            [self.navigationController pushViewController:setting animated:YES];
             break;
         }
         case 1:{

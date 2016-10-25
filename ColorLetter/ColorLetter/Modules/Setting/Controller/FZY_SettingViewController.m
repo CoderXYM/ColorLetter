@@ -113,8 +113,12 @@ UITableViewDataSource
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     [button handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-    
-        [self.navigationController popViewControllerAnimated:YES];
+        CATransition * animation = [CATransition animation];
+        animation.duration = 0.5;
+        animation.type = kCATransitionFade;
+        [self.view.window.layer addAnimation:animation forKey:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self.navigationController popViewControllerAnimated:YES];
     }];
     [self.view addSubview:button];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
