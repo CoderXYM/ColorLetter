@@ -48,15 +48,6 @@ UITextFieldDelegate
     [self.view bringSubviewToFront:_triangleImageView];
     [self.view addSubview:_triangleImageView];
     
-    EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#colorletter"];
-    //    options.apnsCertName = @"chatdemo-dev";
-    
-    self.error = [[EMClient sharedClient] initializeSDKWithOptions:options];
-    if (!_error) {
-        NSLog(@"初始化成功");
-    }    
-
-    
 }
 
 #pragma mark - 创建 downScrollView
@@ -130,10 +121,6 @@ UITextFieldDelegate
         make.width.equalTo(@(WIDTH - 120));
 
     }];
-
-    
-
-
     
     UIImageView *passwordImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     passwordImageView.image = [UIImage imageNamed:@"field-lock"];
@@ -201,8 +188,7 @@ UITextFieldDelegate
 }
 
 // 隐藏键盘
--(void)resignKeyboard
-{
+-(void)resignKeyboard {
     [_passwordTextField resignFirstResponder];
 }
 #pragma mark - 创建上面的登录注册 Button
@@ -249,8 +235,6 @@ UITextFieldDelegate
 
         self.downScrollView.contentOffset = CGPointMake(WIDTH, 0);
         
-        
-        
     }];
     
     UIButton *LoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -277,7 +261,7 @@ UITextFieldDelegate
     
 }
 
-#pragma mark - 登录页面的downScrollView
+#pragma mark - 登录的downScrollView
 -(void)creatLoginView {
 
 //    UIView *loginView = [[UIView alloc]init];
@@ -349,14 +333,11 @@ UITextFieldDelegate
         
     }];
     
-
-    
     UIImageView *passwordImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     passwordImageView.image = [UIImage imageNamed:@"field-lock"];
     _loginPasswordTextField.leftViewMode = UITextFieldViewModeAlways;;
     _loginPasswordTextField.leftView = passwordImageView;
     [_loginPasswordTextField addSubview:passwordImageView];
-    
     
     UIView *passwordLineView = [[UIView alloc]init];
     passwordLineView.backgroundColor = [UIColor blackColor];
@@ -368,7 +349,6 @@ UITextFieldDelegate
         make.height.equalTo(@1);
         
     }];
-    
     
 //    UIImageView *headImageView = [[UIImageView alloc]init];
 //    headImageView.image = [UIImage imageNamed:@"head"];
@@ -438,6 +418,8 @@ UITextFieldDelegate
     
     CGFloat value = scrollView.contentOffset.x;
     
+    _upView.backgroundColor = [UIColor colorWithRed:0.32 + value / (WIDTH * 2) green:0.72 blue:0.48 - (WIDTH * 2) / value alpha:1.0];
+    
     if (self.position == WIDTH / 4 * 3) {
         
         value = value - WIDTH;
@@ -450,8 +432,6 @@ UITextFieldDelegate
             _triangleImageView.transform = CGAffineTransformMakeTranslation(value / 2, 0);
         }];
     }
-    
-    _upView.backgroundColor = [UIColor colorWithRed:0.32 + value / (WIDTH * 2) green:0.72 blue:0.48 - (WIDTH * 2) / value alpha:1.0];
     
 }
 
@@ -477,8 +457,6 @@ UITextFieldDelegate
     _myImageView.image = [UIImage imageNamed:@"login_header"];
     
 }
-
-
 
 // 点击return
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -506,19 +484,22 @@ UITextFieldDelegate
 #pragma mark - 登录
         if (!_error) {
             NSLog(@"登录成功");
-             [UIView showMessage:@"登录成功"];
+            [UIView showMessage:@"登录成功"];
             [_loginPasswordTextField endEditing:YES];
             [self.delegate dismissViewController];
-            [self dismissViewControllerAnimated:YES completion:nil];
             
+            if (!_error) {
+                [[EMClient sharedClient].options setIsAutoLogin:YES];
+            }
+            
+            self.view.window.rootViewController = [[FZYTabBarViewController alloc] init];
+                        
         }else {
-             [UIView showMessage:@"登录"];
-            NSLog(@"登录失败");
+             NSLog(@"登录失败");
+             [UIView showMessage:@"登录失败"];
         }
         
-        
     }
-
    
     return YES;
     

@@ -7,13 +7,13 @@
 //
 
 #import "FZY_MessageTableViewCell.h"
+#import "FZY_FriendsModel.h"
 
 @interface FZY_MessageTableViewCell ()
 
-@property (nonatomic, retain) UIImageView *headImageView;
-@property (nonatomic, retain) UILabel *nameLabel;
-@property (nonatomic, retain) UILabel *timeLabel;
-
+@property (nonatomic, strong) UIImageView *headImageView;
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *timeLabel;
 @end
 
 @implementation FZY_MessageTableViewCell
@@ -25,21 +25,28 @@
         //self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _headImageView.backgroundColor = [UIColor redColor];
+        _headImageView.image = [UIImage imageNamed:@"mood-happy"];
         _headImageView.layer.cornerRadius = WIDTH / 10;
         _headImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_headImageView];
         
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.backgroundColor = [UIColor grayColor];
         [self.contentView addSubview:_nameLabel];
         
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.backgroundColor = [UIColor blueColor];
         [self.contentView addSubview:_timeLabel];
         
     }
     return self;
+}
+
+- (void)setModel:(FZY_FriendsModel *)model {
+    if (_model != model) {
+        _model = model;
+        
+        _nameLabel.text = model.name;
+        _timeLabel.text = model.time;
+    }
 }
 
 - (void)layoutSubviews {

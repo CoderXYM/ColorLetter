@@ -9,6 +9,7 @@
 #import "DrawerViewController.h"
 #import "DrawerTableViewCell.h"
 #import "FZY_SettingViewController.h"
+#import "FZY_LoginOrRegisterViewController.h"
 
 static NSString *const cellIdentifier = @"drawerCell";
 
@@ -142,6 +143,14 @@ UITableViewDataSource
             break;
         }
         default:{
+            EMError *error = [[EMClient sharedClient] logout:YES];
+            if (!error) {
+                NSLog(@"退出成功");
+                FZY_LoginOrRegisterViewController *lorVC = [[FZY_LoginOrRegisterViewController alloc] init];
+                lorVC.position = WIDTH / 4 * 3;
+                lorVC.scrollPosition = WIDTH;
+                self.view.window.rootViewController = lorVC;
+            }
             break;
         }
     }

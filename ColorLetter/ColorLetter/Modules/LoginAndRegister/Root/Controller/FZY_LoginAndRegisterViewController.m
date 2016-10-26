@@ -86,7 +86,7 @@ FZY_LoginOrRegisterViewControllerDelegate
         self.nav = [[UINavigationController alloc] initWithRootViewController:LoginVC];
         
         LoginVC.position = WIDTH / 4 * 3;
-        LoginVC.scrollPosition = WIDTH ;
+        LoginVC.scrollPosition = WIDTH;
 
         [self presentViewController:_nav animated:YES completion:nil];
     }];
