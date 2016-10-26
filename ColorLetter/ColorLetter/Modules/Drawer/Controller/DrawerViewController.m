@@ -7,7 +7,7 @@
 //
 
 #import "DrawerViewController.h"
-#import "DrawerTableViewCell.h"
+#import "DrawerTableViewCell.h"                           
 #import "FZY_SettingViewController.h"
 #import "FZY_LoginOrRegisterViewController.h"
 
@@ -99,6 +99,13 @@ UITableViewDataSource
     // 添加到有模糊效果的控件上
     effectView.frame = view.bounds;
     [view addSubview:effectView];
+    
+    
+    //头像
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((WIDTH - WIDTH / 7 * 2 - 100) * 0.5, (HEIGHT - HEIGHT / 3 * 2 - 100) * 0.5, 100, 100)];
+    imageView.image = [UIImage imageNamed:@"mood-confused"];
+
+    [effectView addSubview:imageView];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT / 3, WIDTH / 7 * 5, HEIGHT / 3 * 2) style:UITableViewStylePlain];
     _tableView.scrollEnabled = NO;

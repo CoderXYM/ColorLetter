@@ -82,7 +82,7 @@ UITextFieldDelegate
     [_downScrollView addSubview:_accountTextField];
     [_accountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_downScrollView.mas_left).offset(60);
-        make.top.equalTo(_downScrollView.mas_top).offset(120);
+        make.top.equalTo(_downScrollView.mas_top).offset(160);
         make.height.equalTo(@30);
         make.width.equalTo(@(WIDTH - 120));
         
@@ -116,7 +116,7 @@ UITextFieldDelegate
     [_downScrollView addSubview:_passwordTextField];
     [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_downScrollView.mas_left).offset(60);
-        make.top.equalTo(_downScrollView.mas_top).offset(180);
+        make.top.equalTo(_downScrollView.mas_top).offset(220);
         make.height.equalTo(@30);
         make.width.equalTo(@(WIDTH - 120));
 
@@ -293,7 +293,7 @@ UITextFieldDelegate
     [_downScrollView addSubview:_loginAccountTextField];
     [_loginAccountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_downScrollView.mas_left).offset(WIDTH + 60);
-        make.top.equalTo(_downScrollView.mas_top).offset(120);
+        make.top.equalTo(_downScrollView.mas_top).offset(160);
         make.height.equalTo(@30);
         make.width.equalTo(@(WIDTH - 120));
         
@@ -327,7 +327,7 @@ UITextFieldDelegate
     [_downScrollView addSubview:_loginPasswordTextField];
     [_loginPasswordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_downScrollView.mas_left).offset(WIDTH + 60);
-        make.top.equalTo(_downScrollView.mas_top).offset(180);
+        make.top.equalTo(_downScrollView.mas_top).offset(220);
         make.height.equalTo(@30);
         make.width.equalTo(@(WIDTH - 120));
         
