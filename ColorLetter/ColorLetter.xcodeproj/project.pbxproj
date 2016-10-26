@@ -490,6 +490,7 @@
 		49B032771DB79C0800D36732 /* ColorLetter */ = {
 			isa = PBXGroup;
 			children = (
+				49CEFED51DC05AEB0022B6B8 /* ManualAddThirdParty */,
 				49B0328F1DB79C7800D36732 /* Base */,
 				49B032901DB79C8700D36732 /* Common */,
 				491656A81DBA56E100975DE6 /* Encapsulation */,
@@ -624,6 +625,13 @@
 			children = (
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		49CEFED51DC05AEB0022B6B8 /* ManualAddThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ManualAddThirdParty;
 			sourceTree = "<group>";
 		};
 		88BE9261FE5BDA5D941EC341 /* Frameworks */ = {
@@ -934,6 +942,11 @@
 				INFOPLIST_FILE = ColorLetter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
+					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lanou.3g.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -955,6 +968,11 @@
 				INFOPLIST_FILE = ColorLetter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
+					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lanou.3g.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
