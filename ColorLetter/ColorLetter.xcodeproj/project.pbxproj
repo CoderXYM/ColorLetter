@@ -53,6 +53,7 @@
 		49C43F8C1DBEE5260060092C /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F8B1DBEE5260060092C /* libstdc++.6.0.9.tbd */; };
 		49C43F8E1DBEE5410060092C /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F8D1DBEE5410060092C /* libsqlite3.tbd */; };
 		49C43F901DBEE5690060092C /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F8F1DBEE5690060092C /* libiconv.tbd */; };
+		49E640261DC0493000149AF1 /* FZY_FriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */; };
 		49CEFED41DC0519F0022B6B8 /* FZY_FriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,8 @@
 		49C43F8B1DBEE5260060092C /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		49C43F8D1DBEE5410060092C /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		49C43F8F1DBEE5690060092C /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		49E640241DC0493000149AF1 /* FZY_FriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendRequestViewController.h; sourceTree = "<group>"; };
+		49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendRequestViewController.m; sourceTree = "<group>"; };
 		49CEFED21DC0519F0022B6B8 /* FZY_FriendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendsModel.h; sourceTree = "<group>"; };
 		49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendsModel.m; sourceTree = "<group>"; };
 		D52A69A9BF3156D310586722 /* Pods-ColorLetter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.release.xcconfig"; sourceTree = "<group>"; };
@@ -596,6 +599,8 @@
 		49B032981DB79D2600D36732 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				49E640201DC0484600149AF1 /* FriendRequests */,
+				4975B1D31DBDBF3800B6987D /* LoginAndRegister */,
 				4969E1421DB85C98007D0A06 /* Add */,
 				4969E1801DB8A8FD007D0A06 /* Drawer */,
 				492AEE7A1DB9C8500014E9BB /* Help */,
@@ -627,11 +632,38 @@
 			path = User;
 			sourceTree = "<group>";
 		};
-		49CEFED51DC05AEB0022B6B8 /* ManualAddThirdParty */ = {
+
+		49E640201DC0484600149AF1 /* FriendRequests */ = {
+			isa = PBXGroup;
+			children = (
+				49E640231DC0488600149AF1 /* Model */,
+				49E640221DC0487600149AF1 /* View */,
+				49E640211DC0486F00149AF1 /* Controller */,
+			);
+			path = FriendRequests;
+			sourceTree = "<group>";
+		};
+		49E640211DC0486F00149AF1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				49E640241DC0493000149AF1 /* FZY_FriendRequestViewController.h */,
+				49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		49E640221DC0487600149AF1 /* View */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = ManualAddThirdParty;
+			path = View;
+			sourceTree = "<group>";
+		};
+		49E640231DC0488600149AF1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		88BE9261FE5BDA5D941EC341 /* Frameworks */ = {
@@ -788,6 +820,7 @@
 				4975B2131DBDEB5900B6987D /* FZYBaseViewController.m in Sources */,
 				4975B2101DBDEB0900B6987D /* TheContactViewController.m in Sources */,
 				4975B27C1DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m in Sources */,
+				49E640261DC0493000149AF1 /* FZY_FriendRequestViewController.m in Sources */,
 				4975B2161DBDF17000B6987D /* DrawerViewController.m in Sources */,
 				4975B1E11DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m in Sources */,
 				4975B1C21DBD9B9A00B6987D /* FZY_BaseTableViewCell.m in Sources */,
