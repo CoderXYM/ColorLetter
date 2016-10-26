@@ -17,7 +17,5 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
-@property (nonatomic, strong)DrawerViewController *drawerVC;
-
 - (void)create;
 @end

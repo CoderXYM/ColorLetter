@@ -33,7 +33,7 @@ UITextFieldDelegate
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
-    [self.delegate dismissViewController];
+//    [self.delegate dismissViewController];
 }
 
 - (void)viewDidLoad {
@@ -438,6 +438,9 @@ UITextFieldDelegate
     
     CGFloat value = scrollView.contentOffset.x;
     
+    _upView.backgroundColor = [UIColor colorWithRed:0.32 + value / (WIDTH * 2) green:0.78 blue:0.48 - (WIDTH * 2) / value alpha:1.0];
+
+    
     if (self.position == WIDTH / 4 * 3) {
         
         value = value - WIDTH;
@@ -451,7 +454,6 @@ UITextFieldDelegate
         }];
     }
     
-    _upView.backgroundColor = [UIColor colorWithRed:0.32 + value / (WIDTH * 2) green:0.72 blue:0.48 - (WIDTH * 2) / value alpha:1.0];
     
 }
 
@@ -508,8 +510,9 @@ UITextFieldDelegate
             NSLog(@"登录成功");
              [UIView showMessage:@"登录成功"];
             [_loginPasswordTextField endEditing:YES];
-            [self.delegate dismissViewController];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:NO completion:^{
+                [_VC dismissViewControllerAnimated:YES completion:nil];
+            }];
             
         }else {
              [UIView showMessage:@"登录"];

@@ -51,6 +51,8 @@ UIScrollViewDelegate
     [self.view addSubview:_upView];
     
     self.sliderScrollView = [[FZY_SliderScrollView alloc] initWithFrame:CGRectMake(3, 2, _upView.frame.size.width / 2, 26)];
+    _sliderScrollView.showsHorizontalScrollIndicator = YES  ;
+    _sliderScrollView.showsVerticalScrollIndicator = YES;
     _sliderScrollView.backgroundColor = [UIColor cyanColor];
     _sliderScrollView.sliderDelegate = self;
     _sliderScrollView.layer.cornerRadius = 13;

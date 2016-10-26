@@ -10,10 +10,7 @@
 #import "FZY_LoginOrRegisterViewController.h"
 
 @interface FZY_LoginAndRegisterViewController ()
-<
-FZY_LoginOrRegisterViewControllerDelegate
->
-@property (nonatomic, strong) UINavigationController *nav;
+
 @end
 
 @implementation FZY_LoginAndRegisterViewController
@@ -59,10 +56,10 @@ FZY_LoginOrRegisterViewControllerDelegate
     
     [registerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         FZY_LoginOrRegisterViewController *registerVC = [[FZY_LoginOrRegisterViewController alloc] init];
-        self.nav = [[UINavigationController alloc] initWithRootViewController:registerVC];
         registerVC.position = WIDTH / 4;
         registerVC.scrollPosition = 0;
-        [self presentViewController:_nav animated:YES completion:nil];
+        registerVC.VC = self;
+        [self presentViewController:registerVC animated:YES completion:nil];
     }];
     
     [self.view addSubview:registerButton];
@@ -80,15 +77,11 @@ FZY_LoginOrRegisterViewControllerDelegate
     
     [loginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         FZY_LoginOrRegisterViewController *LoginVC = [[FZY_LoginOrRegisterViewController alloc] init];
-        
-        LoginVC.delegate = self;
-        
-        self.nav = [[UINavigationController alloc] initWithRootViewController:LoginVC];
-        
+        LoginVC.VC = self;
         LoginVC.position = WIDTH / 4 * 3;
         LoginVC.scrollPosition = WIDTH ;
 
-        [self presentViewController:_nav animated:YES completion:nil];
+        [self presentViewController:LoginVC animated:YES completion:nil];
     }];
     
     [self.view addSubview:loginButton];
@@ -101,9 +94,6 @@ FZY_LoginOrRegisterViewControllerDelegate
     
 }
 
-- (void)dismissViewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

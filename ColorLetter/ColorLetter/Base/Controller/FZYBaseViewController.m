@@ -8,6 +8,7 @@
 
 #import "FZYBaseViewController.h"
 #import "DrawerViewController.h"
+#import "FZY_FriendRequestViewController.h"
 
 @interface FZYBaseViewController ()
 
@@ -30,15 +31,6 @@
 
 }
 
-//- (void)createDrawer {
-//    self.drawerVC = [[DrawerViewController alloc] init];
-//    _drawerVC.view.transform = CGAffineTransformMakeTranslation(-414, 0);
-//    [self addChildViewController:_drawerVC];
-//    [self.view addSubview:_drawerVC.view];
-//    [self.view bringSubviewToFront:_drawerVC.view];
-//}
-
-
 - (void)create {
     self.titleLabel = [[UILabel alloc] init];
     [_titleLabel sizeToFit];
@@ -53,20 +45,16 @@
     self.drawerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_drawerButton setImage:[UIImage imageNamed:@"btn-profile"] forState:UIControlStateNormal];
     [_drawerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-//        [UIView animateWithDuration:0.1 animations:^{
-//            _drawerVC.view.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.5];
-//            _drawerVC.view.transform = CGAffineTransformMakeTranslation(0, 0);
-//        }];
     
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
-        self.drawerVC = [[DrawerViewController alloc] init];
-         _drawerVC.myImage = [UIImage captureImageFromView: self.view];
+        DrawerViewController *drawerVC = [[DrawerViewController alloc] init];
+         drawerVC.myImage = [UIImage captureImageFromView: self.view];
         CATransition * animation = [CATransition animation];
         animation.duration = 0.5;
         animation.type = kCATransitionPush;
-        _drawerVC.viewController = self;
+        drawerVC.viewController = self;
          [self.view.window.layer addAnimation:animation forKey:nil];      
-        [self presentViewController:_drawerVC animated:YES completion:nil];
+        [self presentViewController:drawerVC animated:YES completion:nil];
 
     }];
     [self.view addSubview:_drawerButton];
@@ -80,7 +68,8 @@
     self.searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_searchButton setImage:[UIImage imageNamed:@"btn-search"] forState:UIControlStateNormal];
     [_searchButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        NSLog(@"search");
+        FZY_FriendRequestViewController *friend = [[FZY_FriendRequestViewController alloc] init];
+        [self presentViewController:friend animated:YES completion:nil];
     }];
     [self.view addSubview:_searchButton];
     [_searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
