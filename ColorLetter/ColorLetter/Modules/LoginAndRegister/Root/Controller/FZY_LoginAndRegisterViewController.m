@@ -79,7 +79,7 @@
         FZY_LoginOrRegisterViewController *LoginVC = [[FZY_LoginOrRegisterViewController alloc] init];
         LoginVC.VC = self;
         LoginVC.position = WIDTH / 4 * 3;
-        LoginVC.scrollPosition = WIDTH ;
+        LoginVC.scrollPosition = WIDTH;
 
         [self presentViewController:LoginVC animated:YES completion:nil];
     }];

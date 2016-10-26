@@ -9,16 +9,15 @@
 #import "FZY_MessageViewController.h"
 #import "FZY_MessageTableViewCell.h"
 #import "FZY_ChatViewController.h"
-#import "FZY_LoginAndRegisterViewController.h"
-
+#import "FZY_FriendsModel.h"
 @interface FZY_MessageViewController ()
 <
 UITableViewDataSource,
 UITableViewDelegate
 >
 
-@property (nonatomic, retain) UITableView *tableView;
-
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *friendArray;
 @end
 
 @implementation FZY_MessageViewController
@@ -32,21 +31,19 @@ UITableViewDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    FZY_LoginAndRegisterViewController *VC = [[FZY_LoginAndRegisterViewController alloc] init];
-    [self presentViewController:VC animated:YES completion:nil];
-    
     [self creatTableView];
     [super create];
 
     
 }
 
-// 关闭侧滑手势
-//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-//    return NO;
-//}
-
 - (void)creatTableView {
+    
+    FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
+    model.name = @"888";
+    
+    self.friendArray = [[NSMutableArray alloc] initWithObjects:model, nil];
+    
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT - 64 - 44) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -58,15 +55,23 @@ UITableViewDelegate
 
 #pragma mark - tableView 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return _friendArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FZY_MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageCell"];
+    
+    FZY_FriendsModel *model = _friendArray[indexPath.row];
+    cell.model = model;
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     FZY_ChatViewController *chatVC = [[FZY_ChatViewController alloc] init];
+    
+    FZY_FriendsModel *model = _friendArray[indexPath.row];
+    chatVC.friendName = model.name;
+    
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 

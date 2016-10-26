@@ -8,6 +8,10 @@
 
 #import "FZY_BaseTableViewCell.h"
 
+@class FZY_FriendsModel;
+
 @interface FZY_MessageTableViewCell : FZY_BaseTableViewCell
+
+@property (nonatomic, strong) FZY_FriendsModel *model;
 
 @end
