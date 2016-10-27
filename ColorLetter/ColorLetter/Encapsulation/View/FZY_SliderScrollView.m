@@ -40,7 +40,7 @@
     
     // 限制移动范围
     CGFloat xMin = self.frame.size.width * 0.5f;
-    CGFloat xMax = (WIDTH - 20) - xMin;
+    CGFloat xMax = (WIDTH - 120) - xMin;
     
     if (center.x > xMax) center.x = xMax;
     if (center.x < xMin) center.x = xMin;
@@ -57,7 +57,7 @@
     CGFloat x = self.frame.size.width * 0.5f;
     [UIView animateWithDuration:0.25f animations:^{
         CGPoint center = self.center;
-        center.x = self.center.x > (WIDTH - 20) * 0.5f ? (WIDTH - 20)- x - 5: x + 5;
+        center.x = self.center.x > (WIDTH - 120) * 0.5f ? (WIDTH - 120)- x - 3: x + 3;
         self.center = center;
     }];
     
