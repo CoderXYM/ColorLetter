@@ -40,7 +40,7 @@ UITableViewDelegate
 - (void)creatTableView {
     
     FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
-    model.name = @"888";
+    model.name = @"999";
     
     self.friendArray = [[NSMutableArray alloc] initWithObjects:model, nil];
     
@@ -67,10 +67,13 @@ UITableViewDelegate
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
     FZY_ChatViewController *chatVC = [[FZY_ChatViewController alloc] init];
     
     FZY_FriendsModel *model = _friendArray[indexPath.row];
     chatVC.friendName = model.name;
+    
     
     [self.navigationController pushViewController:chatVC animated:YES];
 }

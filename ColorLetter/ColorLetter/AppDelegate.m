@@ -42,10 +42,14 @@ EMClientDelegate
     }
     
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
+    
+    // EaseUI 的初始化
+    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#colorletter" apnsCertName:nil otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    
     return YES;
 }
 
-/*!
+/*
  *  自动登录返回结果
  *
  *  @param aError 错误信息
@@ -54,7 +58,7 @@ EMClientDelegate
     [UIView showMessage:@"自动登录成功"];
 }
 
-/*!
+/*
  *  当前登录账号在其它设备登录时会接收到该回调
  */
 - (void)didLoginFromOtherDevice {
@@ -63,12 +67,26 @@ EMClientDelegate
     [UIView showMessage:@"该账号已在其他设备登录"];
 }
 
-/*!
+/*
  *  当前登录账号已经被从服务器端删除时会收到该回调
  */
 - (void)didRemovedFromServer {
+    NSLog(@"sddasff");
     self.window.rootViewController = [[FZY_LoginAndRegisterViewController alloc] init];
     [UIView showMessage:@"该账号已被从服务器端删除"];
+}
+
+/*!
+ *  SDK连接服务器的状态变化时会接收到该回调
+ *
+ *  有以下几种情况，会引起该方法的调用：
+ *  1. 登录成功后，手机无法上网时，会调用该回调
+ *  2. 登录成功后，网络状态变化时，会调用该回调
+ *
+ *  @param aConnectionState 当前状态
+ */
+- (void)didConnectionStateChanged:(EMConnectionState)aConnectionState {
+    NSLog(@"正在重连...");
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

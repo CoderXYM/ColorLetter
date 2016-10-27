@@ -33,9 +33,9 @@ static const int ddLogLevel = DDLogLevelWarning;
  *  UMeng参数
  */
 // appkey:控制台应用app key
-static NSString *const kUMengAppKey = @"57df91dfe0f55ac0a6001507";
+//static NSString *const kUMengAppKey = @"57df91dfe0f55ac0a6001507";
 // channelID:渠道
-static NSString *const kUMengChannelId = @"App Store";
+//static NSString *const kUMengChannelId = @"App Store";
 
 
 #endif /* FZYMacro_h */
