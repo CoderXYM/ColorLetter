@@ -17,7 +17,7 @@ UITableViewDelegate
 >
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *friendArray;
+@property (nonatomic, strong) NSMutableArray *conversationArray;
 @end
 
 @implementation FZY_MessageViewController
@@ -25,6 +25,8 @@ UITableViewDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     self.navigationController.navigationBar.hidden = YES;
+    // 载入所有会话
+    [self loadAllConversations];
 }
 
 - (void)viewDidLoad {
@@ -32,24 +34,57 @@ UITableViewDelegate
     // Do any additional setup after loading the view.
     
     [self creatTableView];
-    [super create];
+    [super create];    
+}
 
+- (void)loadAllConversations {
     
+    [_conversationArray removeAllObjects];
+    
+    NSArray *conversationArray = [[EMClient sharedClient].chatManager getAllConversations];
+    
+    for (EMConversation *con in conversationArray) {
+        
+        FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
+        if (con.type == EMConversationTypeChat) {
+            model.name = con.conversationId;
+        } else{
+            // 群聊
+            model.groupID = con.conversationId;
+        }
+        
+        // 最新一条信息
+        EMMessage *latestMess = con.latestMessage;
+        EMTextMessageBody *textBody = (EMTextMessageBody *)latestMess.body;
+        NSString *txt = textBody.text;
+        
+        NSLog(@"%@", txt);
+        NSLog(@"%@", latestMess.from); // 消息的发送方
+        
+        // 最新消息
+        model.latestMessage = txt;
+        
+        // 客户端发送/收到此消息的时间
+        model.time = latestMess.localTime;
+        
+        // 会话未读消息总数
+        model.unReadMessageNum = con.unreadMessagesCount;
+        
+        [_conversationArray addObject:model];
+        [_tableView reloadData];
+    }
 }
 
 - (void)creatTableView {
     
     FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
-
-    model.name = @"666";
-
-    
-    self.friendArray = [[NSMutableArray alloc] initWithObjects:model, nil];
+    model.name = @"777";
+    self.conversationArray = [[NSMutableArray alloc] initWithObjects:model, nil];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT - 64 - 44) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.rowHeight = 120;
+    _tableView.rowHeight = 80;
     [self.view addSubview:_tableView];
     [_tableView registerClass:[FZY_MessageTableViewCell class] forCellReuseIdentifier:@"messageCell"];
     
@@ -57,12 +92,12 @@ UITableViewDelegate
 
 #pragma mark - tableView 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _friendArray.count;
+    return _conversationArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FZY_MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageCell"];
     
-    FZY_FriendsModel *model = _friendArray[indexPath.row];
+    FZY_FriendsModel *model = _conversationArray[indexPath.row];
     cell.model = model;
     
     return cell;
@@ -73,7 +108,7 @@ UITableViewDelegate
     
     FZY_ChatViewController *chatVC = [[FZY_ChatViewController alloc] init];
     
-    FZY_FriendsModel *model = _friendArray[indexPath.row];
+    FZY_FriendsModel *model = _conversationArray[indexPath.row];
     chatVC.friendName = model.name;
     
     

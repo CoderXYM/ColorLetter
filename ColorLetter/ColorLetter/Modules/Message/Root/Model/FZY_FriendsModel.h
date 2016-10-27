@@ -11,6 +11,9 @@
 @interface FZY_FriendsModel : FZYBaseModel
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *time;
+@property (nonatomic, assign) long long time;
+@property (nonatomic, copy) NSString *groupID;
+@property (nonatomic, assign) int unReadMessageNum;
+@property (nonatomic, copy) NSString *latestMessage;
 
 @end
