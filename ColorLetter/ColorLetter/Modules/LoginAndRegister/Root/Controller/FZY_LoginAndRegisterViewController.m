@@ -54,11 +54,12 @@
     [registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [registerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
+    __weak typeof(self) weakself = self;
     [registerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         FZY_LoginOrRegisterViewController *registerVC = [[FZY_LoginOrRegisterViewController alloc] init];
         registerVC.position = WIDTH / 4;
         registerVC.scrollPosition = 0;
-        registerVC.VC = self;
+        registerVC.VC = weakself;
         [self presentViewController:registerVC animated:YES completion:nil];
     }];
     
@@ -77,7 +78,7 @@
     
     [loginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         FZY_LoginOrRegisterViewController *LoginVC = [[FZY_LoginOrRegisterViewController alloc] init];
-        LoginVC.VC = self;
+        LoginVC.VC = weakself;
         LoginVC.position = WIDTH / 4 * 3;
         LoginVC.scrollPosition = WIDTH;
 

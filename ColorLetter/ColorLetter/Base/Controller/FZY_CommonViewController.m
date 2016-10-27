@@ -14,6 +14,7 @@
 
 @implementation FZY_CommonViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBar.hidden = YES;

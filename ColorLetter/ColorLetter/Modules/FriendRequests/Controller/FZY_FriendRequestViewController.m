@@ -16,11 +16,11 @@ static NSString *const cellIdentifier = @"cell";
 <
 UITableViewDataSource,
 UITableViewDelegate,
-UISearchResultsUpdating
+UITextFieldDelegate
 >
 
 @property (nonatomic, retain)UITableView *tableView;
-@property (nonatomic, retain)UISearchController *searchController;
+@property (nonatomic, strong) UITextField *textField;
 
 @property (nonatomic, retain)NSMutableArray *dataArray;
 @property (nonatomic, retain)NSMutableArray *searchArray;
@@ -34,15 +34,12 @@ UISearchResultsUpdating
     // Do any additional setup after loading the view.
     [self create];
     [self getArray];
-    [self createTableView];
+//    [self createTableView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (self.searchController.active) {
-        self.searchController.active = NO;
-        [self.searchController.searchBar removeFromSuperview];
-    }
+    
 }
 
 - (void)create {
@@ -62,31 +59,23 @@ UISearchResultsUpdating
         make.width.equalTo(@50);
     }];
     
+
     
-    UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 50)];
-    [self.view addSubview:myView];
-    
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = false;
-    [self.searchController.searchBar sizeToFit];
-//    _searchController.searchBar.frame = CGRectMake(0, 64, WIDTH, 50);
-    
-    [myView addSubview:_searchController.searchBar];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 70, WIDTH, 50)];
+    _textField.delegate = self;
+    _textField.clipsToBounds = YES;
+    _textField.layer.cornerRadius = _textField.frame.size.height / 2;
+    _textField.backgroundColor = [UIColor lightGrayColor];
+    _textField.clearButtonMode = UITextFieldViewModeAlways;
+    _textField.placeholder = @"   请输入要添加的用户名";
+    [_textField setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
+    [self.view addSubview:_textField];
+
 }
 
 - (void)getArray {
     self.dataArray = [NSMutableArray array];
     self.searchArray = [NSMutableArray array];
-    EMError *error = nil;
-    NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
-    if (!error) {
-        NSLog(@"获取成功");
-    }
-    [_dataArray addObjectsFromArray:userlist];
-    NSLog(@"%ld", _dataArray.count);
-    NSLog(@"%ld", userlist.count);
-    
     
 //    for (int i = 100; i < 1000; i++) {
 //        [_dataArray addObject:[NSString stringWithFormat:@"%d", i]];
@@ -103,14 +92,12 @@ UISearchResultsUpdating
     [self.view addSubview:_tableView];
     
     [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
-
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (_searchController.active) {
-        return _searchArray.count;
-    }
+
     return _dataArray.count;
    
 }
@@ -119,30 +106,71 @@ UISearchResultsUpdating
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
-    if (_searchController.active) {
-        cell.textLabel.text = _searchArray[indexPath.row];
-    }
-    else {
+
         cell.textLabel.text = _dataArray[indexPath.row];
-    }
+
     
     return cell;
 }
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+// 开始编辑
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
-    NSString *searchString = _searchController.searchBar.text;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", searchString];
-    // 清空原数组
-    if (nil != _searchArray) {
-        [_searchArray removeAllObjects];
-    }
-    // 筛选数据
-    _searchArray = [NSMutableArray arrayWithArray:[_dataArray filteredArrayUsingPredicate:predicate]];
-    // 重载 tableView
-    [_tableView reloadData];
+    return YES;
     
 }
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+}
+
+
+// 点击return
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    //回收键盘
+    //(放弃第一响应者)
+    [textField resignFirstResponder];
+    // 结束编辑状态
+//    [textField endEditing:YES];
+    NSString *searchString = textField.text;
+    
+    if (searchString.length == 0) {
+        return YES;
+    }
+    
+    UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定添加%@为好友?", searchString] message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        textField.placeholder = @"说点什么";
+    }];
+    //创建一个取消和一个确定按钮
+    UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
+    UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+         UITextField *textField = alert.textFields.firstObject;
+        EMError *error = [[EMClient sharedClient].contactManager addContact:searchString message:[NSString stringWithFormat:@"%@", textField.text]];
+        if (!error) {
+            NSLog(@"%@, %@", textField.text, searchString);
+            [UIView showMessage:@"等待对方受理你的请求"];
+        }
+    }];
+    //将取消和确定按钮添加进弹框控制器
+    [alert addAction:actionCancle];
+    [alert addAction:actionOk];
+    //显示弹框控制器
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    NSString *loginUsername = [[EMClient sharedClient] currentUsername];
+    if ([searchString isEqualToString:loginUsername]) {
+        [UIView showMessage:@"can't add yourself as a friend"];
+        return YES;
+    }
+    
+    [_tableView reloadData];
+    return YES;
+    
+}
+    
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

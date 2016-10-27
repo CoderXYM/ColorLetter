@@ -9,36 +9,69 @@
 #import "TheContactViewController.h"
 #import "FZY_SliderScrollView.h"
 
+static NSString *const leftIdentifier = @"leftCell";
+static NSString *const rightIdentifier = @"rightCell";
+
+
 @interface TheContactViewController ()
 <
 FZY_SliderScrollViewDelegate,
-UIScrollViewDelegate
+UIScrollViewDelegate,
+UITableViewDataSource,
+UITableViewDelegate,
+UISearchResultsUpdating
 >
 
 {
     CGFloat slideLength;
 }
 
-@property (nonatomic, retain) UIScrollView *downScrollView;
-@property (nonatomic, retain) FZY_SliderScrollView *sliderScrollView;
-@property (nonatomic, retain) UIView *upView;
+@property (nonatomic, strong) UIScrollView *downScrollView;
+@property (nonatomic, strong) FZY_SliderScrollView *sliderScrollView;
+@property (nonatomic, strong) UIView *upView;
 @property (nonatomic, assign) CGFloat count;
+
+@property (nonatomic, strong)UISearchController *searchController;
+
+@property (nonatomic, strong) UITableView *leftTabeleView;
+@property (nonatomic, strong) UITableView *rightTableView;
+
+@property (nonatomic, strong) NSMutableArray *leftArray;
+@property (nonatomic, retain) NSMutableArray *searchLeftArray;
+
+@property (nonatomic, strong) NSMutableArray *rightArray;
+
 @end
 
 @implementation TheContactViewController
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     self.navigationController.navigationBar.hidden = YES;
+
+    if (self.searchController.active) {
+        self.searchController.active = NO;
+        [self.searchController.searchBar removeFromSuperview];
+    }
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     slideLength = (WIDTH - 120) / 2;
+    self.leftArray = [NSMutableArray array];
+    self.rightArray = [NSMutableArray array];
+    self.searchLeftArray = [NSMutableArray array];
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
     [super create];
+    EMError *error = nil;
+    NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
+    if (!error) {
+        [_leftArray addObjectsFromArray:userlist];
+    }
 
 }
 
@@ -46,14 +79,14 @@ UIScrollViewDelegate
 - (void)ChooseSingleOrGroup {
 
     self.upView = [[UIView alloc] initWithFrame:CGRectMake(60, 25, WIDTH - 120, 30)];
-    _upView.backgroundColor = [UIColor redColor];
+    _upView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     _upView.layer.cornerRadius = 15;
     [self.view addSubview:_upView];
     
     self.sliderScrollView = [[FZY_SliderScrollView alloc] initWithFrame:CGRectMake(3, 2, _upView.frame.size.width / 2, 26)];
     _sliderScrollView.showsHorizontalScrollIndicator = YES  ;
     _sliderScrollView.showsVerticalScrollIndicator = YES;
-    _sliderScrollView.backgroundColor = [UIColor cyanColor];
+    _sliderScrollView.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
     _sliderScrollView.sliderDelegate = self;
     _sliderScrollView.layer.cornerRadius = 13;
     _sliderScrollView.clipsToBounds = YES;
@@ -61,27 +94,29 @@ UIScrollViewDelegate
     
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [friendsButton setTitle:@"好友" forState:UIControlStateNormal];
+    [friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [friendsButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         _downScrollView.contentOffset = CGPointMake(0, 0);
     }];
     [_upView addSubview:friendsButton];
     [friendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_upView).offset(60);
-        make.width.equalTo(@50);
+        make.left.equalTo(_upView).offset(50);
+        make.width.equalTo(@40);
         make.top.equalTo(_upView).offset(5);
         make.bottom.equalTo(_upView.mas_bottom).offset(-5);
     }];
     
     UIButton *groudButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [groudButton setTitle:@"群组" forState:UIControlStateNormal];
+    [groudButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [groudButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"群组");
         _downScrollView.contentOffset = CGPointMake(WIDTH, 0);
     }];
     [_upView addSubview:groudButton];
     [groudButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_upView).offset(-60);
-        make.width.equalTo(@50);
+        make.right.equalTo(_upView).offset(-50);
+        make.width.equalTo(@40);
         make.top.equalTo(_upView).offset(5);
         make.bottom.equalTo(_upView.mas_bottom).offset(-5);
     }];
@@ -117,7 +152,7 @@ UIScrollViewDelegate
 #pragma mark - 创建 downScrollView
 - (void)creatDownScrollView {
     
-    self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT - 64 - 49)];
+    self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64 + 50, WIDTH, HEIGHT - 64 - 49 - 50)];
     _downScrollView.bounces = NO;
     _downScrollView.contentSize = CGSizeMake(WIDTH * 2, 0);
     _downScrollView.showsHorizontalScrollIndicator = NO;
@@ -125,15 +160,104 @@ UIScrollViewDelegate
     _downScrollView.delegate = self;
     [self.view addSubview:_downScrollView];
     
-    [self addImageToDownScrollView];
+    self.leftTabeleView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 64 - 49 - 50 ) style:UITableViewStylePlain];
+    _leftTabeleView.delegate = self;
+    _leftTabeleView.dataSource = self;
+    _leftTabeleView.separatorStyle = UITableViewCellAccessoryNone;
+    [_downScrollView addSubview:_leftTabeleView];
+    [_leftTabeleView registerClass:[UITableViewCell class] forCellReuseIdentifier:leftIdentifier];
+    
+    self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
+    _rightTableView.backgroundColor = [UIColor blueColor];
+    _rightTableView.delegate = self;
+    _rightTableView.dataSource = self;
+    _rightTableView.separatorStyle = UITableViewCellAccessoryNone;
+    [_downScrollView addSubview:_rightTableView];
+    [_rightTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:rightIdentifier];
+    
+    UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 50)];
+    [self.view addSubview:myView];
+    
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    _searchController.searchResultsUpdater = self;
+    _searchController.dimsBackgroundDuringPresentation = false;
+    [_searchController.searchBar sizeToFit];
+    _searchController.hidesNavigationBarDuringPresentation = NO;
+    _searchController.dimsBackgroundDuringPresentation = NO;
+    _searchController.obscuresBackgroundDuringPresentation = NO;
+
+
+    [myView addSubview:_searchController.searchBar];
+//    [self.view addSubview:_searchController.searchBar];
+    
+//    _leftTabeleView.tableHeaderView = _searchController.searchBar;
+    //       self.definesPresentationContext = YES;
+
+
+    
 }
 
-// 测试代码 可以删除
-- (void)addImageToDownScrollView {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 200, 400, 100)];
-    imageView.backgroundColor = [UIColor redColor];
-    [_downScrollView addSubview:imageView];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([tableView isEqual:_leftTabeleView]) {
+        if (_searchController.active) {
+            return _searchLeftArray.count;
+        }
+        return _leftArray.count;
+    }else {
+       
+        
+        return _rightArray.count;
+    }
 }
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isEqual:_leftTabeleView]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:leftIdentifier];
+        if (_searchController.active) {
+            cell.textLabel.text = _searchLeftArray[indexPath.row];
+        }
+        else {
+            cell.textLabel.text = _leftArray[indexPath.row];
+        }
+
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return cell;
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+    NSString *searchString = _searchController.searchBar.text;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", searchString];
+    // 清空原数组
+    if (nil != _searchLeftArray) {
+        [_searchLeftArray removeAllObjects];
+    }
+    // 筛选数据
+    _searchLeftArray = [NSMutableArray arrayWithArray:[_leftArray filteredArrayUsingPredicate:predicate]];
+    // 重载 tableView
+    [_leftTabeleView reloadData];
+    
+}
+
+//#pragma mark - 分区数
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return 1;
+//}
+//#pragma mark - 自定义的分区头标题: 有图标或需要跳转时用
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//       return _searchController.searchBar;
+//}
+//#pragma mark - 改变分区头标题高度
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+//    return 50;
+//}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
