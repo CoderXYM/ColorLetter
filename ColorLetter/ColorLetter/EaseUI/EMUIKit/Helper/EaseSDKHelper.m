@@ -145,7 +145,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     #if !TARGET_IPHONE_SIMULATOR
-    [[EMClient sharedClient] application:application didReceiveRemoteNotification:userInfo];
+   // [[EMClient sharedClient] application:application didReceiveRemoteNotification:userInfo];
     #endif
 }
 

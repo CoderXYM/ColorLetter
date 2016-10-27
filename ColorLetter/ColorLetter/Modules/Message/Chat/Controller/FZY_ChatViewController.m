@@ -58,11 +58,44 @@ EMChatManagerDelegate
     self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
     
     //  从数据库获取指定数量的消息，取到的消息按时间排序，并且不包含参考的消息，如果参考消息的ID为空，则从最新消息取
-    [_conversation loadMessagesStartFromId:_friendName count:100 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
+    [_conversation loadMessagesStartFromId:_friendName count:20 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
         
         if (!aError) {
             NSLog(@"载入历史消息成功");
-            NSLog(@"%@", aMessages);
+            NSLog(@"%ld", aMessages.count);
+            
+            if (aMessages.count) {
+                for (EMMessage *mes in aMessages) {
+                    
+                    EMTextMessageBody *textBody = (EMTextMessageBody *)mes;
+                    NSString *txt = textBody.text;
+                    
+                    // 获取当前用户名
+                    NSString *userName = [[EMClient sharedClient] currentUsername];
+                    
+                    FZY_ChatModel * model = [[FZY_ChatModel alloc] init];
+                    if ([mes.from isEqualToString:userName]) {
+                        model.isSelf = YES;
+                    } else{
+                        model.isSelf = NO;
+                    }
+                    if (_friendName) {
+                        model.fromUser = mes.from;
+                    } else{
+                        // 群聊
+                        // model.fromUser = message.groupSenderName;
+                    }
+                    model.context = txt;
+                    
+                    [self.dataSourceArray addObject:model];
+                    
+                    [_tableView reloadData];
+                }
+
+            }
+            
+        } else {
+            NSLog(@"载入历史消息失败 : %@", aError);
         }
         
     }];
@@ -112,6 +145,7 @@ EMChatManagerDelegate
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 50) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    
     // 除去间隔线
     _tableView.separatorStyle = UITableViewCellAccessoryNone;
     [self.view addSubview:_tableView];
@@ -159,6 +193,8 @@ EMChatManagerDelegate
             } else {
                 NSLog(@"发送失败: %@", error);
             }
+            
+            [_importTextField setText:nil];
             
         }];
         
