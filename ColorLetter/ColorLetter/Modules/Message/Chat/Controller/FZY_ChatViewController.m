@@ -130,10 +130,10 @@ EMChatManagerDelegate
         }
     }
     
-    // 动态插入消息
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
-    [self insertMessageIntoTableViewWith:indexPath];
-    
+    if (_dataSourceArray.count > 1) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+        [self insertMessageIntoTableViewWith:indexPath];
+    }
 }
 
 #pragma mark - 创建聊天 UI
@@ -186,8 +186,12 @@ EMChatManagerDelegate
                 model.isSelf = YES;
                 [_dataSourceArray addObject:model];
                 // 将消息插入 UI
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
-                [self insertMessageIntoTableViewWith:indexPath];
+                
+                if (_dataSourceArray.count > 1) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                    [self insertMessageIntoTableViewWith:indexPath];
+                }
+                
                 
             } else {
                 NSLog(@"发送失败: %@", error);
@@ -208,6 +212,7 @@ EMChatManagerDelegate
 #pragma mark -  自定义 消息动态插入 tableView
 - (void)insertMessageIntoTableViewWith:(NSIndexPath *)indexPath {
     [_tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
     [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
@@ -240,7 +245,9 @@ EMChatManagerDelegate
     NSLog(@"ViewController 接收到%@通知\n高度值：%f\n时间：%f",isShow ? @"弹出":@"隐藏", height,animationDuration);
     
     [UIView animateWithDuration:animationDuration animations:^{
+        
         _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - height);
+        
         [_downView setFrame:CGRectMake(_downView.frame.origin.x, HEIGHT - 50 - height, _downView.frame.size.width, _downView.frame.size.height)];
     }];
 }
