@@ -35,6 +35,8 @@
 		4975B27C1DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2701DBE42FB00B6987D /* UILabel+SizeToFit_W_H.m */; };
 		4975B27D1DBE42FB00B6987D /* UIView+Frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2721DBE42FB00B6987D /* UIView+Frame.m */; };
 		4975B27E1DBE42FB00B6987D /* UIView+ShowMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B2741DBE42FB00B6987D /* UIView+ShowMessage.m */; };
+		499B4BB51DC19EEE006D9DC6 /* FZY_ChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B4BB41DC19EEE006D9DC6 /* FZY_ChatTableViewCell.m */; };
+		499B4BB81DC1A0F7006D9DC6 /* FZY_ChatModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B4BB71DC1A0F7006D9DC6 /* FZY_ChatModel.m */; };
 		49B0327A1DB79C0800D36732 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032791DB79C0800D36732 /* main.m */; };
 		49B0327D1DB79C0800D36732 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B0327C1DB79C0800D36732 /* AppDelegate.m */; };
 		49B032851DB79C0800D36732 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49B032841DB79C0800D36732 /* Assets.xcassets */; };
@@ -236,6 +238,10 @@
 		4975B2731DBE42FB00B6987D /* UIView+ShowMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ShowMessage.h"; sourceTree = "<group>"; };
 		4975B2741DBE42FB00B6987D /* UIView+ShowMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ShowMessage.m"; sourceTree = "<group>"; };
 		4975B27F1DBE431A00B6987D /* FZY_pch.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZY_pch.pch; sourceTree = "<group>"; };
+		499B4BB31DC19EEE006D9DC6 /* FZY_ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_ChatTableViewCell.h; path = ColorLetter/Encapsulation/FZY_ChatTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		499B4BB41DC19EEE006D9DC6 /* FZY_ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZY_ChatTableViewCell.m; path = ColorLetter/Encapsulation/FZY_ChatTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		499B4BB61DC1A0F7006D9DC6 /* FZY_ChatModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_ChatModel.h; path = ColorLetter/Encapsulation/FZY_ChatModel.h; sourceTree = SOURCE_ROOT; };
+		499B4BB71DC1A0F7006D9DC6 /* FZY_ChatModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZY_ChatModel.m; path = ColorLetter/Encapsulation/FZY_ChatModel.m; sourceTree = SOURCE_ROOT; };
 		49B032751DB79C0800D36732 /* ColorLetter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorLetter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49B032791DB79C0800D36732 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		49B0327B1DB79C0800D36732 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -756,6 +762,8 @@
 		4975B1C71DBDB17800B6987D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				499B4BB31DC19EEE006D9DC6 /* FZY_ChatTableViewCell.h */,
+				499B4BB41DC19EEE006D9DC6 /* FZY_ChatTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -763,6 +771,8 @@
 		4975B1C81DBDB18000B6987D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				499B4BB61DC1A0F7006D9DC6 /* FZY_ChatModel.h */,
+				499B4BB71DC1A0F7006D9DC6 /* FZY_ChatModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1828,6 +1838,7 @@
 				49CE08701DC0C1F70022B6B8 /* NSData+EMImageContentType.m in Sources */,
 				49CE08A41DC0C1F70022B6B8 /* EaseBubbleView+Image.m in Sources */,
 				49CE08B01DC0C1F70022B6B8 /* EaseChatBarMoreView.m in Sources */,
+				499B4BB51DC19EEE006D9DC6 /* FZY_ChatTableViewCell.m in Sources */,
 				49CE08501DC0C1F70022B6B8 /* MJRefreshHeader.m in Sources */,
 				49CE087E1DC0C1F70022B6B8 /* PSTCollectionViewItemKey.m in Sources */,
 				49B0327D1DB79C0800D36732 /* AppDelegate.m in Sources */,
@@ -1932,6 +1943,7 @@
 				49CE08541DC0C1F70022B6B8 /* MJRefreshBackGifFooter.m in Sources */,
 				49CE08A21DC0C1F70022B6B8 /* EaseBubbleView+File.m in Sources */,
 				492AEEAA1DBA0B440014E9BB /* FZY_SettingTableViewCell.m in Sources */,
+				499B4BB81DC1A0F7006D9DC6 /* FZY_ChatModel.m in Sources */,
 				49CE089A1DC0C1F70022B6B8 /* EaseRefreshTableViewController.m in Sources */,
 				49CEFED41DC0519F0022B6B8 /* FZY_FriendsModel.m in Sources */,
 				49CE08961DC0C1F70022B6B8 /* FixFopen.c in Sources */,
