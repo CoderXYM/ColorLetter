@@ -40,7 +40,7 @@ UITableViewDelegate
 - (void)creatTableView {
     
     FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
-    model.name = @"999";
+    model.name = @"888";
     
     self.friendArray = [[NSMutableArray alloc] initWithObjects:model, nil];
     

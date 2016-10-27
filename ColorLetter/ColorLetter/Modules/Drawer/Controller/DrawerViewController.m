@@ -17,7 +17,9 @@ static NSString *const cellIdentifier = @"drawerCell";
 
 <
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate
 >
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,6 +28,7 @@ UITableViewDataSource
 
 @property (nonatomic, strong) NSArray *imageArray;
 
+@property (nonatomic, retain) UIImageView *imageView;
 @end
 
 @implementation DrawerViewController
@@ -102,10 +105,30 @@ UITableViewDataSource
     
     
     //头像
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((WIDTH - WIDTH / 7 * 2 - 100) * 0.5, (HEIGHT - HEIGHT / 3 * 2 - 100) * 0.5, 100, 100)];
-    imageView.image = [UIImage imageNamed:@"mood-confused"];
+   self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake((WIDTH - WIDTH / 7 * 2 - 100) * 0.5, (HEIGHT - HEIGHT / 3 * 2 - 100) * 0.5, 100, 100)];
+   _imageView.image = [UIImage imageNamed:@"mood-confused"];
 
-    [effectView addSubview:imageView];
+    [effectView addSubview:_imageView];
+  
+   
+    //把头像设置成圆形
+    _imageView.layer.cornerRadius = _imageView.frame.size.width / 2;
+    
+    //隐藏裁剪掉的部分
+    _imageView.layer.masksToBounds = YES;
+    _imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+     
+    //给头像加一个圆形边框
+    _imageView.layer.borderWidth = 1.5f;
+    //允许用户交互
+    _imageView.userInteractionEnabled = YES;
+    //初始化一个手势
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(alertImageView:)];
+   //给imageView添加手势
+    [_imageView addGestureRecognizer:singleTap];
+    
+    
+    
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT / 3, WIDTH / 7 * 5, HEIGHT / 3 * 2) style:UITableViewStylePlain];
     _tableView.scrollEnabled = NO;
@@ -117,7 +140,49 @@ UITableViewDataSource
     [_tableView registerClass:[DrawerTableViewCell class] forCellReuseIdentifier:cellIdentifier];
 
 }
-       
+-(void)alertImageView:(UITapGestureRecognizer *)gesture{
+    /**
+     *  弹出提示框
+     */
+    //初始化提示框
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+        PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+         //允许编辑，即放大裁剪
+        PickerImage.allowsEditing = YES;
+        //自代理
+        PickerImage.delegate = self;
+         //页面跳转
+        [self presentViewController:PickerImage animated:YES completion:nil];
+        
+    }]];   
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+       //获取方式:通过相机
+        PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
+        PickerImage.allowsEditing = YES;
+        PickerImage.delegate = self;
+        [self presentViewController:PickerImage animated:YES completion:nil];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
+    
+}
+//PickerImage完成后的代理方法
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    
+    UIImage *newPhoto = [info objectForKey:@"UIImagePickerControlllerEditedImage"];
+    _imageView.image = newPhoto;
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _imageArray.count;
