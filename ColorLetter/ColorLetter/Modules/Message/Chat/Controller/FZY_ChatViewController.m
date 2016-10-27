@@ -7,7 +7,8 @@
 //
 
 #import "FZY_ChatViewController.h"
-
+#import "FZY_ChatTableViewCell.h"
+#import "FZY_ChatModel.h"
 @interface FZY_ChatViewController ()
 <
 UITableViewDelegate,
@@ -21,6 +22,7 @@ EMChatManagerDelegate
 @property (nonatomic, strong) UITextField *importTextField;
 @property (nonatomic, strong) UIButton *sendMessageButton;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
+@property (nonatomic, strong) EMConversation *conversation;
 @end
 
 @implementation FZY_ChatViewController
@@ -31,6 +33,9 @@ EMChatManagerDelegate
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
     // 设置代理
     [FZY_KeyboardShowHiddenNotificationCenter defineCenter].delegate = self;
+    
+    // 载入历史聊天记录
+    [self loadConversationHistory];
 }
 
 - (void)viewDidLoad {
@@ -48,7 +53,21 @@ EMChatManagerDelegate
     
 }
 
-
+#pragma mark - 获取与好友的聊天历史记录
+- (void)loadConversationHistory {
+    self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
+    
+    //  从数据库获取指定数量的消息，取到的消息按时间排序，并且不包含参考的消息，如果参考消息的ID为空，则从最新消息取
+    [_conversation loadMessagesStartFromId:_friendName count:100 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
+        
+        if (!aError) {
+            NSLog(@"载入历史消息成功");
+            NSLog(@"%@", aMessages);
+        }
+        
+    }];
+    
+}
 
 /*!
  @method
@@ -65,16 +84,23 @@ EMChatManagerDelegate
                 // 收到文字消息
                 EMTextMessageBody *textBody = (EMTextMessageBody *)msgBody;
                 NSString *txt = textBody.text;
-                NSLog(@"收到的文字是 txt -- %@", txt);
-                [_dataSourceArray addObject:txt];
-        
-                [_tableView reloadData];
+                
+                FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
+                model.fromUser = message.to;
+                model.isSelf = NO;
+                model.context = txt;
+                [_dataSourceArray addObject:model];
+                
             }
                 break;
             default:
                 break;
         }
     }
+    
+    // 动态插入消息
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+    [self insertMessageIntoTableViewWith:indexPath];
     
 }
 
@@ -89,7 +115,7 @@ EMChatManagerDelegate
     // 除去间隔线
     _tableView.separatorStyle = UITableViewCellAccessoryNone;
     [self.view addSubview:_tableView];
-    [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"chatCell"];
+    [_tableView registerClass:[FZY_ChatTableViewCell class] forCellReuseIdentifier:@"chatCell"];
     
     // 创建下面的输入框
     self.downView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 50, WIDTH, 50)];
@@ -121,17 +147,21 @@ EMChatManagerDelegate
         [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
             if (!error) {
                 NSLog(@"发送成功");
+                FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
+                model.fromUser = message.from;
+                model.context = _importTextField.text;
+                model.isSelf = YES;
+                [_dataSourceArray addObject:model];
+                // 将消息插入 UI
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                [self insertMessageIntoTableViewWith:indexPath];
+                
             } else {
                 NSLog(@"发送失败: %@", error);
             }
             
         }];
         
-        NSString *str = _importTextField.text;
-        [_dataSourceArray addObject:str];
-        
-        
-        [_tableView reloadData];
     }];
     
     // 添加手势收起键盘
@@ -140,18 +170,37 @@ EMChatManagerDelegate
     
 }
 
+#pragma mark -  自定义 消息动态插入 tableView
+- (void)insertMessageIntoTableViewWith:(NSIndexPath *)indexPath {
+    [_tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
+
+#pragma mark - tableView 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _dataSourceArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell"];
+    FZY_ChatTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"chatCell"];
     if (_dataSourceArray.count <= 0) {
         return cell;
     }
-    cell.textLabel.text = _dataSourceArray[indexPath.row];
+    // 取数据
+    FZY_ChatModel *model = _dataSourceArray[indexPath.row];
+    [cell loadDataFromModel:model];
+    
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    //取数据
+    FZY_ChatModel * model = _dataSourceArray[indexPath.row];
+    //根据文字确定显示大小
+    CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
+    return size.height + 40;
+}
+
+#pragma mark - 获取键盘弹出隐藏的动态高度
 - (void)showOrHiddenKeyboardWithHeight:(CGFloat)height withDuration:(CGFloat)animationDuration isShow:(BOOL)isShow {
     NSLog(@"ViewController 接收到%@通知\n高度值：%f\n时间：%f",isShow ? @"弹出":@"隐藏", height,animationDuration);
     
@@ -166,6 +215,7 @@ EMChatManagerDelegate
     return YES;
 }
 
+#pragma mark - 轻拍手势方法
 - (void)screenTap:(UIGestureRecognizer *)tap {
     // 取消当前屏幕所有第一响应
     [self.view endEditing:YES];
