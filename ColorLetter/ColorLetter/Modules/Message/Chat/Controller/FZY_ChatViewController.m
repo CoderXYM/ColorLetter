@@ -30,6 +30,7 @@ EMChatManagerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBar.hidden = NO;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
     // 设置代理
     [FZY_KeyboardShowHiddenNotificationCenter defineCenter].delegate = self;
@@ -88,10 +89,8 @@ EMChatManagerDelegate
                     model.context = txt;
                     
                     [self.dataSourceArray addObject:model];
-                    
-                    [_tableView reloadData];
                 }
-
+                [_tableView reloadData];
             }
             
         } else {
@@ -241,6 +240,7 @@ EMChatManagerDelegate
     NSLog(@"ViewController 接收到%@通知\n高度值：%f\n时间：%f",isShow ? @"弹出":@"隐藏", height,animationDuration);
     
     [UIView animateWithDuration:animationDuration animations:^{
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - height);
         [_downView setFrame:CGRectMake(_downView.frame.origin.x, HEIGHT - 50 - height, _downView.frame.size.width, _downView.frame.size.height)];
     }];
 }
