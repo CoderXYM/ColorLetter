@@ -14,4 +14,5 @@
 
 @property (nonatomic, strong) FZY_FriendsModel *model;
 
+- (void)displayNumberOfUnreadMessagesWith:(BOOL)isRead;
 @end

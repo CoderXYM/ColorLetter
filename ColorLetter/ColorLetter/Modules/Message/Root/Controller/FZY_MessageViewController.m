@@ -37,6 +37,7 @@ UITableViewDelegate
     [super create];    
 }
 
+#pragma mark - 获取全部会话
 - (void)loadAllConversations {
     
     [_conversationArray removeAllObjects];
@@ -58,9 +59,6 @@ UITableViewDelegate
         EMTextMessageBody *textBody = (EMTextMessageBody *)latestMess.body;
         NSString *txt = textBody.text;
         
-        NSLog(@"%@", txt);
-        NSLog(@"%@", latestMess.from); // 消息的发送方
-        
         // 最新消息
         model.latestMessage = txt;
         
@@ -75,6 +73,7 @@ UITableViewDelegate
     }
 }
 
+#pragma mark - 创建 tableView
 - (void)creatTableView {
     
     FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
@@ -105,12 +104,20 @@ UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
     FZY_ChatViewController *chatVC = [[FZY_ChatViewController alloc] init];
     
     FZY_FriendsModel *model = _conversationArray[indexPath.row];
     chatVC.friendName = model.name;
     
+    // 设置消息为已读
+    EMConversation *con = [[EMClient sharedClient].chatManager getConversation:model.name type:EMConversationTypeChat createIfNotExist:YES];
+    if (con.unreadMessagesCount) {
+        EMError *err = nil;
+        [con markAllMessagesAsRead:&err];
+        // UI 去掉红点
+        FZY_MessageTableViewCell *cell = (FZY_MessageTableViewCell *)[_tableView cellForRowAtIndexPath:indexPath];
+        [cell displayNumberOfUnreadMessagesWith:NO];
+    }
     
     [self.navigationController pushViewController:chatVC animated:YES];
 }

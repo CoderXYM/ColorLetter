@@ -49,7 +49,7 @@
         _unReadMessageLabel.backgroundColor = [UIColor redColor];
         _unReadMessageLabel.textColor = [UIColor whiteColor];
         _unReadMessageLabel.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:_unReadMessageLabel];
+        
         
     }
     return self;
@@ -65,18 +65,31 @@
         
         if (model.unReadMessageNum) {
             _unReadMessageLabel.text = [NSString stringWithFormat:@"%d", model.unReadMessageNum];
-            [_unReadMessageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.width.height.equalTo(@(24));
-                make.right.equalTo(_headImageView).offset(5);
-                make.top.equalTo(self.contentView).offset(5);
-            }];
-            _unReadMessageLabel.layer.cornerRadius = 12;
-            _unReadMessageLabel.clipsToBounds = YES;
+            [self displayNumberOfUnreadMessagesWith:NO];
+            
         } else {
-            [_unReadMessageLabel removeFromSuperview];
+            [self displayNumberOfUnreadMessagesWith:YES];
         }
        
     }
+}
+
+- (void)displayNumberOfUnreadMessagesWith:(BOOL)isRead {
+    if (!isRead) {
+        [_unReadMessageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.height.equalTo(@(24));
+            make.right.equalTo(_headImageView).offset(5);
+            make.top.equalTo(self.contentView).offset(5);
+        }];
+        _unReadMessageLabel.layer.cornerRadius = 12;
+        _unReadMessageLabel.clipsToBounds = YES;
+        [self.contentView addSubview:_unReadMessageLabel];
+    } else {
+        if (_unReadMessageLabel != nil) {
+            [_unReadMessageLabel removeFromSuperview];
+        }
+    }
+    
 }
 
 - (void)layoutSubviews {

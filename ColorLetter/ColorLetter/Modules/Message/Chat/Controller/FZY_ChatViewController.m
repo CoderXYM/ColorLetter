@@ -59,16 +59,15 @@ EMChatManagerDelegate
     self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
     
     //  从数据库获取指定数量的消息，取到的消息按时间排序，并且不包含参考的消息，如果参考消息的ID为空，则从最新消息取
-    [_conversation loadMessagesStartFromId:_friendName count:20 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
+    [_conversation loadMessagesStartFromId:nil count:100 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
         
         if (!aError) {
             NSLog(@"载入历史消息成功");
-            NSLog(@"%ld", aMessages.count);
             
             if (aMessages.count) {
                 for (EMMessage *mes in aMessages) {
                     
-                    EMTextMessageBody *textBody = (EMTextMessageBody *)mes;
+                    EMTextMessageBody *textBody = (EMTextMessageBody *)mes.body;
                     NSString *txt = textBody.text;
                     
                     // 获取当前用户名
@@ -130,7 +129,7 @@ EMChatManagerDelegate
         }
     }
     
-    if (_dataSourceArray.count > 1) {
+    if (_dataSourceArray.count > 0) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
         [self insertMessageIntoTableViewWith:indexPath];
     }
@@ -152,18 +151,22 @@ EMChatManagerDelegate
     
     // 创建下面的输入框
     self.downView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 50, WIDTH, 50)];
-    _downView.backgroundColor = [UIColor grayColor];
+    _downView.backgroundColor = [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.0];
     [self.view addSubview:_downView];
     
-    self.importTextField = [[UITextField alloc] initWithFrame:CGRectMake(5, 5, WIDTH - 110, 40)];
-    _importTextField.backgroundColor = [UIColor whiteColor];
+    self.importTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 5, WIDTH / 2, 40)];
+    _importTextField.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1.0];
+    _importTextField.layer.cornerRadius = 10;
+    _importTextField.clipsToBounds = YES;
     _importTextField.delegate = self;
     [_downView addSubview:_importTextField];
     
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_sendMessageButton setTitle:@"发送" forState:UIControlStateNormal];
-    _sendMessageButton.frame = CGRectMake(WIDTH - 105, 5, 100, 40);
-    _sendMessageButton.backgroundColor = [UIColor cyanColor];
+    _sendMessageButton.frame = CGRectMake(WIDTH - 100, 5, 80, 40);
+    _sendMessageButton.backgroundColor = [UIColor colorWithRed:0.77 green:0.77 blue:0.77 alpha:1.0];
+    _sendMessageButton.layer.cornerRadius = 10;
+    _sendMessageButton.clipsToBounds = YES;
     [_downView addSubview:_sendMessageButton];
     [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"发送消息");
@@ -187,7 +190,7 @@ EMChatManagerDelegate
                 [_dataSourceArray addObject:model];
                 // 将消息插入 UI
                 
-                if (_dataSourceArray.count > 1) {
+                if (_dataSourceArray.count > 0) {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
                     [self insertMessageIntoTableViewWith:indexPath];
                 }
@@ -208,6 +211,7 @@ EMChatManagerDelegate
     [_tableView addGestureRecognizer:tap];
     
 }
+
 
 #pragma mark -  自定义 消息动态插入 tableView
 - (void)insertMessageIntoTableViewWith:(NSIndexPath *)indexPath {
