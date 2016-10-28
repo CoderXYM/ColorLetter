@@ -26,7 +26,7 @@
 - (void)setDelegate:(id<FZY_KeyboardShowHiddenNotificationCenterDelegate>)delegate {
     if ([[delegate class] isSubclassOfClass:[UIViewController class]]) {
         // 在代理对象更改前，将现有代理对象中弹出的键盘收回
-        [[(UIViewController *)_delegate view] endEditing:YES];
+       // [[(UIViewController *)_delegate view] endEditing:YES];
     }else{
         NSAssert(NO, @"请将当前响应控件所在的ViewController作为代理参数传入");
     }
@@ -48,16 +48,15 @@
     NSTimeInterval animationDuration;
     [animationDurationValue getValue:&animationDuration];
     
-    
     // 检查代理是否为空
-    if ([self isBlanceObject:self.delegate]) {
-        return;
-    }
+//    if ([self isBlanceObject:self.delegate]) {
+//        return;
+//    }
     
     // 调用代理
-    if ([self.delegate respondsToSelector:@selector(showOrHiddenKeyboardWithHeight:withDuration:isShow:)]) {
+    //if ([self.delegate respondsToSelector:@selector(showOrHiddenKeyboardWithHeight:withDuration:isShow:)]) {
         [self.delegate showOrHiddenKeyboardWithHeight:keyboardRect.size.height withDuration:animationDuration isShow:YES];
-    }
+    //}
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
@@ -70,30 +69,29 @@
     NSTimeInterval animationDuration;
     [animationDurationValue getValue:&animationDuration];
     
-    
     // 检查代理是否为空
-    if ([self isBlanceObject:self.delegate]) {
-        return;
-    }
+//    if ([self isBlanceObject:self.delegate]) {
+//        return;
+//    }
     
     // 调用代理
-    if ([self.delegate respondsToSelector:@selector(showOrHiddenKeyboardWithHeight:withDuration:isShow:)]) {
+  //  if ([self.delegate respondsToSelector:@selector(showOrHiddenKeyboardWithHeight:withDuration:isShow:)]) {
         [self.delegate showOrHiddenKeyboardWithHeight:0.0 withDuration:animationDuration isShow:NO];
-    }
+   // }
     
 }
 
 
 // 判断对象是否为空
-- (BOOL)isBlanceObject:(id)object{
-    if (object == nil || object == NULL) {
-        return YES;
-    }
-    if ([object isKindOfClass:[NSNull class]]) {
-        return YES;
-    }
-    return NO;
-}
+//- (BOOL)isBlanceObject:(id)object{
+//    if (object == nil || object == NULL) {
+//        return YES;
+//    }
+//    if ([object isKindOfClass:[NSNull class]]) {
+//        return YES;
+//    }
+//    return NO;
+//}
 
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];

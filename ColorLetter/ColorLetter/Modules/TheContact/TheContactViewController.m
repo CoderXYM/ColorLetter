@@ -258,7 +258,7 @@ EMContactManagerDelegate
             cell.textLabel.text = _leftArray[indexPath.row];
             cell.textLabel.numberOfLines = 2;
         }
-
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
