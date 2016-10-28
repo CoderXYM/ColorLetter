@@ -79,19 +79,37 @@ EMContactManagerDelegate
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     //移除好友回调
-    [[EMClient sharedClient].contactManager removeDelegate:self];
+   // [[EMClient sharedClient].contactManager removeDelegate:self];
 
 
 }
 
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60)];
-    _label.textAlignment = NSTextAlignmentCenter;
-    _label.numberOfLines = 2;
-    [_label sizeToFit];
-    _label.text = [NSString stringWithFormat:@"%@想添加你为好友/d%@", aUsername, aMessage];
-    _leftTabeleView.tableHeaderView = _label;
+    NSLog(@"dsfdsdf");
+//    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60)];
+//    _label.textAlignment = NSTextAlignmentCenter;
+//    _label.numberOfLines = 2;
+//    [_label sizeToFit];
+//    _label.backgroundColor = [UIColor grayColor];
+//    _label.textColor = [UIColor redColor];
+//    _label.text = [NSString stringWithFormat:@"%@想添加你为好友/d%@", aUsername, aMessage];
+//    [_leftTabeleView addSubview:_label];
+    
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
+
+    NSString *str = [NSString stringWithFormat:@"%@想添加你为好友\n%@", aUsername, aMessage];
+    [_leftArray insertObject:str atIndex:0];
+    
+    [_leftTabeleView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
+    
+    [_leftTabeleView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+//    _leftTabeleView.tableHeaderView = _label;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        _leftTabeleView.tableHeaderView = _label;
+//        [_leftTabeleView reloadData];
+//    });
+
 }
 
 #pragma mark - 创建滑块
@@ -182,6 +200,7 @@ EMContactManagerDelegate
     self.leftTabeleView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 64 - 49 - 50 ) style:UITableViewStylePlain];
     _leftTabeleView.delegate = self;
     _leftTabeleView.dataSource = self;
+    _leftTabeleView.rowHeight = 100;
     _leftTabeleView.separatorStyle = UITableViewCellAccessoryNone;
     [_downScrollView addSubview:_leftTabeleView];
     [_leftTabeleView registerClass:[UITableViewCell class] forCellReuseIdentifier:leftIdentifier];
@@ -237,6 +256,7 @@ EMContactManagerDelegate
         }
         else {
             cell.textLabel.text = _leftArray[indexPath.row];
+            cell.textLabel.numberOfLines = 2;
         }
 
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
