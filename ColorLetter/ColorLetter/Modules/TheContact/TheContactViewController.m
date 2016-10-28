@@ -8,6 +8,7 @@
 
 #import "TheContactViewController.h"
 #import "FZY_SliderScrollView.h"
+#import "FZY_FriendRequestViewController.h"
 
 static NSString *const leftIdentifier = @"leftCell";
 static NSString *const rightIdentifier = @"rightCell";
@@ -69,7 +70,7 @@ EMContactManagerDelegate
     self.searchLeftArray = [NSMutableArray array];
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
-    [super create];
+    
     EMError *error = nil;
     NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
     if (!error) {
@@ -81,34 +82,18 @@ EMContactManagerDelegate
     //移除好友回调
    // [[EMClient sharedClient].contactManager removeDelegate:self];
 
-
+    [self create];
 }
 
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
-    NSLog(@"dsfdsdf");
-//    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60)];
-//    _label.textAlignment = NSTextAlignmentCenter;
-//    _label.numberOfLines = 2;
-//    [_label sizeToFit];
-//    _label.backgroundColor = [UIColor grayColor];
-//    _label.textColor = [UIColor redColor];
-//    _label.text = [NSString stringWithFormat:@"%@想添加你为好友/d%@", aUsername, aMessage];
-//    [_leftTabeleView addSubview:_label];
     
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
 
     NSString *str = [NSString stringWithFormat:@"%@想添加你为好友\n%@", aUsername, aMessage];
     [_leftArray insertObject:str atIndex:0];
-    
     [_leftTabeleView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
-    
     [_leftTabeleView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-//    _leftTabeleView.tableHeaderView = _label;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        _leftTabeleView.tableHeaderView = _label;
-//        [_leftTabeleView reloadData];
-//    });
 
 }
 
@@ -191,6 +176,7 @@ EMContactManagerDelegate
     
     self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64 + 50, WIDTH, HEIGHT - 64 - 49 - 50)];
     _downScrollView.bounces = NO;
+    _downScrollView.scrollEnabled = YES;
     _downScrollView.contentSize = CGSizeMake(WIDTH * 2, 0);
     _downScrollView.showsHorizontalScrollIndicator = NO;
     _downScrollView.pagingEnabled = YES;
@@ -223,14 +209,7 @@ EMContactManagerDelegate
     _searchController.hidesNavigationBarDuringPresentation = NO;
     _searchController.dimsBackgroundDuringPresentation = NO;
     _searchController.obscuresBackgroundDuringPresentation = NO;
-
-
     [myView addSubview:_searchController.searchBar];
-//    [self.view addSubview:_searchController.searchBar];
-    
-//    _leftTabeleView.tableHeaderView = _searchController.searchBar;
-    //       self.definesPresentationContext = YES;
-
 
     
 }
@@ -282,18 +261,45 @@ EMContactManagerDelegate
     
 }
 
-//#pragma mark - 分区数
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return 1;
-//}
-//#pragma mark - 自定义的分区头标题: 有图标或需要跳转时用
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//       return _searchController.searchBar;
-//}
-//#pragma mark - 改变分区头标题高度
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return 50;
-//}
+#pragma mark - delete 
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [_leftTabeleView setEditing:editing animated:animated];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *name = _leftArray[indexPath.row];
+    // 删除好友
+    EMError *error = [[EMClient sharedClient].contactManager deleteContact:name];
+    if (!error) {
+        NSLog(@"删除成功");
+    }
+    [_leftArray removeObjectAtIndex:indexPath.row];
+    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+}
+
+#pragma mark - 重写父类方法传值
+
+- (void)create {
+    [super create];
+    [self.searchButton  handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        FZY_FriendRequestViewController *friend = [[FZY_FriendRequestViewController alloc] init];
+        friend.array = [NSMutableArray arrayWithArray:_leftArray];
+        [self presentViewController:friend animated:YES completion:nil];
+    }];
+    
+}
+
+
 
 
 

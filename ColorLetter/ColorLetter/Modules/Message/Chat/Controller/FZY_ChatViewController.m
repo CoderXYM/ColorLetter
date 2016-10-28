@@ -56,6 +56,10 @@ UICollectionViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    // 载入历史聊天记录
+    [self loadConversationHistory];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.tintColor = [UIColor yellowColor];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.66 green:0.96 blue:0.96 alpha:1.0];
@@ -74,6 +78,8 @@ UICollectionViewDataSource
 
 #pragma mark - 获取与好友的聊天历史记录
 - (void)loadConversationHistory {
+    
+
     self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
     
     //  从数据库获取指定数量的消息，取到的消息按时间排序，并且不包含参考的消息，如果参考消息的ID为空，则从最新消息取
@@ -192,12 +198,11 @@ UICollectionViewDataSource
                     [self insertMessageIntoTableViewWith:indexPath];
                 }
                 
-            } else {
-                NSLog(@"发送失败: %@", error);
-            }
-            
-            [_importTextField setText:nil];
-            
+                [_importTextField setText:nil];
+                
+               } else {
+                   NSLog(@"发送失败: %@", error);
+               }
         }];
 
     } else {
@@ -264,6 +269,7 @@ UICollectionViewDataSource
     _importTextField.clipsToBounds = YES;
     _importTextField.delegate = self;
     [_downView addSubview:_importTextField];
+
     [_importTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(optionVioceButton.mas_right).offset(10);
         make.right.equalTo(_changeOptionsButton.mas_left).offset(-10);
