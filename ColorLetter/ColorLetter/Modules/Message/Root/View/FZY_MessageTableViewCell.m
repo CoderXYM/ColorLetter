@@ -76,6 +76,7 @@
 
 - (void)displayNumberOfUnreadMessagesWith:(BOOL)isRead {
     if (!isRead) {
+        [self.contentView addSubview:_unReadMessageLabel];
         [_unReadMessageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.equalTo(@(24));
             make.right.equalTo(_headImageView).offset(5);
@@ -83,7 +84,6 @@
         }];
         _unReadMessageLabel.layer.cornerRadius = 12;
         _unReadMessageLabel.clipsToBounds = YES;
-        [self.contentView addSubview:_unReadMessageLabel];
     } else {
         if (_unReadMessageLabel != nil) {
             [_unReadMessageLabel removeFromSuperview];

@@ -19,7 +19,8 @@ FZY_SliderScrollViewDelegate,
 UIScrollViewDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
-UISearchResultsUpdating
+UISearchResultsUpdating,
+EMContactManagerDelegate
 >
 
 {
@@ -40,6 +41,8 @@ UISearchResultsUpdating
 @property (nonatomic, retain) NSMutableArray *searchLeftArray;
 
 @property (nonatomic, strong) NSMutableArray *rightArray;
+@property (nonatomic, strong) UILabel *label;
+
 
 @end
 
@@ -72,7 +75,23 @@ UISearchResultsUpdating
     if (!error) {
         [_leftArray addObjectsFromArray:userlist];
     }
+    
+    //注册好友回调
+    [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
+    //移除好友回调
+    [[EMClient sharedClient].contactManager removeDelegate:self];
 
+
+}
+
+- (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
+                                       message:(NSString *)aMessage {
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 60)];
+    _label.textAlignment = NSTextAlignmentCenter;
+    _label.numberOfLines = 2;
+    [_label sizeToFit];
+    _label.text = [NSString stringWithFormat:@"%@想添加你为好友/d%@", aUsername, aMessage];
+    _leftTabeleView.tableHeaderView = _label;
 }
 
 #pragma mark - 创建滑块
