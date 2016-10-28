@@ -77,11 +77,6 @@ UITextFieldDelegate
     self.dataArray = [NSMutableArray array];
     self.searchArray = [NSMutableArray array];
     
-//    for (int i = 100; i < 1000; i++) {
-//        [_dataArray addObject:[NSString stringWithFormat:@"%d", i]];
-//    }
-//    [_dataArray addObject:@"Small Tiger"];
-//    [_dataArray addObject:@"皮卡丘"];
 }
 
 - (void)createTableView {
@@ -138,7 +133,17 @@ UITextFieldDelegate
     if (searchString.length == 0) {
         return YES;
     }
-    
+    NSString *loginUsername = [[EMClient sharedClient] currentUsername];
+    if ([searchString isEqualToString:loginUsername]) {
+        [UIView showMessage:@"can't add yourself as a friend"];
+        return YES;
+    }
+    for (NSString *string in _array) {
+        if ([searchString isEqualToString:string]) {
+            [UIView showMessage:[NSString stringWithFormat:@"%@已经是你的好友啦", searchString]];
+            return YES;
+        }
+    }
     UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定添加%@为好友?", searchString] message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField){
         textField.placeholder = @"说点什么";
@@ -160,11 +165,7 @@ UITextFieldDelegate
     //显示弹框控制器
     [self presentViewController:alert animated:YES completion:nil];
     
-    NSString *loginUsername = [[EMClient sharedClient] currentUsername];
-    if ([searchString isEqualToString:loginUsername]) {
-        [UIView showMessage:@"can't add yourself as a friend"];
-        return YES;
-    }
+    
     
     [_tableView reloadData];
     return YES;

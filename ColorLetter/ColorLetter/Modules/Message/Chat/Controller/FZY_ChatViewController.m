@@ -35,14 +35,16 @@ EMChatManagerDelegate
     // 设置代理
     [FZY_KeyboardShowHiddenNotificationCenter defineCenter].delegate = self;
     
-    // 载入历史聊天记录
-    [self loadConversationHistory];
-    [_importTextField becomeFirstResponder];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    // 载入历史聊天记录
+    [self loadConversationHistory];
+    
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = _friendName;
     [self creatChatTableViewAndTextField];
@@ -57,10 +59,12 @@ EMChatManagerDelegate
 
 #pragma mark - 获取与好友的聊天历史记录
 - (void)loadConversationHistory {
+    
+
     self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
     
     //  从数据库获取指定数量的消息，取到的消息按时间排序，并且不包含参考的消息，如果参考消息的ID为空，则从最新消息取
-    [_conversation loadMessagesStartFromId:nil count:100 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
+    [_conversation loadMessagesStartFromId:nil count:20 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
         
         if (!aError) {
             NSLog(@"载入历史消息成功");
@@ -154,7 +158,6 @@ EMChatManagerDelegate
     // 发送消息
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
         if (!error) {
-            NSLog(@"发送成功");
             FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
             model.fromUser = message.from;
             model.context = _importTextField.text;
@@ -212,9 +215,7 @@ EMChatManagerDelegate
     _sendMessageButton.layer.cornerRadius = 10;
     _sendMessageButton.clipsToBounds = YES;
     [_downView addSubview:_sendMessageButton];
-    [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        NSLog(@"发送消息");
-        
+    [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{        
         [self sendMessage];
     }];
     
