@@ -76,7 +76,7 @@
 
 - (void)displayNumberOfUnreadMessagesWith:(BOOL)isRead {
     if (!isRead) {
-        
+
         [self.contentView addSubview:_unReadMessageLabel];
         [_unReadMessageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.height.equalTo(@(24));
