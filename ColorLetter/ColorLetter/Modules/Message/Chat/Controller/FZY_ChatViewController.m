@@ -37,6 +37,7 @@ EMChatManagerDelegate
     
     // 载入历史聊天记录
     [self loadConversationHistory];
+    [_importTextField becomeFirstResponder];
 }
 
 - (void)viewDidLoad {
@@ -88,8 +89,13 @@ EMChatManagerDelegate
                     model.context = txt;
                     
                     [self.dataSourceArray addObject:model];
+                    
+                    if (_dataSourceArray.count > 0) {
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                        [self insertMessageIntoTableViewWith:indexPath];
+                    }
+                    
                 }
-                [_tableView reloadData];
             }
             
         } else {
@@ -135,6 +141,43 @@ EMChatManagerDelegate
     }
 }
 
+#pragma mark - 发送消息
+- (void)sendMessage {
+    // 构造文字消息
+    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:_importTextField.text];
+    NSString *userName = [[EMClient sharedClient] currentUsername];
+    
+    // 生成 Message
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:userName to:_friendName body:body ext:nil];
+    message.chatType = EMChatTypeChat; // 设置为单聊信息
+    
+    // 发送消息
+    [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+        if (!error) {
+            NSLog(@"发送成功");
+            FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
+            model.fromUser = message.from;
+            model.context = _importTextField.text;
+            model.isSelf = YES;
+            [_dataSourceArray addObject:model];
+            // 将消息插入 UI
+            
+            if (_dataSourceArray.count > 0) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                [self insertMessageIntoTableViewWith:indexPath];
+            }
+            
+            
+        } else {
+            NSLog(@"发送失败: %@", error);
+        }
+        
+        [_importTextField setText:nil];
+        
+    }];
+
+}
+
 #pragma mark - 创建聊天 UI
 - (void)creatChatTableViewAndTextField {
     self.dataSourceArray = [NSMutableArray array];
@@ -159,6 +202,7 @@ EMChatManagerDelegate
     _importTextField.layer.cornerRadius = 10;
     _importTextField.clipsToBounds = YES;
     _importTextField.delegate = self;
+    
     [_downView addSubview:_importTextField];
     
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -171,39 +215,7 @@ EMChatManagerDelegate
     [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"发送消息");
         
-        // 构造文字消息
-        EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:_importTextField.text];
-        NSString *userName = [[EMClient sharedClient] currentUsername];
-        
-        // 生成 Message
-        EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:userName to:_friendName body:body ext:nil];
-        message.chatType = EMChatTypeChat; // 设置为单聊信息
-        
-        // 发送消息
-        [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-            if (!error) {
-                NSLog(@"发送成功");
-                FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
-                model.fromUser = message.from;
-                model.context = _importTextField.text;
-                model.isSelf = YES;
-                [_dataSourceArray addObject:model];
-                // 将消息插入 UI
-                
-                if (_dataSourceArray.count > 0) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
-                    [self insertMessageIntoTableViewWith:indexPath];
-                }
-                
-                
-            } else {
-                NSLog(@"发送失败: %@", error);
-            }
-            
-            [_importTextField setText:nil];
-            
-        }];
-        
+        [self sendMessage];
     }];
     
     // 添加手势收起键盘
@@ -259,6 +271,7 @@ EMChatManagerDelegate
 #pragma mark - UITextField Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
+    [self sendMessage];
     return YES;
 }
 
