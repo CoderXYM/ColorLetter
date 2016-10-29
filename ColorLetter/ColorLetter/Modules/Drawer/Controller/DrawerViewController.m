@@ -179,7 +179,7 @@ UINavigationControllerDelegate
     //定义一个newPhoto，用来存放我们选择的图片
     
     UIImage *newPhoto = [info objectForKey:UIImagePickerControllerEditedImage];
-                    
+    NSLog(@"%@", newPhoto);
     //把newPhono设置成头像
     _imageView.image = newPhoto;
     //关闭当前界面，即回到主界面去
