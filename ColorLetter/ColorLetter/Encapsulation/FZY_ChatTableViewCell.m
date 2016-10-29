@@ -130,12 +130,14 @@
                 [_rightPhotoImageView sd_setImageWithURL:url];
                 self.rightBubble.frame = CGRectMake(WIDTH - 200 - 30 - 50, 0, 220, 220);
             } else {
-                self.rightLabel.text = model.context;
-                self.rightName.text = model.fromUser;
+                self.leftPhotoImageView.hidden = NO;
+                self.rightPhotoImageView.hidden = YES;
                 //调整坐标 根据label文字自适应
                 self.rightLabel.frame = CGRectMake(10, 10, size.width, size.height);
                 self.rightBubble.frame = CGRectMake(WIDTH - size.width - 30 - 50, 0, size.width + 30, size.height + 30);
             }
+            self.rightLabel.text = model.context;
+            self.rightName.text = model.fromUser;
 
         }else{
             
@@ -150,16 +152,18 @@
             if (model.isPhoto) {
                 self.leftPhotoImageView.hidden = NO;
                 self.rightPhotoImageView.hidden = YES;
-                    
+                
                 NSURL *url = [NSURL URLWithString:model.photoName];
-                [_rightPhotoImageView sd_setImageWithURL:url];
-                self.leftBubble.frame = CGRectMake(50, 0, 220, 220);
+                [_leftPhotoImageView sd_setImageWithURL:url];
+                self.leftBubble.frame = CGRectMake(50, 10, 220, 220);
             } else {
-                self.leftLabel.text = model.context;
-                self.leftName.text = model.fromUser;
+                self.leftPhotoImageView.hidden = NO;
+                self.rightPhotoImageView.hidden = YES;
                 self.leftLabel.frame = CGRectMake(10, 10, size.width, size.height);
-                self.leftBubble.frame = CGRectMake(50, 0, size.width + 30, size.height + 30);
+                self.leftBubble.frame = CGRectMake(50, 10, size.width + 30, size.height + 30);
             }
+            self.leftLabel.text = model.context;
+            self.leftName.text = model.fromUser;
         }
         
     }
