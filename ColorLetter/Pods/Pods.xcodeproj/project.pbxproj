@@ -7,36 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2905381350CEFFBFFA9BC8B5D027F190 /* MASConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 552BB0D2A37E9374192D099405D75984 /* MASConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2979E54C4AFD27076576E82ADEED2F00 /* NSLayoutConstraint+MASDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C42B22A3205C070723D8F13B0AE1F7D /* NSLayoutConstraint+MASDebugAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		331718BFB4A91CFFE026492905231562 /* ViewController+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 04A9B11D7D8E8A3A2BBF7EF0F3FC1221 /* ViewController+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		335DCBC17D2469F228020EF6C7B41F7C /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = CB22C07945D754C31322418E0CC3755E /* MASConstraintMaker.m */; };
-		3F63C119F95A6735AE627BBB1BEBC4B1 /* MASViewAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 02D874034BC72C94D1177734DBC12931 /* MASViewAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		432BD50F1E699EDF2EA007E850FFCEF7 /* View+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = DF0848EB24DB618AE74228B12875FD02 /* View+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5457FCC2699281B5A4203BA1559F593F /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 055DB1207AC4916AF991ECA023F09F7D /* NSArray+MASAdditions.m */; };
+		2905381350CEFFBFFA9BC8B5D027F190 /* MASConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 10134AEF4383DF99FC8E494E848139FC /* MASConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2979E54C4AFD27076576E82ADEED2F00 /* NSLayoutConstraint+MASDebugAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EF91AC5D74AD5D1C507FBF141B821DF8 /* NSLayoutConstraint+MASDebugAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		331718BFB4A91CFFE026492905231562 /* ViewController+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = B1ABFB21AA2F71A6CFEB536737280F0D /* ViewController+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		335DCBC17D2469F228020EF6C7B41F7C /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5ADC2AF517950FD2256AF56D50087B /* MASConstraintMaker.m */; };
+		3F63C119F95A6735AE627BBB1BEBC4B1 /* MASViewAttribute.h in Headers */ = {isa = PBXBuildFile; fileRef = 1297EC1AC2318D4D71E5348E29F46964 /* MASViewAttribute.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		432BD50F1E699EDF2EA007E850FFCEF7 /* View+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 200F65F55C8854AE33643CEA10F23309 /* View+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5457FCC2699281B5A4203BA1559F593F /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B42DE2C411D0FCCE6715E1B8DB629705 /* NSArray+MASAdditions.m */; };
 		7118A280B47ABC174D347359C1A9A761 /* Pods-ColorLetter-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B92834158CF41CB436E76107CD1C780F /* Pods-ColorLetter-dummy.m */; };
-		81403CAF6C4C1D3DC8B199289C3A6F59 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = C1819DA6B87B88478E79AFA177791D27 /* View+MASAdditions.m */; };
-		81599471BAB0420D54E1ADF8507A5113 /* Masonry-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BC04F96C0B9A587BAEE38F99AB6BC1F5 /* Masonry-dummy.m */; };
-		9205037BA8C22574B33FC96C5EA829A3 /* Masonry.h in Headers */ = {isa = PBXBuildFile; fileRef = 87D198FF2FAACA5DC79EF1F1EF5A753C /* Masonry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		99D8C610BC84BE231C5D3D280F3B12AF /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 5CBAE9C116BE59A5EF0AC9A5D473B7BF /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A44AF130E4C5313CD193D9BF68853026 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = DBCC858C20065B07DBA7E9B008B44A95 /* MASViewAttribute.m */; };
-		A7D31BD1F3AD4ED4612467FAD332F388 /* NSArray+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = A421F108FFD134CDDC3D22CCA21E2CEB /* NSArray+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81403CAF6C4C1D3DC8B199289C3A6F59 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 519389784DBF9ED528F58056C62F433D /* View+MASAdditions.m */; };
+		81599471BAB0420D54E1ADF8507A5113 /* Masonry-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C148D83DAEAFBBE5C3A3AAD86253008D /* Masonry-dummy.m */; };
+		9205037BA8C22574B33FC96C5EA829A3 /* Masonry.h in Headers */ = {isa = PBXBuildFile; fileRef = 1204A6AB287FDFBABCF086420C2E7B99 /* Masonry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99D8C610BC84BE231C5D3D280F3B12AF /* MASCompositeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = B88D0159AF0038BDBD4C4CAEA695E916 /* MASCompositeConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A44AF130E4C5313CD193D9BF68853026 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA730CF1162F55157137915E408D2D5 /* MASViewAttribute.m */; };
+		A7D31BD1F3AD4ED4612467FAD332F388 /* NSArray+MASShorthandAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CB3B0652F412C8C02A8245684BDD104 /* NSArray+MASShorthandAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AF4E7187E09A5AF3A0758991203153DC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */; };
-		AF62B956405F7734F5A9B8F3FD4B1B96 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D605C7BBAC19E18167F628AAACD747 /* ViewController+MASAdditions.m */; };
-		B2B7C90BA9C4DBD9851C75AC801B0E8E /* MASConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DD9DEE4B1684D013917E5108EAEB7D4 /* MASConstraint+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BCD4B362C6194513150915437754E2D4 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE5B3662F707C64605C7741A4A80455 /* MASCompositeConstraint.m */; };
-		BDD210D7537DD15CFE59AE126005E5F8 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = ECD87F45966D5BDE98D7C9031CE3DC6C /* MASLayoutConstraint.m */; };
-		BE024118D329F8F566BD1811A1DC16CB /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = C51F7985B9C2911045781F8BCBADD921 /* MASConstraint.m */; };
+		AF62B956405F7734F5A9B8F3FD4B1B96 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F316CC4C8A7FDB1253751659BD5DDCD9 /* ViewController+MASAdditions.m */; };
+		B2B7C90BA9C4DBD9851C75AC801B0E8E /* MASConstraint+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = ACAC1890A574B61E8591ACA0FA14771F /* MASConstraint+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BCD4B362C6194513150915437754E2D4 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 404B46F73782D330A9D816FE71312EF3 /* MASCompositeConstraint.m */; };
+		BDD210D7537DD15CFE59AE126005E5F8 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = D671D2A224967F5010A8362E317F6F8A /* MASLayoutConstraint.m */; };
+		BE024118D329F8F566BD1811A1DC16CB /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = CFC4BB1093A759134BD21766DEE72453 /* MASConstraint.m */; };
 		C6BFD2EABFD66CB64C740AB073E91D80 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
-		C6EE194D232E9FE87097C0F1DF91B9FA /* MASLayoutConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = ECADA006B41BF8EE5E17ED1FBDC79E34 /* MASLayoutConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D3D9F12613E23AD64C1FA5F7081A3668 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEE00B2AB45E11B547A8EF4813E8D91 /* NSLayoutConstraint+MASDebugAdditions.m */; };
-		DD1F717B0527C71229B3339324E35E55 /* View+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 18FE89D5C6588F3E0024F0FACDEBB06D /* View+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C6EE194D232E9FE87097C0F1DF91B9FA /* MASLayoutConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E5D1BB96891CA458F09CD95CB572514 /* MASLayoutConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3D9F12613E23AD64C1FA5F7081A3668 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 21151AC31BB5BC47CB722A3C8D118C31 /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		DD1F717B0527C71229B3339324E35E55 /* View+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = F88A2785FB5E2E79B2E1724774CC325E /* View+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE31B168D9197213CEB7B90E3ADEB4CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
-		E6B49FBCE3957DB67F691ACCC4CAF4BE /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = E3FA239F7B5EE89236548C884C4E582B /* MASViewConstraint.m */; };
-		EB02AEF303313F801392DE8D90AFF0F7 /* MASViewConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D6805AF5E2DF8EA2DB60920E0B32595 /* MASViewConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EC6CCC98505D2067BC98B4E6223C9DF8 /* MASConstraintMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 39DDE6E9229FCF8EE9CEF618B41E128E /* MASConstraintMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD39EBE3398E1A99965AC003B273450D /* NSArray+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 0712668F4F271447F3A08F6FAE717E98 /* NSArray+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FF682E8B083BAEBBDF38C52D89D45E37 /* MASUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 65DB6EF6635950444F74EB25B8CB6B1A /* MASUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6B49FBCE3957DB67F691ACCC4CAF4BE /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = A4EEB1C1AEA37660F6FF1FA55D5C20C2 /* MASViewConstraint.m */; };
+		EB02AEF303313F801392DE8D90AFF0F7 /* MASViewConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 91D4EBB73305AF2651BB57F5FF1DD2F7 /* MASViewConstraint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC6CCC98505D2067BC98B4E6223C9DF8 /* MASConstraintMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 796EFAAC7B146F27853E989CED1C3DF8 /* MASConstraintMaker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FD39EBE3398E1A99965AC003B273450D /* NSArray+MASAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 66432301AD4D8385752A72F39A7E0B09 /* NSArray+MASAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FF682E8B083BAEBBDF38C52D89D45E37 /* MASUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32A4826FFDCF8AE52188EF4DC9D0BE /* MASUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,86 +50,85 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		018F2B64D44FAB22F3DE4A1BD938FBD7 /* EMError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMError.h; path = HyphenateFullSDK/include/EMError.h; sourceTree = "<group>"; };
-		02D874034BC72C94D1177734DBC12931 /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
-		04A9B11D7D8E8A3A2BBF7EF0F3FC1221 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ViewController+MASAdditions.h"; path = "Masonry/ViewController+MASAdditions.h"; sourceTree = "<group>"; };
-		055DB1207AC4916AF991ECA023F09F7D /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		0712668F4F271447F3A08F6FAE717E98 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASAdditions.h"; path = "Masonry/NSArray+MASAdditions.h"; sourceTree = "<group>"; };
-		0CDEB4428B8826197EF6A024487C2E07 /* EMChatManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatManagerDelegate.h; path = HyphenateFullSDK/include/EMChatManagerDelegate.h; sourceTree = "<group>"; };
-		0DD9DEE4B1684D013917E5108EAEB7D4 /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
+		0C7D0EC05B88472C4B2468A2F62C87E7 /* IEMChatroomManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMChatroomManager.h; path = HyphenateFullSDK/include/IEMChatroomManager.h; sourceTree = "<group>"; };
+		0CE772E2BAADB93289A09E623B5884FB /* EMLocationMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMLocationMessageBody.h; path = HyphenateFullSDK/include/EMLocationMessageBody.h; sourceTree = "<group>"; };
+		0E1A09ADB1E8D04A64467506A1A1DF83 /* EMClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMClient.h; path = HyphenateFullSDK/include/EMClient.h; sourceTree = "<group>"; };
+		10134AEF4383DF99FC8E494E848139FC /* MASConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Masonry/MASConstraint.h; sourceTree = "<group>"; };
+		1204A6AB287FDFBABCF086420C2E7B99 /* Masonry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Masonry.h; path = Masonry/Masonry.h; sourceTree = "<group>"; };
+		1297EC1AC2318D4D71E5348E29F46964 /* MASViewAttribute.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewAttribute.h; path = Masonry/MASViewAttribute.h; sourceTree = "<group>"; };
+		16DB42D6502DD133C9C27422AE1B7CDB /* libHyphenateFullSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libHyphenateFullSDK.a; path = HyphenateFullSDK/lib/libHyphenateFullSDK.a; sourceTree = "<group>"; };
 		17B73508BF23D059B34E9CFDFD831EBB /* Pods-ColorLetter-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ColorLetter-acknowledgements.plist"; sourceTree = "<group>"; };
-		18FE89D5C6588F3E0024F0FACDEBB06D /* View+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASAdditions.h"; path = "Masonry/View+MASAdditions.h"; sourceTree = "<group>"; };
-		24B3C3698C9C7B44470148F64CE3C7F0 /* EMFileMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMFileMessageBody.h; path = HyphenateFullSDK/include/EMFileMessageBody.h; sourceTree = "<group>"; };
-		2D6805AF5E2DF8EA2DB60920E0B32595 /* MASViewConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewConstraint.h; path = Masonry/MASViewConstraint.h; sourceTree = "<group>"; };
-		31BCBF30B5A7EE6F90EAE6C0EDFC3EA2 /* EMCallRemoteView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallRemoteView.h; path = HyphenateFullSDK/include/EMCallRemoteView.h; sourceTree = "<group>"; };
-		391DBD14A7F1E948C8C7E9268CF13F17 /* EMClient+Call.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EMClient+Call.h"; path = "HyphenateFullSDK/include/EMClient+Call.h"; sourceTree = "<group>"; };
-		39DDE6E9229FCF8EE9CEF618B41E128E /* MASConstraintMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraintMaker.h; path = Masonry/MASConstraintMaker.h; sourceTree = "<group>"; };
-		3A7B58C51346734C12401160DBF9DB92 /* EMGroup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroup.h; path = HyphenateFullSDK/include/EMGroup.h; sourceTree = "<group>"; };
-		3D28469B106E52F79763CD8618067099 /* EMClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMClient.h; path = HyphenateFullSDK/include/EMClient.h; sourceTree = "<group>"; };
-		3E8797441D4AA0BA0EC165CFD75839D4 /* EMGroupManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroupManagerDelegate.h; path = HyphenateFullSDK/include/EMGroupManagerDelegate.h; sourceTree = "<group>"; };
-		446C3D618D5187153AF85E4029DB7E84 /* EMTextMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMTextMessageBody.h; path = HyphenateFullSDK/include/EMTextMessageBody.h; sourceTree = "<group>"; };
+		200F65F55C8854AE33643CEA10F23309 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		21151AC31BB5BC47CB722A3C8D118C31 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		363FF4E179023C00FE2FB2EFFC53B75E /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallManagerDelegate.h; path = HyphenateFullSDK/include/EMCallManagerDelegate.h; sourceTree = "<group>"; };
+		3756A40EC48889C2A16553B7903862DB /* IEMGroupManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMGroupManager.h; path = HyphenateFullSDK/include/IEMGroupManager.h; sourceTree = "<group>"; };
+		3B3B20379F75D3EF7A35B45D441BAD5D /* EMVoiceMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMVoiceMessageBody.h; path = HyphenateFullSDK/include/EMVoiceMessageBody.h; sourceTree = "<group>"; };
+		4040D20DB32A5CD7E375C4057C07B96C /* EMCmdMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCmdMessageBody.h; path = HyphenateFullSDK/include/EMCmdMessageBody.h; sourceTree = "<group>"; };
+		404B46F73782D330A9D816FE71312EF3 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASCompositeConstraint.m; path = Masonry/MASCompositeConstraint.m; sourceTree = "<group>"; };
 		46A4C61BCBCC18A50A5842F94B3DFBF4 /* Pods-ColorLetter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ColorLetter.release.xcconfig"; sourceTree = "<group>"; };
-		510B74D6EFB3AC399B0559D51DE183CF /* BmobSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BmobSDK.framework; sourceTree = "<group>"; };
-		51E3FBAED32D37A608BB1062A0F99642 /* EMOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMOptions.h; path = HyphenateFullSDK/include/EMOptions.h; sourceTree = "<group>"; };
-		5300AD35D697E67DFAD5EEECE02E110E /* EMMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMMessageBody.h; path = HyphenateFullSDK/include/EMMessageBody.h; sourceTree = "<group>"; };
-		552BB0D2A37E9374192D099405D75984 /* MASConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Masonry/MASConstraint.h; sourceTree = "<group>"; };
-		58801315E6A74D9E95B0ACF7B950E031 /* EMVideoMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMVideoMessageBody.h; path = HyphenateFullSDK/include/EMVideoMessageBody.h; sourceTree = "<group>"; };
-		5B5949697D99EE4517D73EE53A1EF6A0 /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallManagerDelegate.h; path = HyphenateFullSDK/include/EMCallManagerDelegate.h; sourceTree = "<group>"; };
-		5CBAE9C116BE59A5EF0AC9A5D473B7BF /* MASCompositeConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Masonry/MASCompositeConstraint.h; sourceTree = "<group>"; };
-		5D9E67FC4BE5C48D7F424357DB4FDB1E /* EMGroupOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroupOptions.h; path = HyphenateFullSDK/include/EMGroupOptions.h; sourceTree = "<group>"; };
-		638A71FD7A51E10DFDF5A530CAFC912C /* EMCmdMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCmdMessageBody.h; path = HyphenateFullSDK/include/EMCmdMessageBody.h; sourceTree = "<group>"; };
-		65C24360D89CE7D172FF77329183D602 /* EMVoiceMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMVoiceMessageBody.h; path = HyphenateFullSDK/include/EMVoiceMessageBody.h; sourceTree = "<group>"; };
-		65DB6EF6635950444F74EB25B8CB6B1A /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
-		669CB71403F6C0E64271BED4A684DB02 /* OpenGLView20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OpenGLView20.h; path = HyphenateFullSDK/include/OpenGLView20.h; sourceTree = "<group>"; };
-		66B24573B174F371C7869B57961FEF35 /* IEMContactManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMContactManager.h; path = HyphenateFullSDK/include/IEMContactManager.h; sourceTree = "<group>"; };
-		6C1B968B64E8EE2A67C27DD7E341B24A /* EMCallLocalView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallLocalView.h; path = HyphenateFullSDK/include/EMCallLocalView.h; sourceTree = "<group>"; };
-		70FFBB671B109FB60A5A66F3F70B9D8B /* EMSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMSDK.h; path = HyphenateFullSDK/include/EMSDK.h; sourceTree = "<group>"; };
+		486AF6971D37FCBC4A26BD2183958268 /* EMOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMOptions.h; path = HyphenateFullSDK/include/EMOptions.h; sourceTree = "<group>"; };
+		4F5ADC2AF517950FD2256AF56D50087B /* MASConstraintMaker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraintMaker.m; path = Masonry/MASConstraintMaker.m; sourceTree = "<group>"; };
+		519389784DBF9ED528F58056C62F433D /* View+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Masonry/View+MASAdditions.m"; sourceTree = "<group>"; };
+		53B54EA1235DDEF4A4C470202086FDD3 /* EMClient+Call.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EMClient+Call.h"; path = "HyphenateFullSDK/include/EMClient+Call.h"; sourceTree = "<group>"; };
+		5671D002323B2F05A138429EF0A00CD6 /* EMSDKFull.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMSDKFull.h; path = HyphenateFullSDK/include/EMSDKFull.h; sourceTree = "<group>"; };
+		5C1C876A8D945F563AE000F99E4F9643 /* EMImageMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMImageMessageBody.h; path = HyphenateFullSDK/include/EMImageMessageBody.h; sourceTree = "<group>"; };
+		63B4490CDCCC8B087019D78D8486381B /* EMGroupManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroupManagerDelegate.h; path = HyphenateFullSDK/include/EMGroupManagerDelegate.h; sourceTree = "<group>"; };
+		66432301AD4D8385752A72F39A7E0B09 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASAdditions.h"; path = "Masonry/NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		6AA730CF1162F55157137915E408D2D5 /* MASViewAttribute.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Masonry/MASViewAttribute.m; sourceTree = "<group>"; };
+		6B10F955588B24C3F18EE4A37F741915 /* EMChatroom.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatroom.h; path = HyphenateFullSDK/include/EMChatroom.h; sourceTree = "<group>"; };
+		6F5043055B75A24E280CE64670803BAA /* EMVideoMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMVideoMessageBody.h; path = HyphenateFullSDK/include/EMVideoMessageBody.h; sourceTree = "<group>"; };
+		70ACCA2B5B60A9D3D53BF69345AA39C4 /* EMGroupOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroupOptions.h; path = HyphenateFullSDK/include/EMGroupOptions.h; sourceTree = "<group>"; };
+		717D824D2FB4DA9BB6431668A7091F17 /* EMCallRemoteView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallRemoteView.h; path = HyphenateFullSDK/include/EMCallRemoteView.h; sourceTree = "<group>"; };
 		749DE49A633E07FD24DD17971E7A43CD /* libMasonry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMasonry.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		75FE809870825A55BEA102C9739FEE28 /* IEMCallManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMCallManager.h; path = HyphenateFullSDK/include/IEMCallManager.h; sourceTree = "<group>"; };
-		7D06A3135057300995B3DD94FC92C1E4 /* Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-prefix.pch"; sourceTree = "<group>"; };
-		855D5F54998FF1C03A9BC2D9E254EC98 /* EMChatroom.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatroom.h; path = HyphenateFullSDK/include/EMChatroom.h; sourceTree = "<group>"; };
-		87D198FF2FAACA5DC79EF1F1EF5A753C /* Masonry.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Masonry.h; path = Masonry/Masonry.h; sourceTree = "<group>"; };
+		76FB2F3E9E6D47B9D8F0F22EBDC01C4C /* Masonry.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Masonry.xcconfig; sourceTree = "<group>"; };
+		78A2895DB73D367553AB61128600E4C0 /* EMContactManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMContactManagerDelegate.h; path = HyphenateFullSDK/include/EMContactManagerDelegate.h; sourceTree = "<group>"; };
+		796EFAAC7B146F27853E989CED1C3DF8 /* MASConstraintMaker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraintMaker.h; path = Masonry/MASConstraintMaker.h; sourceTree = "<group>"; };
+		7E2CE8390DB7B04450B7C9D70BC202D2 /* EMMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMMessageBody.h; path = HyphenateFullSDK/include/EMMessageBody.h; sourceTree = "<group>"; };
+		7EDB0FF4367A472C3A989DA40C4118A6 /* EMError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMError.h; path = HyphenateFullSDK/include/EMError.h; sourceTree = "<group>"; };
+		812E533B070C726287FC13ADF886A633 /* EMMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMMessage.h; path = HyphenateFullSDK/include/EMMessage.h; sourceTree = "<group>"; };
+		83938FDEEBE72A421FD31FC5EC1951BB /* EMOptions+PrivateDeploy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EMOptions+PrivateDeploy.h"; path = "HyphenateFullSDK/include/EMOptions+PrivateDeploy.h"; sourceTree = "<group>"; };
+		86C0E85DD5ABB60F04F1AABBC3B48B19 /* EMErrorCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMErrorCode.h; path = HyphenateFullSDK/include/EMErrorCode.h; sourceTree = "<group>"; };
 		8AA0C9B9B5ECED25EAB8A3E92D7C95A2 /* Pods-ColorLetter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ColorLetter.debug.xcconfig"; sourceTree = "<group>"; };
-		8C4C4DAEE6ABE29715DD06141619907C /* EMPushOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMPushOptions.h; path = HyphenateFullSDK/include/EMPushOptions.h; sourceTree = "<group>"; };
-		8DCB497E959C8846DCE893BB21550B21 /* EMCallSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallSession.h; path = HyphenateFullSDK/include/EMCallSession.h; sourceTree = "<group>"; };
-		8F1DF638792FE139B3D7C27D88D0FE98 /* IEMChatManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMChatManager.h; path = HyphenateFullSDK/include/IEMChatManager.h; sourceTree = "<group>"; };
-		91542A976EA4732D47B0564D9BC16B34 /* EMOptions+PrivateDeploy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "EMOptions+PrivateDeploy.h"; path = "HyphenateFullSDK/include/EMOptions+PrivateDeploy.h"; sourceTree = "<group>"; };
+		8CB3B0652F412C8C02A8245684BDD104 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		91D4EBB73305AF2651BB57F5FF1DD2F7 /* MASViewConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASViewConstraint.h; path = Masonry/MASViewConstraint.h; sourceTree = "<group>"; };
+		93668B599C2377CE7ADED5F187D3A6A3 /* EMChatroomManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatroomManagerDelegate.h; path = HyphenateFullSDK/include/EMChatroomManagerDelegate.h; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		940A884DA981660439A6EEB9A1F2A855 /* IEMGroupManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMGroupManager.h; path = HyphenateFullSDK/include/IEMGroupManager.h; sourceTree = "<group>"; };
-		96CF1773049EE664A6298413B9E11E4F /* EMLocationMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMLocationMessageBody.h; path = HyphenateFullSDK/include/EMLocationMessageBody.h; sourceTree = "<group>"; };
-		9B3EF852D2679EBB19FBE18F65AEF935 /* EMImageMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMImageMessageBody.h; path = HyphenateFullSDK/include/EMImageMessageBody.h; sourceTree = "<group>"; };
-		9C42B22A3205C070723D8F13B0AE1F7D /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
-		9CEB98BDE86EA30F56D6A07AA9BC61A0 /* libHyphenateFullSDK.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libHyphenateFullSDK.a; path = HyphenateFullSDK/lib/libHyphenateFullSDK.a; sourceTree = "<group>"; };
-		9D35D6C3EBB804F064F01D33CA9BD758 /* EMContactManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMContactManagerDelegate.h; path = HyphenateFullSDK/include/EMContactManagerDelegate.h; sourceTree = "<group>"; };
+		97EA97FF3F720F98B77F0EF35A0A351E /* EMGroup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMGroup.h; path = HyphenateFullSDK/include/EMGroup.h; sourceTree = "<group>"; };
+		9DC3135ED957AD5CC367C0C7F7CC5DD9 /* IEMContactManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMContactManager.h; path = HyphenateFullSDK/include/IEMContactManager.h; sourceTree = "<group>"; };
+		9E5D1BB96891CA458F09CD95CB572514 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASLayoutConstraint.h; path = Masonry/MASLayoutConstraint.h; sourceTree = "<group>"; };
+		9E887668B8D1607421EB0D71880B91EA /* EMPushOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMPushOptions.h; path = HyphenateFullSDK/include/EMPushOptions.h; sourceTree = "<group>"; };
+		9EAC8DA50B50033D525578B7CBB7B758 /* IEMCallManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMCallManager.h; path = HyphenateFullSDK/include/IEMCallManager.h; sourceTree = "<group>"; };
+		9FF30B5A3DDD5D1F57C5C2FCB6BFDA37 /* EMClientDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMClientDelegate.h; path = HyphenateFullSDK/include/EMClientDelegate.h; sourceTree = "<group>"; };
+		A26C9CBE1B1FF60E06C0BE6A7A813849 /* EMSDK.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMSDK.h; path = HyphenateFullSDK/include/EMSDK.h; sourceTree = "<group>"; };
 		A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		A3DC77FED972D11167FEE9B4F2368C5C /* EMMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMMessage.h; path = HyphenateFullSDK/include/EMMessage.h; sourceTree = "<group>"; };
-		A421F108FFD134CDDC3D22CCA21E2CEB /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MASShorthandAdditions.h"; path = "Masonry/NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		A5ED977BBE86CA0A66ABACEE04F04330 /* EMSDKFull.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMSDKFull.h; path = HyphenateFullSDK/include/EMSDKFull.h; sourceTree = "<group>"; };
+		A4EEB1C1AEA37660F6FF1FA55D5C20C2 /* MASViewConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Masonry/MASViewConstraint.m; sourceTree = "<group>"; };
 		A71D080417B27BD20257BB66583DB1C1 /* libPods-ColorLetter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ColorLetter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFD7C8FA3A3AFE9BBBE3EA41E3A6A263 /* Masonry.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Masonry.xcconfig; sourceTree = "<group>"; };
-		B77D262F709094592ADF7EC4720F5156 /* EMClientDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMClientDelegate.h; path = HyphenateFullSDK/include/EMClientDelegate.h; sourceTree = "<group>"; };
+		AB32A4826FFDCF8AE52188EF4DC9D0BE /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
+		ACAC1890A574B61E8591ACA0FA14771F /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
+		B1ABFB21AA2F71A6CFEB536737280F0D /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ViewController+MASAdditions.h"; path = "Masonry/ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		B31F52E164DF8C7C3821ADCF15148D04 /* EMCallLocalView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallLocalView.h; path = HyphenateFullSDK/include/EMCallLocalView.h; sourceTree = "<group>"; };
+		B42DE2C411D0FCCE6715E1B8DB629705 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		B88D0159AF0038BDBD4C4CAEA695E916 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASCompositeConstraint.h; path = Masonry/MASCompositeConstraint.h; sourceTree = "<group>"; };
 		B92834158CF41CB436E76107CD1C780F /* Pods-ColorLetter-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ColorLetter-dummy.m"; sourceTree = "<group>"; };
-		BC04F96C0B9A587BAEE38F99AB6BC1F5 /* Masonry-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Masonry-dummy.m"; sourceTree = "<group>"; };
-		BCE5B3662F707C64605C7741A4A80455 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASCompositeConstraint.m; path = Masonry/MASCompositeConstraint.m; sourceTree = "<group>"; };
-		C1819DA6B87B88478E79AFA177791D27 /* View+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "View+MASAdditions.m"; path = "Masonry/View+MASAdditions.m"; sourceTree = "<group>"; };
-		C51F7985B9C2911045781F8BCBADD921 /* MASConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Masonry/MASConstraint.m; sourceTree = "<group>"; };
-		CB22C07945D754C31322418E0CC3755E /* MASConstraintMaker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraintMaker.m; path = Masonry/MASConstraintMaker.m; sourceTree = "<group>"; };
-		CDEE00B2AB45E11B547A8EF4813E8D91 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSLayoutConstraint+MASDebugAdditions.m"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
-		D46B35C8D486615DAFB0B4F0C4C59719 /* IEMChatroomManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMChatroomManager.h; path = HyphenateFullSDK/include/IEMChatroomManager.h; sourceTree = "<group>"; };
-		D8D605C7BBAC19E18167F628AAACD747 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
-		D9A14D67E5236A963043899BBF72FC3A /* EMErrorCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMErrorCode.h; path = HyphenateFullSDK/include/EMErrorCode.h; sourceTree = "<group>"; };
-		DBCC858C20065B07DBA7E9B008B44A95 /* MASViewAttribute.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Masonry/MASViewAttribute.m; sourceTree = "<group>"; };
-		DEE9ADD0B53F0CC9E27946C18338E084 /* EMCursorResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCursorResult.h; path = HyphenateFullSDK/include/EMCursorResult.h; sourceTree = "<group>"; };
-		DF0848EB24DB618AE74228B12875FD02 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		C148D83DAEAFBBE5C3A3AAD86253008D /* Masonry-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Masonry-dummy.m"; sourceTree = "<group>"; };
+		C645D9B1D91F9BC20D7A5C5A82AD04C7 /* OpenGLView20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OpenGLView20.h; path = HyphenateFullSDK/include/OpenGLView20.h; sourceTree = "<group>"; };
+		CFC4BB1093A759134BD21766DEE72453 /* MASConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASConstraint.m; path = Masonry/MASConstraint.m; sourceTree = "<group>"; };
+		D2DDAFAAC120F4B406BF8EF5A9F45324 /* EMCallSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCallSession.h; path = HyphenateFullSDK/include/EMCallSession.h; sourceTree = "<group>"; };
+		D502675E7A8D288D18D23662EA23A295 /* EMChatManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatManagerDelegate.h; path = HyphenateFullSDK/include/EMChatManagerDelegate.h; sourceTree = "<group>"; };
+		D57094C3D154955BF3F632D383D9A628 /* EMFileMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMFileMessageBody.h; path = HyphenateFullSDK/include/EMFileMessageBody.h; sourceTree = "<group>"; };
+		D671D2A224967F5010A8362E317F6F8A /* MASLayoutConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASLayoutConstraint.m; path = Masonry/MASLayoutConstraint.m; sourceTree = "<group>"; };
+		E04D0EB0669A657E640F4A00F4D90553 /* EMCursorResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMCursorResult.h; path = HyphenateFullSDK/include/EMCursorResult.h; sourceTree = "<group>"; };
 		E1FBAB262144F73B07DF65665E8E0E60 /* Pods-ColorLetter-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ColorLetter-acknowledgements.markdown"; sourceTree = "<group>"; };
-		E3FA239F7B5EE89236548C884C4E582B /* MASViewConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewConstraint.m; path = Masonry/MASViewConstraint.m; sourceTree = "<group>"; };
-		E43211CC5C5FAA38AFC39AAFB7CC03E2 /* EMChatroomManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMChatroomManagerDelegate.h; path = HyphenateFullSDK/include/EMChatroomManagerDelegate.h; sourceTree = "<group>"; };
+		E5D7D833A53F7F6435AB4519F168A44B /* Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-prefix.pch"; sourceTree = "<group>"; };
 		E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		EA801E7AA4D452170EE38735F4A884E1 /* IEMChatManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IEMChatManager.h; path = HyphenateFullSDK/include/IEMChatManager.h; sourceTree = "<group>"; };
 		EBF3A7663BB55338C79BE33278D3A0D1 /* Pods-ColorLetter-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ColorLetter-resources.sh"; sourceTree = "<group>"; };
-		ECADA006B41BF8EE5E17ED1FBDC79E34 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASLayoutConstraint.h; path = Masonry/MASLayoutConstraint.h; sourceTree = "<group>"; };
-		ECD87F45966D5BDE98D7C9031CE3DC6C /* MASLayoutConstraint.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASLayoutConstraint.m; path = Masonry/MASLayoutConstraint.m; sourceTree = "<group>"; };
+		EF91AC5D74AD5D1C507FBF141B821DF8 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSLayoutConstraint+MASDebugAdditions.h"; path = "Masonry/NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
 		F00EDF5159ECB7AAEA590C8E4E16A7E2 /* Pods-ColorLetter-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ColorLetter-frameworks.sh"; sourceTree = "<group>"; };
-		FEFF3F185BBCA51A591EE3B59BD4AA6B /* EMConversation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMConversation.h; path = HyphenateFullSDK/include/EMConversation.h; sourceTree = "<group>"; };
+		F316CC4C8A7FDB1253751659BD5DDCD9 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ViewController+MASAdditions.m"; path = "Masonry/ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		F88A2785FB5E2E79B2E1724774CC325E /* View+MASAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASAdditions.h"; path = "Masonry/View+MASAdditions.h"; sourceTree = "<group>"; };
+		F9FD49B4F4307372957C6D608634AD9A /* EMConversation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMConversation.h; path = HyphenateFullSDK/include/EMConversation.h; sourceTree = "<group>"; };
+		FB62EECEA1F778E862112E53015EC3F5 /* EMTextMessageBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = EMTextMessageBody.h; path = HyphenateFullSDK/include/EMTextMessageBody.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,45 +152,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		28DD55651883979969574205DD0EB8C8 /* Frameworks */ = {
+		0332412D3474D8167952C9F3BD1966E7 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				9CEB98BDE86EA30F56D6A07AA9BC61A0 /* libHyphenateFullSDK.a */,
+				76FB2F3E9E6D47B9D8F0F22EBDC01C4C /* Masonry.xcconfig */,
+				C148D83DAEAFBBE5C3A3AAD86253008D /* Masonry-dummy.m */,
+				E5D7D833A53F7F6435AB4519F168A44B /* Masonry-prefix.pch */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2ED815F85BBADE14E32A7F5E42F3CEC2 /* Masonry */ = {
-			isa = PBXGroup;
-			children = (
-				5CBAE9C116BE59A5EF0AC9A5D473B7BF /* MASCompositeConstraint.h */,
-				BCE5B3662F707C64605C7741A4A80455 /* MASCompositeConstraint.m */,
-				552BB0D2A37E9374192D099405D75984 /* MASConstraint.h */,
-				C51F7985B9C2911045781F8BCBADD921 /* MASConstraint.m */,
-				0DD9DEE4B1684D013917E5108EAEB7D4 /* MASConstraint+Private.h */,
-				39DDE6E9229FCF8EE9CEF618B41E128E /* MASConstraintMaker.h */,
-				CB22C07945D754C31322418E0CC3755E /* MASConstraintMaker.m */,
-				ECADA006B41BF8EE5E17ED1FBDC79E34 /* MASLayoutConstraint.h */,
-				ECD87F45966D5BDE98D7C9031CE3DC6C /* MASLayoutConstraint.m */,
-				87D198FF2FAACA5DC79EF1F1EF5A753C /* Masonry.h */,
-				65DB6EF6635950444F74EB25B8CB6B1A /* MASUtilities.h */,
-				02D874034BC72C94D1177734DBC12931 /* MASViewAttribute.h */,
-				DBCC858C20065B07DBA7E9B008B44A95 /* MASViewAttribute.m */,
-				2D6805AF5E2DF8EA2DB60920E0B32595 /* MASViewConstraint.h */,
-				E3FA239F7B5EE89236548C884C4E582B /* MASViewConstraint.m */,
-				0712668F4F271447F3A08F6FAE717E98 /* NSArray+MASAdditions.h */,
-				055DB1207AC4916AF991ECA023F09F7D /* NSArray+MASAdditions.m */,
-				A421F108FFD134CDDC3D22CCA21E2CEB /* NSArray+MASShorthandAdditions.h */,
-				9C42B22A3205C070723D8F13B0AE1F7D /* NSLayoutConstraint+MASDebugAdditions.h */,
-				CDEE00B2AB45E11B547A8EF4813E8D91 /* NSLayoutConstraint+MASDebugAdditions.m */,
-				18FE89D5C6588F3E0024F0FACDEBB06D /* View+MASAdditions.h */,
-				C1819DA6B87B88478E79AFA177791D27 /* View+MASAdditions.m */,
-				DF0848EB24DB618AE74228B12875FD02 /* View+MASShorthandAdditions.h */,
-				04A9B11D7D8E8A3A2BBF7EF0F3FC1221 /* ViewController+MASAdditions.h */,
-				D8D605C7BBAC19E18167F628AAACD747 /* ViewController+MASAdditions.m */,
-				C71CBD42F7586995FFE98FCD1F99985F /* Support Files */,
-			);
-			path = Masonry;
+			name = "Support Files";
+			path = "../Target Support Files/Masonry";
 			sourceTree = "<group>";
 		};
 		376C8067084DB934053B2E2FDAE58428 /* Targets Support Files */ = {
@@ -210,6 +179,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4AF97842007855DC35E1841F5E494D1A /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				B88D0159AF0038BDBD4C4CAEA695E916 /* MASCompositeConstraint.h */,
+				404B46F73782D330A9D816FE71312EF3 /* MASCompositeConstraint.m */,
+				10134AEF4383DF99FC8E494E848139FC /* MASConstraint.h */,
+				CFC4BB1093A759134BD21766DEE72453 /* MASConstraint.m */,
+				ACAC1890A574B61E8591ACA0FA14771F /* MASConstraint+Private.h */,
+				796EFAAC7B146F27853E989CED1C3DF8 /* MASConstraintMaker.h */,
+				4F5ADC2AF517950FD2256AF56D50087B /* MASConstraintMaker.m */,
+				9E5D1BB96891CA458F09CD95CB572514 /* MASLayoutConstraint.h */,
+				D671D2A224967F5010A8362E317F6F8A /* MASLayoutConstraint.m */,
+				1204A6AB287FDFBABCF086420C2E7B99 /* Masonry.h */,
+				AB32A4826FFDCF8AE52188EF4DC9D0BE /* MASUtilities.h */,
+				1297EC1AC2318D4D71E5348E29F46964 /* MASViewAttribute.h */,
+				6AA730CF1162F55157137915E408D2D5 /* MASViewAttribute.m */,
+				91D4EBB73305AF2651BB57F5FF1DD2F7 /* MASViewConstraint.h */,
+				A4EEB1C1AEA37660F6FF1FA55D5C20C2 /* MASViewConstraint.m */,
+				66432301AD4D8385752A72F39A7E0B09 /* NSArray+MASAdditions.h */,
+				B42DE2C411D0FCCE6715E1B8DB629705 /* NSArray+MASAdditions.m */,
+				8CB3B0652F412C8C02A8245684BDD104 /* NSArray+MASShorthandAdditions.h */,
+				EF91AC5D74AD5D1C507FBF141B821DF8 /* NSLayoutConstraint+MASDebugAdditions.h */,
+				21151AC31BB5BC47CB722A3C8D118C31 /* NSLayoutConstraint+MASDebugAdditions.m */,
+				F88A2785FB5E2E79B2E1724774CC325E /* View+MASAdditions.h */,
+				519389784DBF9ED528F58056C62F433D /* View+MASAdditions.m */,
+				200F65F55C8854AE33643CEA10F23309 /* View+MASShorthandAdditions.h */,
+				B1ABFB21AA2F71A6CFEB536737280F0D /* ViewController+MASAdditions.h */,
+				F316CC4C8A7FDB1253751659BD5DDCD9 /* ViewController+MASAdditions.m */,
+				0332412D3474D8167952C9F3BD1966E7 /* Support Files */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
 		6FFCF947BC78EF0C0E676B195E514597 /* Pods-ColorLetter */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,20 +227,56 @@
 			path = "Target Support Files/Pods-ColorLetter";
 			sourceTree = "<group>";
 		};
-		75FC959497462C1FCF15FD2C34F22352 /* Pods */ = {
+		7A30D1FDF1235F46DD45B56115CC50EA /* HyphenateFullSDK */ = {
 			isa = PBXGroup;
 			children = (
-				F1789A068DCF55F803708EDC224EBC74 /* BmobSDK */,
-				F79D4D63A025CB9B4E2D519E3DADD4A0 /* HyphenateFullSDK */,
-				2ED815F85BBADE14E32A7F5E42F3CEC2 /* Masonry */,
+				B31F52E164DF8C7C3821ADCF15148D04 /* EMCallLocalView.h */,
+				363FF4E179023C00FE2FB2EFFC53B75E /* EMCallManagerDelegate.h */,
+				717D824D2FB4DA9BB6431668A7091F17 /* EMCallRemoteView.h */,
+				D2DDAFAAC120F4B406BF8EF5A9F45324 /* EMCallSession.h */,
+				D502675E7A8D288D18D23662EA23A295 /* EMChatManagerDelegate.h */,
+				6B10F955588B24C3F18EE4A37F741915 /* EMChatroom.h */,
+				93668B599C2377CE7ADED5F187D3A6A3 /* EMChatroomManagerDelegate.h */,
+				0E1A09ADB1E8D04A64467506A1A1DF83 /* EMClient.h */,
+				53B54EA1235DDEF4A4C470202086FDD3 /* EMClient+Call.h */,
+				9FF30B5A3DDD5D1F57C5C2FCB6BFDA37 /* EMClientDelegate.h */,
+				4040D20DB32A5CD7E375C4057C07B96C /* EMCmdMessageBody.h */,
+				78A2895DB73D367553AB61128600E4C0 /* EMContactManagerDelegate.h */,
+				F9FD49B4F4307372957C6D608634AD9A /* EMConversation.h */,
+				E04D0EB0669A657E640F4A00F4D90553 /* EMCursorResult.h */,
+				7EDB0FF4367A472C3A989DA40C4118A6 /* EMError.h */,
+				86C0E85DD5ABB60F04F1AABBC3B48B19 /* EMErrorCode.h */,
+				D57094C3D154955BF3F632D383D9A628 /* EMFileMessageBody.h */,
+				97EA97FF3F720F98B77F0EF35A0A351E /* EMGroup.h */,
+				63B4490CDCCC8B087019D78D8486381B /* EMGroupManagerDelegate.h */,
+				70ACCA2B5B60A9D3D53BF69345AA39C4 /* EMGroupOptions.h */,
+				5C1C876A8D945F563AE000F99E4F9643 /* EMImageMessageBody.h */,
+				0CE772E2BAADB93289A09E623B5884FB /* EMLocationMessageBody.h */,
+				812E533B070C726287FC13ADF886A633 /* EMMessage.h */,
+				7E2CE8390DB7B04450B7C9D70BC202D2 /* EMMessageBody.h */,
+				486AF6971D37FCBC4A26BD2183958268 /* EMOptions.h */,
+				83938FDEEBE72A421FD31FC5EC1951BB /* EMOptions+PrivateDeploy.h */,
+				9E887668B8D1607421EB0D71880B91EA /* EMPushOptions.h */,
+				A26C9CBE1B1FF60E06C0BE6A7A813849 /* EMSDK.h */,
+				5671D002323B2F05A138429EF0A00CD6 /* EMSDKFull.h */,
+				FB62EECEA1F778E862112E53015EC3F5 /* EMTextMessageBody.h */,
+				6F5043055B75A24E280CE64670803BAA /* EMVideoMessageBody.h */,
+				3B3B20379F75D3EF7A35B45D441BAD5D /* EMVoiceMessageBody.h */,
+				9EAC8DA50B50033D525578B7CBB7B758 /* IEMCallManager.h */,
+				EA801E7AA4D452170EE38735F4A884E1 /* IEMChatManager.h */,
+				0C7D0EC05B88472C4B2468A2F62C87E7 /* IEMChatroomManager.h */,
+				9DC3135ED957AD5CC367C0C7F7CC5DD9 /* IEMContactManager.h */,
+				3756A40EC48889C2A16553B7903862DB /* IEMGroupManager.h */,
+				C645D9B1D91F9BC20D7A5C5A82AD04C7 /* OpenGLView20.h */,
+				7A43CE15E21F6E54E163FD0F41404514 /* Frameworks */,
 			);
-			name = Pods;
+			path = HyphenateFullSDK;
 			sourceTree = "<group>";
 		};
-		77E926A97A824B7E760CC0CAC648B224 /* Frameworks */ = {
+		7A43CE15E21F6E54E163FD0F41404514 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				510B74D6EFB3AC399B0559D51DE183CF /* BmobSDK.framework */,
+				16DB42D6502DD133C9C27422AE1B7CDB /* libHyphenateFullSDK.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -248,7 +286,7 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				75FC959497462C1FCF15FD2C34F22352 /* Pods */,
+				EABCC53C4579EC10AFA35399695BF052 /* Pods */,
 				8BC202D61413356E257107D89BDBDE76 /* Products */,
 				376C8067084DB934053B2E2FDAE58428 /* Targets Support Files */,
 			);
@@ -263,23 +301,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C71CBD42F7586995FFE98FCD1F99985F /* Support Files */ = {
+		EABCC53C4579EC10AFA35399695BF052 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AFD7C8FA3A3AFE9BBBE3EA41E3A6A263 /* Masonry.xcconfig */,
-				BC04F96C0B9A587BAEE38F99AB6BC1F5 /* Masonry-dummy.m */,
-				7D06A3135057300995B3DD94FC92C1E4 /* Masonry-prefix.pch */,
+				7A30D1FDF1235F46DD45B56115CC50EA /* HyphenateFullSDK */,
+				4AF97842007855DC35E1841F5E494D1A /* Masonry */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Masonry";
-			sourceTree = "<group>";
-		};
-		F1789A068DCF55F803708EDC224EBC74 /* BmobSDK */ = {
-			isa = PBXGroup;
-			children = (
-				77E926A97A824B7E760CC0CAC648B224 /* Frameworks */,
-			);
-			path = BmobSDK;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		F302CD3B306AF1ED96B9AF31FCDBC26C /* iOS */ = {
@@ -289,52 +317,6 @@
 				E86668F20F252C440D1015B816BE59C5 /* UIKit.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		F79D4D63A025CB9B4E2D519E3DADD4A0 /* HyphenateFullSDK */ = {
-			isa = PBXGroup;
-			children = (
-				6C1B968B64E8EE2A67C27DD7E341B24A /* EMCallLocalView.h */,
-				5B5949697D99EE4517D73EE53A1EF6A0 /* EMCallManagerDelegate.h */,
-				31BCBF30B5A7EE6F90EAE6C0EDFC3EA2 /* EMCallRemoteView.h */,
-				8DCB497E959C8846DCE893BB21550B21 /* EMCallSession.h */,
-				0CDEB4428B8826197EF6A024487C2E07 /* EMChatManagerDelegate.h */,
-				855D5F54998FF1C03A9BC2D9E254EC98 /* EMChatroom.h */,
-				E43211CC5C5FAA38AFC39AAFB7CC03E2 /* EMChatroomManagerDelegate.h */,
-				3D28469B106E52F79763CD8618067099 /* EMClient.h */,
-				391DBD14A7F1E948C8C7E9268CF13F17 /* EMClient+Call.h */,
-				B77D262F709094592ADF7EC4720F5156 /* EMClientDelegate.h */,
-				638A71FD7A51E10DFDF5A530CAFC912C /* EMCmdMessageBody.h */,
-				9D35D6C3EBB804F064F01D33CA9BD758 /* EMContactManagerDelegate.h */,
-				FEFF3F185BBCA51A591EE3B59BD4AA6B /* EMConversation.h */,
-				DEE9ADD0B53F0CC9E27946C18338E084 /* EMCursorResult.h */,
-				018F2B64D44FAB22F3DE4A1BD938FBD7 /* EMError.h */,
-				D9A14D67E5236A963043899BBF72FC3A /* EMErrorCode.h */,
-				24B3C3698C9C7B44470148F64CE3C7F0 /* EMFileMessageBody.h */,
-				3A7B58C51346734C12401160DBF9DB92 /* EMGroup.h */,
-				3E8797441D4AA0BA0EC165CFD75839D4 /* EMGroupManagerDelegate.h */,
-				5D9E67FC4BE5C48D7F424357DB4FDB1E /* EMGroupOptions.h */,
-				9B3EF852D2679EBB19FBE18F65AEF935 /* EMImageMessageBody.h */,
-				96CF1773049EE664A6298413B9E11E4F /* EMLocationMessageBody.h */,
-				A3DC77FED972D11167FEE9B4F2368C5C /* EMMessage.h */,
-				5300AD35D697E67DFAD5EEECE02E110E /* EMMessageBody.h */,
-				51E3FBAED32D37A608BB1062A0F99642 /* EMOptions.h */,
-				91542A976EA4732D47B0564D9BC16B34 /* EMOptions+PrivateDeploy.h */,
-				8C4C4DAEE6ABE29715DD06141619907C /* EMPushOptions.h */,
-				70FFBB671B109FB60A5A66F3F70B9D8B /* EMSDK.h */,
-				A5ED977BBE86CA0A66ABACEE04F04330 /* EMSDKFull.h */,
-				446C3D618D5187153AF85E4029DB7E84 /* EMTextMessageBody.h */,
-				58801315E6A74D9E95B0ACF7B950E031 /* EMVideoMessageBody.h */,
-				65C24360D89CE7D172FF77329183D602 /* EMVoiceMessageBody.h */,
-				75FE809870825A55BEA102C9739FEE28 /* IEMCallManager.h */,
-				8F1DF638792FE139B3D7C27D88D0FE98 /* IEMChatManager.h */,
-				D46B35C8D486615DAFB0B4F0C4C59719 /* IEMChatroomManager.h */,
-				66B24573B174F371C7869B57961FEF35 /* IEMContactManager.h */,
-				940A884DA981660439A6EEB9A1F2A855 /* IEMGroupManager.h */,
-				669CB71403F6C0E64271BED4A684DB02 /* OpenGLView20.h */,
-				28DD55651883979969574205DD0EB8C8 /* Frameworks */,
-			);
-			path = HyphenateFullSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -467,7 +449,7 @@
 /* Begin XCBuildConfiguration section */
 		2DAE732D13CB652A1ECC83370B3C00E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AFD7C8FA3A3AFE9BBBE3EA41E3A6A263 /* Masonry.xcconfig */;
+			baseConfigurationReference = 76FB2F3E9E6D47B9D8F0F22EBDC01C4C /* Masonry.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -526,7 +508,7 @@
 		};
 		903FBF203C5658B140DF3CBEF5D2090D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AFD7C8FA3A3AFE9BBBE3EA41E3A6A263 /* Masonry.xcconfig */;
+			baseConfigurationReference = 76FB2F3E9E6D47B9D8F0F22EBDC01C4C /* Masonry.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
