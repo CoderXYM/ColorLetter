@@ -67,12 +67,10 @@
         
         //气泡上的文字
         _leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 160, 30)];
-        _leftLabel.text = @"lalala 德玛西亚~";
         _leftLabel.numberOfLines = 0;
         [_leftBubble addSubview:_leftLabel];
         
         _rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 160, 30)];
-        _rightLabel.text = @"啦啦啦啦啦啦";
         _rightLabel.numberOfLines = 0;
         [_rightBubble addSubview:_rightLabel];
     }
@@ -84,6 +82,23 @@
     //根据文字确定显示大小
     CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
     if (model.isSelf) {
+        //只显示右侧气泡
+        self.leftBubble.hidden = YES;
+        self.rightBubble.hidden = NO;
+        self.leftIconImageView.hidden = YES;
+        self.rightIconImageView.hidden = NO;
+        self.leftName.hidden = YES;
+        self.rightName.hidden = NO;
+        
+        
+        self.rightLabel.text = model.context;
+        self.rightName.text = model.fromUser;
+        //调整坐标 根据label文字自适应
+        self.rightLabel.frame = CGRectMake(10, 15, size.width, size.height);
+        self.rightBubble.frame = CGRectMake(WIDTH - size.width - 30 - 50, 0, size.width + 30, size.height + 30);
+       
+    }else{
+        
         //只显示左侧气泡
         self.leftBubble.hidden = NO;
         self.rightBubble.hidden = YES;
@@ -95,19 +110,6 @@
         self.leftName.text = model.fromUser;
         self.leftLabel.frame = CGRectMake(15, 15, size.width, size.height);
         self.leftBubble.frame = CGRectMake(50, 0, size.width + 30, size.height + 30);
-    }else{
-        //只显示右侧气泡
-        self.leftBubble.hidden = YES;
-        self.rightBubble.hidden = NO;
-        self.leftIconImageView.hidden = YES;
-        self.rightIconImageView.hidden = NO;
-        self.leftName.hidden = YES;
-        self.rightName.hidden = NO;
-        self.rightLabel.text = model.context;
-        self.rightName.text = model.fromUser;
-        //调整坐标 根据label文字自适应
-        self.rightLabel.frame = CGRectMake(10, 15, size.width, size.height);
-        self.rightBubble.frame = CGRectMake(WIDTH - size.width - 30 - 50, 0, size.width + 30, size.height + 30);
     }
     
 }

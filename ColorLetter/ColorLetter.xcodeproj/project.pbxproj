@@ -173,10 +173,11 @@
 		49CE08B11DC0C1F70022B6B8 /* EaseRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE08391DC0C1F70022B6B8 /* EaseRecordView.m */; };
 		49CE08B21DC0C1F70022B6B8 /* EaseConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE083C1DC0C1F70022B6B8 /* EaseConversationCell.m */; };
 		49CE08B51DC0D6D80022B6B8 /* EaseUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */; };
-		49CE08BD1DC0E5BF0022B6B8 /* FZY_KeyboardShowHiddenNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE08BC1DC0E5BF0022B6B8 /* FZY_KeyboardShowHiddenNotificationCenter.m */; };
 		49CEFED41DC0519F0022B6B8 /* FZY_FriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */; };
 		49DF16D31DC36E3F0004F541 /* FZY_ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF16D21DC36E3F0004F541 /* FZY_ChatViewController.m */; };
 		49E640261DC0493000149AF1 /* FZY_FriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */; };
+		49FAD61B1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */; };
+		49FAD61E1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FAD61D1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -521,13 +522,15 @@
 		49CE083B1DC0C1F70022B6B8 /* EaseConversationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EaseConversationCell.h; sourceTree = "<group>"; };
 		49CE083C1DC0C1F70022B6B8 /* EaseConversationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EaseConversationCell.m; sourceTree = "<group>"; };
 		49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseUIResource.bundle; sourceTree = "<group>"; };
-		49CE08BB1DC0E5BF0022B6B8 /* FZY_KeyboardShowHiddenNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_KeyboardShowHiddenNotificationCenter.h; sourceTree = "<group>"; };
-		49CE08BC1DC0E5BF0022B6B8 /* FZY_KeyboardShowHiddenNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_KeyboardShowHiddenNotificationCenter.m; sourceTree = "<group>"; };
 		49CEFED21DC0519F0022B6B8 /* FZY_FriendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendsModel.h; sourceTree = "<group>"; };
 		49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendsModel.m; sourceTree = "<group>"; };
 		49DF16D21DC36E3F0004F541 /* FZY_ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatViewController.m; sourceTree = "<group>"; };
 		49E640241DC0493000149AF1 /* FZY_FriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendRequestViewController.h; sourceTree = "<group>"; };
 		49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendRequestViewController.m; sourceTree = "<group>"; };
+		49FAD6191DC41F6B00636D62 /* FZY_BaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_BaseCollectionViewCell.h; sourceTree = "<group>"; };
+		49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_BaseCollectionViewCell.m; sourceTree = "<group>"; };
+		49FAD61C1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_KeyboardCollectionViewCell.h; path = ColorLetter/Base/View/FZY_KeyboardCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
+		49FAD61D1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZY_KeyboardCollectionViewCell.m; path = ColorLetter/Base/View/FZY_KeyboardCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		D52A69A9BF3156D310586722 /* Pods-ColorLetter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.release.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -761,6 +764,8 @@
 			children = (
 				499B4BB31DC19EEE006D9DC6 /* FZY_ChatTableViewCell.h */,
 				499B4BB41DC19EEE006D9DC6 /* FZY_ChatTableViewCell.m */,
+				49FAD61C1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.h */,
+				49FAD61D1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -964,6 +969,8 @@
 				49B032A61DB79FB000D36732 /* FZYBaseView.m */,
 				4975B1C01DBD9B9A00B6987D /* FZY_BaseTableViewCell.h */,
 				4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */,
+				49FAD6191DC41F6B00636D62 /* FZY_BaseCollectionViewCell.h */,
+				49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1612,8 +1619,6 @@
 		49CE08BA1DC0E5750022B6B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				49CE08BB1DC0E5BF0022B6B8 /* FZY_KeyboardShowHiddenNotificationCenter.h */,
-				49CE08BC1DC0E5BF0022B6B8 /* FZY_KeyboardShowHiddenNotificationCenter.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1835,6 +1840,7 @@
 				49CE08B01DC0C1F70022B6B8 /* EaseChatBarMoreView.m in Sources */,
 				499B4BB51DC19EEE006D9DC6 /* FZY_ChatTableViewCell.m in Sources */,
 				49CE08501DC0C1F70022B6B8 /* MJRefreshHeader.m in Sources */,
+				49FAD61B1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m in Sources */,
 				49CE087E1DC0C1F70022B6B8 /* PSTCollectionViewItemKey.m in Sources */,
 				49B0327D1DB79C0800D36732 /* AppDelegate.m in Sources */,
 				49CE08761DC0C1F70022B6B8 /* UIImageView+EMWebCache.m in Sources */,
@@ -1853,7 +1859,6 @@
 				4975B27A1DBE42FB00B6987D /* UIButton+Block.m in Sources */,
 				49CE088C1DC0C1F70022B6B8 /* NSString+Valid.m in Sources */,
 				49CE08551DC0C1F70022B6B8 /* MJRefreshBackNormalFooter.m in Sources */,
-				49CE08BD1DC0E5BF0022B6B8 /* FZY_KeyboardShowHiddenNotificationCenter.m in Sources */,
 				49DF16D31DC36E3F0004F541 /* FZY_ChatViewController.m in Sources */,
 				49CE084A1DC0C1F70022B6B8 /* MBProgressHUD+Add.m in Sources */,
 				49CE083F1DC0C1F70022B6B8 /* EMAudioRecorderUtil.m in Sources */,
@@ -1919,6 +1924,7 @@
 				4975B27B1DBE42FB00B6987D /* UIImage+Categories.m in Sources */,
 				49CE08771DC0C1F70022B6B8 /* UIView+EMWebCacheOperation.m in Sources */,
 				49CE08421DC0C1F70022B6B8 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
+				49FAD61E1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m in Sources */,
 				49CE08A91DC0C1F70022B6B8 /* EaseBubbleView.m in Sources */,
 				492AEE791DB9B42C0014E9BB /* FZY_SettingViewController.m in Sources */,
 				49CE087C1DC0C1F70022B6B8 /* PSTCollectionViewData.m in Sources */,
