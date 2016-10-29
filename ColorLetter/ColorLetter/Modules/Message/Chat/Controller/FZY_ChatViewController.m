@@ -66,9 +66,11 @@ UINavigationControllerDelegate
 
 #pragma mark - 获取与好友的聊天历史记录
 - (void)loadConversationHistory {
+    [_dataSourceArray removeAllObjects];
     
     self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
-    
+    // 获取当前用户名
+    NSString *userName = [[EMClient sharedClient] currentUsername];
     //  从数据库获取指定数量的消息，取到的消息按时间排序，并且不包含参考的消息，如果参考消息的ID为空，则从最新消息取
     [_conversation loadMessagesStartFromId:nil count:20 searchDirection:EMMessageSearchDirectionUp completion:^(NSArray *aMessages, EMError *aError) {
         
@@ -76,42 +78,73 @@ UINavigationControllerDelegate
             NSLog(@"载入历史消息成功");
             
             if (aMessages.count) {
+
                 for (EMMessage *mes in aMessages) {
                     
-                    EMTextMessageBody *textBody = (EMTextMessageBody *)mes.body;
-                    
-                    NSString *txt = nil;
-                    
-                    if (textBody.type == EMMessageBodyTypeImage) {
-                        txt = nil;
-                    } else {
-                        txt = textBody.text;
-                    }
-                    
-                    // 获取当前用户名
-                    NSString *userName = [[EMClient sharedClient] currentUsername];
-                    
+                    EMMessageBody *msgBody = mes.body;
                     FZY_ChatModel * model = [[FZY_ChatModel alloc] init];
-                    if ([mes.from isEqualToString:userName]) {
-                        model.isSelf = YES;
-                    } else{
-                        model.isSelf = NO;
-                    }
-                    if (_friendName) {
-                        model.fromUser = mes.from;
-                    } else{
-                        // 群聊
-                        // model.fromUser = message.groupSenderName;
-                    }
-                    model.context = txt;
                     
-                    [self.dataSourceArray addObject:model];
-                    
-                    if (_dataSourceArray.count > 0) {
-                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
-                        [self insertMessageIntoTableViewWith:indexPath];
+                    switch (msgBody.type) {
+                        case EMMessageBodyTypeText:
+                        {
+                            NSLog(@"文字");
+                            EMTextMessageBody *textBody = (EMTextMessageBody *)msgBody;
+                            
+                            NSString *txt = textBody.text;
+                            
+                            if ([mes.from isEqualToString:userName]) {
+                                model.isSelf = YES;
+                            } else{
+                                model.isSelf = NO;
+                            }
+                            if (_friendName) {
+                                model.fromUser = mes.from;
+                            } else{
+                                // 群聊
+                                // model.fromUser = message.groupSenderName;
+                            }
+                            model.context = txt;
+                            model.isPhoto = NO;
+                            [self.dataSourceArray addObject:model];
+                            
+                            if (_dataSourceArray.count > 0) {
+                                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                                [self insertMessageIntoTableViewWith:indexPath];
+                            }
+                        }
+                            break;
+                        case EMMessageBodyTypeImage:
+                        {
+                            NSLog(@"图片");
+                            EMImageMessageBody *imageBody = (EMImageMessageBody *)msgBody;
+                            model.photoName = imageBody.remotePath;
+                            if ([mes.from isEqualToString:userName]) {
+                                model.isSelf = YES;
+                            } else{
+                                model.isSelf = NO;
+                            }
+                            model.isPhoto = YES;
+                            [_dataSourceArray addObject:model];
+                            if (_dataSourceArray.count > 0) {
+                                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                                [self insertMessageIntoTableViewWith:indexPath];
+                            }
+                            
+                        }
+                            break;
+                        case EMMessageBodyTypeVoice:
+                        {
+                            NSLog(@"语音");
+                        }
+                            break;
+                        case EMMessageBodyTypeLocation:
+                        {
+                            NSLog(@"位置");
+                        }
+                            break;
+                        default:
+                            break;
                     }
-                    
                 }
             }
             
@@ -131,6 +164,7 @@ UINavigationControllerDelegate
     
         for (EMMessage *message in aMessages) {
             EMMessageBody *msgBody = message.body;
+            FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
             
             switch (msgBody.type) {
                 case EMMessageBodyTypeText:
@@ -139,12 +173,28 @@ UINavigationControllerDelegate
                     EMTextMessageBody *textBody = (EMTextMessageBody *)msgBody;
                     NSString *txt = textBody.text;
                     
-                    FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
                     model.fromUser = message.to;
                     model.isSelf = NO;
+                    model.isPhoto = NO;
                     model.context = txt;
                     [_dataSourceArray addObject:model];
-        
+                    
+                    if (_dataSourceArray.count > 0) {
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                        [self insertMessageIntoTableViewWith:indexPath];
+                    }
+                    
+                }
+                    break;
+                case EMMessageBodyTypeImage:
+                {
+                    // 图片消息
+                    EMImageMessageBody *body = ((EMImageMessageBody *)msgBody);
+                    model.photoName = body.remotePath;
+                    model.isSelf = NO;
+                    model.isPhoto = YES;
+                    [_dataSourceArray addObject:model];
+                    // 将消息插入 UI
                     if (_dataSourceArray.count > 0) {
                         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
                         [self insertMessageIntoTableViewWith:indexPath];
@@ -167,17 +217,17 @@ UINavigationControllerDelegate
         if (!error) {
             
             FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
-            
             EMMessageBody *msgBody = message.body;
+            
             switch (msgBody.type) {
                 case EMMessageBodyTypeText:
                 {
                     model.fromUser = message.from;
                     model.context = _importTextField.text;
                     model.isSelf = YES;
+                    model.isPhoto = NO;
                     [_dataSourceArray addObject:model];
                     // 将消息插入 UI
-                    
                     if (_dataSourceArray.count > 0) {
                         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
                         [self insertMessageIntoTableViewWith:indexPath];
@@ -188,6 +238,15 @@ UINavigationControllerDelegate
                 case EMMessageBodyTypeImage:
                 {
                     EMImageMessageBody *body = ((EMImageMessageBody *)msgBody);
+                    model.photoName = body.remotePath;
+                    model.isSelf = YES;
+                    model.isPhoto= YES;
+                    [_dataSourceArray addObject:model];
+                    // 将消息插入 UI
+                    if (_dataSourceArray.count > 0) {
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                        [self insertMessageIntoTableViewWith:indexPath];
+                    }
                     
                     NSLog(@"大图remote路径 -- %@"   ,body.remotePath);
                     NSLog(@"大图local路径 -- %@"    ,body.localPath); // // 需要使用sdk提供的下载方法后才会存在
@@ -195,19 +254,17 @@ UINavigationControllerDelegate
                     NSLog(@"大图的W -- %f ,大图的H -- %f",body.size.width,body.size.height);
                     NSLog(@"大图的下载状态 -- %d",body.downloadStatus);
                     
-                    
                     // 缩略图sdk会自动下载
                     NSLog(@"小图remote路径 -- %@"   ,body.thumbnailRemotePath);
                     NSLog(@"小图local路径 -- %@"    ,body.thumbnailLocalPath);
                     NSLog(@"小图的secret -- %@"    ,body.thumbnailSecretKey);
-                    NSLog(@"小图的W -- %f ,大图的H -- %f",body.thumbnailSize.width,body.thumbnailSize.height);
+                    NSLog(@"小图的W -- %f ,小图的H -- %f",body.thumbnailSize.width,body.thumbnailSize.height);
                     NSLog(@"小图的下载状态 -- %d",body.thumbnailDownloadStatus);
                 }
                     break;
                 default:
                     break;
             }
-            
             
         } else {
             NSLog(@"发送失败: %@", error);
@@ -364,7 +421,6 @@ UINavigationControllerDelegate
 //PickerImage完成后的代理方法
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     //定义一个newPhoto，用来存放我们选择的图片
-    
     UIImage *libraryPhoto = [info objectForKey:UIImagePickerControllerEditedImage];
     
     // 可以在上传时使用当前系统时间作为文件名
@@ -408,7 +464,7 @@ UINavigationControllerDelegate
     }
     // 取数据
     FZY_ChatModel *model = _dataSourceArray[indexPath.row];
-    [cell loadDataFromModel:model];
+    cell.model = model;
     
     return cell;
 }
@@ -416,9 +472,14 @@ UINavigationControllerDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     //取数据
     FZY_ChatModel * model = _dataSourceArray[indexPath.row];
-    //根据文字确定显示大小
-    CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
-    return size.height + 40;
+    if (model.isPhoto) {
+        return 240;
+    } else {
+        //根据文字确定显示大小
+        CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
+        return size.height + 40;
+    }
+    
 }
 
 #pragma mark - UITextField Delegate

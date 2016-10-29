@@ -10,12 +10,14 @@
 
 @interface FZY_ChatModel : FZYBaseModel
 
-@property (nonatomic,copy) NSString * fromUser;
+@property (nonatomic, copy) NSString *fromUser;
 
-@property (nonatomic,copy) NSString * context;
+@property (nonatomic, copy) NSString *context;
 
-@property (nonatomic,assign) BOOL isSelf;
+@property (nonatomic, assign) BOOL isSelf;
 
+@property (nonatomic, assign) BOOL isPhoto;
 
+@property (nonatomic, copy) NSString *photoName;
 
 @end
