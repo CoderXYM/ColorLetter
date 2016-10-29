@@ -9,8 +9,13 @@
 #import "TheContactViewController.h"
 #import "FZY_SliderScrollView.h"
 #import "FZY_FriendRequestViewController.h"
+#import "FZY_FriendsTableViewCell.h"
+#import "FZY_RequestTableViewCell.h"
+#import "FZY_RequestModel.h"
+#import "FZY_ChatViewController.h"
 
 static NSString *const leftIdentifier = @"leftCell";
+static NSString *const IdentifierLeft = @"requestLeftCell";
 static NSString *const rightIdentifier = @"rightCell";
 
 
@@ -44,10 +49,20 @@ EMContactManagerDelegate
 @property (nonatomic, strong) NSMutableArray *rightArray;
 @property (nonatomic, strong) UILabel *label;
 
+@property (nonatomic, strong) NSMutableArray *friendRequest;
+
+@property (nonatomic, assign) BOOL select;
+
 
 @end
 
 @implementation TheContactViewController
+
+- (void)dealloc {
+    //移除好友回调
+    [[EMClient sharedClient].contactManager removeDelegate:self];
+
+}
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -68,6 +83,9 @@ EMContactManagerDelegate
     self.leftArray = [NSMutableArray array];
     self.rightArray = [NSMutableArray array];
     self.searchLeftArray = [NSMutableArray array];
+    self.friendRequest = [NSMutableArray array];
+//    _boolArray = [NSMutableArray arrayWithObjects:@"1",@"1", nil];
+    _select = 1;
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
     
@@ -79,23 +97,22 @@ EMContactManagerDelegate
     
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
-    //移除好友回调
-   // [[EMClient sharedClient].contactManager removeDelegate:self];
-
+    
     [self create];
 }
 
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
-    
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
-
-    NSString *str = [NSString stringWithFormat:@"%@想添加你为好友\n%@", aUsername, aMessage];
-    [_leftArray insertObject:str atIndex:0];
+    
+    NSDictionary *dic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aUsername], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage]};
+    FZY_RequestModel *fzy = [FZY_RequestModel modelWithDic:dic];
+    [_friendRequest insertObject:fzy atIndex:0];
     [_leftTabeleView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
     [_leftTabeleView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 
 }
+
 
 #pragma mark - 创建滑块
 - (void)ChooseSingleOrGroup {
@@ -186,10 +203,11 @@ EMContactManagerDelegate
     self.leftTabeleView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 64 - 49 - 50 ) style:UITableViewStylePlain];
     _leftTabeleView.delegate = self;
     _leftTabeleView.dataSource = self;
-    _leftTabeleView.rowHeight = 100;
     _leftTabeleView.separatorStyle = UITableViewCellAccessoryNone;
     [_downScrollView addSubview:_leftTabeleView];
-    [_leftTabeleView registerClass:[UITableViewCell class] forCellReuseIdentifier:leftIdentifier];
+    [_leftTabeleView registerClass:[FZY_FriendsTableViewCell class] forCellReuseIdentifier:leftIdentifier];
+    [_leftTabeleView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierLeft];
+
     
     self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
     _rightTableView.backgroundColor = [UIColor blueColor];
@@ -214,37 +232,131 @@ EMContactManagerDelegate
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isEqual:_leftTabeleView]) {
+        return 70;
+    }
+    return 0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([tableView isEqual:_leftTabeleView]) {
-        if (_searchController.active) {
-            return _searchLeftArray.count;
+                if (0 == section) {
+                    return _friendRequest.count;
+                }else {
+                    if (1 == _select) {
+                        if (_searchController.active) {
+                            return _searchLeftArray.count;
+                        }return _leftArray.count;
+                    }
+                    return 0;
+            }
         }
-        return _leftArray.count;
-    }else {
-       
-        
-        return _rightArray.count;
-    }
+    return _rightArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if ([tableView isEqual:_leftTabeleView]) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:leftIdentifier];
-        if (_searchController.active) {
-            cell.textLabel.text = _searchLeftArray[indexPath.row];
-        }
-        else {
-            cell.textLabel.text = _leftArray[indexPath.row];
-            cell.textLabel.numberOfLines = 2;
-        }
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        if (0 == indexPath.section) {
+            FZY_RequestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IdentifierLeft];
+            cell.fzy = _friendRequest[indexPath.row];
+            return cell;
+        }else {
+            FZY_FriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:leftIdentifier];
+            if (_searchController.active) {
+                cell.nameLabel.text = _searchLeftArray[indexPath.row];
+            }
+            else {
+                cell.nameLabel.text = _leftArray[indexPath.row];
+            }
+            return cell;
+        }
     }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isEqual:_leftTabeleView]) {
+        if (0 == indexPath.section) {
+            FZY_RequestModel *fzy = _friendRequest[indexPath.row];
+            UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"是否添加%@为好友?", fzy.aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
+            //创建一个取消和一个确定按钮
+            UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
+                if (!error) {
+                    NSLog(@"拒绝成功");
+                }
+            }];
+            //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
+            UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
+                if (!error) {
+                    [UIView showMessage:@"添加成功"];
+                }
+            }];
+            //将取消和确定按钮添加进弹框控制器
+            [alert addAction:actionCancle];
+            [alert addAction:actionOk];
+            //显示弹框控制器
+            [self presentViewController:alert animated:YES completion:nil];
+        }else {
+            FZY_ChatViewController *chat = [[FZY_ChatViewController alloc] init];
+            if (_leftArray.count > 0) {
+                chat.friendName = _leftArray[indexPath.row];
+                [self.navigationController pushViewController:chat animated:YES];
+            }else {
+                chat.friendName = _searchLeftArray[indexPath.row];
+                [self.navigationController pushViewController:chat animated:YES];
+            }
+            
+        }
+    }
+}
+
+#pragma mark - 分区数
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+#pragma mark - 改变分区头标题高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40;
+}
+
+
+#pragma mark - 自定义的分区头标题: 有图标或需要跳转时用
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 40)];
+    if ([tableView isEqual: _leftTabeleView]) {
+        UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        sectionButton.frame = sectionView.bounds;
+        if (0 == section) {
+            [sectionButton setTitle:@"好友申请" forState:UIControlStateNormal];
+        }else {
+            [sectionButton setTitle:@"好友列表" forState:UIControlStateNormal];
+            [sectionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
+        [sectionButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [sectionView addSubview:sectionButton];
+                return sectionView;
+    }
+    return sectionView;
+}
+
+-(void)buttonAction:(UIButton *)button {
+    if (0 == _select) {
+        _select = 1;
+    } else {
+        _select = 0;
+    }
+    [_leftTabeleView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
