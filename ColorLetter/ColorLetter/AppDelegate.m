@@ -46,6 +46,9 @@ EMClientDelegate
     // EaseUI 的初始化
     [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#colorletter" apnsCertName:nil otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
+    
+     [Bmob registerWithAppKey:@"3795a1aab819f3f39a46d1d703b46fd6"];
+    
     return YES;
     
     // 
@@ -90,6 +93,9 @@ EMClientDelegate
 - (void)didConnectionStateChanged:(EMConnectionState)aConnectionState {
     NSLog(@"正在重连...");
 }
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

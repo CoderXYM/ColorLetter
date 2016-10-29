@@ -8,5 +8,6 @@ target 'ColorLetter' do
   # Pods for ColorLetter
   pod 'Masonry', '~> 1.0.2'
   pod 'HyphenateFullSDK', '~> 3.1.5'
-
+ pod 'BmobSDK', '~> 1.7.2'
 end
+

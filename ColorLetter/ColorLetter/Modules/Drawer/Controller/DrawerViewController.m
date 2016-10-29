@@ -10,7 +10,10 @@
 #import "DrawerTableViewCell.h"                           
 #import "FZY_SettingViewController.h"
 #import "FZY_LoginOrRegisterViewController.h"
-
+#import "FZY_BmobObject.h"
+//#import <BmobSDK/Bmob.h>
+//#import <BmobSDK/BmobFile.h>
+//#import <BmobSDK/BmobProFile.h>
 static NSString *const cellIdentifier = @"drawerCell";
 
 @interface DrawerViewController ()
@@ -176,17 +179,55 @@ UINavigationControllerDelegate
 }
 //PickerImage完成后的代理方法
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    //定义一个newPhoto，用来存放我们选择的图片
     
+    //定义一个newPhoto，用来存放我们选择的图片
     UIImage *newPhoto = [info objectForKey:UIImagePickerControllerEditedImage];
     NSLog(@"%@", newPhoto);
     //把newPhono设置成头像
     _imageView.image = newPhoto;
     //关闭当前界面，即回到主界面去
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+            BmobObject  *photoAlbum = [BmobObject objectWithClassName:@"PhotoAlbum"];
+         NSData *imageData = UIImageJPEGRepresentation(newPhoto, 0.5);
+       // NSLog(@"iiiiii :%@", imageData);
+        [photoAlbum setObject:[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding] forKey:@"Avatar"];
+        [photoAlbum setObject:[[EMClient sharedClient] currentUsername] forKey:@"userName"];
+        [photoAlbum saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
+            if (isSuccessful) {
+                //创建成功后会返回objectId，updatedAt，createdAt等信息
+                //创建对象成功，打印对象值
+                NSLog(@"%@",photoAlbum);
+            } else if (error){
+                [UIView showMessage:@"头像保存失败"];
+                NSLog(@"%@",error);
+            } else {
+                NSLog(@"Unknow error");
+            }
+        }];
+    }];
     
     
 }
+
+//- (void)creatNSDictionary {
+//    NSBundle *mainBundle = [NSBundle mainBundle];
+//    NSString *path = [mainBundle bundlePath];
+//    NSString *path1 = [path stringByAppendingPathComponent:@"abc.jpg"];
+//    NSString *path2 = [path stringByAppendingPathComponent:@"abc.zip"];
+//    NSString *path3 = [path stringByAppendingPathComponent:@"abc.text"];
+//    NSData *data1 = [NSData dataWithContentsOfFile:path1];
+//    NSData *data2 = [NSData dataWithContentsOfFile:path2];
+//    NSData *data3 = [NSData dataWithContentsOfFile:path3];
+//    
+//    NSDictionary *dic1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"abc.jpg",@"filename",data1,@"data",nil];
+//    NSDictionary *dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"abc.zip",@"filename",data2,@"data",nil];
+//    NSDictionary *dic3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"abc.txt",@"filename",data3,@"data",nil];
+//    
+//    NSArray *array = @[dic1,dic2,dic3];    
+//
+//    [Bmobpro]
+//
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _imageArray.count;

@@ -177,6 +177,7 @@
 		49CE08B21DC0C1F70022B6B8 /* EaseConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE083C1DC0C1F70022B6B8 /* EaseConversationCell.m */; };
 		49CE08B51DC0D6D80022B6B8 /* EaseUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */; };
 		49CEFED41DC0519F0022B6B8 /* FZY_FriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */; };
+		49D64AB81DC43A25000DA016 /* FZY_BmobObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */; };
 		49DF16D31DC36E3F0004F541 /* FZY_ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DF16D21DC36E3F0004F541 /* FZY_ChatViewController.m */; };
 		49E640261DC0493000149AF1 /* FZY_FriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */; };
 		49FAD61B1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */; };
@@ -533,6 +534,8 @@
 		49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseUIResource.bundle; sourceTree = "<group>"; };
 		49CEFED21DC0519F0022B6B8 /* FZY_FriendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendsModel.h; sourceTree = "<group>"; };
 		49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendsModel.m; sourceTree = "<group>"; };
+		49D64AB61DC43A25000DA016 /* FZY_BmobObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_BmobObject.h; path = ColorLetter/Modules/Drawer/FZY_BmobObject.h; sourceTree = SOURCE_ROOT; };
+		49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZY_BmobObject.m; path = ColorLetter/Modules/Drawer/FZY_BmobObject.m; sourceTree = SOURCE_ROOT; };
 		49DF16D21DC36E3F0004F541 /* FZY_ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatViewController.m; sourceTree = "<group>"; };
 		49E640241DC0493000149AF1 /* FZY_FriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendRequestViewController.h; sourceTree = "<group>"; };
 		49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendRequestViewController.m; sourceTree = "<group>"; };
@@ -738,6 +741,8 @@
 		4969E1861DB8AF44007D0A06 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				49D64AB61DC43A25000DA016 /* FZY_BmobObject.h */,
+				49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
