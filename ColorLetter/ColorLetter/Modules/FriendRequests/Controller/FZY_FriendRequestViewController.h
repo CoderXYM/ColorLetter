@@ -10,4 +10,6 @@
 
 @interface FZY_FriendRequestViewController : FZY_CommonViewController
 
+@property (nonatomic, copy) NSMutableArray *array;
+
 @end

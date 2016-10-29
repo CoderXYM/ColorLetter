@@ -57,7 +57,12 @@ UITableViewDelegate
         // 最新一条信息
         EMMessage *latestMess = con.latestMessage;
         EMTextMessageBody *textBody = (EMTextMessageBody *)latestMess.body;
-        NSString *txt = textBody.text;
+        NSString *txt = nil;
+        if (textBody.type == EMMessageBodyTypeImage) {
+            txt = nil;
+        } else {
+            txt = textBody.text;
+        }
         
         // 最新消息
         model.latestMessage = txt;
