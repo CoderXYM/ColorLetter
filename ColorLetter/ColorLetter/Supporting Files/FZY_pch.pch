@@ -41,8 +41,6 @@
 
 #import "UIImageView+EMWebCache.h"
 
-#import <BmobSDK/Bmob.h>
-
 #endif
 
 #define WIDTH [UIScreen mainScreen].bounds.size.width

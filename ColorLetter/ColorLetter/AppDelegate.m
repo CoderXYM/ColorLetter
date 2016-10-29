@@ -46,12 +46,9 @@ EMClientDelegate
     // EaseUI 的初始化
     [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#colorletter" apnsCertName:nil otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
-    
-     [Bmob registerWithAppKey:@"3795a1aab819f3f39a46d1d703b46fd6"];
-    
+
     return YES;
-    
-    // 
+
 }
 
 /*

@@ -185,28 +185,9 @@ UINavigationControllerDelegate
     NSLog(@"%@", newPhoto);
     //把newPhono设置成头像
     _imageView.image = newPhoto;
+    
     //关闭当前界面，即回到主界面去
-    [self dismissViewControllerAnimated:YES completion:^{
-            BmobObject  *photoAlbum = [BmobObject objectWithClassName:@"PhotoAlbum"];
-         NSData *imageData = UIImageJPEGRepresentation(newPhoto, 0.5);
-       // NSLog(@"iiiiii :%@", imageData);
-        [photoAlbum setObject:[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding] forKey:@"Avatar"];
-        [photoAlbum setObject:[[EMClient sharedClient] currentUsername] forKey:@"userName"];
-        [photoAlbum saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) {
-            if (isSuccessful) {
-                //创建成功后会返回objectId，updatedAt，createdAt等信息
-                //创建对象成功，打印对象值
-                NSLog(@"%@",photoAlbum);
-            } else if (error){
-                [UIView showMessage:@"头像保存失败"];
-                NSLog(@"%@",error);
-            } else {
-                NSLog(@"Unknow error");
-            }
-        }];
-    }];
-    
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 //- (void)creatNSDictionary {
