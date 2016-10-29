@@ -1,15 +1,18 @@
 PODS:
+  - BmobSDK (1.7.2)
   - HyphenateFullSDK (3.1.5)
   - Masonry (1.0.2)
 
 DEPENDENCIES:
+  - BmobSDK (~> 1.7.2)
   - HyphenateFullSDK (~> 3.1.5)
   - Masonry (~> 1.0.2)
 
 SPEC CHECKSUMS:
+  BmobSDK: e188cb31d6a8417ab668aee821da227d7512b865
   HyphenateFullSDK: 536f76eeb0914dba766b1d5d30dee083f0805da2
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
 
-PODFILE CHECKSUM: f14340fe2cd659f1eec4516c7e93a04952a2ed75
+PODFILE CHECKSUM: 0d38e63cdfaa84bab8152083e80e1e446f38bc0f
 
 COCOAPODS: 1.0.1
