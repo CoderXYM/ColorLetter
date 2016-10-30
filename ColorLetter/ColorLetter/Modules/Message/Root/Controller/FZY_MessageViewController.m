@@ -59,7 +59,7 @@ UITableViewDelegate
         EMTextMessageBody *textBody = (EMTextMessageBody *)latestMess.body;
         NSString *txt = nil;
         if (textBody.type == EMMessageBodyTypeImage) {
-            txt = nil;
+            txt = @"图片";
         } else {
             txt = textBody.text;
         }

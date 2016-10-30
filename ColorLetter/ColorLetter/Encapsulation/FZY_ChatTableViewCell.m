@@ -157,8 +157,8 @@
                 [_leftPhotoImageView sd_setImageWithURL:url];
                 self.leftBubble.frame = CGRectMake(50, 10, 220, 220);
             } else {
-                self.leftPhotoImageView.hidden = NO;
-                self.rightPhotoImageView.hidden = YES;
+                self.leftPhotoImageView.hidden = YES;
+                self.rightPhotoImageView.hidden = NO;
                 self.leftLabel.frame = CGRectMake(10, 10, size.width, size.height);
                 self.leftBubble.frame = CGRectMake(50, 10, size.width + 30, size.height + 30);
             }

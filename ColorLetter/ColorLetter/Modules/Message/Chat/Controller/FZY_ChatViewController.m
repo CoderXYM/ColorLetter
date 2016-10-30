@@ -61,6 +61,8 @@ UINavigationControllerDelegate
     
     // 添加 键盘弹出 通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
     
 }
 
@@ -248,18 +250,6 @@ UINavigationControllerDelegate
                         [self insertMessageIntoTableViewWith:indexPath];
                     }
                     
-                    NSLog(@"大图remote路径 -- %@"   ,body.remotePath);
-                    NSLog(@"大图local路径 -- %@"    ,body.localPath); // // 需要使用sdk提供的下载方法后才会存在
-                    NSLog(@"大图的secret -- %@"    ,body.secretKey);
-                    NSLog(@"大图的W -- %f ,大图的H -- %f",body.size.width,body.size.height);
-                    NSLog(@"大图的下载状态 -- %d",body.downloadStatus);
-                    
-                    // 缩略图sdk会自动下载
-                    NSLog(@"小图remote路径 -- %@"   ,body.thumbnailRemotePath);
-                    NSLog(@"小图local路径 -- %@"    ,body.thumbnailLocalPath);
-                    NSLog(@"小图的secret -- %@"    ,body.thumbnailSecretKey);
-                    NSLog(@"小图的W -- %f ,小图的H -- %f",body.thumbnailSize.width,body.thumbnailSize.height);
-                    NSLog(@"小图的下载状态 -- %d",body.thumbnailDownloadStatus);
                 }
                     break;
                 default:
@@ -322,10 +312,7 @@ UINavigationControllerDelegate
             make.height.width.equalTo(@40);
     }];
     [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [_importTextField resignFirstResponder];
-        _optionsCollectionView.frame = CGRectMake(0, HEIGHT - 80 - 64, WIDTH, 80);
-        _downView.frame = CGRectMake(0, HEIGHT - 80 - 50 - 64, WIDTH, 50);
-        
+        [self optionsCollectionViewFrameChange];
     }];
     
     // 输入框
@@ -503,13 +490,9 @@ UINavigationControllerDelegate
         [self keyboardWillHide];
         [self.view endEditing:YES];
         _downView.frame = CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50);
-        _optionsCollectionView.frame = CGRectMake(0, HEIGHT, WIDTH, 0);
+    } else {
+        [self optionsCollectionViewFrameChange];
     }
-    if (_optionsCollectionView.frame.size.height > 0) {
-        _downView.frame = CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50);
-        _optionsCollectionView.frame = CGRectMake(0, HEIGHT, WIDTH, 0);
-    }
-    
 }
 
 #pragma mark - 获取键盘弹出隐藏的动态高度
@@ -533,7 +516,6 @@ UINavigationControllerDelegate
     
     [UIView animateWithDuration:animationDuration animations:^{
         _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - h);
-        _tableView.contentOffset = CGPointMake(0, h);
         [_downView setFrame:CGRectMake(_downView.frame.origin.x, HEIGHT - 50 - h - 64, _downView.frame.size.width, _downView.frame.size.height)];
     }];
     
@@ -545,10 +527,41 @@ UINavigationControllerDelegate
     [UIView animateWithDuration:_animationDuration animations:^{
         
         _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50);
-        _tableView.contentOffset = CGPointMake(0, -_keyboard_H);
+        _optionsCollectionView.frame = CGRectMake(0, HEIGHT, WIDTH, 0);
         [_downView setFrame:CGRectMake(_downView.frame.origin.x, HEIGHT - 50 - 64, _downView.frame.size.width, _downView.frame.size.height)];
     }];
+    
+}
 
+- (void)tableViewScrollToBottom {
+    if (_dataSourceArray.count == 0) {
+        return;
+    }
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+    [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+- (void)optionsCollectionViewFrameChange {
+    if (_optionsCollectionView.frame.size.height > 0) {
+        _downView.frame = CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50);
+        _optionsCollectionView.frame = CGRectMake(0, HEIGHT, WIDTH, 0);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50);
+        
+    }
+    else if (_isShow) {
+        [_importTextField resignFirstResponder];
+        _optionsCollectionView.frame = CGRectMake(0, HEIGHT - 80 - 64, WIDTH, 80);
+        _downView.frame = CGRectMake(0, HEIGHT - 80 - 50 - 64, WIDTH, 0);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - _optionsCollectionView.frame.size.height);
+    }
+    else if (_optionsCollectionView.frame.size.height == 0) {
+        [_importTextField resignFirstResponder];
+        _optionsCollectionView.frame = CGRectMake(0, HEIGHT - 80 - 64, WIDTH, 80);
+        _downView.frame = CGRectMake(0, HEIGHT - 80 - 50 - 64, WIDTH, 50);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - _optionsCollectionView.frame.size.height);
+    }
+    [self tableViewScrollToBottom];
 }
 
 - (void)didReceiveMemoryWarning {
