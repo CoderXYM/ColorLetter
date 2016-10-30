@@ -20,4 +20,5 @@
 
 @property (nonatomic, copy) NSString *photoName;
 
+@property (nonatomic, assign) long long time;
 @end

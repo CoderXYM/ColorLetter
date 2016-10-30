@@ -8,6 +8,7 @@
 
 #import "FZY_ChatTableViewCell.h"
 #import "FZY_ChatModel.h"
+#import "NSData+Categories.h"
 
 @interface FZY_ChatTableViewCell ()
 
@@ -31,7 +32,9 @@
 @property (nonatomic, strong) UIImageView *leftPhotoImageView;
 // 右图片
 @property (nonatomic, strong) UIImageView *rightPhotoImageView;
-
+// 时间
+@property (nonatomic, strong) UILabel *leftTimeLabel;
+@property (nonatomic, strong) UILabel *rightTimeLabel;
 @end
 
 @implementation FZY_ChatTableViewCell
@@ -96,11 +99,22 @@
         _rightLabel.numberOfLines = 0;
         [_rightBubble addSubview:_rightLabel];
         
+        // 左图片
         self.leftPhotoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 200, 200)];
         [_leftBubble addSubview:_leftPhotoImageView];
-        
+        // 右图片
         self.rightPhotoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 200, 200)];
         [_rightBubble addSubview:_rightPhotoImageView];
+        // 时间Label
+        self.leftTimeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _leftTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _leftTimeLabel.font = [UIFont systemFontOfSize:10];
+        [self.contentView addSubview:_leftTimeLabel];
+        
+        self.rightTimeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _rightTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _rightTimeLabel.font = [UIFont systemFontOfSize:10];
+        [self.contentView addSubview:_rightTimeLabel];
     }
     
     return self;
@@ -120,6 +134,8 @@
             self.rightIconImageView.hidden = NO;
             self.leftName.hidden = YES;
             self.rightName.hidden = NO;
+            self.leftTimeLabel.hidden = YES;
+            self.rightTimeLabel.hidden = NO;
             
             if (model.isPhoto) {
                 
@@ -138,6 +154,13 @@
             }
             self.rightLabel.text = model.context;
             self.rightName.text = model.fromUser;
+            self.rightTimeLabel.text = [NSData intervalSinceNow:model.time];
+            [_rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_rightBubble.mas_centerX).offset(0);
+                make.top.equalTo(_rightBubble.mas_bottom).offset(0);
+                make.width.equalTo(@100);
+                make.height.equalTo(@10);
+            }];
 
         }else{
             
@@ -148,6 +171,8 @@
             self.rightIconImageView.hidden = YES;
             self.leftName.hidden = NO;
             self.rightName.hidden = YES;
+            self.leftTimeLabel.hidden = NO;
+            self.rightTimeLabel.hidden = YES;
             
             if (model.isPhoto) {
                 self.leftPhotoImageView.hidden = NO;
@@ -164,6 +189,13 @@
             }
             self.leftLabel.text = model.context;
             self.leftName.text = model.fromUser;
+            self.leftTimeLabel.text = [NSData intervalSinceNow:model.time];
+            [_leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(_leftBubble.mas_centerX).offset(0);
+                make.top.equalTo(_leftBubble.mas_bottom).offset(0);
+                make.width.equalTo(@100);
+                make.height.equalTo(@10);
+            }];
         }
         
     }

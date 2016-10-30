@@ -43,6 +43,7 @@
         
         self.timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
+        _timeLabel.font = [UIFont systemFontOfSize:13];
         [self.contentView addSubview:_timeLabel];
         
         self.unReadMessageLabel = [[UILabel alloc] initWithFrame:CGRectZero];

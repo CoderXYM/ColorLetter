@@ -10,7 +10,7 @@
 #import "FZY_ChatTableViewCell.h"
 #import "FZY_ChatModel.h"
 #import "FZY_KeyboardCollectionViewCell.h"
-
+#import "FZY_VideoChatViewController.h"
 @interface FZY_ChatViewController ()
 <
 UITableViewDelegate,
@@ -66,6 +66,11 @@ UINavigationControllerDelegate
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - 获取与好友的聊天历史记录
 - (void)loadConversationHistory {
     [_dataSourceArray removeAllObjects];
@@ -105,6 +110,7 @@ UINavigationControllerDelegate
                                 // 群聊
                                 // model.fromUser = message.groupSenderName;
                             }
+                            model.time = mes.localTime;
                             model.context = txt;
                             model.isPhoto = NO;
                             [self.dataSourceArray addObject:model];
@@ -125,6 +131,8 @@ UINavigationControllerDelegate
                             } else{
                                 model.isSelf = NO;
                             }
+                            model.fromUser = mes.from;
+                            model.time = mes.localTime;
                             model.isPhoto = YES;
                             [_dataSourceArray addObject:model];
                             if (_dataSourceArray.count > 0) {
@@ -179,6 +187,7 @@ UINavigationControllerDelegate
                     model.isSelf = NO;
                     model.isPhoto = NO;
                     model.context = txt;
+                    model.time = message.localTime;
                     [_dataSourceArray addObject:model];
                     
                     if (_dataSourceArray.count > 0) {
@@ -195,6 +204,8 @@ UINavigationControllerDelegate
                     model.photoName = body.remotePath;
                     model.isSelf = NO;
                     model.isPhoto = YES;
+                    model.fromUser = message.to;
+                    model.time = message.localTime;
                     [_dataSourceArray addObject:model];
                     // 将消息插入 UI
                     if (_dataSourceArray.count > 0) {
@@ -228,6 +239,7 @@ UINavigationControllerDelegate
                     model.context = _importTextField.text;
                     model.isSelf = YES;
                     model.isPhoto = NO;
+                    model.time = message.localTime;
                     [_dataSourceArray addObject:model];
                     // 将消息插入 UI
                     if (_dataSourceArray.count > 0) {
@@ -240,9 +252,11 @@ UINavigationControllerDelegate
                 case EMMessageBodyTypeImage:
                 {
                     EMImageMessageBody *body = ((EMImageMessageBody *)msgBody);
+                    model.fromUser = message.from;
                     model.photoName = body.remotePath;
                     model.isSelf = YES;
                     model.isPhoto= YES;
+                    model.time = message.localTime;
                     [_dataSourceArray addObject:model];
                     // 将消息插入 UI
                     if (_dataSourceArray.count > 0) {
@@ -398,6 +412,9 @@ UINavigationControllerDelegate
         case 3:
         {
             NSLog(@"视频");
+            FZY_VideoChatViewController *videoChatVC = [[FZY_VideoChatViewController alloc] init];
+            [self presentViewController:videoChatVC animated:YES completion:nil];
+            
         }
             break;
         default:
@@ -464,7 +481,7 @@ UINavigationControllerDelegate
     } else {
         //根据文字确定显示大小
         CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
-        return size.height + 40;
+        return size.height + 50;
     }
     
 }
@@ -490,7 +507,8 @@ UINavigationControllerDelegate
         [self keyboardWillHide];
         [self.view endEditing:YES];
         _downView.frame = CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50);
-    } else {
+    }
+    if (_optionsCollectionView.frame.size.height > 0) {
         [self optionsCollectionViewFrameChange];
     }
 }
@@ -518,7 +536,6 @@ UINavigationControllerDelegate
         _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - h);
         [_downView setFrame:CGRectMake(_downView.frame.origin.x, HEIGHT - 50 - h - 64, _downView.frame.size.width, _downView.frame.size.height)];
     }];
-    
     
 }
 - (void)keyboardWillHide {
