@@ -10,4 +10,6 @@
 
 @interface FZY_VideoChatViewController : FZYBaseViewController
 
+@property (nonatomic, copy) NSString *friendName;
+
 @end

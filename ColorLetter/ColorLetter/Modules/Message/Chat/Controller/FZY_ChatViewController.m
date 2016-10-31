@@ -68,6 +68,8 @@ UINavigationControllerDelegate
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // 移除聊天消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
 }
 
 #pragma mark - 获取与好友的聊天历史记录
@@ -411,6 +413,7 @@ UINavigationControllerDelegate
         {
             NSLog(@"视频");
             FZY_VideoChatViewController *videoChatVC = [[FZY_VideoChatViewController alloc] init];
+            videoChatVC.friendName = _friendName;
             [self presentViewController:videoChatVC animated:YES completion:nil];
             
         }
