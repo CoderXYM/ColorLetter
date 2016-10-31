@@ -39,22 +39,24 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor grayColor];
     
-    [self createUI];
     [self createVideoChatView];
+    
 }
 
 - (void)createUI {
     UIButton *hangUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     hangUpButton.backgroundColor = [UIColor redColor];
     [hangUpButton setTitle:@"挂断" forState:UIControlStateNormal];
-    [self.view addSubview:hangUpButton];
+    [_remoteView addSubview:hangUpButton];
     [hangUpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX).offset(0);
         make.width.equalTo(@200);
         make.height.equalTo(@50);
         make.bottom.equalTo(self.view.mas_bottom).offset(-50);
     }];
+
     [hangUpButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        NSLog(@"挂断");
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
@@ -63,18 +65,22 @@
 - (void)createVideoChatView {
 
     [[EMClient sharedClient].callManager startVideoCall:@"666" completion:^(EMCallSession *aCallSession, EMError *aError) {
-        NSLog(@"失败: %@", aError);
         if (!aError) {
-            NSLog(@"成功");
+            NSLog(@"创建视屏通话成功");
             // 对方窗口
             aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-            [self.view addSubview:aCallSession.remoteVideoView];
+            self.remoteView = aCallSession.remoteVideoView;
+            [self.view addSubview:_remoteView];
             
             // 自己窗口
 //            CGFloat w = 80;
 //            CGFloat h = HEIGHT / WIDTH * w;
 //            aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 90, 50, w, h)];
 //            [self.view addSubview:aCallSession.localVideoView];
+            
+            [self createUI];
+        } else {
+            NSLog(@"创建视屏通话失败");
         }
     }];
 }

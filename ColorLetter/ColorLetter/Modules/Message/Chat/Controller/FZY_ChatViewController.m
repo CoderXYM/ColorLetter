@@ -61,7 +61,6 @@ UINavigationControllerDelegate
     
     // 添加 键盘弹出 通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
     
 }
@@ -332,7 +331,6 @@ UINavigationControllerDelegate
     // 输入框
     self.importTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 5, WIDTH / 2, 40)];
     _importTextField.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1.0];
-    
     _importTextField.layer.cornerRadius = 10;
     _importTextField.clipsToBounds = YES;
     _importTextField.delegate = self;
@@ -344,10 +342,10 @@ UINavigationControllerDelegate
         make.centerY.equalTo(_downView.mas_centerY).offset(0);
         make.height.equalTo(@40);
     }];
+    
     // 添加手势收起键盘
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
     [_tableView addGestureRecognizer:tap];
-    
     
     [self createOptionsCollectionView];
     
@@ -501,11 +499,11 @@ UINavigationControllerDelegate
 
 #pragma mark - 轻拍手势方法
 - (void)screenTap:(UIGestureRecognizer *)tap {
-    
     // 取消当前屏幕所有第一响应
+    [self.view endEditing:YES];
+    
     if (_isShow) {
         [self keyboardWillHide];
-        [self.view endEditing:YES];
         _downView.frame = CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50);
     }
     if (_optionsCollectionView.frame.size.height > 0) {
@@ -569,7 +567,7 @@ UINavigationControllerDelegate
     else if (_isShow) {
         [_importTextField resignFirstResponder];
         _optionsCollectionView.frame = CGRectMake(0, HEIGHT - 80 - 64, WIDTH, 80);
-        _downView.frame = CGRectMake(0, HEIGHT - 80 - 50 - 64, WIDTH, 0);
+        _downView.frame = CGRectMake(0, HEIGHT - 80 - 50 - 64, WIDTH, 50);
         _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - _optionsCollectionView.frame.size.height);
     }
     else if (_optionsCollectionView.frame.size.height == 0) {
