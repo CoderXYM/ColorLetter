@@ -48,6 +48,7 @@
 		49B032A71DB79FB000D36732 /* FZYBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032A61DB79FB000D36732 /* FZYBaseView.m */; };
 		49B032C31DB7A41600D36732 /* AppStoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C21DB7A41600D36732 /* AppStoreUtils.m */; };
 		49B032C61DB7A47900D36732 /* FileManagerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C51DB7A47900D36732 /* FileManagerUtils.m */; };
+		49BC0A321DC5F6040094EFE8 /* FZY_VideoChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BC0A311DC5F6040094EFE8 /* FZY_VideoChatViewController.m */; };
 		49BFEAB51DC4501800D6DB00 /* FZY_RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BFEAB41DC4501800D6DB00 /* FZY_RequestModel.m */; };
 		49C43F7E1DBEE4590060092C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7D1DBEE4590060092C /* CoreMedia.framework */; };
 		49C43F801DBEE4770060092C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7F1DBEE4770060092C /* AudioToolbox.framework */; };
@@ -272,6 +273,8 @@
 		49B032C51DB7A47900D36732 /* FileManagerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManagerUtils.m; sourceTree = "<group>"; };
 		49B032C71DB7A4C300D36732 /* SystemUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemUnit.h; sourceTree = "<group>"; };
 		49B032C81DB7A59700D36732 /* FZYMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZYMacro.h; sourceTree = "<group>"; };
+		49BC0A301DC5F6040094EFE8 /* FZY_VideoChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_VideoChatViewController.h; sourceTree = "<group>"; };
+		49BC0A311DC5F6040094EFE8 /* FZY_VideoChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_VideoChatViewController.m; sourceTree = "<group>"; };
 		49BFEAB31DC4501800D6DB00 /* FZY_RequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_RequestModel.h; sourceTree = "<group>"; };
 		49BFEAB41DC4501800D6DB00 /* FZY_RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_RequestModel.m; sourceTree = "<group>"; };
 		49C43F7D1DBEE4590060092C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -540,6 +543,8 @@
 		49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseUIResource.bundle; sourceTree = "<group>"; };
 		49CEFED21DC0519F0022B6B8 /* FZY_FriendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendsModel.h; sourceTree = "<group>"; };
 		49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendsModel.m; sourceTree = "<group>"; };
+		49D64AB61DC43A25000DA016 /* FZY_BmobObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_BmobObject.h; path = ColorLetter/Modules/Drawer/FZY_BmobObject.h; sourceTree = SOURCE_ROOT; };
+		49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZY_BmobObject.m; path = ColorLetter/Modules/Drawer/FZY_BmobObject.m; sourceTree = SOURCE_ROOT; };
 		49DF16D21DC36E3F0004F541 /* FZY_ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatViewController.m; sourceTree = "<group>"; };
 		49E640241DC0493000149AF1 /* FZY_FriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendRequestViewController.h; sourceTree = "<group>"; };
 		49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendRequestViewController.m; sourceTree = "<group>"; };
@@ -699,6 +704,7 @@
 		4969E1441DB85C9B007D0A06 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				49BC0A2E1DC5F5D00094EFE8 /* VideoChat */,
 				4975B1C61DBDB15C00B6987D /* Chat */,
 				4975B1B91DBD9A7700B6987D /* Root */,
 			);
@@ -745,6 +751,8 @@
 		4969E1861DB8AF44007D0A06 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				49D64AB61DC43A25000DA016 /* FZY_BmobObject.h */,
+				49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1062,6 +1070,23 @@
 			children = (
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		49BC0A2E1DC5F5D00094EFE8 /* VideoChat */ = {
+			isa = PBXGroup;
+			children = (
+				49BC0A2F1DC5F5E70094EFE8 /* Controller */,
+			);
+			name = VideoChat;
+			sourceTree = "<group>";
+		};
+		49BC0A2F1DC5F5E70094EFE8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				49BC0A301DC5F6040094EFE8 /* FZY_VideoChatViewController.h */,
+				49BC0A311DC5F6040094EFE8 /* FZY_VideoChatViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		49BFEAAF1DC4450F00D6DB00 /* Model */ = {
@@ -1940,6 +1965,7 @@
 				49CE084F1DC0C1F70022B6B8 /* MJRefreshFooter.m in Sources */,
 				49CE085C1DC0C1F70022B6B8 /* UIScrollView+MJExtension.m in Sources */,
 				4975B1C51DBD9BB500B6987D /* FZY_MessageTableViewCell.m in Sources */,
+				49BC0A321DC5F6040094EFE8 /* FZY_VideoChatViewController.m in Sources */,
 				49CE08931DC0C1F70022B6B8 /* EaseEmojiEmoticons.m in Sources */,
 				49CE085E1DC0C1F70022B6B8 /* UIView+MJExtension.m in Sources */,
 				49CE089D1DC0C1F70022B6B8 /* EaseUserCell.m in Sources */,

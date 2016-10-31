@@ -11,7 +11,9 @@
 #import "FZY_FriendRequestViewController.h"
 
 @interface FZYBaseViewController ()
-
+<
+EMCallManagerDelegate
+>
 @end
 
 @implementation FZYBaseViewController
@@ -28,7 +30,15 @@
 //     背景图片
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-736"]];
     self.view.userInteractionEnabled = YES;
+    
+    // 注册实时通话回调
+    [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
 
+}
+
+#pragma mark - 用户A 拨打 用户B 会受到这个回调
+- (void)didReceiveCallIncoming:(EMCallSession *)aSession{
+    NSLog(@"有人呼叫你");
 }
 
 - (void)create {

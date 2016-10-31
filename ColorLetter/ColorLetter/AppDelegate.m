@@ -49,8 +49,7 @@ EMClientDelegate
     [AVOSCloud setApplicationId:@"TqOSFbfozHvy7bvJsvRb5iUo-gzGzoHsz" clientKey:@"BVsKxayJdjhnXBz1fXjE4FOp"];
     
     return YES;
-    
-    // 
+
 }
 
 /*
@@ -92,6 +91,9 @@ EMClientDelegate
 - (void)didConnectionStateChanged:(EMConnectionState)aConnectionState {
     NSLog(@"正在重连...");
 }
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
