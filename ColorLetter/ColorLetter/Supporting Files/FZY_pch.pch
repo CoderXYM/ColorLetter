@@ -39,6 +39,10 @@
 
 #import "EaseUI.h"
 
+#import <AVOSCloud/AVOSCloud.h>
+
+#import <FMDB.h>
+
 #import "UIImageView+EMWebCache.h"
 
 #import <EMSDKFull.h>

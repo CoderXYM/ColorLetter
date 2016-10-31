@@ -31,7 +31,6 @@ UINavigationControllerDelegate
 
 @property (nonatomic, strong) NSArray *imageArray;
 
-@property (nonatomic, retain) UIImageView *imageView;
 @end
 
 @implementation DrawerViewController
@@ -182,12 +181,30 @@ UINavigationControllerDelegate
     
     //定义一个newPhoto，用来存放我们选择的图片
     UIImage *newPhoto = [info objectForKey:UIImagePickerControllerEditedImage];
-    NSLog(@"%@", newPhoto);
+//    NSLog(@"%@", newPhoto);
     //把newPhono设置成头像
     _imageView.image = newPhoto;
     
     //关闭当前界面，即回到主界面去
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSData *imageData = UIImageJPEGRepresentation(newPhoto, 0.5);
+        NSLog(@"name: %@", [[EMClient sharedClient] currentUsername]);
+        AVObject *userPhoto = [AVObject objectWithClassName:@"userAvatar"];
+        AVFile *file = [AVFile fileWithData:imageData];
+        [userPhoto setObject:file forKey:@"image"];
+        [userPhoto setObject:[[EMClient sharedClient] currentUsername] forKey:@"userName"];
+        [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                // 存储成功
+                NSLog(@"成功");
+                NSLog(@"%@", file.url);
+                [_imageView sd_setImageWithURL:[NSURL URLWithString:file.url]];
+            } else {
+                // 失败的话，请检查网络环境以及 SDK 配置是否正确
+                NSLog(@"失败");
+            }
+        }];
+    }];
 }
 
 //- (void)creatNSDictionary {
