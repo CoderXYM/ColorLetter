@@ -14,5 +14,7 @@
 
 @property (nonatomic, strong) UIImage *myImage;
 
+@property (nonatomic, strong) UIImageView *imageView;
+
 
 @end

@@ -1,15 +1,23 @@
 PODS:
+  - AVOSCloud (3.6.1)
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
   - HyphenateFullSDK (3.1.5)
   - Masonry (1.0.2)
 
 DEPENDENCIES:
+  - AVOSCloud (~> 3.6.1)
+  - FMDB (~> 2.6.2)
   - HyphenateFullSDK (~> 3.1.5)
   - Masonry (~> 1.0.2)
 
 SPEC CHECKSUMS:
+  AVOSCloud: cc9b567da2d30f07e3da1e4db682cad9ff56a1b6
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HyphenateFullSDK: 536f76eeb0914dba766b1d5d30dee083f0805da2
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
 
-PODFILE CHECKSUM: f14340fe2cd659f1eec4516c7e93a04952a2ed75
+PODFILE CHECKSUM: 954b8b50ff690b9223a37f067e878b9320528ab1
 
 COCOAPODS: 1.0.1

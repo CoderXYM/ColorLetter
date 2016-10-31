@@ -39,6 +39,9 @@
 
 #import "EaseUI.h"
 
+#import <AVOSCloud/AVOSCloud.h>
+
+#import <FMDB.h>
 
 #endif
 

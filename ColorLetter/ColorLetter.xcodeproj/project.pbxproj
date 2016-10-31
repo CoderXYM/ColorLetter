@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1A6CD44C83B5DDC46C23487C /* libPods-ColorLetter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */; };
+		491424491DC6F69100EC39A5 /* FZY_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 491424481DC6F69100EC39A5 /* FZY_User.m */; };
+		4914244C1DC6F69F00EC39A5 /* FZY_DataHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */; };
 		491656AC1DBA56E100975DE6 /* FZY_SliderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */; };
 		492AEE761DB9B2710014E9BB /* FZY_CommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEE751DB9B2710014E9BB /* FZY_CommonViewController.m */; };
 		492AEE791DB9B42C0014E9BB /* FZY_SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEE781DB9B42C0014E9BB /* FZY_SettingViewController.m */; };
@@ -186,6 +188,11 @@
 /* Begin PBXFileReference section */
 		16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ColorLetter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FAC0A049392D2BE8F8E4C6 /* Pods-ColorLetter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.debug.xcconfig"; sourceTree = "<group>"; };
+		491424421DC6ECED00EC39A5 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		491424471DC6F69100EC39A5 /* FZY_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_User.h; sourceTree = "<group>"; };
+		491424481DC6F69100EC39A5 /* FZY_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_User.m; sourceTree = "<group>"; };
+		4914244A1DC6F69F00EC39A5 /* FZY_DataHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_DataHandle.h; sourceTree = "<group>"; };
+		4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_DataHandle.m; sourceTree = "<group>"; };
 		491656AA1DBA56E100975DE6 /* FZY_SliderScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SliderScrollView.h; sourceTree = "<group>"; };
 		491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SliderScrollView.m; sourceTree = "<group>"; };
 		492AEE741DB9B2710014E9BB /* FZY_CommonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_CommonViewController.h; sourceTree = "<group>"; };
@@ -1658,6 +1665,10 @@
 		49CE08BA1DC0E5750022B6B8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				491424471DC6F69100EC39A5 /* FZY_User.h */,
+				491424481DC6F69100EC39A5 /* FZY_User.m */,
+				4914244A1DC6F69F00EC39A5 /* FZY_DataHandle.h */,
+				4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1698,6 +1709,7 @@
 		88BE9261FE5BDA5D941EC341 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				491424421DC6ECED00EC39A5 /* libsqlite3.0.tbd */,
 				49C43F8F1DBEE5690060092C /* libiconv.tbd */,
 				49C43F8D1DBEE5410060092C /* libsqlite3.tbd */,
 				49C43F8B1DBEE5260060092C /* libstdc++.6.0.9.tbd */,
@@ -1902,6 +1914,7 @@
 				49CE083F1DC0C1F70022B6B8 /* EMAudioRecorderUtil.m in Sources */,
 				49CE08821DC0C1F70022B6B8 /* PSTGridLayoutItem.m in Sources */,
 				49CE08891DC0C1F70022B6B8 /* EaseUserModel.m in Sources */,
+				491424491DC6F69100EC39A5 /* FZY_User.m in Sources */,
 				49CE086F1DC0C1F70022B6B8 /* MKAnnotationView+EMWebCache.m in Sources */,
 				49CE087D1DC0C1F70022B6B8 /* PSTCollectionViewFlowLayout.m in Sources */,
 				49CE08561DC0C1F70022B6B8 /* MJRefreshBackStateFooter.m in Sources */,
@@ -1966,6 +1979,7 @@
 				49CE08421DC0C1F70022B6B8 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				49FAD61E1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m in Sources */,
 				49CE08A91DC0C1F70022B6B8 /* EaseBubbleView.m in Sources */,
+				4914244C1DC6F69F00EC39A5 /* FZY_DataHandle.m in Sources */,
 				492AEE791DB9B42C0014E9BB /* FZY_SettingViewController.m in Sources */,
 				49CE087C1DC0C1F70022B6B8 /* PSTCollectionViewData.m in Sources */,
 				4975B27D1DBE42FB00B6987D /* UIView+Frame.m in Sources */,

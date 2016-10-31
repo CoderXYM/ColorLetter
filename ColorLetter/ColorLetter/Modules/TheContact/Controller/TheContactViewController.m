@@ -64,11 +64,17 @@ EMContactManagerDelegate
 
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
+    [self getFriendList];
+
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     self.navigationController.navigationBar.hidden = YES;
-
+    
     if (self.searchController.active) {
         self.searchController.active = NO;
         [self.searchController.searchBar removeFromSuperview];
@@ -84,27 +90,39 @@ EMContactManagerDelegate
     self.rightArray = [NSMutableArray array];
     self.searchLeftArray = [NSMutableArray array];
     self.friendRequest = [NSMutableArray array];
-//    _boolArray = [NSMutableArray arrayWithObjects:@"1",@"1", nil];
     _select = 1;
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
     
-    EMError *error = nil;
-    NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
-    if (!error) {
-        [_leftArray addObjectsFromArray:userlist];
-    }
-    
+
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
     [self create];
 }
 
+- (void)getFriendList {
+    EMError *error = nil;
+    if (_leftArray.count > 0) {
+        [_leftArray removeAllObjects];
+    }
+    NSArray *userlist = [[EMClient sharedClient].contactManager getContactsFromServerWithError:&error];
+    if (!error) {
+        [_leftArray addObjectsFromArray:userlist];
+    }
+
+}
+
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
-    
+    if (_leftArray.count > 0) {
+        for (NSString *str in _leftArray) {
+            if ([str isEqualToString:aUsername]) {
+                return;
+            }
+        }
+    }
     NSDictionary *dic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aUsername], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage]};
     FZY_RequestModel *fzy = [FZY_RequestModel modelWithDic:dic];
     [_friendRequest insertObject:fzy atIndex:0];
@@ -164,7 +182,7 @@ EMContactManagerDelegate
 
 #pragma mark - 实现自定义协议 获取滑块位置
 - (void)getSliderPostionX:(CGFloat)x {
-    
+    NSLog(@"%f",x);
     [UIView animateWithDuration:0.1 animations:^{
         _downScrollView.contentOffset = CGPointMake(x * WIDTH / slideLength, 0);
     }];
@@ -288,6 +306,9 @@ EMContactManagerDelegate
                 EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
                 if (!error) {
                     NSLog(@"拒绝成功");
+                    [_friendRequest removeObjectAtIndex:indexPath.row];
+                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                    [_leftTabeleView reloadData];
                 }
             }];
             //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
@@ -295,6 +316,11 @@ EMContactManagerDelegate
                 EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
                 if (!error) {
                     [UIView showMessage:@"添加成功"];
+                    [_friendRequest removeObjectAtIndex:indexPath.row];
+                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+//                    [_leftArray addObject:fzy.aUsername];
+                    [self getFriendList];
+                    [_leftTabeleView reloadData];
                 }
             }];
             //将取消和确定按钮添加进弹框控制器
