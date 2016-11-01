@@ -33,6 +33,7 @@ UINavigationControllerDelegate
 @property (nonatomic, strong) UICollectionView *optionsCollectionView;;
 @property (nonatomic, strong) NSArray *optionsArray;
 @property (nonatomic, assign) BOOL isShow;
+
 @end
 
 @implementation FZY_ChatViewController
@@ -310,8 +311,14 @@ UINavigationControllerDelegate
     }];
     optionVioceButton.layer.cornerRadius = 20;
     optionVioceButton.clipsToBounds = YES;
+   
     [optionVioceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        NSLog(@"长按发送语音");
+    //    NSLog(@"长按发送语音");
+        
+        
+        
+    
+    
     }];
 
     // 切换发送消息类型
