@@ -10,6 +10,7 @@
 #import "FZY_MessageViewController.h"
 #import "FZYTabBarViewController.h"
 #import "DrawerViewController.h"
+
 @interface FZY_LoginOrRegisterViewController ()
 <
 UIScrollViewDelegate,
@@ -485,22 +486,24 @@ UITextFieldDelegate
         
 #pragma mark - 登录
         if (!_error) {
-           
             AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
-//            [userPhoto orderByDescending:@"createdAt"];
-//            // owner 为 Pointer，指向 _User 表
-//            [userPhoto includeKey:@"userName"];
-            // image 为 File
-//            [userPhoto includeKey:@"image"];
             [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
                 if (!error) {
-                    NSLog(@"aaaaa :%@", objects);
+                    [[FZY_DataHandle shareDatahandle] open];
+                    [[FZY_DataHandle shareDatahandle] deleteAll];
+                    for (AVObject *userPhoto in objects) {
+                        AVObject *user = [userPhoto objectForKey:@"userName"];
+                        FZY_User *use = [[FZY_User alloc] init];
+                        AVFile *file = [userPhoto objectForKey:@"image"];
+                        use.name = [NSString stringWithFormat:@"%@", user];
+                        use.imageUrl = file.url;
+                        use.userId = userPhoto.objectId;
+                        [[FZY_DataHandle shareDatahandle] insert:use];
+                    }
                 }
             }];
-
             [UIView showMessage:@"登录成功"];
             [_loginPasswordTextField endEditing:YES];
-            
             [self dismissViewControllerAnimated:NO completion:^{
                 [_VC dismissViewControllerAnimated:YES completion:nil];
             }];

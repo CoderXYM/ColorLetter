@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) NSString *imageUrl;
 
+@property (nonatomic, strong) NSString *userId;
+
 @end

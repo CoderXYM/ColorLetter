@@ -31,6 +31,12 @@ UINavigationControllerDelegate
 
 @property (nonatomic, strong) NSArray *imageArray;
 
+@property (nonatomic, strong) NSArray *objectArray;
+
+@property (nonatomic, assign) BOOL flag;
+
+@property (nonatomic, strong) FZY_User *user;
+
 @end
 
 @implementation DrawerViewController
@@ -38,10 +44,23 @@ UINavigationControllerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
    // [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
+    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
+    for (FZY_User *user in _objectArray) {
+        if (user.name == [[EMClient sharedClient] currentUsername]) {
+            [_imageView sd_setImageWithURL:[NSURL URLWithString:user.imageUrl]];
+            NSLog(@"willAppear :%@", user.imageUrl);
+            _flag = YES;
+            self.user = user;
+        }
+    }
+    
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.flag = NO;
+    self.objectArray = [NSMutableArray array];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:_myImage];
     [self.view addSubview:imageView];
@@ -188,22 +207,41 @@ UINavigationControllerDelegate
     //关闭当前界面，即回到主界面去
     [self dismissViewControllerAnimated:YES completion:^{
         NSData *imageData = UIImageJPEGRepresentation(newPhoto, 0.5);
-        NSLog(@"name: %@", [[EMClient sharedClient] currentUsername]);
-        AVObject *userPhoto = [AVObject objectWithClassName:@"userAvatar"];
-        AVFile *file = [AVFile fileWithData:imageData];
-        [userPhoto setObject:file forKey:@"image"];
-        [userPhoto setObject:[[EMClient sharedClient] currentUsername] forKey:@"userName"];
-        [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                // 存储成功
-                NSLog(@"成功");
-                NSLog(@"%@", file.url);
-                [_imageView sd_setImageWithURL:[NSURL URLWithString:file.url]];
-            } else {
-                // 失败的话，请检查网络环境以及 SDK 配置是否正确
-                NSLog(@"失败");
-            }
-        }];
+         AVFile *file = [AVFile fileWithData:imageData];
+        if (_flag == YES) {
+            // 第一个参数是 className，第二个参数是 objectId
+            AVObject *userPhoto =[AVObject objectWithClassName:@"userAvatar" objectId:[NSString stringWithFormat:@"%@", _user.userId]];
+            // 修改属性
+            [userPhoto setObject:file forKey:@"image"];
+            // 保存到云端
+            [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if (succeeded) {
+                    [[FZY_DataHandle shareDatahandle] update:_user.imageUrl new:file.url];
+                    [_imageView sd_setImageWithURL:[NSURL URLWithString:file.url]];
+                    NSLog(@"update : %@", file.url);
+
+                    NSLog(@"更新成功");
+                }else {
+                    NSLog(@"更新失败");
+                }
+            }];
+        }else {
+            AVObject *userPhoto = [AVObject objectWithClassName:@"userAvatar"];
+            [userPhoto setObject:file forKey:@"image"];
+            [userPhoto setObject:[[EMClient sharedClient] currentUsername] forKey:@"userName"];
+            [userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    // 存储成功
+                    NSLog(@"上传成功");
+                    [[FZY_DataHandle shareDatahandle] inset:[[EMClient sharedClient] currentUsername] imageUrl:file.url userId:userPhoto.objectId];
+                    
+                } else {
+                    // 失败的话，请检查网络环境以及 SDK 配置是否正确
+                    NSLog(@"上传失败");
+                }
+            }];
+
+        }
     }];
 }
 

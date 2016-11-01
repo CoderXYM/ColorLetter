@@ -43,7 +43,7 @@ UITableViewDelegate
     [_conversationArray removeAllObjects];
     
     NSArray *conversationArray = [[EMClient sharedClient].chatManager getAllConversations];
-    
+        
     for (EMConversation *con in conversationArray) {
         
         FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];

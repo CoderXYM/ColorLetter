@@ -58,6 +58,7 @@ EMClientDelegate
  *  @param aError 错误信息
  */
 - (void)didAutoLoginWithError:(EMError *)aError {
+    [[FZY_DataHandle shareDatahandle] open];
     [UIView showMessage:@"自动登录成功"];
 }
 
