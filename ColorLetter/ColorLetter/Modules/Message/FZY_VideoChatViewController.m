@@ -68,6 +68,7 @@ EMCallManagerDelegate
 
     [hangUpButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"挂断");
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
@@ -77,15 +78,15 @@ EMCallManagerDelegate
     // 发起视屏会话
     [[EMClient sharedClient].callManager startVideoCall:_friendName completion:^(EMCallSession *aCallSession, EMError *aError) {
         if (!aError) {
-            NSLog(@"创建视屏通话成功");
+            NSLog(@"创建视屏通话成功, sessionID: %@", aCallSession.sessionId);
             // 对方窗口
             aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
             self.remoteView = aCallSession.remoteVideoView;
             [self.view addSubview:_remoteView];
             
             // 自己窗口
-            CGFloat w = 80;
-            CGFloat h = HEIGHT / WIDTH * w;
+           // CGFloat w = 80;
+           // CGFloat h = HEIGHT / WIDTH * w;
            // aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 90, 50, w, h) withSessionPreset:AVCaptureSessionPreset640x480];
             
             self.localView = aCallSession.localVideoView;
@@ -99,15 +100,15 @@ EMCallManagerDelegate
 }
 
 #pragma mark - 视屏通话相关回调
-
 #pragma mark - 用户B 同意 用户A 拨打的通话后, 对方会受到该回调
 - (void)didReceiveCallAccepted:(EMCallSession *)aSession {
-    NSLog(@"用户B 同意视屏通话");
+    NSLog(@"对方同意视屏通话");
 }
 #pragma mark - 通话通道建立完成, 用户A 和 用户B 都会都到这个回调
 - (void)didReceiveCallConnected:(EMCallSession *)aSession {
     NSLog(@"通道建立完成");
 }
+
 #pragma mark - 通话结束回调
 /*!
  *  1. 用户A或用户B结束通话后，对方会收到该回调

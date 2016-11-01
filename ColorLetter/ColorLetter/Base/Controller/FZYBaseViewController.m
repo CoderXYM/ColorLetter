@@ -9,6 +9,7 @@
 #import "FZYBaseViewController.h"
 #import "DrawerViewController.h"
 #import "FZY_FriendRequestViewController.h"
+#import "FZY_AgreeVideoCallViewController.h"
 
 @interface FZYBaseViewController ()
 <
@@ -36,9 +37,24 @@ EMCallManagerDelegate
 
 }
 
-#pragma mark - 用户A 拨打 用户B 会受到这个回调
+#pragma mark - 用户A 拨打 用户B, 用户B 会收到这个回调
 - (void)didReceiveCallIncoming:(EMCallSession *)aSession{
     NSLog(@"有人呼叫你");
+    
+    // 同意视屏通话
+    EMError *error = nil;
+    error = [[EMClient sharedClient].callManager answerIncomingCall:aSession.sessionId];
+    if (!error) {
+        NSLog(@"同意视屏通话成功");
+    } else {
+        NSLog(@"同意视屏通话失败, 错误信息: %@", error);
+    }
+    
+    FZY_AgreeVideoCallViewController *videoVC = [[FZY_AgreeVideoCallViewController alloc] init];
+    videoVC.remoteView = aSession.remoteVideoView;
+    videoVC.localView = aSession.localVideoView;
+    [self presentViewController:videoVC animated:YES
+                     completion:nil];
 }
 
 - (void)create {
@@ -55,7 +71,7 @@ EMCallManagerDelegate
     self.drawerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_drawerButton setImage:[UIImage imageNamed:@"btn-profile"] forState:UIControlStateNormal];
     [_drawerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-    
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
         DrawerViewController *drawerVC = [[DrawerViewController alloc] init];
          drawerVC.myImage = [UIImage captureImageFromView: self.view];
@@ -65,7 +81,7 @@ EMCallManagerDelegate
         drawerVC.viewController = self;
          [self.view.window.layer addAnimation:animation forKey:nil];      
         [self presentViewController:drawerVC animated:YES completion:nil];
-
+        
     }];
     [self.view addSubview:_drawerButton];
     [_drawerButton mas_makeConstraints:^(MASConstraintMaker *make) {

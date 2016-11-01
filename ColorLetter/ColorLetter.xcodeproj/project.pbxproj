@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A6CD44C83B5DDC46C23487C /* libPods-ColorLetter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */; };
+		4900D2891DC742D600BB7925 /* FZY_AgreeVideoCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4900D2881DC742D600BB7925 /* FZY_AgreeVideoCallViewController.m */; };
 		491424491DC6F69100EC39A5 /* FZY_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 491424481DC6F69100EC39A5 /* FZY_User.m */; };
 		4914244C1DC6F69F00EC39A5 /* FZY_DataHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */; };
 		491656AC1DBA56E100975DE6 /* FZY_SliderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */; };
@@ -189,6 +190,8 @@
 /* Begin PBXFileReference section */
 		16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ColorLetter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FAC0A049392D2BE8F8E4C6 /* Pods-ColorLetter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.debug.xcconfig"; sourceTree = "<group>"; };
+		4900D2871DC742D600BB7925 /* FZY_AgreeVideoCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_AgreeVideoCallViewController.h; sourceTree = "<group>"; };
+		4900D2881DC742D600BB7925 /* FZY_AgreeVideoCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_AgreeVideoCallViewController.m; sourceTree = "<group>"; };
 		491424421DC6ECED00EC39A5 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		491424471DC6F69100EC39A5 /* FZY_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_User.h; sourceTree = "<group>"; };
 		491424481DC6F69100EC39A5 /* FZY_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_User.m; sourceTree = "<group>"; };
@@ -1085,6 +1088,8 @@
 			children = (
 				49BC0A301DC5F6040094EFE8 /* FZY_VideoChatViewController.h */,
 				49BC0A311DC5F6040094EFE8 /* FZY_VideoChatViewController.m */,
+				4900D2871DC742D600BB7925 /* FZY_AgreeVideoCallViewController.h */,
+				4900D2881DC742D600BB7925 /* FZY_AgreeVideoCallViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1977,6 +1982,7 @@
 				49CE08861DC0C1F70022B6B8 /* EaseSDKHelper.m in Sources */,
 				49CE08711DC0C1F70022B6B8 /* UIButton+EMWebCache.m in Sources */,
 				49CE083E1DC0C1F70022B6B8 /* EMAudioPlayerUtil.m in Sources */,
+				4900D2891DC742D600BB7925 /* FZY_AgreeVideoCallViewController.m in Sources */,
 				49CE088F1DC0C1F70022B6B8 /* EaseChineseToPinyin.m in Sources */,
 				49CE084C1DC0C1F70022B6B8 /* MJRefreshAutoFooter.m in Sources */,
 				49CE08451DC0C1F70022B6B8 /* amrFileCodec.mm in Sources */,
