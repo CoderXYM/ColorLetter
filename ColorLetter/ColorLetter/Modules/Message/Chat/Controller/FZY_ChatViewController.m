@@ -50,6 +50,7 @@ Mp3RecorderDelegate
 @property (nonatomic, strong) UITextView *importTextField;
 @property (nonatomic, assign) BOOL isAbleToSendTextMessage;
 
+
 @end
 
 @implementation FZY_ChatViewController
@@ -328,11 +329,10 @@ Mp3RecorderDelegate
         make.centerY.equalTo(_downView.mas_centerY).offset(0);
         make.height.width.equalTo(@40);
     }];
+
 //    _optionVioceButton.layer.cornerRadius = 20;
 //    _optionVioceButton.clipsToBounds = YES;
     
-    
-
 
     // 切换发送消息类型
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];

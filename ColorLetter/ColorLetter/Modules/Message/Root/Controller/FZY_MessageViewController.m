@@ -18,6 +18,7 @@ UITableViewDelegate
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *conversationArray;
+
 @end
 
 @implementation FZY_MessageViewController
