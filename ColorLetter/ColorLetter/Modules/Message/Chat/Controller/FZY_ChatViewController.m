@@ -11,21 +11,31 @@
 #import "FZY_ChatModel.h"
 #import "FZY_KeyboardCollectionViewCell.h"
 #import "FZY_VideoChatViewController.h"
+#import "Mp3Recorder.h"
+#import "UUProgressHUD.h"
 @interface FZY_ChatViewController ()
+
 <
 UITableViewDelegate,
 UITableViewDataSource,
-UITextFieldDelegate,
+UITextViewDelegate,
 EMChatManagerDelegate,
 UICollectionViewDelegate,
 UICollectionViewDataSource,
 UIImagePickerControllerDelegate,
-UINavigationControllerDelegate
+UINavigationControllerDelegate,
+Mp3RecorderDelegate
 >
+
+{
+    BOOL isbeginVoiceRecord;
+    Mp3Recorder *MP3;
+    NSInteger playTime;
+    NSTimer *playTimer;
+}
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *downView;
-@property (nonatomic, strong) UITextField *importTextField;
-@property (nonatomic, strong) UIButton *sendMessageButton;
 @property (nonatomic, strong) NSMutableArray *dataSourceArray;
 @property (nonatomic, strong) EMConversation *conversation;
 @property (nonatomic, assign) CGFloat keyboard_H;
@@ -33,6 +43,13 @@ UINavigationControllerDelegate
 @property (nonatomic, strong) UICollectionView *optionsCollectionView;;
 @property (nonatomic, strong) NSArray *optionsArray;
 @property (nonatomic, assign) BOOL isShow;
+
+@property (nonatomic, retain) UIButton *btnVoiceRecord;
+@property (nonatomic, strong) UIButton *sendMessageButton;
+@property (nonatomic, strong) UIButton *optionVioceButton;
+@property (nonatomic, strong) UITextView *importTextField;
+@property (nonatomic, assign) BOOL isAbleToSendTextMessage;
+
 @end
 
 @implementation FZY_ChatViewController
@@ -296,50 +313,83 @@ UINavigationControllerDelegate
     
     // 创建下面的输入框
     self.downView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50)];
-    _downView.backgroundColor = [UIColor colorWithRed:0.53 green:0.90 blue:0.95 alpha:1.0];
     [self.view addSubview:_downView];
     
+    MP3 = [[Mp3Recorder alloc]initWithDelegate:self];
+    
     // 语音按钮
-    UIButton  *optionVioceButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [optionVioceButton setBackgroundImage:[UIImage imageNamed:@"optionVioce"] forState:UIControlStateNormal];
-    [_downView addSubview:optionVioceButton];
-    [optionVioceButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.optionVioceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_optionVioceButton setBackgroundImage:[UIImage imageNamed:@"chat_voice_record"] forState:UIControlStateNormal];
+    isbeginVoiceRecord = NO;
+    [_optionVioceButton addTarget:self action:@selector(voiceRecord:) forControlEvents:UIControlEventTouchUpInside];
+    [_downView addSubview:_optionVioceButton];
+    [_optionVioceButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_downView).offset(10);
         make.centerY.equalTo(_downView.mas_centerY).offset(0);
         make.height.width.equalTo(@40);
     }];
-    optionVioceButton.layer.cornerRadius = 20;
-    optionVioceButton.clipsToBounds = YES;
-    [optionVioceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        NSLog(@"长按发送语音");
-    }];
+//    _optionVioceButton.layer.cornerRadius = 20;
+//    _optionVioceButton.clipsToBounds = YES;
+    
+    
+
 
     // 切换发送消息类型
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_sendMessageButton setBackgroundImage:[UIImage imageNamed:@"optionAdd"] forState:UIControlStateNormal];
+    self.isAbleToSendTextMessage = NO;
     _sendMessageButton.frame = CGRectMake(WIDTH - 100, 5, 80, 40);
     _sendMessageButton.layer.cornerRadius = 10;
     _sendMessageButton.clipsToBounds = YES;
+    [_sendMessageButton addTarget:self action:@selector(AddOrSend:) forControlEvents:UIControlEventTouchUpInside];
+
     [_downView addSubview:_sendMessageButton];
     [_sendMessageButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(_downView).offset(-10);
             make.centerY.equalTo(_downView.mas_centerY).offset(0);
             make.height.width.equalTo(@40);
     }];
-    [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self optionsCollectionViewFrameChange];
-    }];
+//    [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+//        [self optionsCollectionViewFrameChange];
+//    }];
     
     // 输入框
-    self.importTextField = [[UITextField alloc] initWithFrame:CGRectMake(80, 5, WIDTH / 2, 40)];
-    _importTextField.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1.0];
-    _importTextField.layer.cornerRadius = 10;
-    _importTextField.clipsToBounds = YES;
+    self.importTextField = [[UITextView alloc] initWithFrame:CGRectMake(80, 5, WIDTH / 2, 40)];
+    _importTextField.layer.cornerRadius = 4;
+    _importTextField.layer.masksToBounds = YES;
     _importTextField.delegate = self;
+    _importTextField.layer.borderWidth = 1;
+    _importTextField.layer.borderColor = [[[UIColor lightGrayColor] colorWithAlphaComponent:0.4] CGColor];
+    _importTextField.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1.0];
+//    _importTextField.layer.cornerRadius = 10;
+//    _importTextField.clipsToBounds = YES;
     [_downView addSubview:_importTextField];
     
     [_importTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(optionVioceButton.mas_right).offset(10);
+        make.left.equalTo(_optionVioceButton.mas_right).offset(10);
+        make.right.equalTo(_sendMessageButton.mas_left).offset(-10);
+        make.centerY.equalTo(_downView.mas_centerY).offset(0);
+        make.height.equalTo(@40);
+    }];
+    
+    //改变状态（语音、文字）
+    self.btnVoiceRecord = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    self.btnChangeVoiceState.frame = CGRectMake(5, 5, 30, 30);
+    _btnVoiceRecord.hidden = YES;
+    [_btnVoiceRecord setBackgroundImage:[UIImage imageNamed:@"chat_message_back"] forState:UIControlStateNormal];
+    [_btnVoiceRecord setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [_btnVoiceRecord setTitleColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.5] forState:UIControlStateHighlighted];
+    [_btnVoiceRecord setTitle:@"Hold to Talk" forState:UIControlStateNormal];
+    [_btnVoiceRecord setTitle:@"Release to Send" forState:UIControlStateHighlighted];
+    [_btnVoiceRecord addTarget:self action:@selector(beginRecordVoice:) forControlEvents:UIControlEventTouchDown];
+    [_btnVoiceRecord addTarget:self action:@selector(endRecordVoice:) forControlEvents:UIControlEventTouchUpInside];
+    [_btnVoiceRecord addTarget:self action:@selector(cancelRecordVoice:) forControlEvents:UIControlEventTouchUpOutside | UIControlEventTouchCancel];
+    [_btnVoiceRecord addTarget:self action:@selector(RemindDragExit:) forControlEvents:UIControlEventTouchDragExit];
+    [_btnVoiceRecord addTarget:self action:@selector(RemindDragEnter:) forControlEvents:UIControlEventTouchDragEnter];
+    [self.view addSubview:self.btnVoiceRecord];
+    [self.view addSubview:_btnVoiceRecord];
+    [_btnVoiceRecord mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_optionVioceButton.mas_right).offset(10);
         make.right.equalTo(_sendMessageButton.mas_left).offset(-10);
         make.centerY.equalTo(_downView.mas_centerY).offset(0);
         make.height.equalTo(@40);
@@ -351,6 +401,111 @@ UINavigationControllerDelegate
     
     [self createOptionsCollectionView];
     
+}
+
+- (void)AddOrSend:(UIButton *)button {
+    if (self.isAbleToSendTextMessage) {
+//        NSString *resultStr = [self.importTextField.text stringByReplacingOccurrencesOfString:@"   " withString:@""];
+//        [self.delegate UUInputFunctionView:self sendMessage:resultStr];
+//         构造文字消息
+            EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:_importTextField.text];
+            NSString *userName = [[EMClient sharedClient] currentUsername];
+        
+            // 生成 Message
+            EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:userName to:_friendName body:body ext:nil];
+            message.chatType = EMChatTypeChat; // 设置为单聊信息
+            [self sendMessageWithEMMessage:message];
+    }
+    else{
+        [self.importTextField resignFirstResponder];
+        [self optionsCollectionViewFrameChange];
+    }
+}
+
+//回调录音资料
+- (void)endConvertWithData:(NSData *)voiceData
+{
+//    [self.delegate UUInputFunctionView:self sendVoice:voiceData time:playTime+1];
+    
+    
+    [UUProgressHUD dismissWithSuccess:@"Success"];
+    
+    //缓冲消失时间 (最好有block回调消失完成)
+    self.btnVoiceRecord.enabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.btnVoiceRecord.enabled = YES;
+    });
+}
+
+- (void)failRecord
+{
+    [UUProgressHUD dismissWithSuccess:@"Too short"];
+    
+    //缓冲消失时间 (最好有block回调消失完成)
+    self.btnVoiceRecord.enabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.btnVoiceRecord.enabled = YES;
+    });
+}
+
+//改变输入与录音状态
+- (void)voiceRecord:(UIButton *)sender
+{
+    self.btnVoiceRecord.hidden = !self.btnVoiceRecord.hidden;
+    self.importTextField.hidden  = !self.importTextField.hidden;
+    isbeginVoiceRecord = !isbeginVoiceRecord;
+    if (isbeginVoiceRecord) {
+        [self.optionVioceButton setBackgroundImage:[UIImage imageNamed:@"chat_ipunt_message"] forState:UIControlStateNormal];
+        [self.importTextField resignFirstResponder];
+        [self keyboardWillHide];
+
+
+    }else{
+        [self.optionVioceButton setBackgroundImage:[UIImage imageNamed:@"chat_voice_record"] forState:UIControlStateNormal];
+//        [self.importTextField becomeFirstResponder];
+        [self.importTextField resignFirstResponder];
+
+    }
+}
+
+#pragma mark - 录音touch事件
+- (void)beginRecordVoice:(UIButton *)button {
+    [MP3 startRecord];
+    playTime = 0;
+    playTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countVoiceTime) userInfo:nil repeats:YES];
+    [UUProgressHUD show];
+}
+
+- (void)endRecordVoice:(UIButton *)button {
+    if (playTimer) {
+        [MP3 stopRecord];
+        [playTimer invalidate];
+        playTimer = nil;
+    }
+}
+
+- (void)cancelRecordVoice:(UIButton *)button {
+    if (playTimer) {
+        [MP3 cancelRecord];
+        [playTimer invalidate];
+        playTimer = nil;
+    }
+    [UUProgressHUD dismissWithError:@"Cancel"];
+}
+
+- (void)RemindDragExit:(UIButton *)button {
+    [UUProgressHUD changeSubTitle:@"Release to cancel"];
+}
+
+- (void)RemindDragEnter:(UIButton *)button {
+    [UUProgressHUD changeSubTitle:@"Slide up to cancel"];
+}
+
+- (void)countVoiceTime {
+    playTime ++;
+    if (playTime>=60) {
+        [self endRecordVoice:nil];
+    }
 }
 
 #pragma mark - 创建 键盘 选择发送消息的类型
@@ -487,18 +642,23 @@ UINavigationControllerDelegate
     
 }
 
-#pragma mark - UITextField Delegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    // 构造文字消息
-    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:_importTextField.text];
-    NSString *userName = [[EMClient sharedClient] currentUsername];
-    
-    // 生成 Message
-    EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:userName to:_friendName body:body ext:nil];
-    message.chatType = EMChatTypeChat; // 设置为单聊信息
-    [self sendMessageWithEMMessage:message];
-    return YES;
+#pragma mark - TextViewDelegate
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    [self changeSendBtnWithPhoto:textView.text.length>0?NO:YES];
 }
+
+- (void)changeSendBtnWithPhoto:(BOOL)isPhoto
+{
+    self.isAbleToSendTextMessage = !isPhoto;
+    [self.sendMessageButton setTitle:isPhoto?@"":@"send" forState:UIControlStateNormal];
+//    self.sendMessageButton.frame = RECT_CHANGE_width(self.btnSendMessage, isPhoto?30:35);
+    self.sendMessageButton.frame = CGRectMake(_sendMessageButton.frame.origin.x, _sendMessageButton.frame.origin.y, isPhoto?30:35, _sendMessageButton.frame.size.height)
+    ;    UIImage *image = [UIImage imageNamed:isPhoto?@"Chat_take_picture":@"chat_send_message"];
+    [self.sendMessageButton setBackgroundImage:image forState:UIControlStateNormal];
+}
+
 
 #pragma mark - 轻拍手势方法
 - (void)screenTap:(UIGestureRecognizer *)tap {
