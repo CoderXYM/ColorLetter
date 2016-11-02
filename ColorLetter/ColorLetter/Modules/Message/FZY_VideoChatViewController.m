@@ -8,10 +8,10 @@
 
 #import "FZY_VideoChatViewController.h"
 
-
 @interface FZY_VideoChatViewController ()
 <
-EMCallManagerDelegate
+EMCallManagerDelegate,
+AVCaptureMetadataOutputObjectsDelegate
 >
 // 会话标识
 @property (nonatomic, strong) NSString *sessionId;
@@ -32,6 +32,16 @@ EMCallManagerDelegate
 // 设置视频码率, 必须在通话开始前设置, 码率范围为 150-1000, 默认为600
 @property (nonatomic, assign) int videoBitrate;
 
+// 设备
+@property (nonatomic, strong) AVCaptureDevice *device;
+// 输入流
+@property (nonatomic, strong) AVCaptureDeviceInput *input;
+// 输出流
+@property (nonatomic, strong) AVCaptureMetadataOutput *output;
+// 输出中间桥梁
+@property (nonatomic, strong) AVCaptureSession *session;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *preview;
+
 @end
 
 @implementation FZY_VideoChatViewController
@@ -39,19 +49,40 @@ EMCallManagerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor grayColor];
-    
     // 注册实时通话回调
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
     
     [self createVideoChatView];
     
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     // 移除实时通话回调
-    [[EMClient sharedClient].callManager removeDelegate:self];
+   // [[EMClient sharedClient].callManager removeDelegate:self];
 
+}
+
+// 创建视屏通话页面
+- (void)createVideoChatView {
+    // 发起视屏会话
+    [[EMClient sharedClient].callManager startVideoCall:_friendName completion:^(EMCallSession *aCallSession, EMError *aError) {
+        if (!aError) {
+            NSLog(@"创建视屏通话成功, sessionID: %@", aCallSession.sessionId);
+            self.sessionId = aCallSession.sessionId;
+            // 对方窗口
+            aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+            self.remoteView = aCallSession.remoteVideoView;
+            [self.view addSubview:_remoteView];
+            
+            // 自己窗口
+            [self setupCamera];
+            
+            [self createUI];
+        } else {
+            NSLog(@"创建视屏通话失败");
+        }
+    }];
 }
 
 - (void)createUI {
@@ -65,37 +96,13 @@ EMCallManagerDelegate
         make.height.equalTo(@50);
         make.bottom.equalTo(self.view.mas_bottom).offset(-50);
     }];
-
+    
     [hangUpButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"挂断");
         
+        [[EMClient sharedClient].callManager endCall:_sessionId reason:EMCallEndReasonHangup];
+        
         [self dismissViewControllerAnimated:YES completion:nil];
-    }];
-}
-
-// 创建视屏通话页面
-- (void)createVideoChatView {
-    // 发起视屏会话
-    [[EMClient sharedClient].callManager startVideoCall:_friendName completion:^(EMCallSession *aCallSession, EMError *aError) {
-        if (!aError) {
-            NSLog(@"创建视屏通话成功, sessionID: %@", aCallSession.sessionId);
-            // 对方窗口
-            aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-            self.remoteView = aCallSession.remoteVideoView;
-            [self.view addSubview:_remoteView];
-            
-            // 自己窗口
-           // CGFloat w = 80;
-           // CGFloat h = HEIGHT / WIDTH * w;
-           // aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 90, 50, w, h) withSessionPreset:AVCaptureSessionPreset640x480];
-            
-            self.localView = aCallSession.localVideoView;
-            [self.view addSubview:aCallSession.localVideoView];
-            
-            [self createUI];
-        } else {
-            NSLog(@"创建视屏通话失败");
-        }
     }];
 }
 
@@ -188,6 +195,52 @@ EMCallManagerDelegate
  */
 - (void)resumeVoiceAndVideoTransfer:(NSString *)aSessionId {
     NSLog(@"恢复通话语音和视频图像数据传输");
+}
+
+// 设置摄像头
+// 设置相机
+- (void)setupCamera {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // 获取摄像设备
+        _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        
+        // 创建输入流
+        _input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:nil];
+        
+        // 创建输出流
+        _output = [[AVCaptureMetadataOutput alloc] init];
+        // 设置代理 在主线程中刷新
+        [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+        
+        // 初始化链接对象
+        _session = [[AVCaptureSession alloc] init];
+        
+        // 高质量采集率
+        [_session setSessionPreset:AVCaptureSessionPresetHigh];
+        
+        if ([_session canAddInput:self.input])
+        {
+            [_session addInput:self.input];
+        }
+        
+        if ([_session canAddOutput:self.output])
+        {
+            [_session addOutput:self.output];
+        }
+        
+        // 条码类型 AVMetadataObjectTypeQRCode
+        _output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 更新界面
+            _preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
+            _preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
+            _preview.frame = CGRectMake(WIDTH - 120, 50, 100, 100);
+            [self.view.layer insertSublayer:self.preview atIndex:0];
+            // Start
+            [_session startRunning];
+        });
+    });
 }
 
 - (void)didReceiveMemoryWarning {

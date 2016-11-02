@@ -49,10 +49,6 @@ EMClientDelegate
     // LeanCloud 的初始化
     [AVOSCloud setApplicationId:@"TqOSFbfozHvy7bvJsvRb5iUo-gzGzoHsz" clientKey:@"BVsKxayJdjhnXBz1fXjE4FOp"];
     
-    // 高德地图 的初始化
-//    [AMapServices sharedServices].apiKey = @"8eb3d7f3bf9f4b2d2b55d705d9d7dc81";
-    
-    
     return YES;
 
 }

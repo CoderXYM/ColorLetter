@@ -52,14 +52,10 @@ EMCallManagerDelegate
     
     [hangUpButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"挂断");
-        
+        [[EMClient sharedClient].callManager endCall:_sessionId reason:EMCallEndReasonHangup];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 }
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

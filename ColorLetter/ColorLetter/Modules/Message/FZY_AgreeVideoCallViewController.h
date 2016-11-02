@@ -14,5 +14,6 @@
 @property (nonatomic, strong) EMCallLocalView *localView;
 // 视屏通话时,对方的图像显示区域
 @property (nonatomic, strong) EMCallRemoteView *remoteView;
-
+// 会话标识
+@property (nonatomic, strong) NSString *sessionId;
 @end

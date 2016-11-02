@@ -41,20 +41,42 @@ EMCallManagerDelegate
 - (void)didReceiveCallIncoming:(EMCallSession *)aSession{
     NSLog(@"有人呼叫你");
     
-    // 同意视屏通话
-    EMError *error = nil;
-    error = [[EMClient sharedClient].callManager answerIncomingCall:aSession.sessionId];
-    if (!error) {
-        NSLog(@"同意视屏通话成功");
-    } else {
-        NSLog(@"同意视屏通话失败, 错误信息: %@", error);
-    }
+    UIAlertController *callIncomingAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@想和你视屏通话", aSession.remoteUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    FZY_AgreeVideoCallViewController *videoVC = [[FZY_AgreeVideoCallViewController alloc] init];
-    videoVC.remoteView = aSession.remoteVideoView;
-    videoVC.localView = aSession.localVideoView;
-    [self presentViewController:videoVC animated:YES
-                     completion:nil];
+    // 创建一个同意按钮
+    UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        // 同意视屏通话
+        EMError *error = nil;
+        error = [[EMClient sharedClient].callManager answerIncomingCall:aSession.sessionId];
+        if (!error) {
+            NSLog(@"同意视屏通话成功");
+        } else {
+            NSLog(@"同意视屏通话失败, 错误信息: %@", error);
+        }
+        
+        FZY_AgreeVideoCallViewController *videoVC = [[FZY_AgreeVideoCallViewController alloc] init];
+        videoVC.remoteView = aSession.remoteVideoView;
+        videoVC.localView = aSession.localVideoView;
+        videoVC.sessionId = aSession.sessionId;
+        [self presentViewController:videoVC animated:YES
+                         completion:nil];
+        
+    }];
+    // 创建一个拒绝按钮
+    UIAlertAction *refuseAction = [UIAlertAction actionWithTitle:@"拒绝" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        [[EMClient sharedClient].callManager endCall:aSession.sessionId reason:EMCallEndReasonDecline];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }];
+    //将取消和确定按钮添加进弹框控制器
+    [callIncomingAlert addAction:refuseAction];
+    [callIncomingAlert addAction:agreeAction];
+    //显示弹框控制器
+    [self presentViewController:callIncomingAlert animated:YES completion:nil];
+   
 }
 
 - (void)create {

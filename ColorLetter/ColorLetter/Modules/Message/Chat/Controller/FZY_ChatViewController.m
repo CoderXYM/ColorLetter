@@ -419,14 +419,35 @@ UINavigationControllerDelegate
         case 3:
         {
             NSLog(@"视频");
-            FZY_VideoChatViewController *videoChatVC = [[FZY_VideoChatViewController alloc] init];
-            videoChatVC.friendName = _friendName;
-            [self presentViewController:videoChatVC animated:YES completion:nil];
+            if ([self canOpenCamera]) {
+                FZY_VideoChatViewController *videoChatVC = [[FZY_VideoChatViewController alloc] init];
+                videoChatVC.friendName = _friendName;
+                [self presentViewController:videoChatVC animated:YES completion:nil];
+            } else {
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"没有相机权限" message:@"请去设置-隐私-相机中进行授权" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+                [alertController addAction:okAction];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
             
         }
             break;
         default:
             break;
+    }
+}
+
+- (BOOL)canOpenCamera {
+    // 获取相机授权状态
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    // 对象机授权状态的判断
+    if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+        return NO;
+    } else {
+        return YES;
     }
 }
 
