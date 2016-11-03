@@ -58,6 +58,7 @@ EMCallManagerDelegate
         
         FZY_VideoChatViewController *videoVC = [[FZY_VideoChatViewController alloc] init];
         videoVC.friendName = aSession.remoteUsername;
+        videoVC.isAnswer = YES;
         NSLog(@"%@", aSession.remoteUsername);
 //        videoVC.remoteView = aSession.remoteVideoView;
 //        videoVC.localView = aSession.localVideoView;

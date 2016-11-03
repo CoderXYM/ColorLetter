@@ -53,13 +53,13 @@ AVCaptureMetadataOutputObjectsDelegate
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
     
     [self createVideoChatView];
-    
+    [self createUI];
     
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     // 移除实时通话回调
-   // [[EMClient sharedClient].callManager removeDelegate:self];
+    [[EMClient sharedClient].callManager removeDelegate:self];
 
 }
 
@@ -71,27 +71,23 @@ AVCaptureMetadataOutputObjectsDelegate
         if (!aError) {
             NSLog(@"创建视屏通话成功, sessionID: %@", aCallSession.sessionId);
             self.sessionId = aCallSession.sessionId;
-            // 对方窗口
-            aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-            self.remoteView = aCallSession.remoteVideoView;
-            [self.view addSubview:_remoteView];
+            if (_isAnswer) {
+                // 对方窗口
+                aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+                self.remoteView = aCallSession.remoteVideoView;
+                [self.view addSubview:_remoteView];
+            } else {
+                // 自己窗口
+                aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 100, 64, 100, 100) withSessionPreset:AVCaptureSessionPresetLow];
+                self.localView = aCallSession.localVideoView;
+                [self.view addSubview:aCallSession.localVideoView];
+            }
             
-            //2.自己窗口
-//            CGFloat width = 80;
-//            CGFloat height = self.view.frame.size.height / self.view.frame.size.width * width;
-//            aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 100, 64, 100, 100) withSessionPreset:AVCaptureSessionPresetLow];
-//            [self.view addSubview:aCallSession.localVideoView];
-            
-            // 自己窗口
-//            [self setupCamera:(EMCallSession *)aCallSession];
-            
-            [self createUI];
         } else {
             NSLog(@"创建视屏通话失败");
         }
     }];
 }
-
 
 - (void)createUI {
     UIButton *hangUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -119,8 +115,6 @@ AVCaptureMetadataOutputObjectsDelegate
 - (void)didReceiveCallAccepted:(EMCallSession *)aSession {
     NSLog(@"对方同意视屏通话");
 }
-
-
 
 - (void)callDidEnd:(EMCallSession *)aSession reason:(EMCallEndReason)aReason error:(EMError *)aError {
     [[EMClient sharedClient].callManager endCall:_sessionId reason:EMCallEndReasonHangup];

@@ -575,6 +575,7 @@ Mp3RecorderDelegate
             if ([self canOpenCamera]) {
                 FZY_VideoChatViewController *videoChatVC = [[FZY_VideoChatViewController alloc] init];
                 videoChatVC.friendName = _friendName;
+                videoChatVC.isAnswer = NO;
                 [self presentViewController:videoChatVC animated:YES completion:nil];
             } else {
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"没有相机权限" message:@"请去设置-隐私-相机中进行授权" preferredStyle:UIAlertControllerStyleAlert];
