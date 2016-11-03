@@ -75,8 +75,14 @@ AVCaptureMetadataOutputObjectsDelegate
             self.remoteView = aCallSession.remoteVideoView;
             [self.view addSubview:_remoteView];
             
+            //2.自己窗口
+//            CGFloat width = 80;
+//            CGFloat height = self.view.frame.size.height / self.view.frame.size.width * width;
+//            aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 100, 64, 100, 100) withSessionPreset:AVCaptureSessionPresetLow];
+//            [self.view addSubview:aCallSession.localVideoView];
+            
             // 自己窗口
-            [self setupCamera];
+//            [self setupCamera:(EMCallSession *)aCallSession];
             
             [self createUI];
         } else {
@@ -84,6 +90,7 @@ AVCaptureMetadataOutputObjectsDelegate
         }
     }];
 }
+
 
 - (void)createUI {
     UIButton *hangUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -112,9 +119,9 @@ AVCaptureMetadataOutputObjectsDelegate
     NSLog(@"对方同意视屏通话");
 }
 
-- (void)callDidEnd:(EMCallSession *)aSession
-            reason:(EMCallEndReason)aReason
-             error:(EMError *)aError {
+
+
+- (void)callDidEnd:(EMCallSession *)aSession reason:(EMCallEndReason)aReason error:(EMError *)aError {
     [[EMClient sharedClient].callManager endCall:_sessionId reason:EMCallEndReasonHangup];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -207,7 +214,7 @@ AVCaptureMetadataOutputObjectsDelegate
 
 // 设置摄像头
 // 设置相机
-- (void)setupCamera {
+- (void)setupCamera:(EMCallSession *)aCallSession {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // 获取摄像设备
         _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -222,7 +229,7 @@ AVCaptureMetadataOutputObjectsDelegate
         [_output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
         
         // 初始化链接对象
-        _session = [[AVCaptureSession alloc] init];
+//        _session = [[AVCaptureSession alloc] init];
         
         // 高质量采集率
         [_session setSessionPreset:AVCaptureSessionPresetHigh];
@@ -242,11 +249,16 @@ AVCaptureMetadataOutputObjectsDelegate
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
+            aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 50, 64, 100, 100) withSessionPreset:AVCaptureSessionPresetLow];
+            [self.view addSubview:aCallSession.localVideoView];
+
+            
             _preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
             _preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
             _preview.frame = CGRectMake(WIDTH - 120, 50, 100, 100);
+            
             [self.view.layer insertSublayer:self.preview atIndex:0];
-            // Start
+//             Start
             [_session startRunning];
         });
     });

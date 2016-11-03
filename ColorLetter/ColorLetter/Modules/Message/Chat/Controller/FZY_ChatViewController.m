@@ -314,6 +314,7 @@ Mp3RecorderDelegate
     
     // 创建下面的输入框
     self.downView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50)];
+    _downView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_downView];
     
     MP3 = [[Mp3Recorder alloc]initWithDelegate:self];
@@ -405,12 +406,8 @@ Mp3RecorderDelegate
 
 - (void)AddOrSend:(UIButton *)button {
     if (self.isAbleToSendTextMessage) {
-//        NSString *resultStr = [self.importTextField.text stringByReplacingOccurrencesOfString:@"   " withString:@""];
-//        [self.delegate UUInputFunctionView:self sendMessage:resultStr];
-//         构造文字消息
             EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:_importTextField.text];
             NSString *userName = [[EMClient sharedClient] currentUsername];
-        
             // 生成 Message
             EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:userName to:_friendName body:body ext:nil];
             message.chatType = EMChatTypeChat; // 设置为单聊信息
@@ -673,10 +670,10 @@ Mp3RecorderDelegate
 - (void)changeSendBtnWithPhoto:(BOOL)isPhoto
 {
     self.isAbleToSendTextMessage = !isPhoto;
-    [self.sendMessageButton setTitle:isPhoto?@"":@"send" forState:UIControlStateNormal];
+//    [self.sendMessageButton setTitle:isPhoto?@"":@"send" forState:UIControlStateNormal];
 //    self.sendMessageButton.frame = RECT_CHANGE_width(self.btnSendMessage, isPhoto?30:35);
-    self.sendMessageButton.frame = CGRectMake(_sendMessageButton.frame.origin.x, _sendMessageButton.frame.origin.y, isPhoto?30:35, _sendMessageButton.frame.size.height)
-    ;    UIImage *image = [UIImage imageNamed:isPhoto?@"Chat_take_picture":@"chat_send_message"];
+//    self.sendMessageButton.frame = CGRectMake(_sendMessageButton.frame.origin.x, _sendMessageButton.frame.origin.y, /*isPhoto?30:35*/ 35, _sendMessageButton.frame.size.height)
+    ;    UIImage *image = [UIImage imageNamed:isPhoto?@"optionAdd":@"send"];
     [self.sendMessageButton setBackgroundImage:image forState:UIControlStateNormal];
 }
 

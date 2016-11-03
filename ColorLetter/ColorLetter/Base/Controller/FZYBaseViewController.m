@@ -10,6 +10,7 @@
 #import "DrawerViewController.h"
 #import "FZY_FriendRequestViewController.h"
 #import "FZY_AgreeVideoCallViewController.h"
+#import "FZY_VideoChatViewController.h"
 
 @interface FZYBaseViewController ()
 <
@@ -55,10 +56,12 @@ EMCallManagerDelegate
             NSLog(@"同意视屏通话失败, 错误信息: %@", error);
         }
         
-        FZY_AgreeVideoCallViewController *videoVC = [[FZY_AgreeVideoCallViewController alloc] init];
-        videoVC.remoteView = aSession.remoteVideoView;
-        videoVC.localView = aSession.localVideoView;
-        videoVC.sessionId = aSession.sessionId;
+        FZY_VideoChatViewController *videoVC = [[FZY_VideoChatViewController alloc] init];
+        videoVC.friendName = aSession.remoteUsername;
+        NSLog(@"%@", aSession.remoteUsername);
+//        videoVC.remoteView = aSession.remoteVideoView;
+//        videoVC.localView = aSession.localVideoView;
+//        videoVC.sessionId = aSession.sessionId;
         [self presentViewController:videoVC animated:YES
                          completion:nil];
         
