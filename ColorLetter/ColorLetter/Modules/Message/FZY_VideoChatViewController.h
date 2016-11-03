@@ -11,5 +11,6 @@
 @interface FZY_VideoChatViewController : FZYBaseViewController
 
 @property (nonatomic, copy) NSString *friendName;
+@property (nonatomic, assign) BOOL isAnswer;
 
 @end
