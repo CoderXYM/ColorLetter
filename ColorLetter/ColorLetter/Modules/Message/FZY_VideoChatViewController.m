@@ -66,6 +66,7 @@ AVCaptureMetadataOutputObjectsDelegate
 // 创建视屏通话页面
 - (void)createVideoChatView {
     // 发起视屏会话
+    
     [[EMClient sharedClient].callManager startVideoCall:_friendName completion:^(EMCallSession *aCallSession, EMError *aError) {
         if (!aError) {
             NSLog(@"创建视屏通话成功, sessionID: %@", aCallSession.sessionId);
@@ -214,10 +215,11 @@ AVCaptureMetadataOutputObjectsDelegate
 
 // 设置摄像头
 // 设置相机
-- (void)setupCamera:(EMCallSession *)aCallSession {
+
+- (void)setupCamera {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // 获取摄像设备
-        _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] ;
         _device = [self cameraWithPosition:AVCaptureDevicePositionFront];
         
         // 创建输入流
@@ -242,15 +244,15 @@ AVCaptureMetadataOutputObjectsDelegate
         if ([_session canAddOutput:self.output])
         {
             [_session addOutput:self.output];
-        }
+        } 
         
         // 条码类型 AVMetadataObjectTypeQRCode
         _output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
-            aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 50, 64, 100, 100) withSessionPreset:AVCaptureSessionPresetLow];
-            [self.view addSubview:aCallSession.localVideoView];
+//            aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 50, 64, 100, 100) withSessionPreset:AVCaptureSessionPresetLow];
+//            [self.view addSubview:aCallSession.localVideoView];
 
             
             _preview = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
