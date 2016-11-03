@@ -51,9 +51,24 @@ AVCaptureMetadataOutputObjectsDelegate
     // Do any additional setup after loading the view.
     // 注册实时通话回调
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
+    [[EMClient sharedClient].callManager enableAdaptiveBirateStreaming:YES];
     
-    [self createVideoChatView];
+    if (!_isAnswer) {
+        [self createVideoChatView];
+    }else {
+        _aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 100, 64, 100, 100) withSessionPreset:AVCaptureSessionPreset640x480];
+        //                self.localView = aCallSession.localVideoView;
+        [self.view addSubview:_aCallSession.localVideoView];
+        
+        _aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        //            self.localView = aCallSession.localVideoView;
+        [self.view addSubview:_aCallSession.localVideoView];
+
+    }
+    
     [self createUI];
+    
+    
     
 }
 - (void)viewWillDisappear:(BOOL)animated {
@@ -65,23 +80,21 @@ AVCaptureMetadataOutputObjectsDelegate
 
 // 创建视屏通话页面
 - (void)createVideoChatView {
-    // 发起视屏会话
     
+    // 发起视屏会话
     [[EMClient sharedClient].callManager startVideoCall:_friendName completion:^(EMCallSession *aCallSession, EMError *aError) {
         if (!aError) {
             NSLog(@"创建视屏通话成功, sessionID: %@", aCallSession.sessionId);
             self.sessionId = aCallSession.sessionId;
-            if (_isAnswer) {
-                // 对方窗口
-                aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-                self.remoteView = aCallSession.remoteVideoView;
-                [self.view addSubview:_remoteView];
-            } else {
-                // 自己窗口
-                aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 100, 64, 100, 100) withSessionPreset:AVCaptureSessionPresetLow];
-                self.localView = aCallSession.localVideoView;
+
+                aCallSession.localVideoView = [[EMCallLocalView alloc] initWithFrame:CGRectMake(WIDTH - 100, 64, 100, 100) withSessionPreset:AVCaptureSessionPreset640x480];
+//                self.localView = aCallSession.localVideoView;
                 [self.view addSubview:aCallSession.localVideoView];
-            }
+            
+            aCallSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+//            self.localView = aCallSession.localVideoView;
+            [self.view addSubview:aCallSession.localVideoView];
+
             
         } else {
             NSLog(@"创建视屏通话失败");
@@ -89,11 +102,11 @@ AVCaptureMetadataOutputObjectsDelegate
     }];
 }
 
-- (void)createUI {
+- (void)createUI{
     UIButton *hangUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     hangUpButton.backgroundColor = [UIColor redColor];
     [hangUpButton setTitle:@"挂断" forState:UIControlStateNormal];
-    [_remoteView addSubview:hangUpButton];
+    [self.view addSubview:hangUpButton];
     [hangUpButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX).offset(0);
         make.width.equalTo(@200);
@@ -112,9 +125,17 @@ AVCaptureMetadataOutputObjectsDelegate
 
 #pragma mark - 视屏通话相关回调
 #pragma mark - 用户B 同意 用户A 拨打的通话后, 对方会受到该回调
-- (void)didReceiveCallAccepted:(EMCallSession *)aSession {
-    NSLog(@"对方同意视屏通话");
+- (void)callDidAccept:(EMCallSession *)aSession {
+    //    aSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    //    [self.view addSubview:_remoteView];
 }
+
+//- (void)didReceiveCallAccepted:(EMCallSession *)aSession {
+//    NSLog(@"对方同意视屏通话");
+//    // 对方窗口
+////    aSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+////    [self.view addSubview:_remoteView];
+//}
 
 - (void)callDidEnd:(EMCallSession *)aSession reason:(EMCallEndReason)aReason error:(EMError *)aError {
     [[EMClient sharedClient].callManager endCall:_sessionId reason:EMCallEndReasonHangup];
@@ -122,9 +143,19 @@ AVCaptureMetadataOutputObjectsDelegate
 }
 
 #pragma mark - 通话通道建立完成, 用户A 和 用户B 都会都到这个回调
-- (void)didReceiveCallConnected:(EMCallSession *)aSession {
-    NSLog(@"通道建立完成");
+
+- (void)callDidConnect:(EMCallSession *)aSession {
+    aSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    [self.view addSubview:_remoteView];
 }
+
+//- (void)didReceiveCallConnected:(EMCallSession *)aSession {
+//    NSLog(@"通道建立完成");
+////    aSession.remoteVideoView = [[EMCallRemoteView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+////    [self.view addSubview:_remoteView];
+//    
+//}
+
 
 #pragma mark - 通话结束回调
 /*!
@@ -135,11 +166,14 @@ AVCaptureMetadataOutputObjectsDelegate
  *  @param aReason   结束原因
  *  @param aError    错误
  */
-- (void)didReceiveCallTerminated:(EMCallSession *)aSession
-                          reason:(EMCallEndReason)aReason
-                           error:(EMError *)aError {
-    NSLog(@"通话结束原因: %u", aReason);
-}
+
+
+
+//- (void)didReceiveCallTerminated:(EMCallSession *)aSession
+//                          reason:(EMCallEndReason)aReason
+//                           error:(EMError *)aError {
+//    NSLog(@"通话结束原因: %u", aReason);
+//}
 #pragma mark - 弱网检测
 /*!
  *  用户A和用户B正在通话中，用户A的网络状态出现不稳定，用户A会收到该回调

@@ -39,7 +39,7 @@ EMCallManagerDelegate
 }
 
 #pragma mark - 用户A 拨打 用户B, 用户B 会收到这个回调
-- (void)didReceiveCallIncoming:(EMCallSession *)aSession{
+- (void)callDidReceive:(EMCallSession *)aSession {
     NSLog(@"有人呼叫你");
     
     UIAlertController *callIncomingAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@想和你视屏通话", aSession.remoteUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -52,19 +52,21 @@ EMCallManagerDelegate
         error = [[EMClient sharedClient].callManager answerIncomingCall:aSession.sessionId];
         if (!error) {
             NSLog(@"同意视屏通话成功");
+            FZY_VideoChatViewController *videoVC = [[FZY_VideoChatViewController alloc] init];
+            videoVC.friendName = aSession.remoteUsername;
+            videoVC.isAnswer = YES;
+            videoVC.aCallSession = aSession;
+            NSLog(@"%@", aSession.remoteUsername);
+            //        videoVC.remoteView = aSession.remoteVideoView;
+            //        videoVC.localView = aSession.localVideoView;
+            //        videoVC.sessionId = aSession.sessionId;
+            [self presentViewController:videoVC animated:YES
+                             completion:nil];
+            
         } else {
             NSLog(@"同意视屏通话失败, 错误信息: %@", error);
         }
         
-        FZY_VideoChatViewController *videoVC = [[FZY_VideoChatViewController alloc] init];
-        videoVC.friendName = aSession.remoteUsername;
-        videoVC.isAnswer = YES;
-        NSLog(@"%@", aSession.remoteUsername);
-//        videoVC.remoteView = aSession.remoteVideoView;
-//        videoVC.localView = aSession.localVideoView;
-//        videoVC.sessionId = aSession.sessionId;
-        [self presentViewController:videoVC animated:YES
-                         completion:nil];
         
     }];
     // 创建一个拒绝按钮
@@ -80,8 +82,13 @@ EMCallManagerDelegate
     [callIncomingAlert addAction:agreeAction];
     //显示弹框控制器
     [self presentViewController:callIncomingAlert animated:YES completion:nil];
-   
+
+    
 }
+
+//- (void)didReceiveCallIncoming:(EMCallSession *)aSession{
+//    
+//}
 
 - (void)create {
     self.titleLabel = [[UILabel alloc] init];

@@ -13,4 +13,6 @@
 @property (nonatomic, copy) NSString *friendName;
 @property (nonatomic, assign) BOOL isAnswer;
 
+@property (nonatomic, strong) EMCallSession *aCallSession;
+
 @end
