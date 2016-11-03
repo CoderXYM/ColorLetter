@@ -11,9 +11,9 @@
 #import "FZY_SettingViewController.h"
 #import "FZY_LoginOrRegisterViewController.h"
 #import "FZY_BmobObject.h"
-//#import <BmobSDK/Bmob.h>
-//#import <BmobSDK/BmobFile.h>
-//#import <BmobSDK/BmobProFile.h>
+#import "FZY_LoginAndRegisterViewController.h"
+
+
 static NSString *const cellIdentifier = @"drawerCell";
 
 @interface DrawerViewController ()
@@ -48,7 +48,6 @@ UINavigationControllerDelegate
     for (FZY_User *user in _objectArray) {
         if (user.name == [[EMClient sharedClient] currentUsername]) {
             [_imageView sd_setImageWithURL:[NSURL URLWithString:user.imageUrl]];
-            NSLog(@"willAppear :%@", user.imageUrl);
             _flag = YES;
             self.user = user;
         }
@@ -218,8 +217,6 @@ UINavigationControllerDelegate
                 if (succeeded) {
                     [[FZY_DataHandle shareDatahandle] update:_user.imageUrl new:file.url];
                     [_imageView sd_setImageWithURL:[NSURL URLWithString:file.url]];
-                    NSLog(@"update : %@", file.url);
-
                     NSLog(@"更新成功");
                 }else {
                     NSLog(@"更新失败");
@@ -299,9 +296,9 @@ UINavigationControllerDelegate
             EMError *error = [[EMClient sharedClient] logout:YES];
             if (!error) {
                 NSLog(@"退出成功");
-                FZY_LoginOrRegisterViewController *lorVC = [[FZY_LoginOrRegisterViewController alloc] init];
-                lorVC.position = WIDTH / 4 * 3;
-                lorVC.scrollPosition = WIDTH;
+                FZY_LoginAndRegisterViewController *lorVC = [[FZY_LoginAndRegisterViewController alloc] init];
+//                lorVC.position = WIDTH / 4 * 3;
+//                lorVC.scrollPosition = WIDTH;
                 self.view.window.rootViewController = lorVC;
             }
             break;

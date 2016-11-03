@@ -113,6 +113,13 @@ AVCaptureMetadataOutputObjectsDelegate
     NSLog(@"对方同意视屏通话");
 }
 
+- (void)callDidEnd:(EMCallSession *)aSession
+            reason:(EMCallEndReason)aReason
+             error:(EMError *)aError {
+    [[EMClient sharedClient].callManager endCall:_sessionId reason:EMCallEndReasonHangup];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - 通话通道建立完成, 用户A 和 用户B 都会都到这个回调
 - (void)didReceiveCallConnected:(EMCallSession *)aSession {
     NSLog(@"通道建立完成");
