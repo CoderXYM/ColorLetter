@@ -66,6 +66,7 @@ AVCaptureMetadataOutputObjectsDelegate
 // 创建视屏通话页面
 - (void)createVideoChatView {
     // 发起视屏会话
+    
     [[EMClient sharedClient].callManager startVideoCall:_friendName completion:^(EMCallSession *aCallSession, EMError *aError) {
         if (!aError) {
             NSLog(@"创建视屏通话成功, sessionID: %@", aCallSession.sessionId);
@@ -111,6 +112,7 @@ AVCaptureMetadataOutputObjectsDelegate
 - (void)didReceiveCallAccepted:(EMCallSession *)aSession {
     NSLog(@"对方同意视屏通话");
 }
+
 #pragma mark - 通话通道建立完成, 用户A 和 用户B 都会都到这个回调
 - (void)didReceiveCallConnected:(EMCallSession *)aSession {
     NSLog(@"通道建立完成");
@@ -198,11 +200,11 @@ AVCaptureMetadataOutputObjectsDelegate
 }
 
 // 设置摄像头
-// 设置相机
 - (void)setupCamera {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         // 获取摄像设备
-        _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo] ;
+        _device = [self cameraWithPosition:AVCaptureDevicePositionFront];
         
         // 创建输入流
         _input = [AVCaptureDeviceInput deviceInputWithDevice:self.device error:nil];
@@ -241,6 +243,16 @@ AVCaptureMetadataOutputObjectsDelegate
             [_session startRunning];
         });
     });
+}
+
+// 前后置位置拿到相应的摄像头
+- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for ( AVCaptureDevice *device in devices )
+        if ( device.position == position ){
+            return device;
+        }
+    return nil;
 }
 
 - (void)didReceiveMemoryWarning {
