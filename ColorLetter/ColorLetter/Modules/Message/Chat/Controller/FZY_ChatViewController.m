@@ -357,6 +357,7 @@ Mp3RecorderDelegate
     // 输入框
     self.importTextField = [[UITextView alloc] initWithFrame:CGRectMake(80, 5, WIDTH / 2, 40)];
     _importTextField.layer.cornerRadius = 4;
+    _importTextField.font = [UIFont systemFontOfSize:20];
     _importTextField.layer.masksToBounds = YES;
     _importTextField.delegate = self;
     _importTextField.layer.borderWidth = 1;
@@ -406,17 +407,24 @@ Mp3RecorderDelegate
 
 - (void)AddOrSend:(UIButton *)button {
     if (self.isAbleToSendTextMessage) {
+        if (_importTextField.text.length > 0) {
             EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithText:_importTextField.text];
             NSString *userName = [[EMClient sharedClient] currentUsername];
             // 生成 Message
             EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:userName to:_friendName body:body ext:nil];
             message.chatType = EMChatTypeChat; // 设置为单聊信息
             [self sendMessageWithEMMessage:message];
+            self.isAbleToSendTextMessage = NO;
+        }else {
+            [UIView showMessage:@"发送消息不能为空"];
+        }
     }
     else{
         [self.importTextField resignFirstResponder];
         [self optionsCollectionViewFrameChange];
     }
+    UIImage *image = [UIImage imageNamed:_isAbleToSendTextMessage?@"send":@"optionAdd"];
+    [self.sendMessageButton setBackgroundImage:image forState:UIControlStateNormal];
 }
 
 //回调录音资料
@@ -673,7 +681,8 @@ Mp3RecorderDelegate
 //    [self.sendMessageButton setTitle:isPhoto?@"":@"send" forState:UIControlStateNormal];
 //    self.sendMessageButton.frame = RECT_CHANGE_width(self.btnSendMessage, isPhoto?30:35);
 //    self.sendMessageButton.frame = CGRectMake(_sendMessageButton.frame.origin.x, _sendMessageButton.frame.origin.y, /*isPhoto?30:35*/ 35, _sendMessageButton.frame.size.height)
-    ;    UIImage *image = [UIImage imageNamed:isPhoto?@"optionAdd":@"send"];
+    ;
+    UIImage *image = [UIImage imageNamed:isPhoto?@"optionAdd":@"send"];
     [self.sendMessageButton setBackgroundImage:image forState:UIControlStateNormal];
 }
 

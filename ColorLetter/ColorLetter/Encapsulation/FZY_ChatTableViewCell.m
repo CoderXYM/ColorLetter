@@ -75,8 +75,8 @@
         [self.contentView addSubview:_rightName];
         
         // 1、得到图片信息
-        UIImage * leftImage = [UIImage imageNamed:@"222"];
-        UIImage * rightImage = [UIImage imageNamed:@"111"];
+        UIImage * leftImage = [UIImage imageNamed:@"Private letter_List_2"];
+        UIImage * rightImage = [UIImage imageNamed:@"Private letter_List_1"];
         // 2、抓取像素拉伸
         leftImage = [leftImage stretchableImageWithLeftCapWidth:22 topCapHeight:17];
         rightImage = [rightImage stretchableImageWithLeftCapWidth:40 topCapHeight:20];
