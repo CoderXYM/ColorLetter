@@ -213,15 +213,19 @@ EMContactManagerDelegate
 
 #pragma mark - scrollView 关联滑块
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    NSInteger i = 0;
-    if (scrollView.contentOffset.x > _count) {
-        i = -3;
-    } else {
-        i = 3;
+    if ([scrollView isEqual:_leftTabeleView]) {
+        if (scrollView.contentOffset.y == 0) {
+            NSInteger i = 0;
+            if (scrollView.contentOffset.x > _count) {
+                i = -3;
+            } else {
+                i = 3;
+            }
+            _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
+            self.count = scrollView.contentOffset.x ;
+        }
     }
-    _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
-    self.count = scrollView.contentOffset.x ;
+    
 
 //    [UIView animateWithDuration:0.1 animations:^{
 //        _sliderScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 0);

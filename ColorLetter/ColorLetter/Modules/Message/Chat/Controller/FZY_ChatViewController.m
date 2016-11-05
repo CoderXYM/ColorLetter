@@ -10,7 +10,6 @@
 #import "FZY_ChatTableViewCell.h"
 #import "FZY_ChatModel.h"
 #import "FZY_KeyboardCollectionViewCell.h"
-#import "FZY_VideoChatViewController.h"
 #import "Mp3Recorder.h"
 #import "UUProgressHUD.h"
 @interface FZY_ChatViewController ()
@@ -573,10 +572,8 @@ Mp3RecorderDelegate
         {
             NSLog(@"视频");
             if ([self canOpenCamera]) {
-                FZY_VideoChatViewController *videoChatVC = [[FZY_VideoChatViewController alloc] init];
-                videoChatVC.friendName = _friendName;
-                videoChatVC.isAnswer = NO;
-                [self presentViewController:videoChatVC animated:YES completion:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
+                
             } else {
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"没有相机权限" message:@"请去设置-隐私-相机中进行授权" preferredStyle:UIAlertControllerStyleAlert];
                 

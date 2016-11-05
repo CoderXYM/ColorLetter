@@ -10,6 +10,7 @@
 #import "FZYTabBarViewController.h"
 
 #import "FZY_LoginAndRegisterViewController.h"
+#import "ChatDemoHelper.h"
 
 @interface AppDelegate ()
 <
@@ -48,6 +49,8 @@ EMClientDelegate
     
     // LeanCloud 的初始化
     [AVOSCloud setApplicationId:@"TqOSFbfozHvy7bvJsvRb5iUo-gzGzoHsz" clientKey:@"BVsKxayJdjhnXBz1fXjE4FOp"];
+    
+    [ChatDemoHelper shareHelper];
     
     return YES;
 

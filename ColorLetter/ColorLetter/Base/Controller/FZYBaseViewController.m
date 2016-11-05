@@ -9,12 +9,13 @@
 #import "FZYBaseViewController.h"
 #import "DrawerViewController.h"
 #import "FZY_FriendRequestViewController.h"
-#import "FZY_AgreeVideoCallViewController.h"
-#import "FZY_VideoChatViewController.h"
+#import "ChatDemoHelper.h"
+
 
 @interface FZYBaseViewController ()
 <
-EMCallManagerDelegate
+EMCallManagerDelegate,
+ChatDemoHelperDelegate
 >
 @end
 
@@ -38,57 +39,6 @@ EMCallManagerDelegate
 
 }
 
-#pragma mark - 用户A 拨打 用户B, 用户B 会收到这个回调
-- (void)callDidReceive:(EMCallSession *)aSession {
-    NSLog(@"有人呼叫你");
-    
-    UIAlertController *callIncomingAlert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@想和你视屏通话", aSession.remoteUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    // 创建一个同意按钮
-    UIAlertAction *agreeAction = [UIAlertAction actionWithTitle:@"同意" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        // 同意视屏通话
-        EMError *error = nil;
-        error = [[EMClient sharedClient].callManager answerIncomingCall:aSession.sessionId];
-        if (!error) {
-            NSLog(@"同意视屏通话成功");
-            FZY_VideoChatViewController *videoVC = [[FZY_VideoChatViewController alloc] init];
-            videoVC.friendName = aSession.remoteUsername;
-            videoVC.isAnswer = YES;
-            videoVC.aCallSession = aSession;
-            NSLog(@"%@", aSession.remoteUsername);
-            //        videoVC.remoteView = aSession.remoteVideoView;
-            //        videoVC.localView = aSession.localVideoView;
-            //        videoVC.sessionId = aSession.sessionId;
-            [self presentViewController:videoVC animated:YES
-                             completion:nil];
-            
-        } else {
-            NSLog(@"同意视屏通话失败, 错误信息: %@", error);
-        }
-        
-        
-    }];
-    // 创建一个拒绝按钮
-    UIAlertAction *refuseAction = [UIAlertAction actionWithTitle:@"拒绝" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-        [[EMClient sharedClient].callManager endCall:aSession.sessionId reason:EMCallEndReasonDecline];
-        
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-    }];
-    //将取消和确定按钮添加进弹框控制器
-    [callIncomingAlert addAction:refuseAction];
-    [callIncomingAlert addAction:agreeAction];
-    //显示弹框控制器
-    [self presentViewController:callIncomingAlert animated:YES completion:nil];
-
-    
-}
-
-//- (void)didReceiveCallIncoming:(EMCallSession *)aSession{
-//    
-//}
 
 - (void)create {
     self.titleLabel = [[UILabel alloc] init];
@@ -137,6 +87,13 @@ EMCallManagerDelegate
         make.width.equalTo(@30);
         make.height.equalTo(@30);
     }];
+    [ChatDemoHelper shareHelper].delegate = self;
+
+}
+
+- (void)pushCallVC:(EMCallSession *)session isCaller:(BOOL)isCaller status:(NSString *)status {
+    CallViewController *callVC = [[CallViewController alloc] initWithSession:session isCaller:isCaller status:status];
+    [self presentViewController:callVC animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

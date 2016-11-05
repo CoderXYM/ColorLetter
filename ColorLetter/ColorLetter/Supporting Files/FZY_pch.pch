@@ -14,6 +14,9 @@
 
 //#define NSEaseLocalizedString(key, comment) [[NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"EaseUIResource" withExtension:@"bundle"]] localizedStringForKey:(key) value:@"" table:nil]
 
+
+
+
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>
 
@@ -45,7 +48,10 @@
 
 #import "UIImageView+EMWebCache.h"
 
+#define DEMO_CALL 1
+
 #import <EMSDKFull.h>
+
 
 #import "FZY_DataHandle.h"
 
