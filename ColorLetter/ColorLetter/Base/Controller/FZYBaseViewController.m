@@ -88,6 +88,8 @@ ChatDemoHelperDelegate
         make.height.equalTo(@30);
     }];
     [ChatDemoHelper shareHelper].delegate = self;
+    [ChatDemoHelper shareHelper].viewController = self;
+    
 
 }
 

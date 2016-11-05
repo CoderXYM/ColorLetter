@@ -20,28 +20,26 @@
     AVAudioPlayer *_ringPlayer;
     
     UIView *_topView;
-    UILabel *_statusLabel;
-    UILabel *_timeLabel;
+//    UILabel *_timeLabel;
     UILabel *_nameLabel;
     UIImageView *_headerImageView;
     
     //操作按钮显示
     UIView *_actionView;
     UIButton *_silenceButton;
-    UILabel *_silenceLabel;
-    UIButton *_speakerOutButton;
-    UILabel *_speakerOutLabel;
+//    UILabel *_silenceLabel;
+//    UIButton *_speakerOutButton;
+//    UILabel *_speakerOutLabel;
     UIButton *_rejectButton;
     UIButton *_answerButton;
     UIButton *_cancelButton;
-    
     UIButton *_videoButton;
     UIButton *_voiceButton;
 //    UIButton *_recordButton;
     UIButton *_switchCameraButton;
 }
 
-@property (strong, nonatomic) UILabel *statusLabel;
+//@property (strong, nonatomic) UILabel *statusLabel;
 
 @property (strong, nonatomic) UILabel *timeLabel;
 
