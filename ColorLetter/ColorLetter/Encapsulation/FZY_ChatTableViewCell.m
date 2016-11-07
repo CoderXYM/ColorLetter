@@ -35,6 +35,13 @@
 // 时间
 @property (nonatomic, strong) UILabel *leftTimeLabel;
 @property (nonatomic, strong) UILabel *rightTimeLabel;
+
+// 语音
+@property (nonatomic, strong) UIButton *leftVoiceButton;
+@property (nonatomic, strong) UIButton *rightVoiceButton;
+
+// 正在播放语音
+@property (nonatomic, assign) BOOL isPlayVoice;
 @end
 
 @implementation FZY_ChatTableViewCell
@@ -75,11 +82,11 @@
         [self.contentView addSubview:_rightName];
         
         // 1、得到图片信息
-        UIImage * leftImage = [UIImage imageNamed:@"Private letter_List_2"];
-        UIImage * rightImage = [UIImage imageNamed:@"Private letter_List_1"];
+        UIImage * leftImage = [UIImage imageNamed:@"Private letter_List_1"];
+        UIImage * rightImage = [UIImage imageNamed:@"Private letter_List_2"];
         // 2、抓取像素拉伸
-        leftImage = [leftImage stretchableImageWithLeftCapWidth:22 topCapHeight:17];
-        rightImage = [rightImage stretchableImageWithLeftCapWidth:40 topCapHeight:20];
+        leftImage = [leftImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
+        rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
         
         // 左气泡
         self.leftBubble = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 180, 40)];
@@ -115,6 +122,15 @@
         _rightTimeLabel.textAlignment = NSTextAlignmentCenter;
         _rightTimeLabel.font = [UIFont systemFontOfSize:10];
         [self.contentView addSubview:_rightTimeLabel];
+        
+        // 左语音
+        self.leftVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.contentView addSubview:_leftVoiceButton];
+        
+        // 右语音
+        self.rightVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.contentView addSubview:_rightVoiceButton];
+        
     }
     
     return self;
@@ -137,21 +153,53 @@
             self.leftTimeLabel.hidden = YES;
             self.rightTimeLabel.hidden = NO;
             
+            // 图片
             if (model.isPhoto) {
                 
                 self.leftPhotoImageView.hidden = YES;
                 self.rightPhotoImageView.hidden = NO;
+                self.leftVoiceButton.hidden = YES;
+                self.rightVoiceButton.hidden = YES;
                     
                 NSURL *url = [NSURL URLWithString:model.photoName];
                 [_rightPhotoImageView sd_setImageWithURL:url];
                 self.rightBubble.frame = CGRectMake(WIDTH - 200 - 30 - 50, 0, 220, 220);
-            } else {
-                self.leftPhotoImageView.hidden = NO;
-                self.rightPhotoImageView.hidden = YES;
-                //调整坐标 根据label文字自适应
-                self.rightLabel.frame = CGRectMake(10, 10, size.width, size.height);
-                self.rightBubble.frame = CGRectMake(WIDTH - size.width - 30 - 50, 0, size.width + 30, size.height + 30);
+                
             }
+            else {
+                
+                // 语音
+                if (model.isVoice) {
+                    self.leftPhotoImageView.hidden = YES;
+                    self.rightPhotoImageView.hidden = YES;
+                    
+                    self.leftVoiceButton.hidden = YES;
+                    self.rightVoiceButton.hidden = NO;
+                    
+                    int w = (WIDTH / 60) * model.voiceDuration;
+                    
+                    _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 10, 100, 40);
+                    [_rightVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
+                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 0, 100 + 20, 50);
+                    
+                    [_rightVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+                        NSLog(@"%@", model.localVoicePath);
+                        [self playVoiceWithPath:model.localVoicePath];
+                    }];
+                    
+                } else {
+                    // 文字
+                    self.leftPhotoImageView.hidden = YES;
+                    self.rightPhotoImageView.hidden = YES;
+                    self.leftVoiceButton.hidden = YES;
+                    self.rightVoiceButton.hidden = YES;
+                    //调整坐标 根据label文字自适应
+                    self.rightLabel.frame = CGRectMake(10, 10, size.width, size.height);
+                    self.rightBubble.frame = CGRectMake(WIDTH - size.width - 30 - 50, 0, size.width + 30, size.height + 30);
+                }
+                
+            }
+            
             self.rightLabel.text = model.context;
             self.rightName.text = model.fromUser;
             self.rightTimeLabel.text = [NSData intervalSinceNow:model.time];
@@ -174,18 +222,47 @@
             self.leftTimeLabel.hidden = NO;
             self.rightTimeLabel.hidden = YES;
             
+            // 图片
             if (model.isPhoto) {
                 self.leftPhotoImageView.hidden = NO;
                 self.rightPhotoImageView.hidden = YES;
+                self.leftVoiceButton.hidden = YES;
+                self.rightVoiceButton.hidden = YES;
                 
                 NSURL *url = [NSURL URLWithString:model.photoName];
                 [_leftPhotoImageView sd_setImageWithURL:url];
                 self.leftBubble.frame = CGRectMake(50, 10, 220, 220);
             } else {
-                self.leftPhotoImageView.hidden = YES;
-                self.rightPhotoImageView.hidden = NO;
-                self.leftLabel.frame = CGRectMake(10, 10, size.width, size.height);
-                self.leftBubble.frame = CGRectMake(50, 10, size.width + 30, size.height + 30);
+                
+                // 语音
+                if (model.isVoice) {
+                    self.leftPhotoImageView.hidden = YES;
+                    self.rightPhotoImageView.hidden = YES;
+                    
+                    self.leftVoiceButton.hidden = NO;
+                    self.rightVoiceButton.hidden = YES;
+                    
+                    int w = (WIDTH / 60) * model.voiceDuration;
+                    
+                    _leftVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 10, 100, 40);
+                    [_leftVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
+                    self.leftBubble.frame = CGRectMake(50, 10, 100, 50);
+                    
+                    [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+                        NSLog(@"fasfasdfasdf");
+                        NSLog(@"%@", model.remoteVoicePath);
+                    }];
+                    
+                } else {
+                    // 文字
+                    self.leftVoiceButton.hidden = YES;
+                    self.rightVoiceButton.hidden = YES;
+                    self.leftPhotoImageView.hidden = YES;
+                    self.rightPhotoImageView.hidden = YES;
+                    self.leftLabel.frame = CGRectMake(10, 10, size.width, size.height);
+                    self.leftBubble.frame = CGRectMake(50, 0, size.width + 30, size.height + 30);
+                }
+
             }
             self.leftLabel.text = model.context;
             self.leftName.text = model.fromUser;
@@ -201,5 +278,26 @@
     }
 }
 
+- (void)playVoiceWithPath:(NSString *)voicePath {
+   
+    NSLog(@"===== %d", _isPlayVoice);
+    if (_isPlayVoice) {
+        
+        // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
+        NSURL *url = [NSURL fileURLWithPath:voicePath];
+        
+        // 初始化音频播放器
+        AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    
+        // 设置循环播放 0 -> 语音只会播放一次
+        [player setNumberOfLoops:0];
+        
+        [player prepareToPlay];
+        [player play];
+        
+        self.isPlayVoice = YES;
+    }
+    
+}
 
 @end

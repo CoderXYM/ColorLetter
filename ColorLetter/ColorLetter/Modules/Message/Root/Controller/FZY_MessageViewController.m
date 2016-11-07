@@ -62,7 +62,11 @@ UITableViewDelegate
         if (textBody.type == EMMessageBodyTypeImage) {
             txt = @"图片";
         } else {
-            txt = textBody.text;
+            if (textBody.type == EMMessageBodyTypeVoice) {
+                txt = @"语音";
+            } else {
+                txt = textBody.text;
+            }
         }
         
         // 最新消息

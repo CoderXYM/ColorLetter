@@ -131,6 +131,7 @@ Mp3RecorderDelegate
                             model.time = mes.localTime;
                             model.context = txt;
                             model.isPhoto = NO;
+                            model.isVoice = NO;
                             [self.dataSourceArray addObject:model];
                             
                             if (_dataSourceArray.count > 0) {
@@ -152,6 +153,7 @@ Mp3RecorderDelegate
                             model.fromUser = mes.from;
                             model.time = mes.localTime;
                             model.isPhoto = YES;
+                            model.isVoice = NO;
                             [_dataSourceArray addObject:model];
                             if (_dataSourceArray.count > 0) {
                                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
@@ -163,6 +165,27 @@ Mp3RecorderDelegate
                         case EMMessageBodyTypeVoice:
                         {
                             NSLog(@"语音");
+                            EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
+                            
+                            model.fromUser = mes.from;
+                            model.remoteVoicePath = body.remotePath;
+                            model.localVoicePath = body.localPath;
+                            if ([mes.from isEqualToString:userName]) {
+                                model.isSelf = YES;
+                 
+                            } else{
+                                model.isSelf = NO;
+                            }
+                            model.isPhoto= NO;
+                            model.isVoice = YES;
+                            model.voiceDuration = body.duration;
+                            model.time = mes.localTime;
+                            [_dataSourceArray addObject:model];
+                            // 将消息插入 UI
+                            if (_dataSourceArray.count > 0) {
+                                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                                [self insertMessageIntoTableViewWith:indexPath];
+                            }
                         }
                             break;
                         case EMMessageBodyTypeLocation:
@@ -233,6 +256,35 @@ Mp3RecorderDelegate
                     
                 }
                     break;
+                case EMMessageBodyTypeVoice:
+                {
+                    NSLog(@"===========接收语音消息");
+                    // 语音
+                    EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
+                    NSLog(@"音频remote路径 -- %@"      ,body.remotePath);
+                    NSLog(@"音频local路径 -- %@"       ,body.localPath); // 需要使用sdk提供的下载方法后才会存在（音频会自动调用）
+                    NSLog(@"音频的secret -- %@"        ,body.secretKey);
+                    NSLog(@"音频文件大小 -- %lld"       ,body.fileLength);
+                    NSLog(@"音频文件的下载状态 -- %u"   ,body.downloadStatus);
+                    NSLog(@"音频的时间长度 -- %d"      ,body.duration);
+                    
+                    
+                    model.fromUser = message.from;
+                    model.remoteVoicePath = body.remotePath;
+                    model.isSelf = NO;
+                    model.isPhoto= NO;
+                    model.isVoice = YES;
+                    model.time = message.localTime;
+                    model.voiceDuration = body.duration;
+                    [_dataSourceArray addObject:model];
+                    // 将消息插入 UI
+                    if (_dataSourceArray.count > 0) {
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                        [self insertMessageIntoTableViewWith:indexPath];
+                    }
+                    
+                }
+                    break;
                 default:
                     break;
             }
@@ -242,7 +294,6 @@ Mp3RecorderDelegate
 
 #pragma mark - 发送消息
 - (void)sendMessageWithEMMessage:(EMMessage *)message {
-    
     // 发送消息
     [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
         if (!error) {
@@ -275,6 +326,26 @@ Mp3RecorderDelegate
                     model.isSelf = YES;
                     model.isPhoto= YES;
                     model.time = message.localTime;
+                    [_dataSourceArray addObject:model];
+                    // 将消息插入 UI
+                    if (_dataSourceArray.count > 0) {
+                        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
+                        [self insertMessageIntoTableViewWith:indexPath];
+                    }
+                    
+                }
+                    break;
+                case EMMessageBodyTypeVoice:
+                {
+                    NSLog(@"发送语音消息");
+                    EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
+                    model.fromUser = message.from;
+                    model.localVoicePath = body.localPath;
+                    model.isSelf = YES;
+                    model.isPhoto= NO;
+                    model.isVoice = YES;
+                    model.time = message.localTime;
+                    model.voiceDuration = body.duration;
                     [_dataSourceArray addObject:model];
                     // 将消息插入 UI
                     if (_dataSourceArray.count > 0) {
@@ -480,12 +551,29 @@ Mp3RecorderDelegate
     [UUProgressHUD show];
 }
 
+#pragma mark - 构造语音信息
 - (void)endRecordVoice:(UIButton *)button {
     if (playTimer) {
         [MP3 stopRecord];
         [playTimer invalidate];
         playTimer = nil;
     }
+    
+    Mp3Recorder *mp3 = [[Mp3Recorder alloc] init];
+    NSString *mp3Path = [mp3 mp3Path];
+    NSLog(@"结束录音 ======= %@", mp3Path);
+    
+    EMVoiceMessageBody *body = [[EMVoiceMessageBody alloc] initWithLocalPath:mp3Path displayName:@"mp3"];
+ 
+    body.duration = (int)playTime;
+ 
+    NSString *from = [[EMClient sharedClient] currentUsername];
+    
+    // 生成 语音message
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:_friendName body:body ext:nil];
+    message.chatType = EMChatTypeChat;
+    [self sendMessageWithEMMessage:message];
+    
 }
 
 - (void)cancelRecordVoice:(UIButton *)button {
@@ -683,7 +771,6 @@ Mp3RecorderDelegate
     UIImage *image = [UIImage imageNamed:isPhoto?@"optionAdd":@"send"];
     [self.sendMessageButton setBackgroundImage:image forState:UIControlStateNormal];
 }
-
 
 #pragma mark - 轻拍手势方法
 - (void)screenTap:(UIGestureRecognizer *)tap {
