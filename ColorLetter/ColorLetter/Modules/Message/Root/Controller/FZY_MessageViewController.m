@@ -11,17 +11,31 @@
 #import "FZY_ChatViewController.h"
 #import "FZY_FriendsModel.h"
 @interface FZY_MessageViewController ()
+
 <
 UITableViewDataSource,
-UITableViewDelegate
+UITableViewDelegate,
+EMChatManagerDelegate
 >
+
+{
+    BMKLocationService *_locService;
+}
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *conversationArray;
+@property (nonatomic, assign) double latitude;
+@property (nonatomic, assign) double longitude;
 
 @end
 
 @implementation FZY_MessageViewController
+
+- (void)viewWillDisappear:(BOOL)animated {
+     [super viewWillDisappear:animated];
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
@@ -33,9 +47,22 @@ UITableViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     [self creatTableView];
-    [super create];    
+    [super create];
+    //初始化BMKLocationService
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = (id)self;
+    //启动LocationService
+    [_locService startUserLocationService];
+}
+
+//处理位置坐标更新
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
+//    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    self.latitude = userLocation.location.coordinate.latitude;
+    self.longitude = userLocation.location.coordinate.longitude;
 }
 
 #pragma mark - 获取全部会话
@@ -59,10 +86,25 @@ UITableViewDelegate
         EMMessage *latestMess = con.latestMessage;
         EMTextMessageBody *textBody = (EMTextMessageBody *)latestMess.body;
         NSString *txt = nil;
-        if (textBody.type == EMMessageBodyTypeImage) {
-            txt = @"图片";
-        } else {
-            txt = textBody.text;
+
+        switch (textBody.type) {
+            case EMMessageBodyTypeImage:
+                 txt = @"图片";
+                break;
+            case EMMessageBodyTypeText:
+                txt = textBody.text;
+                break;
+            case EMMessageBodyTypeLocation:
+                txt = nil;
+                break;
+            case EMMessageBodyTypeVoice:
+                txt = @"声音";
+                break;
+            case EMMessageBodyTypeVideo:
+                txt = @"视频";
+                break;
+            default:
+                break;
         }
         
         // 最新消息
@@ -83,7 +125,6 @@ UITableViewDelegate
 - (void)creatTableView {
     
     FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
-    model.name = @"777";
     self.conversationArray = [[NSMutableArray alloc] initWithObjects:model, nil];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT - 64 - 44) style:UITableViewStylePlain];
@@ -125,6 +166,24 @@ UITableViewDelegate
         [cell displayNumberOfUnreadMessagesWith:NO];
     }
     
+    
+    EMLocationMessageBody *body = [[EMLocationMessageBody alloc] initWithLatitude:_latitude longitude:_longitude address:@"地址"];
+    NSString *from = [[EMClient sharedClient] currentUsername];
+    
+    // 生成message
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:model.name from:from to:[[EMClient sharedClient] currentUsername] body:body ext:nil];
+    message.chatType = EMChatTypeChat;// 设置为单聊消息
+    [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+        if (!error) {
+            
+            NSLog(@"位置发送成功"); 
+        } else {
+            NSLog(@"发送失败: %@", error);
+        }
+        
+        
+    }];
+
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 

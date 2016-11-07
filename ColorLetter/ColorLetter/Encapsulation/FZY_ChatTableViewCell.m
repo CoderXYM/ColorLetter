@@ -43,6 +43,8 @@
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor clearColor];
+        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         // 左头像
         self.leftIconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 40, 40)];
@@ -75,8 +77,8 @@
         [self.contentView addSubview:_rightName];
         
         // 1、得到图片信息
-        UIImage * leftImage = [UIImage imageNamed:@"Private letter_List_2"];
-        UIImage * rightImage = [UIImage imageNamed:@"Private letter_List_1"];
+        UIImage * leftImage = [UIImage imageNamed:@"chatfrom_bg_normal"];
+        UIImage * rightImage = [UIImage imageNamed:@"chatto_bg_normal"];
         // 2、抓取像素拉伸
         leftImage = [leftImage stretchableImageWithLeftCapWidth:22 topCapHeight:17];
         rightImage = [rightImage stretchableImageWithLeftCapWidth:40 topCapHeight:20];
