@@ -7,6 +7,7 @@
 //
 
 #import "FZY_BaseTableViewCell.h"
+
 @class FZY_ChatModel;
 
 @interface FZY_ChatTableViewCell : FZY_BaseTableViewCell

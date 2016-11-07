@@ -27,7 +27,7 @@
 - (void)creatHomepage {    
     // app 代表图片
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT * 0.5)];
-    imageView.image = [UIImage imageNamed:@"0.jpeg"];
+    imageView.image = [UIImage imageNamed:@"Love.jpeg"];
     [self.view addSubview:imageView];
     
     // app 名字 label
