@@ -213,18 +213,25 @@ EMContactManagerDelegate
 
 #pragma mark - scrollView 关联滑块
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if ([scrollView isEqual:_leftTabeleView]) {
-        if (scrollView.contentOffset.y == 0) {
-            NSInteger i = 0;
-            if (scrollView.contentOffset.x > _count) {
-                i = -3;
-            } else {
-                i = 3;
+        
+        if ([scrollView isEqual:_downScrollView]) {
+            
+            if ([scrollView isEqual:_leftTabeleView]) {
+                if (scrollView.contentOffset.y == 0) {
+                    NSInteger i = 0;
+                    if (scrollView.contentOffset.x > _count) {
+                        i = -3;
+                    } else {
+                        i = 3;
+                    }
+                    _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
+                    self.count = scrollView.contentOffset.x ;
+                }
+                
             }
-            _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
-            self.count = scrollView.contentOffset.x ;
+            
+            
         }
-    }
     
 
 //    [UIView animateWithDuration:0.1 animations:^{
@@ -235,7 +242,7 @@ EMContactManagerDelegate
 #pragma mark - 创建 downScrollView
 - (void)creatDownScrollView {
     
-    self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64 + 50, WIDTH, HEIGHT - 64 - 49 - 50)];
+    self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64 + 40, WIDTH, HEIGHT - 64 - 49 - 40)];
     _downScrollView.bounces = NO;
     _downScrollView.scrollEnabled = YES;
     _downScrollView.contentSize = CGSizeMake(WIDTH * 2, 0);
@@ -382,6 +389,7 @@ EMContactManagerDelegate
 #pragma mark - 自定义的分区头标题: 有图标或需要跳转时用
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *sectionView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 40)];
+    
     if ([tableView isEqual: _leftTabeleView]) {
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
@@ -389,17 +397,31 @@ EMContactManagerDelegate
             [sectionButton setTitle:@"好友申请" forState:UIControlStateNormal];
         }else {
             [sectionButton setTitle:@"好友列表" forState:UIControlStateNormal];
-            [sectionButton addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [sectionButton addTarget:self action:@selector(LeftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
         [sectionButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [sectionView addSubview:sectionButton];
                 return sectionView;
+    } if ([tableView isEqual: _rightTableView]) {
+        UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        sectionButton.frame = sectionView.bounds;
+        if (0 == section) {
+            [sectionButton setTitle:@"群组申请" forState:UIControlStateNormal];
+        }else {
+            [sectionButton setTitle:@"群组列表" forState:UIControlStateNormal];
+            [sectionButton addTarget:self action:@selector(RigjtButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
+        [sectionButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [sectionView addSubview:sectionButton];
+        return sectionView;
     }
+
     return sectionView;
 }
 
--(void)buttonAction:(UIButton *)button {
+-(void)LeftButtonAction:(UIButton *)button {
     if (0 == _select) {
         _select = 1;
     } else {
@@ -408,7 +430,9 @@ EMContactManagerDelegate
     [_leftTabeleView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-
+-(void)RigjtButtonAction:(UIButton *)button {
+    NSLog(@"郭son点击了群组列表");
+}
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
@@ -462,11 +486,6 @@ EMContactManagerDelegate
     }];
     
 }
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
