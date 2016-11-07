@@ -364,7 +364,7 @@ static ChatDemoHelper *helper = nil;
     self.callController = nil;
     if (tmpController) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [tmpController dismissViewControllerAnimated:NO completion:nil];
+            [_viewController dismissViewControllerAnimated:YES completion:nil];
         });
         
         [tmpController clear];

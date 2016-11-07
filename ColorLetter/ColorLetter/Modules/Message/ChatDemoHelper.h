@@ -36,6 +36,8 @@ EMCallManagerDelegate
 
 @property (nonatomic, assign) id<ChatDemoHelperDelegate>delegate;
 
+@property (nonatomic, strong) UIViewController *viewController;
+
 #endif
 
 #if DEMO_CALL == 1
