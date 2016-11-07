@@ -22,4 +22,6 @@
 - (void)stopRecord;
 - (void)cancelRecord;
 
+- (NSString *)mp3Path;
+- (NSString *)cafPath;
 @end

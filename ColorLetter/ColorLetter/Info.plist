@@ -5,7 +5,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>YES</string>
+	<string>允许此权限才能发送语音</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
