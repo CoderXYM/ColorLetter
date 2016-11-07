@@ -59,14 +59,22 @@ UITableViewDelegate
         EMMessage *latestMess = con.latestMessage;
         EMTextMessageBody *textBody = (EMTextMessageBody *)latestMess.body;
         NSString *txt = nil;
-        if (textBody.type == EMMessageBodyTypeImage) {
-            txt = @"图片";
-        } else {
-            if (textBody.type == EMMessageBodyTypeVoice) {
+        
+        switch (textBody.type) {
+            case EMMessageBodyTypeImage:
+                txt = @"图片";
+                break;
+            case EMMessageBodyTypeVoice:
                 txt = @"语音";
-            } else {
+                break;
+            case EMMessageBodyTypeLocation:
+                txt = @"图片";
+                break;
+            case EMMessageBodyTypeText:
                 txt = textBody.text;
-            }
+                break;
+            default:
+                break;
         }
         
         // 最新消息
@@ -87,7 +95,6 @@ UITableViewDelegate
 - (void)creatTableView {
     
     FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
-    model.name = @"777";
     self.conversationArray = [[NSMutableArray alloc] initWithObjects:model, nil];
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT - 64 - 44) style:UITableViewStylePlain];
