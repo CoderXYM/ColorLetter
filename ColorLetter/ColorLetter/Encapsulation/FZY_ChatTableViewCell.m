@@ -314,21 +314,22 @@
 
 - (void)playVoiceWithPath:(NSString *)voicePath {
    
-    NSLog(@"===== %d", _isPlayVoice);
+
+    NSURL *url = [[NSURL alloc] init];
+    // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
+    if (_model.isSelf) {
+        url = [NSURL fileURLWithPath:voicePath];
+    } else {
+        url = [NSURL URLWithString:voicePath];
+    }
+    // 初始化音频播放器
+    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [player setVolume:1];
+    // 设置循环播放 0 -> 语音只会播放一次
+    [player setNumberOfLoops:0];
         
-        // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
-        NSURL *url = [NSURL fileURLWithPath:voicePath];
-        
-        // 初始化音频播放器
-        AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-        [player setVolume:1];
-        // 设置循环播放 0 -> 语音只会播放一次
-        [player setNumberOfLoops:0];
-        
-        [player prepareToPlay];
-        [player play];
-        
-        self.isPlayVoice = YES;
+    [player prepareToPlay];
+    [player play];
     
 }
 
