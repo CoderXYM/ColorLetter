@@ -13,6 +13,7 @@
 #import "FZY_RequestTableViewCell.h"
 #import "FZY_RequestModel.h"
 #import "FZY_ChatViewController.h"
+#import "FZY_CreateGroupViewController.h"
 
 static NSString *const leftIdentifier = @"leftCell";
 static NSString *const IdentifierLeft = @"requestLeftCell";
@@ -53,7 +54,6 @@ EMContactManagerDelegate
 
 @property (nonatomic, assign) BOOL select;
 
-
 @end
 
 @implementation TheContactViewController
@@ -81,7 +81,6 @@ EMContactManagerDelegate
     }
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -94,7 +93,6 @@ EMContactManagerDelegate
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
     
-
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
@@ -230,16 +228,14 @@ EMContactManagerDelegate
                 
             }
             
-            
         }
     
-
 //    [UIView animateWithDuration:0.1 animations:^{
 //        _sliderScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 0);
 //    }];
 }
 
-#pragma mark - 创建 downScrollView
+#pragma mark - 创建 downScrollView, tableView
 - (void)creatDownScrollView {
     
     self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64 + 40, WIDTH, HEIGHT - 64 - 49 - 40)];
@@ -258,10 +254,9 @@ EMContactManagerDelegate
     [_downScrollView addSubview:_leftTabeleView];
     [_leftTabeleView registerClass:[FZY_FriendsTableViewCell class] forCellReuseIdentifier:leftIdentifier];
     [_leftTabeleView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierLeft];
-
     
     self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
-    _rightTableView.backgroundColor = [UIColor blueColor];
+    //_rightTableView.backgroundColor = [UIColor blueColor];
     _rightTableView.delegate = self;
     _rightTableView.dataSource = self;
     _rightTableView.separatorStyle = UITableViewCellAccessoryNone;
@@ -279,10 +274,10 @@ EMContactManagerDelegate
     _searchController.dimsBackgroundDuringPresentation = NO;
     _searchController.obscuresBackgroundDuringPresentation = NO;
     [myView addSubview:_searchController.searchBar];
-
     
 }
 
+#pragma mark - tableView 协议
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:_leftTabeleView]) {
         return 70;
@@ -377,14 +372,17 @@ EMContactManagerDelegate
 
 #pragma mark - 分区数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if ([tableView isEqual: _leftTabeleView]) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 #pragma mark - 改变分区头标题高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 40;
 }
-
 
 #pragma mark - 自定义的分区头标题: 有图标或需要跳转时用
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -407,10 +405,13 @@ EMContactManagerDelegate
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
         if (0 == section) {
+            [sectionButton setTitle:@"创建群组" forState:UIControlStateNormal];
+            [sectionButton addTarget:self action:@selector(creatGroupButton:) forControlEvents:UIControlEventTouchUpInside];
+        }else if (1 == section) {
             [sectionButton setTitle:@"群组申请" forState:UIControlStateNormal];
-        }else {
+        } else {
             [sectionButton setTitle:@"群组列表" forState:UIControlStateNormal];
-            [sectionButton addTarget:self action:@selector(RigjtButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [sectionButton addTarget:self action:@selector(groupListButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
         [sectionButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
@@ -430,8 +431,15 @@ EMContactManagerDelegate
     [_leftTabeleView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
--(void)RigjtButtonAction:(UIButton *)button {
-    NSLog(@"郭son点击了群组列表");
+#pragma mark - 创建群组
+- (void)creatGroupButton:(UIButton *)button {
+    FZY_CreateGroupViewController *createGroupVC = [[FZY_CreateGroupViewController alloc] init];
+    [self presentViewController:createGroupVC animated:YES completion:nil];
+}
+
+#pragma mark - 群组列表
+-(void)groupListButtonAction:(UIButton *)button {
+    NSLog(@"点击了群组列表");
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {

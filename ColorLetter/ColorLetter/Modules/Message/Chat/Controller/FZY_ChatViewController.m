@@ -638,6 +638,8 @@ Mp3RecorderDelegate
             PickerImage.allowsEditing = YES;
             //页面跳转
             [self presentViewController:PickerImage animated:YES completion:nil];
+            
+            
         }
             break;
         case 1:

@@ -193,6 +193,8 @@
 		49CE08B51DC0D6D80022B6B8 /* EaseUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */; };
 		49CEFED41DC0519F0022B6B8 /* FZY_FriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */; };
 		49E640261DC0493000149AF1 /* FZY_FriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */; };
+		49EB5EB31DD09D62002A860D /* FZY_CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EB5EB11DD09D62002A860D /* FZY_CreateGroupViewController.m */; };
+		49EB5EB41DD09D62002A860D /* FZY_CreateGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EB5EB21DD09D62002A860D /* FZY_CreateGroupViewController.xib */; };
 		49FAD61B1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */; };
 		49FAD61E1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FAD61D1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m */; };
 /* End PBXBuildFile section */
@@ -581,6 +583,9 @@
 		49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZY_BmobObject.m; path = ColorLetter/Modules/Drawer/FZY_BmobObject.m; sourceTree = SOURCE_ROOT; };
 		49E640241DC0493000149AF1 /* FZY_FriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendRequestViewController.h; sourceTree = "<group>"; };
 		49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendRequestViewController.m; sourceTree = "<group>"; };
+		49EB5EB01DD09D62002A860D /* FZY_CreateGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_CreateGroupViewController.h; sourceTree = "<group>"; };
+		49EB5EB11DD09D62002A860D /* FZY_CreateGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_CreateGroupViewController.m; sourceTree = "<group>"; };
+		49EB5EB21DD09D62002A860D /* FZY_CreateGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FZY_CreateGroupViewController.xib; sourceTree = "<group>"; };
 		49FAD6191DC41F6B00636D62 /* FZY_BaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_BaseCollectionViewCell.h; sourceTree = "<group>"; };
 		49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_BaseCollectionViewCell.m; sourceTree = "<group>"; };
 		49FAD61C1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_KeyboardCollectionViewCell.h; path = ColorLetter/Base/View/FZY_KeyboardCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -634,6 +639,7 @@
 		491656AD1DBA576500975DE6 /* TheContact */ = {
 			isa = PBXGroup;
 			children = (
+				49EB5EAB1DD09BED002A860D /* CreateGroup */,
 				49BFEAAF1DC4450F00D6DB00 /* Model */,
 				49473E1F1DC385B80004834B /* View */,
 				49473E1B1DC385B10004834B /* Controller */,
@@ -1803,6 +1809,24 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		49EB5EAB1DD09BED002A860D /* CreateGroup */ = {
+			isa = PBXGroup;
+			children = (
+				49EB5EAC1DD09C02002A860D /* Controller */,
+			);
+			name = CreateGroup;
+			sourceTree = "<group>";
+		};
+		49EB5EAC1DD09C02002A860D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				49EB5EB01DD09D62002A860D /* FZY_CreateGroupViewController.h */,
+				49EB5EB11DD09D62002A860D /* FZY_CreateGroupViewController.m */,
+				49EB5EB21DD09D62002A860D /* FZY_CreateGroupViewController.xib */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		88BE9261FE5BDA5D941EC341 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1896,6 +1920,7 @@
 			files = (
 				49B032881DB79C0800D36732 /* LaunchScreen.storyboard in Resources */,
 				49B032851DB79C0800D36732 /* Assets.xcassets in Resources */,
+				49EB5EB41DD09D62002A860D /* FZY_CreateGroupViewController.xib in Resources */,
 				49CE085A1DC0C1F70022B6B8 /* MJRefresh.bundle in Resources */,
 				49CE08851DC0C1F70022B6B8 /* MWPhotoBrowser.bundle in Resources */,
 				49CE08B51DC0D6D80022B6B8 /* EaseUIResource.bundle in Resources */,
@@ -2017,6 +2042,7 @@
 				49CE08561DC0C1F70022B6B8 /* MJRefreshBackStateFooter.m in Sources */,
 				49CE087B1DC0C1F70022B6B8 /* PSTCollectionViewController.m in Sources */,
 				49CE086D1DC0C1F70022B6B8 /* EMSDWebImageManager.m in Sources */,
+				49EB5EB31DD09D62002A860D /* FZY_CreateGroupViewController.m in Sources */,
 				49CE088B1DC0C1F70022B6B8 /* NSDateFormatter+Category.m in Sources */,
 				4975B25F1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.m in Sources */,
 				49CE08A81DC0C1F70022B6B8 /* EaseBubbleView+Voice.m in Sources */,
