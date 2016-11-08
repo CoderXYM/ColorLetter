@@ -51,6 +51,8 @@
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
+        self.backgroundColor = [UIColor clearColor];
+        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         // 左头像
         self.leftIconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 40, 40)];
@@ -83,8 +85,9 @@
         [self.contentView addSubview:_rightName];
         
         // 1、得到图片信息
-        UIImage * leftImage = [UIImage imageNamed:@"Private letter_List_1"];
-        UIImage * rightImage = [UIImage imageNamed:@"Private letter_List_2"];
+        UIImage * leftImage = [UIImage imageNamed:@"chatfrom_bg_normal"];
+        UIImage * rightImage = [UIImage imageNamed:@"chatto_bg_normal"];
+
         // 2、抓取像素拉伸
         leftImage = [leftImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
         rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
@@ -140,10 +143,12 @@
         
         // 左语音
         self.leftVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_leftVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_leftVoiceButton];
         
         // 右语音
         self.rightVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_rightVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_rightVoiceButton];
         
     }
@@ -202,7 +207,7 @@
                     
                     _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 10, 100, 40);
                     [_rightVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
-                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 0, 100 + 20, 50);
+                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 5, 100 + 20, 50);
                     
                     [_rightVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         NSLog(@"%@", model.localVoicePath);
@@ -274,13 +279,14 @@
                     
                     int w = (WIDTH / 60) * model.voiceDuration;
                     
-                    _leftVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 10, 100, 40);
+                    _leftVoiceButton.frame = CGRectMake(60, 10, 100, 40);
                     [_leftVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
-                    self.leftBubble.frame = CGRectMake(50, 10, 100, 50);
+                    self.leftBubble.frame = CGRectMake(50, 5, 120, 50);
                     
                     [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         NSLog(@"fasfasdfasdf");
                         NSLog(@"%@", model.remoteVoicePath);
+                        [self playVoiceWithPath:model.remoteVoicePath];
                     }];
                     
                 } else {
@@ -292,7 +298,6 @@
                     self.leftLabel.frame = CGRectMake(10, 10, size.width, size.height);
                     self.leftBubble.frame = CGRectMake(50, 0, size.width + 30, size.height + 30);
                 }
-
             }
             self.leftLabel.text = model.context;
             self.leftName.text = model.fromUser;
@@ -311,7 +316,6 @@
 - (void)playVoiceWithPath:(NSString *)voicePath {
    
     NSLog(@"===== %d", _isPlayVoice);
-    if (_isPlayVoice) {
         
         // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
         NSURL *url = [NSURL fileURLWithPath:voicePath];
@@ -326,7 +330,6 @@
         [player play];
         
         self.isPlayVoice = YES;
-    }
     
 }
 

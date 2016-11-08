@@ -12,6 +12,8 @@
 #import "FZY_KeyboardCollectionViewCell.h"
 #import "Mp3Recorder.h"
 #import "UUProgressHUD.h"
+
+
 @interface FZY_ChatViewController ()
 
 <
@@ -23,7 +25,8 @@ UICollectionViewDelegate,
 UICollectionViewDataSource,
 UIImagePickerControllerDelegate,
 UINavigationControllerDelegate,
-Mp3RecorderDelegate
+Mp3RecorderDelegate,
+BMKMapViewDelegate
 >
 
 {
@@ -31,6 +34,8 @@ Mp3RecorderDelegate
     Mp3Recorder *MP3;
     NSInteger playTime;
     NSTimer *playTimer;
+//    BMKMapView* _mapView;
+    BMKLocationService *_locService;
 }
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -49,16 +54,57 @@ Mp3RecorderDelegate
 @property (nonatomic, strong) UITextView *importTextField;
 @property (nonatomic, assign) BOOL isAbleToSendTextMessage;
 
+@property (nonatomic, strong) BMKMapView *mapView;
+@property (nonatomic, strong) BMKUserLocation *userLocation;
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+
+@property (nonatomic, assign) double latitude;
+@property (nonatomic, assign) double longitude;
+@property (nonatomic, copy) NSString *address;
+
 
 @end
 
 @implementation FZY_ChatViewController
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
+    pointAnnotation.coordinate = CLLocationCoordinate2DMake(_latitude, _longitude);
+//    pointAnnotation.title = [NSString stringWithFormat:@"%@", _address];
+    
+    [_mapView addAnnotation:pointAnnotation];
+}
+
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[BMKPointAnnotation class]])
+    {
+        static NSString *pointReuseIndentifier = @"pointReuseIndentifier";
+        BMKPinAnnotationView*annotationView = (BMKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndentifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndentifier];
+        }
+        annotationView.canShowCallout= YES;       //设置气泡可以弹出，默认为NO
+        annotationView.animatesDrop = YES;        //设置标注动画显示，默认为NO
+        annotationView.draggable = YES;        //设置标注可以拖动，默认为NO
+        annotationView.pinColor = BMKPinAnnotationColorPurple;
+        return annotationView;
+    }
+    return nil;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBar.hidden = NO;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
+    [_mapView viewWillAppear];
+    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 }
 
 - (void)viewDidLoad {
@@ -68,10 +114,23 @@ Mp3RecorderDelegate
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = _friendName;
     self.navigationController.navigationBar.translucent = NO;
+    
+       //初始化BMKLocationService
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = (id)self;
+    //启动LocationService
+    [_locService startUserLocationService];
+    
+    self.mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    _mapView.mapType = BMKMapTypeStandard;
+    _mapView.userTrackingMode = BMKUserTrackingModeFollow;
+    _mapView.showsUserLocation = YES;//显示定位图层
+    self.view = _mapView;
+    
     [self loadConversationHistory];
     
     [self creatChatTableViewAndTextField];
-    
+
     // 接收消息
     // 注册消息回调
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
@@ -79,6 +138,10 @@ Mp3RecorderDelegate
     // 添加 键盘弹出 通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
+
+    
+
+
     
 }
 
@@ -87,6 +150,25 @@ Mp3RecorderDelegate
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     // 移除聊天消息回调
     [[EMClient sharedClient].chatManager removeDelegate:self];
+    [_mapView viewWillDisappear];
+    _mapView.delegate = nil; // 不用时，置nil
+}
+
+//实现相关delegate 处理位置信息更新
+//处理方向变更信息
+- (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
+{
+//    NSLog(@"heading is %@",userLocation.heading);
+    [_mapView updateLocationData:userLocation];
+
+
+}
+//处理位置坐标更新
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
+//    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    [_mapView updateLocationData:userLocation];
+
 }
 
 #pragma mark - 获取与好友的聊天历史记录
@@ -188,11 +270,7 @@ Mp3RecorderDelegate
                             }
                         }
                             break;
-                        case EMMessageBodyTypeLocation:
-                        {
-                            NSLog(@"位置");
-                        }
-                            break;
+                       
                         default:
                             break;
                     }
@@ -256,8 +334,14 @@ Mp3RecorderDelegate
                     
                 }
                     break;
-                case EMMessageBodyTypeVoice:
-                {
+                case EMMessageBodyTypeLocation: {
+                    EMLocationMessageBody *body = (EMLocationMessageBody *)msgBody;
+                    self.latitude = body.latitude;
+                    self.longitude = body.longitude;
+                    self.address = body.address;
+                }
+                    break;
+                case EMMessageBodyTypeVoice: {
                     NSLog(@"===========接收语音消息");
                     // 语音
                     EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
@@ -267,7 +351,6 @@ Mp3RecorderDelegate
                     NSLog(@"音频文件大小 -- %lld"       ,body.fileLength);
                     NSLog(@"音频文件的下载状态 -- %u"   ,body.downloadStatus);
                     NSLog(@"音频的时间长度 -- %d"      ,body.duration);
-                    
                     
                     model.fromUser = message.from;
                     model.remoteVoicePath = body.remotePath;
@@ -374,10 +457,10 @@ Mp3RecorderDelegate
     self.dataSourceArray = [NSMutableArray array];
     
     // 创建 tableView
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 50 - 64) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 120) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-   // _tableView.backgroundColor = [UIColor redColor];
+    _tableView.backgroundColor = [UIColor clearColor];
     _tableView.separatorStyle = UITableViewCellAccessoryNone;
     [self.view addSubview:_tableView];
     [_tableView registerClass:[FZY_ChatTableViewCell class] forCellReuseIdentifier:@"chatCell"];
@@ -654,14 +737,14 @@ Mp3RecorderDelegate
         case 2:
         {
             NSLog(@"位置");
+            _tableView.hidden = !_tableView.hidden;
         }
             break;
         case 3:
         {
             NSLog(@"视频");
             if ([self canOpenCamera]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
-                
+               [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
             } else {
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"没有相机权限" message:@"请去设置-隐私-相机中进行授权" preferredStyle:UIAlertControllerStyleAlert];
                 
@@ -737,6 +820,7 @@ Mp3RecorderDelegate
     // 取数据
     FZY_ChatModel *model = _dataSourceArray[indexPath.row];
     cell.model = model;
+
     
     return cell;
 }
@@ -806,7 +890,7 @@ Mp3RecorderDelegate
     self.animationDuration = animationDuration;
     
     [UIView animateWithDuration:animationDuration animations:^{
-        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - h);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 120 - h);
         [_downView setFrame:CGRectMake(_downView.frame.origin.x, HEIGHT - 50 - h - 64, _downView.frame.size.width, _downView.frame.size.height)];
     }];
     
@@ -816,7 +900,7 @@ Mp3RecorderDelegate
     self.isShow = NO;
     [UIView animateWithDuration:_animationDuration animations:^{
         
-        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 120);
         _optionsCollectionView.frame = CGRectMake(0, HEIGHT, WIDTH, 0);
         [_downView setFrame:CGRectMake(_downView.frame.origin.x, HEIGHT - 50 - 64, _downView.frame.size.width, _downView.frame.size.height)];
     }];
@@ -836,20 +920,20 @@ Mp3RecorderDelegate
     if (_optionsCollectionView.frame.size.height > 0) {
         _downView.frame = CGRectMake(0, HEIGHT - 50 - 64, WIDTH, 50);
         _optionsCollectionView.frame = CGRectMake(0, HEIGHT, WIDTH, 0);
-        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 120);
         
     }
     else if (_isShow) {
         [_importTextField resignFirstResponder];
         _optionsCollectionView.frame = CGRectMake(0, HEIGHT - 80 - 64, WIDTH, 80);
         _downView.frame = CGRectMake(0, HEIGHT - 80 - 50 - 64, WIDTH, 50);
-        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - _optionsCollectionView.frame.size.height);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 120 - _optionsCollectionView.frame.size.height);
     }
     else if (_optionsCollectionView.frame.size.height == 0) {
         [_importTextField resignFirstResponder];
         _optionsCollectionView.frame = CGRectMake(0, HEIGHT - 80 - 64, WIDTH, 80);
         _downView.frame = CGRectMake(0, HEIGHT - 80 - 50 - 64, WIDTH, 50);
-        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 50 - _optionsCollectionView.frame.size.height);
+        _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, HEIGHT - 120 - _optionsCollectionView.frame.size.height);
     }
     [self tableViewScrollToBottom];
 }
