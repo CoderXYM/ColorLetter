@@ -135,6 +135,13 @@ EMContactManagerDelegate
  @brief 用户A发送加用户B为好友的申请，用户B同意后，用户A会收到这个回调
  */
 - (void)didReceiveAgreedFromUsername:(NSString *)aUsername {
+    UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@已同意你的请求", aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
+    //创建一个取消和一个确定按钮
+    UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+    //将取消和确定按钮添加进弹框控制器
+    [alert addAction:actionCancle];
+    //显示弹框控制器
+    [self presentViewController:alert animated:YES completion:nil];
     [_leftTabeleView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 

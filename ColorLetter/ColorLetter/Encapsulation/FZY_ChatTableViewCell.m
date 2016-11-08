@@ -284,7 +284,6 @@
                     self.leftBubble.frame = CGRectMake(50, 5, 120, 50);
                     
                     [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-                        NSLog(@"fasfasdfasdf");
                         NSLog(@"%@", model.remoteVoicePath);
                         [self playVoiceWithPath:model.remoteVoicePath];
                     }];
@@ -322,7 +321,7 @@
         
         // 初始化音频播放器
         AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    
+        [player setVolume:1];
         // 设置循环播放 0 -> 语音只会播放一次
         [player setNumberOfLoops:0];
         
