@@ -203,7 +203,7 @@ UITextFieldDelegate
     
     // 返回
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"btn-back"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"x"] forState:UIControlStateNormal];
     
     //button的 封装的block方法
     [backButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
@@ -214,22 +214,22 @@ UITextFieldDelegate
     [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_upView.mas_centerY).offset(10);
         make.left.equalTo(_upView).offset(10);
-        make.width.equalTo(@15);
+        make.width.equalTo(@20);
         make.height.equalTo(@20);
     }];
     
     
-    UIButton *registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setTitle:@"登录" forState:UIControlStateNormal];
-    [_upView addSubview:registerButton];
-    [registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *LoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [LoginButton setTitle:@"Log in" forState:UIControlStateNormal];
+    [_upView addSubview:LoginButton];
+    [LoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_upView.mas_centerY).offset(10);
-        make.centerX.equalTo(self.view.mas_right).offset(- WIDTH / 4 + 12);
-        make.width.equalTo(@50);
+        make.centerX.equalTo(self.view.mas_right).offset(- WIDTH / 4 + 10);
+        make.width.equalTo(@65);
         make.height.equalTo(@40);
     }];
     
-    [registerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    [LoginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [_loginPasswordTextField resignFirstResponder];
         [_loginAccountTextField resignFirstResponder];
         [_accountTextField resignFirstResponder];
@@ -239,18 +239,18 @@ UITextFieldDelegate
         
     }];
     
-    UIButton *LoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [LoginButton setTitle:@"注册" forState:UIControlStateNormal];
-    [_upView addSubview:LoginButton];
-    [LoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIButton *registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [registerButton setTitle:@"Sign up" forState:UIControlStateNormal];
+    [_upView addSubview:registerButton];
+    [registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_upView.mas_centerY).offset(10);
-        make.centerX.equalTo(self.view.mas_left).offset(WIDTH / 4 + 12);
-        make.width.equalTo(@50);
+        make.centerX.equalTo(self.view.mas_left).offset(WIDTH / 4 + 10);
+        make.width.equalTo(@65);
         make.height.equalTo(@40);
     }];
     
     
-    [LoginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    [registerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [_loginPasswordTextField resignFirstResponder];
         [_loginAccountTextField resignFirstResponder];
         [_accountTextField resignFirstResponder];

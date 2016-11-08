@@ -46,7 +46,7 @@ UITextFieldDelegate
 - (void)create {
     
     UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancel setTitle:@"返回" forState:UIControlStateNormal];
+    [cancel setTitle:@"Back" forState:UIControlStateNormal];
     cancel.titleLabel.textColor = [UIColor whiteColor];
     cancel.backgroundColor = [UIColor clearColor];
     [cancel handleControlEvent:UIControlEventTouchUpInside withBlock:^{
@@ -60,15 +60,26 @@ UITextFieldDelegate
         make.width.equalTo(@50);
     }];
     
-
+    UIButton *backImage = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backImage setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backImage handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [self.view addSubview:backImage];
+    [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(5);
+        make.top.equalTo(self.view.mas_top).offset(30                                                             );
+        make.height.equalTo(@20);
+        make.width.equalTo(@25);
+    }];
     
-    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 70, WIDTH, 50)];
+    self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 60, WIDTH, 50)];
     _textField.delegate = self;
     _textField.clipsToBounds = YES;
-    _textField.layer.cornerRadius = _textField.frame.size.height / 2;
+    //_textField.layer.cornerRadius = _textField.frame.size.height / 2;
     _textField.backgroundColor = [UIColor lightGrayColor];
     _textField.clearButtonMode = UITextFieldViewModeAlways;
-    _textField.placeholder = @"   请输入要添加的用户名";
+    _textField.placeholder = @"               Please enter a user name to add";
     [_textField setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [self.view addSubview:_textField];
     
