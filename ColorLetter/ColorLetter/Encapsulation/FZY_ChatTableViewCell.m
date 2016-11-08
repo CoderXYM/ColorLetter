@@ -9,6 +9,7 @@
 #import "FZY_ChatTableViewCell.h"
 #import "FZY_ChatModel.h"
 #import "NSData+Categories.h"
+#import "UIImageAvatarBrowser.h"
 
 @interface FZY_ChatTableViewCell ()
 
@@ -29,9 +30,9 @@
 // 右label
 @property (nonatomic, strong) UILabel *rightLabel;
 // 左图片
-@property (nonatomic, strong) UIImageView *leftPhotoImageView;
+@property (nonatomic, strong) UIButton *leftPhotoImageView;
 // 右图片
-@property (nonatomic, strong) UIImageView *rightPhotoImageView;
+@property (nonatomic, strong) UIButton *rightPhotoImageView;
 // 时间
 @property (nonatomic, strong) UILabel *leftTimeLabel;
 @property (nonatomic, strong) UILabel *rightTimeLabel;
@@ -49,6 +50,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
+        self.backgroundColor = [UIColor clearColor];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         // 左头像
@@ -82,8 +85,9 @@
         [self.contentView addSubview:_rightName];
         
         // 1、得到图片信息
-        UIImage * leftImage = [UIImage imageNamed:@"Private letter_List_1"];
-        UIImage * rightImage = [UIImage imageNamed:@"Private letter_List_2"];
+        UIImage * leftImage = [UIImage imageNamed:@"chatfrom_bg_normal"];
+        UIImage * rightImage = [UIImage imageNamed:@"chatto_bg_normal"];
+
         // 2、抓取像素拉伸
         leftImage = [leftImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
         rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
@@ -91,10 +95,12 @@
         // 左气泡
         self.leftBubble = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 180, 40)];
         _leftBubble.image = leftImage;
+        _leftBubble.userInteractionEnabled = YES;
         [self.contentView addSubview:_leftBubble];
         // 右气泡
         self.rightBubble = [[UIImageView alloc]initWithFrame:CGRectMake(190, 5, 180, 40)];
         _rightBubble.image = rightImage;
+        _rightBubble.userInteractionEnabled = YES;
         [self.contentView addSubview:_rightBubble];
         
         // 气泡上的文字
@@ -107,11 +113,23 @@
         [_rightBubble addSubview:_rightLabel];
         
         // 左图片
-        self.leftPhotoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 200, 200)];
+        self.leftPhotoImageView = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftPhotoImageView.frame = CGRectMake(10, 10, 200, 200);
         [_leftBubble addSubview:_leftPhotoImageView];
+        [_leftPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            NSLog(@"fjsdf"); 
+        }];
+        
         // 右图片
-        self.rightPhotoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 200, 200)];
+        self.rightPhotoImageView = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightPhotoImageView.frame = CGRectMake(10, 10, 200, 200);
         [_rightBubble addSubview:_rightPhotoImageView];
+      
+        [_rightPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            NSLog(@"sb"); 
+        }];
+        
+        
         // 时间Label
         self.leftTimeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _leftTimeLabel.textAlignment = NSTextAlignmentCenter;
@@ -162,10 +180,17 @@
                 self.rightPhotoImageView.hidden = NO;
                 self.leftVoiceButton.hidden = YES;
                 self.rightVoiceButton.hidden = YES;
-                    
                 NSURL *url = [NSURL URLWithString:model.photoName];
-                [_rightPhotoImageView sd_setImageWithURL:url];
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                UIImage *image = [UIImage imageWithData:imageData];
+                [_rightPhotoImageView setImage:image forState:UIControlStateNormal];
+                
+                [_rightPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+                    
+                    [UIImageAvatarBrowser showImage:_rightPhotoImageView.imageView];
+                }];               
                 self.rightBubble.frame = CGRectMake(WIDTH - 200 - 30 - 50, 0, 220, 220);
+                
                 
             }
             else {
@@ -232,8 +257,16 @@
                 self.rightVoiceButton.hidden = YES;
                 
                 NSURL *url = [NSURL URLWithString:model.photoName];
-                [_leftPhotoImageView sd_setImageWithURL:url];
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                UIImage *image = [UIImage imageWithData:imageData];
+                [_leftPhotoImageView setImage:image forState:UIControlStateNormal];
+                
+                [_leftPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+                    
+                    [UIImageAvatarBrowser showImage:_leftPhotoImageView.imageView];
+                }];
                 self.leftBubble.frame = CGRectMake(50, 10, 220, 220);
+            
             } else {
                 
                 // 语音
