@@ -30,8 +30,13 @@
     completeButton.frame = CGRectMake(WIDTH - 100, 20, 80, 40);
     [completeButton setTitle:@"完成" forState:UIControlStateNormal];
     [completeButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self createGroup];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if (_groupMembersArray.count) {
+            [self createGroup];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"创建群组提示" message:@"群成员数不能为空" preferredStyle:UIAlertControllerStyleAlert];
+            ///UIAlertAction *alertAction = [UIAlertAction ]
+        }
     }];
     [self.view addSubview:completeButton];
 }
