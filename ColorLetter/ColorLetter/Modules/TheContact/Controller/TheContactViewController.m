@@ -170,21 +170,21 @@ EMContactManagerDelegate
     [_upView addSubview:_sliderScrollView];
     
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [friendsButton setTitle:@"好友" forState:UIControlStateNormal];
+    [friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
     [friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [friendsButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         _downScrollView.contentOffset = CGPointMake(0, 0);
     }];
     [_upView addSubview:friendsButton];
     [friendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_upView).offset(50);
-        make.width.equalTo(@40);
+        make.left.equalTo(_upView).offset(30);
+        make.width.equalTo(@70);
         make.top.equalTo(_upView).offset(5);
         make.bottom.equalTo(_upView.mas_bottom).offset(-5);
     }];
     
     UIButton *groudButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [groudButton setTitle:@"群组" forState:UIControlStateNormal];
+    [groudButton setTitle:@"Group" forState:UIControlStateNormal];
     [groudButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [groudButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"群组");
@@ -192,8 +192,8 @@ EMContactManagerDelegate
     }];
     [_upView addSubview:groudButton];
     [groudButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_upView).offset(-50);
-        make.width.equalTo(@40);
+        make.right.equalTo(_upView).offset(-30);
+        make.width.equalTo(@70);
         make.top.equalTo(_upView).offset(5);
         make.bottom.equalTo(_upView.mas_bottom).offset(-5);
     }];
@@ -212,9 +212,9 @@ EMContactManagerDelegate
 #pragma mark - scrollView 关联滑块
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
         
-        if ([scrollView isEqual:_downScrollView]) {
+//        if ([scrollView isEqual:_downScrollView]) {
             
-            if ([scrollView isEqual:_leftTabeleView]) {
+            if ([scrollView isEqual:_downScrollView]) {
                 if (scrollView.contentOffset.y == 0) {
                     NSInteger i = 0;
                     if (scrollView.contentOffset.x > _count) {
@@ -228,7 +228,7 @@ EMContactManagerDelegate
                 
             }
             
-        }
+        //}
     
 //    [UIView animateWithDuration:0.1 animations:^{
 //        _sliderScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 0);
@@ -392,9 +392,9 @@ EMContactManagerDelegate
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
         if (0 == section) {
-            [sectionButton setTitle:@"好友申请" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"Requests" forState:UIControlStateNormal];
         }else {
-            [sectionButton setTitle:@"好友列表" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"List" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(LeftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
@@ -405,12 +405,12 @@ EMContactManagerDelegate
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
         if (0 == section) {
-            [sectionButton setTitle:@"创建群组" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"Create" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(creatGroupButton:) forControlEvents:UIControlEventTouchUpInside];
         }else if (1 == section) {
-            [sectionButton setTitle:@"群组申请" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"Requests" forState:UIControlStateNormal];
         } else {
-            [sectionButton setTitle:@"群组列表" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"List" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(groupListButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];

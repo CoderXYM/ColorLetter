@@ -110,12 +110,19 @@ BMKMapViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    // 载入历史聊天记录
+ 
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = _friendName;
-    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     
-       //初始化BMKLocationService
+    
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor grayColor];
+    
+
+
+    
+          //初始化BMKLocationService
     _locService = [[BMKLocationService alloc]init];
     _locService.delegate = (id)self;
     //启动LocationService
@@ -689,7 +696,8 @@ BMKMapViewDelegate
     self.optionsArray = @[@"optionPhoto", @"optionCamera", @"optionPostion", @"optionVideo"];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake((WIDTH - 10 * 5) / 5 , 60);
+    layout.itemSize = CGSizeMake((WIDTH - 15 * 5) / 5 , 50);
+    layout.minimumInteritemSpacing = 15;
     layout.sectionInset = UIEdgeInsetsMake(10, 20, 10, 20);
     self.optionsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, HEIGHT, WIDTH, 0) collectionViewLayout:layout];
     _optionsCollectionView.backgroundColor = [UIColor whiteColor];
