@@ -27,7 +27,8 @@ UIScrollViewDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
 UISearchResultsUpdating,
-EMContactManagerDelegate
+EMContactManagerDelegate,
+EMGroupManagerDelegate
 >
 
 {
@@ -61,7 +62,7 @@ EMContactManagerDelegate
 - (void)dealloc {
     //移除好友回调
     [[EMClient sharedClient].contactManager removeDelegate:self];
-
+    [[EMClient sharedClient].groupManager removeDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,6 +97,9 @@ EMContactManagerDelegate
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
+    // 注册群组回调
+    [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:nil];
+    
     [self create];
 }
 
@@ -111,6 +115,19 @@ EMContactManagerDelegate
 
 }
 
+#pragma mark - 收到进群申请
+// 用户A向群组G发送入群申请，群组G的群主会接收到该回调
+- (void)didReceiveJoinGroupApplication:(EMGroup *)aGroup
+                             applicant:(NSString *)aApplicant
+                                reason:(NSString *)aReason {
+    NSLog(@"%@", aApplicant);
+}
+
+#pragma mark - 收到群组邀请回调
+- (void)didJoinGroup:(EMGroup *)aGroup inviter:(NSString *)aInviter message:(NSString *)aMessage {
+    NSLog(@"----- %@", aMessage);
+}
+#pragma mark - 收到好友邀请回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -126,7 +143,7 @@ EMContactManagerDelegate
     [_friendRequest insertObject:fzy atIndex:0];
     [_leftTabeleView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
     [_leftTabeleView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-
+    
 }
 
 
@@ -356,7 +373,7 @@ EMContactManagerDelegate
             [alert addAction:actionOk];
             //显示弹框控制器
             [self presentViewController:alert animated:YES completion:nil];
-        }else {
+        } else {
             FZY_ChatViewController *chat = [[FZY_ChatViewController alloc] init];
             if (_leftArray.count > 0) {
                 chat.friendName = _leftArray[indexPath.row];

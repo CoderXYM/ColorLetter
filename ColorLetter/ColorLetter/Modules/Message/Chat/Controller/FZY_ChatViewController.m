@@ -823,7 +823,6 @@ BMKMapViewDelegate
     FZY_ChatModel *model = _dataSourceArray[indexPath.row];
     cell.model = model;
 
-    
     return cell;
 }
 
@@ -833,6 +832,7 @@ BMKMapViewDelegate
     if (model.isPhoto) {
         return 240;
     } else {
+        
         //根据文字确定显示大小
         CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
         return size.height + 50;

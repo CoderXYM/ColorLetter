@@ -151,6 +151,7 @@
         [_rightVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_rightVoiceButton];
         
+        
     }
     
     return self;
@@ -321,6 +322,7 @@
     } else {
         url = [NSURL URLWithString:voicePath];
     }
+    
     // 初始化音频播放器
     AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     [player setVolume:1];
