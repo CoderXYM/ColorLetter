@@ -39,6 +39,9 @@ EMClientDelegate
     EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#colorletter"];
     options.apnsCertName = @"ColorLetter";
     
+    // 自动添加成员进群
+    options.isAutoAcceptGroupInvitation = YES;
+    
     self.error = [[EMClient sharedClient] initializeSDKWithOptions:options];
     if (!_error) {
         NSLog(@"初始化成功");
@@ -78,6 +81,23 @@ EMClientDelegate
     
     [ChatDemoHelper shareHelper];
     
+    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
+    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [[FZY_DataHandle shareDatahandle] open];
+            [[FZY_DataHandle shareDatahandle] deleteAll];
+            for (AVObject *userPhoto in objects) {
+                AVObject *user = [userPhoto objectForKey:@"userName"];
+                FZY_User *use = [[FZY_User alloc] init];
+                AVFile *file = [userPhoto objectForKey:@"image"];
+                use.name = [NSString stringWithFormat:@"%@", user];
+                use.imageUrl = file.url;
+                use.userId = userPhoto.objectId;
+                [[FZY_DataHandle shareDatahandle] insert:use];
+            }
+        }
+    }];
+    
     return YES;
 
 }
@@ -98,22 +118,22 @@ EMClientDelegate
  *  @param aError 错误信息
  */
 - (void)didAutoLoginWithError:(EMError *)aError {
-    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
-    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            [[FZY_DataHandle shareDatahandle] open];
-            [[FZY_DataHandle shareDatahandle] deleteAll];
-            for (AVObject *userPhoto in objects) {
-                AVObject *user = [userPhoto objectForKey:@"userName"];
-                FZY_User *use = [[FZY_User alloc] init];
-                AVFile *file = [userPhoto objectForKey:@"image"];
-                use.name = [NSString stringWithFormat:@"%@", user];
-                use.imageUrl = file.url;
-                use.userId = userPhoto.objectId;
-                [[FZY_DataHandle shareDatahandle] insert:use];
-            }
-        }
-    }];
+//    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
+//    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            [[FZY_DataHandle shareDatahandle] open];
+//            [[FZY_DataHandle shareDatahandle] deleteAll];
+//            for (AVObject *userPhoto in objects) {
+//                AVObject *user = [userPhoto objectForKey:@"userName"];
+//                FZY_User *use = [[FZY_User alloc] init];
+//                AVFile *file = [userPhoto objectForKey:@"image"];
+//                use.name = [NSString stringWithFormat:@"%@", user];
+//                use.imageUrl = file.url;
+//                use.userId = userPhoto.objectId;
+//                [[FZY_DataHandle shareDatahandle] insert:use];
+//            }
+//        }
+//    }];
     [UIView showMessage:@"自动登录成功"];
 }
 
@@ -147,7 +167,6 @@ EMClientDelegate
 - (void)didConnectionStateChanged:(EMConnectionState)aConnectionState {
     NSLog(@"正在重连...");
 }
-
 
 
 

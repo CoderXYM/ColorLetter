@@ -14,5 +14,8 @@
 
 @property (nonatomic, strong) FZY_FriendsModel *model;
 
+//@property (nonatomic, strong) NSString *urlImage;
+
 - (void)displayNumberOfUnreadMessagesWith:(BOOL)isRead;
+
 @end

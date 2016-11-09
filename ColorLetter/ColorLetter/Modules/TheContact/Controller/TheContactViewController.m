@@ -99,7 +99,7 @@ FZY_CreateGroupViewControllerDelegate
     _select = 1;
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
-    
+
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
