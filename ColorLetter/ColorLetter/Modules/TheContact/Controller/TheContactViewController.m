@@ -147,7 +147,6 @@ EMGroupManagerDelegate
     
 }
 
-
 /*!
  @method
  @brief 用户A发送加用户B为好友的申请，用户B同意后，用户A会收到这个回调

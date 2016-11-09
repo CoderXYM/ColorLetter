@@ -286,7 +286,7 @@
                     
                     [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         NSLog(@"%@", model.remoteVoicePath);
-                        [self playVoiceWithPath:model.remoteVoicePath];
+                        [self playVoiceWithPath:model.localVoicePath];
                     }];
                     
                 } else {
