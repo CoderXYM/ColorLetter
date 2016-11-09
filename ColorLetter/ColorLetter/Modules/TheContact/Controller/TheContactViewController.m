@@ -147,7 +147,6 @@ EMGroupManagerDelegate
     
 }
 
-
 /*!
  @method
  @brief 用户A发送加用户B为好友的申请，用户B同意后，用户A会收到这个回调
@@ -275,7 +274,7 @@ EMGroupManagerDelegate
 #pragma mark - 创建 downScrollView, tableView
 - (void)creatDownScrollView {
     
-    self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64 + 40, WIDTH, HEIGHT - 64 - 49 - 40)];
+    self.downScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64 + 40, WIDTH, HEIGHT - 40 - 64 - 49)];
     _downScrollView.bounces = NO;
     _downScrollView.scrollEnabled = YES;
     _downScrollView.contentSize = CGSizeMake(WIDTH * 2, 0);
@@ -284,7 +283,7 @@ EMGroupManagerDelegate
     _downScrollView.delegate = self;
     [self.view addSubview:_downScrollView];
     
-    self.leftTabeleView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 64 - 49 - 50 ) style:UITableViewStylePlain];
+    self.leftTabeleView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 64 - 49 - 40) style:UITableViewStylePlain];
     _leftTabeleView.delegate = self;
     _leftTabeleView.dataSource = self;
     _leftTabeleView.separatorStyle = UITableViewCellAccessoryNone;
@@ -292,7 +291,7 @@ EMGroupManagerDelegate
     [_leftTabeleView registerClass:[FZY_FriendsTableViewCell class] forCellReuseIdentifier:leftIdentifier];
     [_leftTabeleView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierLeft];
     
-    self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
+    self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 40) style:UITableViewStylePlain];
     //_rightTableView.backgroundColor = [UIColor blueColor];
     _rightTableView.delegate = self;
     _rightTableView.dataSource = self;

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A6CD44C83B5DDC46C23487C /* libPods-ColorLetter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */; };
+		490022971DD2CF5200AF6C8E /* FZY_HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490022961DD2CF5200AF6C8E /* FZY_HelpViewController.m */; };
 		490327801DD1768D009F9D3E /* FZY_FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903277E1DD1768D009F9D3E /* FZY_FriendsListViewController.m */; };
 		491424491DC6F69100EC39A5 /* FZY_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 491424481DC6F69100EC39A5 /* FZY_User.m */; };
 		4914244C1DC6F69F00EC39A5 /* FZY_DataHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */; };
@@ -204,6 +205,8 @@
 /* Begin PBXFileReference section */
 		16746DD2D78A1F336DE60E8F /* libPods-ColorLetter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ColorLetter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27FAC0A049392D2BE8F8E4C6 /* Pods-ColorLetter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorLetter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ColorLetter/Pods-ColorLetter.debug.xcconfig"; sourceTree = "<group>"; };
+		490022951DD2CF5200AF6C8E /* FZY_HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_HelpViewController.h; sourceTree = "<group>"; };
+		490022961DD2CF5200AF6C8E /* FZY_HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_HelpViewController.m; sourceTree = "<group>"; };
 		4903277D1DD1768D009F9D3E /* FZY_FriendsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendsListViewController.h; sourceTree = "<group>"; };
 		4903277E1DD1768D009F9D3E /* FZY_FriendsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendsListViewController.m; sourceTree = "<group>"; };
 		491424421DC6ECED00EC39A5 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -707,13 +710,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		492AEE7A1DB9C8500014E9BB /* Help */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Help;
-			sourceTree = "<group>";
-		};
 		49473E1B1DC385B10004834B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -821,6 +817,8 @@
 			children = (
 				4975B2141DBDF17000B6987D /* DrawerViewController.h */,
 				4975B2151DBDF17000B6987D /* DrawerViewController.m */,
+				490022951DD2CF5200AF6C8E /* FZY_HelpViewController.h */,
+				490022961DD2CF5200AF6C8E /* FZY_HelpViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1132,7 +1130,6 @@
 			children = (
 				49E640201DC0484600149AF1 /* FriendRequests */,
 				4969E1801DB8A8FD007D0A06 /* Drawer */,
-				492AEE7A1DB9C8500014E9BB /* Help */,
 				49B0329A1DB79D3E00D36732 /* Home */,
 				4975B1D31DBDBF3800B6987D /* LoginAndRegister */,
 				4969E1441DB85C9B007D0A06 /* Message */,
@@ -2145,6 +2142,7 @@
 				49CE08881DC0C1F70022B6B8 /* EaseMessageModel.m in Sources */,
 				49CE08541DC0C1F70022B6B8 /* MJRefreshBackGifFooter.m in Sources */,
 				49CE08A21DC0C1F70022B6B8 /* EaseBubbleView+File.m in Sources */,
+				490022971DD2CF5200AF6C8E /* FZY_HelpViewController.m in Sources */,
 				49F137271DD0325B005F3733 /* FZY_ChatViewController.m in Sources */,
 				492AEEAA1DBA0B440014E9BB /* FZY_SettingTableViewCell.m in Sources */,
 				495CD6471DCA11E100E4F9A4 /* UUMessageContentButton.m in Sources */,

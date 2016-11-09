@@ -101,6 +101,11 @@ FZY_FriendsListViewControllerDelegate
     self.groupMembersArray = array;
 }
 
+- (void)screenTap:(UIGestureRecognizer *)tap {
+    // 取消当前屏幕所有第一响应
+    [self.view endEditing:YES];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
