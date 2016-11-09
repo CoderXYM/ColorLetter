@@ -197,7 +197,9 @@ EMGroupManagerDelegate
     [friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
     [friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [friendsButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        _downScrollView.contentOffset = CGPointMake(0, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            _downScrollView.contentOffset = CGPointMake(0, 0);
+        }];
     }];
     [_upView addSubview:friendsButton];
     [friendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -211,8 +213,9 @@ EMGroupManagerDelegate
     [groudButton setTitle:@"Group" forState:UIControlStateNormal];
     [groudButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [groudButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        NSLog(@"群组");
-        _downScrollView.contentOffset = CGPointMake(WIDTH, 0);
+        [UIView animateWithDuration:0.2 animations:^{
+            _downScrollView.contentOffset = CGPointMake(WIDTH, 0);
+        }];
     }];
     [_upView addSubview:groudButton];
     [groudButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -226,18 +229,25 @@ EMGroupManagerDelegate
 
 #pragma mark - 实现自定义协议 获取滑块位置
 - (void)getSliderPostionX:(CGFloat)x {
-    NSLog(@"%f",x);
-    [UIView animateWithDuration:0.1 animations:^{
-        _downScrollView.contentOffset = CGPointMake(x * WIDTH / slideLength, 0);
-    }];
-    
+    NSLog(@"%f, %f",x, slideLength);
+    if (x > (slideLength / 2)) {
+        [UIView animateWithDuration:0.2 animations:^{
+            _downScrollView.contentOffset = CGPointMake(WIDTH , 0);
+        }];
+    }else if (x < (slideLength / 2)){
+        [UIView animateWithDuration:0.2 animations:^{
+            _downScrollView.contentOffset = CGPointMake(0 , 0);
+        }];
+    }
+//    [UIView animateWithDuration:0.1 animations:^{
+//        _downScrollView.contentOffset = CGPointMake(x * WIDTH / slideLength, 0);
+//    }];
+//    
 }
 
 #pragma mark - scrollView 关联滑块
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
         
-//        if ([scrollView isEqual:_downScrollView]) {
-            
             if ([scrollView isEqual:_downScrollView]) {
                 if (scrollView.contentOffset.y == 0) {
                     NSInteger i = 0;
@@ -250,10 +260,12 @@ EMGroupManagerDelegate
                     self.count = scrollView.contentOffset.x ;
                 }
                 
-            }
+        }
+    
+
             
         //}
-    
+
 //    [UIView animateWithDuration:0.1 animations:^{
 //        _sliderScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 0);
 //    }];

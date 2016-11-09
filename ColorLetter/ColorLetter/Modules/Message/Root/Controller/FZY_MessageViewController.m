@@ -169,22 +169,20 @@ EMChatManagerDelegate
     }
     
     
-    EMLocationMessageBody *body = [[EMLocationMessageBody alloc] initWithLatitude:_latitude longitude:_longitude address:@"地址"];
-    NSString *from = [[EMClient sharedClient] currentUsername];
-    
-    // 生成message
-    EMMessage *message = [[EMMessage alloc] initWithConversationID:model.name from:from to:[[EMClient sharedClient] currentUsername] body:body ext:nil];
-    message.chatType = EMChatTypeChat;// 设置为单聊消息
-    [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
-        if (!error) {
-            
-            NSLog(@"位置发送成功"); 
-        } else {
-            NSLog(@"发送失败: %@", error);
-        }
-        
-        
-    }];
+//    EMLocationMessageBody *body = [[EMLocationMessageBody alloc] initWithLatitude:_latitude longitude:_longitude address:@"地址"];
+//    NSString *from = [[EMClient sharedClient] currentUsername];
+//    
+//    // 生成message
+//    EMMessage *message = [[EMMessage alloc] initWithConversationID:model.name from:from to:[[EMClient sharedClient] currentUsername] body:body ext:nil];
+//    message.chatType = EMChatTypeChat;// 设置为单聊消息
+//    [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+//        if (!error) {
+//            
+//            NSLog(@"位置发送成功"); 
+//        } else {
+//            NSLog(@"发送失败: %@", error);
+//        }
+//    }];
 
     [self.navigationController pushViewController:chatVC animated:YES];
 }

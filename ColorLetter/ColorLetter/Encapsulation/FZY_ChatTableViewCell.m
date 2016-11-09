@@ -10,6 +10,7 @@
 #import "FZY_ChatModel.h"
 #import "NSData+Categories.h"
 #import "UIImageAvatarBrowser.h"
+#import "YZYNetWorkingManager.h"
 
 @interface FZY_ChatTableViewCell ()
 
@@ -43,6 +44,8 @@
 
 // 正在播放语音
 @property (nonatomic, assign) BOOL isPlayVoice;
+
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @end
 
 @implementation FZY_ChatTableViewCell
@@ -206,9 +209,9 @@
                     
                     int w = (WIDTH / 60) * model.voiceDuration;
                     
-                    _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 10, 100, 40);
+                    _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 0, 100, 35);
                     [_rightVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
-                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 5, 100 + 20, 50);
+                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 0, 100 + 20, 35);
                     
                     [_rightVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         NSLog(@"%@", model.localVoicePath);
@@ -280,9 +283,9 @@
                     
                     int w = (WIDTH / 60) * model.voiceDuration;
                     
-                    _leftVoiceButton.frame = CGRectMake(60, 10, 100, 40);
+                    _leftVoiceButton.frame = CGRectMake(60, 0, 100, 35);
                     [_leftVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
-                    self.leftBubble.frame = CGRectMake(50, 5, 120, 50);
+                    self.leftBubble.frame = CGRectMake(50, 0, 120, 35);
                     
                     [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         NSLog(@"%@", model.remoteVoicePath);
@@ -316,22 +319,46 @@
 - (void)playVoiceWithPath:(NSString *)voicePath {
    
 
-    NSURL *url = [[NSURL alloc] init];
+//    NSURL *url = [[NSURL alloc] init];
+//    NSData *data = [[NSData alloc] init];
     // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
-    if (_model.isSelf) {
-        url = [NSURL fileURLWithPath:voicePath];
-    } else {
-        url = [NSURL URLWithString:voicePath];
-    }
+//    if (_model.isSelf) {
+//        url = [NSURL fileURLWithPath:voicePath];
+       NSData *data = [NSData dataWithContentsOfFile:voicePath];
+//    } else {
+//        url = [NSURL URLWithString:voicePath];
+//        NSLog(@"url : %@", url);
+//        NSString *string = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+
+//        string = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        
+        
+
+//        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/octet-stream"];
+//        
+//        [manager GET:voicePath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            NSLog(@"请求打印成功要做的事 : %@", responseObject);
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog(@"error : %@", error);
+//        }];
+//        
+//    }
+    
+   
+    NSError *error = nil;
     
     // 初始化音频播放器
-    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    [player setVolume:1];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    if (error) {
+        NSLog(@"error : %@", error);
+    }
+    [self.audioPlayer setVolume:1];
     // 设置循环播放 0 -> 语音只会播放一次
-    [player setNumberOfLoops:0];
-        
-    [player prepareToPlay];
-    [player play];
+    [self.audioPlayer setNumberOfLoops:0];
+    [self.audioPlayer prepareToPlay];
+    [self.audioPlayer play];
     
 }
 
