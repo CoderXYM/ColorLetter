@@ -30,6 +30,7 @@
         
         self.headImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _headImageView.image = [UIImage imageNamed:@"mood-happy"];
+//        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
         _headImageView.layer.cornerRadius = 30;
         _headImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_headImageView];
@@ -72,6 +73,13 @@
             [self displayNumberOfUnreadMessagesWith:YES];
         }
        
+    }
+}
+
+- (void)setUrlImage:(NSString *)urlImage {
+    if (_urlImage != urlImage) {
+        _urlImage = urlImage;
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
     }
 }
 

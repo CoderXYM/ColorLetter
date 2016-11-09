@@ -27,6 +27,10 @@ EMChatManagerDelegate
 @property (nonatomic, assign) double latitude;
 @property (nonatomic, assign) double longitude;
 
+@property (nonatomic, strong) NSArray *objectArray;
+
+@property (nonatomic, strong) FZY_User *user;
+
 @end
 
 @implementation FZY_MessageViewController
@@ -42,11 +46,14 @@ EMChatManagerDelegate
     self.navigationController.navigationBar.hidden = YES;
     // 载入所有会话
     [self loadAllConversations];
+    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.objectArray = [NSMutableArray array];
+
     self.title = @"Messages";
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     
@@ -146,6 +153,14 @@ EMChatManagerDelegate
     FZY_MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageCell"];
     
     FZY_FriendsModel *model = _conversationArray[indexPath.row];
+    for (FZY_User *user in _objectArray) {
+        if (model.name == user.name) {
+            NSLog(@"%@", user.name);
+            self.user = user;
+        }
+    }
+    NSLog(@"%@", _user.imageUrl);
+    cell.urlImage = _user.imageUrl;
     cell.model = model;
     
     return cell;
