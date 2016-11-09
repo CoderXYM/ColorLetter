@@ -108,8 +108,8 @@ UINavigationControllerDelegate
 }
 
 - (void)createArray {
-    self.imageArray = @[@"shezhi", @"help", @"log Out"];
-    self.nameArray = @[@"Setting", @"Help", @"Log Out"];
+    self.imageArray = @[@"help", @"log Out"];
+    self.nameArray = @[@"Help", @"Log Out"];
 }
 
 - (void)createTableView {
@@ -129,8 +129,7 @@ UINavigationControllerDelegate
    _imageView.image = [UIImage imageNamed:@"mood-confused"];
 
     [effectView addSubview:_imageView];
-  
-   
+    
     //把头像设置成圆形
     _imageView.layer.cornerRadius = _imageView.frame.size.width / 2;
     
@@ -146,10 +145,7 @@ UINavigationControllerDelegate
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(alertImageView:)];
    //给imageView添加手势
     [_imageView addGestureRecognizer:singleTap];
-    
-    
-    
-    
+
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HEIGHT / 3, WIDTH / 7 * 5, HEIGHT / 3 * 2) style:UITableViewStylePlain];
     _tableView.scrollEnabled = NO;
     _tableView.separatorStyle = NO;
@@ -277,32 +273,22 @@ UINavigationControllerDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:{
-            FZY_SettingViewController *setting = [[FZY_SettingViewController alloc] init];
-            CATransition * animation = [CATransition animation];
-            animation.duration = 0.5;
-            animation.type = kCATransitionFade;
-            [self.view.window.layer addAnimation:animation forKey:nil];
-            [self dismissViewControllerAnimated:NO completion:^{
-                [_viewController presentViewController:setting animated:YES completion:nil];
-            }];
-//            [self.navigationController pushViewController:setting animated:YES];
-            break;
-        }
-        case 1:{
             
             break;
         }
-        default:{
+        case 1:{
             EMError *error = [[EMClient sharedClient] logout:YES];
             if (!error) {
                 NSLog(@"退出成功");
                 FZY_LoginAndRegisterViewController *lorVC = [[FZY_LoginAndRegisterViewController alloc] init];
-//                lorVC.position = WIDTH / 4 * 3;
-//                lorVC.scrollPosition = WIDTH;
+                //                lorVC.position = WIDTH / 4 * 3;
+                //                lorVC.scrollPosition = WIDTH;
                 self.view.window.rootViewController = lorVC;
             }
-            break;
         }
+            break;
+        default:
+            break;
     }
 }
 

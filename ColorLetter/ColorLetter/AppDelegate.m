@@ -31,7 +31,6 @@ EMClientDelegate
     if (!ret) {
         NSLog(@"manager start failed!");
     }
-
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];

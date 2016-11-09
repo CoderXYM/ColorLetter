@@ -318,7 +318,6 @@
 
 - (void)playVoiceWithPath:(NSString *)voicePath {
    
-
 //    NSURL *url = [[NSURL alloc] init];
 //    NSData *data = [[NSData alloc] init];
     // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
@@ -332,8 +331,7 @@
 
 //        string = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         
-        
-
+    
 //        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
 //        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/octet-stream"];

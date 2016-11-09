@@ -79,9 +79,11 @@ EMChatManagerDelegate
         FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
         if (con.type == EMConversationTypeChat) {
             model.name = con.conversationId;
+            model.isGroup = NO;
         } else{
             // 群聊
             model.groupID = con.conversationId;
+            model.isGroup = YES;
         }
         
         // 最新一条信息

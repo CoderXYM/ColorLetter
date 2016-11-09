@@ -29,7 +29,7 @@
         //self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _headImageView.image = [UIImage imageNamed:@"mood-happy"];
+        
         _headImageView.layer.cornerRadius = 30;
         _headImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_headImageView];
@@ -60,7 +60,14 @@
     if (_model != model) {
         _model = model;
         
-        _nameLabel.text = model.name;
+        if (model.isGroup) {
+            _nameLabel.text = model.groupID;
+            _headImageView.image = [UIImage imageNamed:@"bg-mob"];
+        } else {
+            _nameLabel.text = model.name;
+            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
+        }
+        
         _timeLabel.text = [NSData intervalSinceNow:model.time];
         _latestMessageLabel.text = model.latestMessage;
         

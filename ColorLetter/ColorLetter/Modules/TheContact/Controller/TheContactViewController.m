@@ -14,6 +14,7 @@
 #import "FZY_RequestModel.h"
 #import "FZY_ChatViewController.h"
 #import "FZY_CreateGroupViewController.h"
+#import "FZY_GroupTableViewCell.h"
 
 static NSString *const leftIdentifier = @"leftCell";
 static NSString *const IdentifierLeft = @"requestLeftCell";
@@ -28,7 +29,8 @@ UITableViewDataSource,
 UITableViewDelegate,
 UISearchResultsUpdating,
 EMContactManagerDelegate,
-EMGroupManagerDelegate
+EMGroupManagerDelegate,
+FZY_CreateGroupViewControllerDelegate
 >
 
 {
@@ -103,6 +105,7 @@ EMGroupManagerDelegate
     [self create];
 }
 
+#pragma mark - 获取群, 好友列表
 - (void)getFriendList {
     EMError *error = nil;
     if (_leftArray.count > 0) {
@@ -112,7 +115,15 @@ EMGroupManagerDelegate
     if (!error) {
         [_leftArray addObjectsFromArray:userlist];
     }
+    
+    EMError *groupError = nil;
+    NSArray *myGroups = [[EMClient sharedClient].groupManager getMyGroupsFromServerWithError:&groupError];
+    if (!groupError) {
+        NSLog(@"获取群列表成功 -- %@",myGroups);
 
+        [_rightArray addObjectsFromArray:myGroups];
+
+    }
 }
 
 #pragma mark - 收到进群申请
@@ -292,12 +303,11 @@ EMGroupManagerDelegate
     [_leftTabeleView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierLeft];
     
     self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
-    //_rightTableView.backgroundColor = [UIColor blueColor];
     _rightTableView.delegate = self;
     _rightTableView.dataSource = self;
     _rightTableView.separatorStyle = UITableViewCellAccessoryNone;
     [_downScrollView addSubview:_rightTableView];
-    [_rightTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:rightIdentifier];
+    [_rightTableView registerClass:[FZY_GroupTableViewCell class] forCellReuseIdentifier:rightIdentifier];
     
     UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 50)];
     [self.view addSubview:myView];
@@ -315,10 +325,7 @@ EMGroupManagerDelegate
 
 #pragma mark - tableView 协议
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView isEqual:_leftTabeleView]) {
-        return 70;
-    }
-    return 0;
+    return 70;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -333,8 +340,13 @@ EMGroupManagerDelegate
                     }
                     return 0;
             }
+    } else {
+        if (2 == section) {
+            return _rightArray.count;
         }
-    return _rightArray.count;
+        return 0;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -356,7 +368,8 @@ EMGroupManagerDelegate
             return cell;
         }
     }
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
+    FZY_GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@", _rightArray[indexPath.row]];
     return cell;
 }
 
@@ -402,6 +415,10 @@ EMGroupManagerDelegate
                 [self.navigationController pushViewController:chat animated:YES];
             }
             
+        }
+    } else {
+        if (2 == indexPath.section) {
+            NSLog(@"群");
         }
     }
 }
@@ -470,7 +487,16 @@ EMGroupManagerDelegate
 #pragma mark - 创建群组
 - (void)creatGroupButton:(UIButton *)button {
     FZY_CreateGroupViewController *createGroupVC = [[FZY_CreateGroupViewController alloc] init];
+    createGroupVC.delegate = self;
     [self presentViewController:createGroupVC animated:YES completion:nil];
+}
+
+#pragma mark - 实现自定义协议
+- (void)insertNewGroupToTableViewWithName:(NSString *)groupName description:(NSString *)groupDescription {
+    
+    [_rightArray addObject:groupName];
+    [_rightTableView reloadData];
+    
 }
 
 #pragma mark - 群组列表
@@ -509,14 +535,17 @@ EMGroupManagerDelegate
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *name = _leftArray[indexPath.row];
-    // 删除好友
-    EMError *error = [[EMClient sharedClient].contactManager deleteContact:name];
-    if (!error) {
-        NSLog(@"删除成功");
+    if (tableView == _leftTabeleView) {
+        NSString *name = _leftArray[indexPath.row];
+        // 删除好友
+        EMError *error = [[EMClient sharedClient].contactManager deleteContact:name];
+        if (!error) {
+            NSLog(@"删除成功");
+        }
+        [_leftArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
     }
-    [_leftArray removeObjectAtIndex:indexPath.row];
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+   
 }
 
 #pragma mark - 重写父类方法传值

@@ -30,7 +30,6 @@
         self.headImageView = [[UIImageView alloc] init];
         _headImageView.image = [UIImage imageNamed:@"mood-confused"];
         [self.contentView addSubview:_headImageView];
-
         
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nameLabel.textColor = [UIColor blackColor];

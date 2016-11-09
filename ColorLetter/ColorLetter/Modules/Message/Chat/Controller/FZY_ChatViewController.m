@@ -63,7 +63,6 @@ BMKMapViewDelegate
 @property (nonatomic, assign) double longitude;
 @property (nonatomic, copy) NSString *address;
 
-
 @end
 
 @implementation FZY_ChatViewController
@@ -110,19 +109,14 @@ BMKMapViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
- 
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = _friendName;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     
-    
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.tintColor = [UIColor grayColor];
     
-
-
-    
-          //初始化BMKLocationService
+    //初始化BMKLocationService
     _locService = [[BMKLocationService alloc]init];
     _locService.delegate = (id)self;
     //启动LocationService
@@ -145,11 +139,7 @@ BMKMapViewDelegate
     // 添加 键盘弹出 通知中心
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
-
-    
-
-
-    
+ 
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -165,7 +155,6 @@ BMKMapViewDelegate
 //处理方向变更信息
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
 {
-//    NSLog(@"heading is %@",userLocation.heading);
     [_mapView updateLocationData:userLocation];
 
 
@@ -192,7 +181,7 @@ BMKMapViewDelegate
             NSLog(@"载入历史消息成功");
             
             if (aMessages.count) {
-
+                
                 for (EMMessage *mes in aMessages) {
                     
                     EMMessageBody *msgBody = mes.body;
@@ -211,12 +200,9 @@ BMKMapViewDelegate
                             } else{
                                 model.isSelf = NO;
                             }
-                            if (_friendName) {
-                                model.fromUser = mes.from;
-                            } else{
-                                // 群聊
-                                // model.fromUser = message.groupSenderName;
-                            }
+                            
+                            model.fromUser = mes.from;
+                            
                             model.time = mes.localTime;
                             model.context = txt;
                             model.isPhoto = NO;
