@@ -160,7 +160,6 @@ FZY_CreateGroupViewControllerDelegate
     [_rightTableView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
     [_rightTableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     
-    
 }
 
 #pragma mark - 收到好友邀请回调
