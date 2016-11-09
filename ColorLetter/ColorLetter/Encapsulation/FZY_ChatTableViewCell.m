@@ -211,7 +211,7 @@
                     
                     _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 0, 100, 35);
                     [_rightVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
-                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 5, 100 + 20, 35);
+                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 0, 100 + 20, 35);
                     
                     [_rightVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         NSLog(@"%@", model.localVoicePath);
@@ -289,7 +289,7 @@
                     
                     [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         NSLog(@"%@", model.remoteVoicePath);
-                        [self playVoiceWithPath:model.remoteVoicePath];
+                        [self playVoiceWithPath:model.localVoicePath];
                     }];
                     
                 } else {
@@ -320,11 +320,11 @@
    
 
 //    NSURL *url = [[NSURL alloc] init];
-    NSData *data = [[NSData alloc] init];
+//    NSData *data = [[NSData alloc] init];
     // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
 //    if (_model.isSelf) {
 //        url = [NSURL fileURLWithPath:voicePath];
-        data = [NSData dataWithContentsOfFile:voicePath];
+       NSData *data = [NSData dataWithContentsOfFile:voicePath];
 //    } else {
 //        url = [NSURL URLWithString:voicePath];
 //        NSLog(@"url : %@", url);
