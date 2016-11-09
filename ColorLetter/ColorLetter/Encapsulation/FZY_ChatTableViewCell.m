@@ -154,6 +154,7 @@
         [_rightVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_rightVoiceButton];
         
+        
     }
     
     return self;
@@ -347,6 +348,7 @@
     
    
     NSError *error = nil;
+    
     // 初始化音频播放器
     self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
     if (error) {

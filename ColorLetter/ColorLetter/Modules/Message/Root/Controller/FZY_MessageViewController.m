@@ -47,7 +47,9 @@ EMChatManagerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"Messages";
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+    
     [self creatTableView];
     [super create];
     //初始化BMKLocationService

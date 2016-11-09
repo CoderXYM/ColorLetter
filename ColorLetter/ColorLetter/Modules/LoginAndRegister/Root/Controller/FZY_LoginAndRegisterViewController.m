@@ -26,32 +26,62 @@
 
 - (void)creatHomepage {    
     // app 代表图片
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, HEIGHT * 0.5)];
-    imageView.image = [UIImage imageNamed:@"Love.jpeg"];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT * 0.55)];
+    imageView.image = [UIImage imageNamed:@"bg-mob"];
     [self.view addSubview:imageView];
     
-    // app 名字 label
-    UILabel *headLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
-    headLabel.text = @"彩笺";
-    headLabel.textColor = [UIColor redColor];
-    headLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:headLabel];
+    // app 名字 
+    UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH * 0, 10, WIDTH / 3, 45)];
    
-    // app 介绍图片
+    headImage.image = [UIImage imageNamed:@"logo"];
+    [self.view addSubview:headImage];
+
+    // app 介绍
     UILabel *bottomLabel = [[UILabel alloc] init];
-    bottomLabel.text = @"欲寄彩笺兼尺素, 山长水阔知何处";
+   // bottomLabel.font = [UIFont fontWithName:@"Helvetica" size:15];
+    bottomLabel.text = @"Communication to improve life";
+    
     bottomLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:bottomLabel];
     [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(imageView.mas_bottom).offset(30);
-        make.left.equalTo(self.view).offset(20);
-        make.right.equalTo(self.view).offset(-20);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
        make.height.equalTo(@(HEIGHT * 0.5 * 0.2));
+     
+    }];
+    
+    UILabel *bottomLabel2 = [[UILabel alloc] init];
+  // bottomLabel2.font = [UIFont fontWithName:@"Helvetica" size:15];
+    bottomLabel2.text = @"Communications era of change";
+    bottomLabel2.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:bottomLabel2];
+    [bottomLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imageView.mas_bottom).offset(50);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+       make.height.equalTo(@(HEIGHT * 0.5 * 0.2));
+    }];
+    
+    //copyright
+    UILabel *bottomLabel3 = [[UILabel alloc] init];
+    bottomLabel3.font = [UIFont fontWithName:@"Helvetica" size:10];
+    bottomLabel3.text = @"＊Copyright and ownership are owned by the FZY team＊";
+    bottomLabel3.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:bottomLabel3];
+    [bottomLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_bottom).offset(-50);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.height.equalTo(@(HEIGHT * 0.5 * 0.2));
     }];
     
     // 注册button
     UIButton *registerButton = [[UIButton alloc]init];
-    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
+    registerButton.layer.cornerRadius = 15;
+    registerButton.backgroundColor = [UIColor colorWithRed:0.26f green:0.55f blue:0.82f alpha:1.00f];
+    registerButton.font = [UIFont fontWithName:@"Helvetica" size:22];
+    [registerButton setTitle:@"Sign up" forState:UIControlStateNormal];
     [registerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     __weak typeof(self) weakself = self;
@@ -73,7 +103,10 @@
     
     // 登录button
     UIButton *loginButton = [[UIButton alloc]init];
-    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+     loginButton.layer.cornerRadius = 15;
+    loginButton.backgroundColor = [UIColor colorWithRed:0.32 green:0.78 blue:0.48 alpha:1.0];
+    loginButton.font = [UIFont fontWithName:@"Helvetica" size:22];
+    [loginButton setTitle:@"Log in" forState:UIControlStateNormal];
     [loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal]; 
     
     [loginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{

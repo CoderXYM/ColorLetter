@@ -27,7 +27,8 @@ UIScrollViewDelegate,
 UITableViewDataSource,
 UITableViewDelegate,
 UISearchResultsUpdating,
-EMContactManagerDelegate
+EMContactManagerDelegate,
+EMGroupManagerDelegate
 >
 
 {
@@ -61,7 +62,7 @@ EMContactManagerDelegate
 - (void)dealloc {
     //移除好友回调
     [[EMClient sharedClient].contactManager removeDelegate:self];
-
+    [[EMClient sharedClient].groupManager removeDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,6 +97,9 @@ EMContactManagerDelegate
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
+    // 注册群组回调
+    [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:nil];
+    
     [self create];
 }
 
@@ -111,6 +115,20 @@ EMContactManagerDelegate
 
 }
 
+#pragma mark - 收到进群申请
+// 用户A向群组G发送入群申请，群组G的群主会接收到该回调
+- (void)didReceiveJoinGroupApplication:(EMGroup *)aGroup
+                             applicant:(NSString *)aApplicant
+                                reason:(NSString *)aReason {
+    NSLog(@"%@", aApplicant);
+}
+
+#pragma mark - 收到群组邀请回调
+- (void)didJoinGroup:(EMGroup *)aGroup inviter:(NSString *)aInviter message:(NSString *)aMessage {
+    NSLog(@"----- %@", aMessage);
+}
+
+#pragma mark - 收到好友邀请回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -126,7 +144,7 @@ EMContactManagerDelegate
     [_friendRequest insertObject:fzy atIndex:0];
     [_leftTabeleView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
     [_leftTabeleView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-
+    
 }
 
 
@@ -177,7 +195,7 @@ EMContactManagerDelegate
     [_upView addSubview:_sliderScrollView];
     
     UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [friendsButton setTitle:@"好友" forState:UIControlStateNormal];
+    [friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
     [friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [friendsButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [UIView animateWithDuration:0.2 animations:^{
@@ -186,14 +204,14 @@ EMContactManagerDelegate
     }];
     [_upView addSubview:friendsButton];
     [friendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_upView).offset(50);
-        make.width.equalTo(@40);
+        make.left.equalTo(_upView).offset(30);
+        make.width.equalTo(@70);
         make.top.equalTo(_upView).offset(5);
         make.bottom.equalTo(_upView.mas_bottom).offset(-5);
     }];
     
     UIButton *groudButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [groudButton setTitle:@"群组" forState:UIControlStateNormal];
+    [groudButton setTitle:@"Group" forState:UIControlStateNormal];
     [groudButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
     [groudButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [UIView animateWithDuration:0.2 animations:^{
@@ -202,8 +220,8 @@ EMContactManagerDelegate
     }];
     [_upView addSubview:groudButton];
     [groudButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_upView).offset(-50);
-        make.width.equalTo(@40);
+        make.right.equalTo(_upView).offset(-30);
+        make.width.equalTo(@70);
         make.top.equalTo(_upView).offset(5);
         make.bottom.equalTo(_upView.mas_bottom).offset(-5);
     }];
@@ -231,7 +249,7 @@ EMContactManagerDelegate
 #pragma mark - scrollView 关联滑块
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
         
-        if ([scrollView isEqual:_downScrollView]) {
+            if ([scrollView isEqual:_downScrollView]) {
                 if (scrollView.contentOffset.y == 0) {
                     NSInteger i = 0;
                     if (scrollView.contentOffset.x > _count) {
@@ -242,9 +260,13 @@ EMContactManagerDelegate
                     _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
                     self.count = scrollView.contentOffset.x ;
                 }
-                            
+                
         }
     
+
+            
+        //}
+
 //    [UIView animateWithDuration:0.1 animations:^{
 //        _sliderScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 0);
 //    }];
@@ -371,7 +393,7 @@ EMContactManagerDelegate
             [alert addAction:actionOk];
             //显示弹框控制器
             [self presentViewController:alert animated:YES completion:nil];
-        }else {
+        } else {
             FZY_ChatViewController *chat = [[FZY_ChatViewController alloc] init];
             if (_leftArray.count > 0) {
                 chat.friendName = _leftArray[indexPath.row];
@@ -407,9 +429,9 @@ EMContactManagerDelegate
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
         if (0 == section) {
-            [sectionButton setTitle:@"好友申请" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"Requests" forState:UIControlStateNormal];
         }else {
-            [sectionButton setTitle:@"好友列表" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"List" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(LeftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
@@ -420,12 +442,12 @@ EMContactManagerDelegate
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
         if (0 == section) {
-            [sectionButton setTitle:@"创建群组" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"Create" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(creatGroupButton:) forControlEvents:UIControlEventTouchUpInside];
         }else if (1 == section) {
-            [sectionButton setTitle:@"群组申请" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"Requests" forState:UIControlStateNormal];
         } else {
-            [sectionButton setTitle:@"群组列表" forState:UIControlStateNormal];
+            [sectionButton setTitle:@"List" forState:UIControlStateNormal];
             [sectionButton addTarget:self action:@selector(groupListButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         }
         sectionButton.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
