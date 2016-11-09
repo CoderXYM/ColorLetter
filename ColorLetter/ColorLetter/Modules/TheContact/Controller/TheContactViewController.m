@@ -116,6 +116,9 @@ FZY_CreateGroupViewControllerDelegate
         [_leftArray addObjectsFromArray:userlist];
     }
     
+    if (_rightArray.count > 0) {
+        [_rightArray removeAllObjects];
+    }
     EMError *groupError = nil;
     NSArray *myGroups = [[EMClient sharedClient].groupManager getMyGroupsFromServerWithError:&groupError];
     if (!groupError) {
@@ -551,7 +554,6 @@ FZY_CreateGroupViewControllerDelegate
 }
 
 #pragma mark - 重写父类方法传值
-
 - (void)create {
     [super create];
     [self.searchButton  handleControlEvent:UIControlEventTouchUpInside withBlock:^{
