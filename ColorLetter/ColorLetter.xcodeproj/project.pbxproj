@@ -33,6 +33,7 @@
 		4969E14D1DB85D6A007D0A06 /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E14C1DB85D6A007D0A06 /* AddViewController.m */; };
 		4969E1511DB85EDB007D0A06 /* FZYTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E1501DB85EDB007D0A06 /* FZYTabBarViewController.m */; };
 		4969E1891DB8AF78007D0A06 /* DrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E1881DB8AF78007D0A06 /* DrawerTableViewCell.m */; };
+		496BFAFF1DD1EA2200C8238A /* YZYNetWorkingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 496BFAFE1DD1EA2200C8238A /* YZYNetWorkingManager.m */; };
 		4975B1C21DBD9B9A00B6987D /* FZY_BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */; };
 		4975B1C51DBD9BB500B6987D /* FZY_MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1C41DBD9BB500B6987D /* FZY_MessageTableViewCell.m */; };
 		4975B1E11DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1DE1DBDBF3800B6987D /* FZY_LoginAndRegisterViewController.m */; };
@@ -254,6 +255,8 @@
 		4969E1501DB85EDB007D0A06 /* FZYTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZYTabBarViewController.m; sourceTree = "<group>"; };
 		4969E1871DB8AF78007D0A06 /* DrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerTableViewCell.h; sourceTree = "<group>"; };
 		4969E1881DB8AF78007D0A06 /* DrawerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerTableViewCell.m; sourceTree = "<group>"; };
+		496BFAFD1DD1EA2200C8238A /* YZYNetWorkingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZYNetWorkingManager.h; sourceTree = "<group>"; };
+		496BFAFE1DD1EA2200C8238A /* YZYNetWorkingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZYNetWorkingManager.m; sourceTree = "<group>"; };
 		4975B1C01DBD9B9A00B6987D /* FZY_BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_BaseTableViewCell.h; sourceTree = "<group>"; };
 		4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_BaseTableViewCell.m; sourceTree = "<group>"; };
 		4975B1C31DBD9BB500B6987D /* FZY_MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_MessageTableViewCell.h; sourceTree = "<group>"; };
@@ -1182,6 +1185,8 @@
 		49CE02401DC0B0A60022B6B8 /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				496BFAFD1DD1EA2200C8238A /* YZYNetWorkingManager.h */,
+				496BFAFE1DD1EA2200C8238A /* YZYNetWorkingManager.m */,
 				495CD64A1DCA120800E4F9A4 /* VoiceLib */,
 				495CD6341DCA11E100E4F9A4 /* UUChat */,
 				49CE07181DC0C1F70022B6B8 /* EaseUI */,
@@ -1987,6 +1992,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				496BFAFF1DD1EA2200C8238A /* YZYNetWorkingManager.m in Sources */,
 				49CE08871DC0C1F70022B6B8 /* EaseConversationModel.m in Sources */,
 				495CD6441DCA11E100E4F9A4 /* UUImageAvatarBrowser.m in Sources */,
 				4975B2761DBE42FB00B6987D /* NSString+Categories.m in Sources */,

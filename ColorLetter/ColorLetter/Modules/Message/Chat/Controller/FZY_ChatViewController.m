@@ -72,11 +72,11 @@ BMKMapViewDelegate
 {
     [super viewDidAppear:animated];
     
-    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
-    pointAnnotation.coordinate = CLLocationCoordinate2DMake(_latitude, _longitude);
-//    pointAnnotation.title = [NSString stringWithFormat:@"%@", _address];
-    
-    [_mapView addAnnotation:pointAnnotation];
+//    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
+//    pointAnnotation.coordinate = CLLocationCoordinate2DMake(_latitude, _longitude);
+////    pointAnnotation.title = [NSString stringWithFormat:@"%@", _address];
+//    
+//    [_mapView addAnnotation:pointAnnotation];
 }
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
@@ -270,7 +270,15 @@ BMKMapViewDelegate
                             }
                         }
                             break;
-                       
+                        case EMMessageBodyTypeLocation: {
+                            EMLocationMessageBody *body = (EMLocationMessageBody *)msgBody;
+                            if ([mes.from isEqualToString:_friendName]) {
+                                self.latitude = body.latitude;
+                                self.longitude = body.longitude;
+                                self.address = body.address;
+                            }
+                        }
+                            break;
                         default:
                             break;
                     }
@@ -336,9 +344,11 @@ BMKMapViewDelegate
                     break;
                 case EMMessageBodyTypeLocation: {
                     EMLocationMessageBody *body = (EMLocationMessageBody *)msgBody;
-                    self.latitude = body.latitude;
-                    self.longitude = body.longitude;
-                    self.address = body.address;
+                    if ([message.to isEqualToString:[[EMClient sharedClient] currentUsername]]) {
+                        self.latitude = body.latitude;
+                        self.longitude = body.longitude;
+                        self.address = body.address;
+                    }
                 }
                     break;
                 case EMMessageBodyTypeVoice: {
@@ -443,7 +453,7 @@ BMKMapViewDelegate
             }
             
         } else {
-            NSLog(@"发送失败: %@", error);
+            NSLog(@"发送失败: %@", error.errorDescription);
         }
         
         [_importTextField setText:nil];
@@ -542,7 +552,7 @@ BMKMapViewDelegate
     [_btnVoiceRecord addTarget:self action:@selector(RemindDragExit:) forControlEvents:UIControlEventTouchDragExit];
     [_btnVoiceRecord addTarget:self action:@selector(RemindDragEnter:) forControlEvents:UIControlEventTouchDragEnter];
     [self.view addSubview:self.btnVoiceRecord];
-    [self.view addSubview:_btnVoiceRecord];
+//    [self.view addSubview:_btnVoiceRecord];
     [_btnVoiceRecord mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_optionVioceButton.mas_right).offset(10);
         make.right.equalTo(_sendMessageButton.mas_left).offset(-10);
@@ -595,8 +605,16 @@ BMKMapViewDelegate
     });
 }
 
-- (void)failRecord
-{
+- (void)beginConvert {
+    Mp3Recorder *mp3 = [[Mp3Recorder alloc] init];
+    NSString *mp3Path = [mp3 mp3Path];
+    NSLog(@"结束录音 ======= %@", mp3Path);
+    [self sendVoice:mp3Path];
+
+}
+
+- (void)failRecord {
+    
     [UUProgressHUD dismissWithSuccess:@"Too short"];
     
     //缓冲消失时间 (最好有block回调消失完成)
@@ -641,22 +659,21 @@ BMKMapViewDelegate
         [playTimer invalidate];
         playTimer = nil;
     }
-    
-    Mp3Recorder *mp3 = [[Mp3Recorder alloc] init];
-    NSString *mp3Path = [mp3 mp3Path];
-    NSLog(@"结束录音 ======= %@", mp3Path);
+}
+
+- (void)sendVoice:(NSString *)mp3Path {
     
     EMVoiceMessageBody *body = [[EMVoiceMessageBody alloc] initWithLocalPath:mp3Path displayName:@"mp3"];
- 
+    
     body.duration = (int)playTime;
- 
+    
     NSString *from = [[EMClient sharedClient] currentUsername];
     
     // 生成 语音message
     EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:_friendName body:body ext:nil];
     message.chatType = EMChatTypeChat;
     [self sendMessageWithEMMessage:message];
-    
+
 }
 
 - (void)cancelRecordVoice:(UIButton *)button {
@@ -740,6 +757,27 @@ BMKMapViewDelegate
         {
             NSLog(@"位置");
             _tableView.hidden = !_tableView.hidden;
+            
+                EMLocationMessageBody *body = [[EMLocationMessageBody alloc] initWithLatitude:_latitude longitude:_longitude address:@"地址"];
+                NSString *from = [[EMClient sharedClient] currentUsername];
+            
+                // 生成message
+                EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:[[EMClient sharedClient] currentUsername] body:body ext:nil];
+                message.chatType = EMChatTypeChat;// 设置为单聊消息
+                [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
+                    if (!error) {
+            
+                        NSLog(@"位置发送成功");
+                    } else {
+                        NSLog(@"发送失败: %@", error);
+                    }
+                }];
+
+            BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
+            pointAnnotation.coordinate = CLLocationCoordinate2DMake(_latitude, _longitude);
+            //    pointAnnotation.title = [NSString stringWithFormat:@"%@", _address];
+            
+            [_mapView addAnnotation:pointAnnotation];
         }
             break;
         case 3:
