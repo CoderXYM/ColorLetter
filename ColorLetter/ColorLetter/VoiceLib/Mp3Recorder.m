@@ -87,10 +87,12 @@
     
     if (cTime > 1) {
         [self audio_PCMtoMP3];
+//        if ([_delegate respondsToSelector:@selector(beginConvert)]) {
+//            [_delegate beginConvert];
+//        }
     }else {
-        
+
         [_recorder deleteRecording];
-        
         if ([_delegate respondsToSelector:@selector(failRecord)]) {
             [_delegate failRecord];
         }
@@ -131,10 +133,7 @@
     // remove the old mp3 file
     [self deleteMp3Cache];
 
-    NSLog(@"MP3转换开始");
-    if (_delegate && [_delegate respondsToSelector:@selector(beginConvert)]) {
-        [_delegate beginConvert];
-    }
+    
     @try {
         int read, write;
         
@@ -175,6 +174,10 @@
     }
     
     [self deleteCafCache];
+    NSLog(@"MP3转换开始");
+    if (_delegate && [_delegate respondsToSelector:@selector(beginConvert)]) {
+        [_delegate beginConvert];
+    }
     NSLog(@"MP3转换结束");
     if (_delegate && [_delegate respondsToSelector:@selector(endConvertWithData:)]) {
         NSData *voiceData = [NSData dataWithContentsOfFile:[self mp3Path]];

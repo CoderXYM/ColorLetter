@@ -86,7 +86,7 @@
         self.layer.borderWidth = 1;
         self.layer.borderColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3].CGColor;
         
-        //添加通知
+//        添加通知
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textViewDidEndEditing:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
@@ -142,19 +142,18 @@
 #pragma mark - Mp3RecorderDelegate
 
 //回调录音资料
-//- (void)endConvertWithData:(NSData *)voiceData
-//{
-//    NSLog(@"voice: %@", voiceData);
-//    
-//    [self.delegate UUInputFunctionView:self sendVoice:voiceData time:playTime+1];
-//    [UUProgressHUD dismissWithSuccess:@"Success"];
-//   
-//    //缓冲消失时间 (最好有block回调消失完成)
-//    self.btnVoiceRecord.enabled = NO;
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        self.btnVoiceRecord.enabled = YES;
-//    });
-//}
+- (void)endConvertWithData:(NSData *)voiceData {
+    NSLog(@"voice: %@", voiceData);
+    
+    [self.delegate UUInputFunctionView:self sendVoice:voiceData time:playTime+1];
+    [UUProgressHUD dismissWithSuccess:@"Success"];
+
+    //缓冲消失时间 (最好有block回调消失完成)
+    self.btnVoiceRecord.enabled = NO;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.btnVoiceRecord.enabled = YES;
+    });
+}
 
 - (void)failRecord
 {
