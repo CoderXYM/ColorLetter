@@ -28,7 +28,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] init];
-        _headImageView.image = [UIImage imageNamed:@"mood-confused"];
+        
         [self.contentView addSubview:_headImageView];
         
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -76,12 +76,16 @@
 - (void)setFzy:(FZY_RequestModel *)fzy {
     if (_fzy != fzy) {
         _fzy = fzy;
+        
+        if (fzy.isGroup) {
+            _headImageView.image = [UIImage imageNamed:@"bg-mob"];
+        } else {
+            _headImageView.image = [UIImage imageNamed:@"mood-confused"];
+        }
         _nameLabel.text = _fzy.aUsername;
         _messageLabel.text = _fzy.aMessage;
     }
 }
-
-
 
 - (void)awakeFromNib {
     [super awakeFromNib];
