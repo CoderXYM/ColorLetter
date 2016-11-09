@@ -37,12 +37,32 @@ EMClientDelegate
     [self.window makeKeyAndVisible];
     
     EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#colorletter"];
-    //    options.apnsCertName = @"chatdemo-dev";
+    options.apnsCertName = @"ColorLetter";
+    
+    // 自动添加成员进群
+    options.isAutoAcceptGroupInvitation = YES;
     
     self.error = [[EMClient sharedClient] initializeSDKWithOptions:options];
     if (!_error) {
         NSLog(@"初始化成功");
     }
+    //------- 注册 APNS --------
+    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        [application registerForRemoteNotifications];
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound |
+        UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    else{
+        
+        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeSound |
+        UIRemoteNotificationTypeAlert;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+    }
+    // ------------------------
     
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
     if (isAutoLogin) {
@@ -61,16 +81,6 @@ EMClientDelegate
     
     [ChatDemoHelper shareHelper];
     
-    return YES;
-
-}
-
-/*
- *  自动登录返回结果
- *
- *  @param aError 错误信息
- */
-- (void)didAutoLoginWithError:(EMError *)aError {
     AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
     [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -87,6 +97,43 @@ EMClientDelegate
             }
         }
     }];
+    
+    return YES;
+
+}
+
+// 将得到的deviceToken传给SDK
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    [[EMClient sharedClient] bindDeviceToken:deviceToken];
+}
+
+// 注册deviceToken失败
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    NSLog(@"error -- %@",error);
+}
+
+/*
+ *  自动登录返回结果
+ *
+ *  @param aError 错误信息
+ */
+- (void)didAutoLoginWithError:(EMError *)aError {
+//    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
+//    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            [[FZY_DataHandle shareDatahandle] open];
+//            [[FZY_DataHandle shareDatahandle] deleteAll];
+//            for (AVObject *userPhoto in objects) {
+//                AVObject *user = [userPhoto objectForKey:@"userName"];
+//                FZY_User *use = [[FZY_User alloc] init];
+//                AVFile *file = [userPhoto objectForKey:@"image"];
+//                use.name = [NSString stringWithFormat:@"%@", user];
+//                use.imageUrl = file.url;
+//                use.userId = userPhoto.objectId;
+//                [[FZY_DataHandle shareDatahandle] insert:use];
+//            }
+//        }
+//    }];
     [UIView showMessage:@"自动登录成功"];
 }
 
@@ -120,7 +167,6 @@ EMClientDelegate
 - (void)didConnectionStateChanged:(EMConnectionState)aConnectionState {
     NSLog(@"正在重连...");
 }
-
 
 
 

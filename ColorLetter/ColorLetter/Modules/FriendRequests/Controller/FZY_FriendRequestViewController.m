@@ -168,6 +168,13 @@ UITextFieldDelegate
                 return YES;
             }
         }
+        
+//        NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"SELF == %@", searchString];
+//         NSArray *results1 = [_array filteredArrayUsingPredicate:predicate1];
+//        if (results1.count > 0) {
+//            NSLog(@"是你好友");
+//        }
+        
         UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"确定添加%@为好友?", searchString] message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alert addTextFieldWithConfigurationHandler:^(UITextField *textField){
             textField.placeholder = @"说点什么";

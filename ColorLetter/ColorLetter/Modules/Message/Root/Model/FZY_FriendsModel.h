@@ -16,5 +16,6 @@
 @property (nonatomic, assign) BOOL isGroup;
 @property (nonatomic, assign) int unReadMessageNum;
 @property (nonatomic, copy) NSString *latestMessage;
+@property (nonatomic, strong) NSString *urlImage;
 
 @end

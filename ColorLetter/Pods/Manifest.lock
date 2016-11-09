@@ -1,19 +1,4 @@
 PODS:
-  - AFNetworking (3.1.0):
-    - AFNetworking/NSURLSession (= 3.1.0)
-    - AFNetworking/Reachability (= 3.1.0)
-    - AFNetworking/Security (= 3.1.0)
-    - AFNetworking/Serialization (= 3.1.0)
-    - AFNetworking/UIKit (= 3.1.0)
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFNetworking/UIKit (3.1.0):
-    - AFNetworking/NSURLSession
   - AVOSCloud (3.6.1)
   - BaiduMapKit (3.1.0)
   - FMDB (2.6.2):
@@ -23,7 +8,6 @@ PODS:
   - Masonry (1.0.2)
 
 DEPENDENCIES:
-  - AFNetworking (~> 3.1.0)
   - AVOSCloud (~> 3.6.1)
   - BaiduMapKit
   - FMDB (~> 2.6.2)
@@ -31,13 +15,12 @@ DEPENDENCIES:
   - Masonry (~> 1.0.2)
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AVOSCloud: cc9b567da2d30f07e3da1e4db682cad9ff56a1b6
   BaiduMapKit: 4cfaedb118cff7e157e9771859a4bf65a261b2a1
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HyphenateFullSDK: 536f76eeb0914dba766b1d5d30dee083f0805da2
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
 
-PODFILE CHECKSUM: 3cd91126486826c8aafc52f7f8987b176cf491e9
+PODFILE CHECKSUM: 1ae803158d156774e9803677237823625a9dc215
 
 COCOAPODS: 1.0.1

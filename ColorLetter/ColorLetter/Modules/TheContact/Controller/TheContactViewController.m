@@ -19,6 +19,7 @@
 static NSString *const leftIdentifier = @"leftCell";
 static NSString *const IdentifierLeft = @"requestLeftCell";
 static NSString *const rightIdentifier = @"rightCell";
+static NSString *const IdentifierRight = @"requestRightCell";
 
 
 @interface TheContactViewController ()
@@ -54,7 +55,7 @@ FZY_CreateGroupViewControllerDelegate
 @property (nonatomic, strong) UILabel *label;
 
 @property (nonatomic, strong) NSMutableArray *friendRequest;
-
+@property (nonatomic, strong) NSMutableArray *groupRequest;
 @property (nonatomic, assign) BOOL select;
 
 @end
@@ -87,15 +88,18 @@ FZY_CreateGroupViewControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     slideLength = (WIDTH - 120) / 2;
     self.leftArray = [NSMutableArray array];
     self.rightArray = [NSMutableArray array];
     self.searchLeftArray = [NSMutableArray array];
     self.friendRequest = [NSMutableArray array];
+    self.groupRequest = [NSMutableArray array];
+    
     _select = 1;
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
-    
+
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
@@ -142,6 +146,22 @@ FZY_CreateGroupViewControllerDelegate
     NSLog(@"----- %@", aMessage);
 }
 
+#pragma mark - 用户A邀请用户B入群,用户B接收到该回调
+- (void)groupInvitationDidReceive:(NSString *)aGroupId
+                          inviter:(NSString *)aInviter
+                          message:(NSString *)aMessage {
+    NSLog(@"%@, %@, %@", aGroupId, aInviter, aMessage);
+    
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
+    NSDictionary *groupDic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aInviter], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage]};
+    FZY_RequestModel *model = [FZY_RequestModel modelWithDic:groupDic];
+    model.isGroup = YES;
+    [_groupRequest insertObject:model atIndex:0];
+    [_rightTableView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
+    [_rightTableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    
+}
+
 #pragma mark - 收到好友邀请回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
@@ -155,6 +175,7 @@ FZY_CreateGroupViewControllerDelegate
     }
     NSDictionary *dic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aUsername], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage]};
     FZY_RequestModel *fzy = [FZY_RequestModel modelWithDic:dic];
+    fzy.isGroup = NO;
     [_friendRequest insertObject:fzy atIndex:0];
     [_leftTabeleView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
     [_leftTabeleView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -253,10 +274,6 @@ FZY_CreateGroupViewControllerDelegate
             _downScrollView.contentOffset = CGPointMake(0 , 0);
         }];
     }
-//    [UIView animateWithDuration:0.1 animations:^{
-//        _downScrollView.contentOffset = CGPointMake(x * WIDTH / slideLength, 0);
-//    }];
-//    
 }
 
 #pragma mark - scrollView 关联滑块
@@ -276,13 +293,6 @@ FZY_CreateGroupViewControllerDelegate
                 
         }
     
-
-            
-        //}
-
-//    [UIView animateWithDuration:0.1 animations:^{
-//        _sliderScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 0);
-//    }];
 }
 
 #pragma mark - 创建 downScrollView, tableView
@@ -304,7 +314,6 @@ FZY_CreateGroupViewControllerDelegate
     [_downScrollView addSubview:_leftTabeleView];
     [_leftTabeleView registerClass:[FZY_FriendsTableViewCell class] forCellReuseIdentifier:leftIdentifier];
     [_leftTabeleView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierLeft];
-    
 
     self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
 
@@ -313,6 +322,7 @@ FZY_CreateGroupViewControllerDelegate
     _rightTableView.separatorStyle = UITableViewCellAccessoryNone;
     [_downScrollView addSubview:_rightTableView];
     [_rightTableView registerClass:[FZY_GroupTableViewCell class] forCellReuseIdentifier:rightIdentifier];
+    [_rightTableView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierRight];
     
     UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 50)];
     [self.view addSubview:myView];
@@ -329,6 +339,7 @@ FZY_CreateGroupViewControllerDelegate
 }
 
 #pragma mark - tableView 协议
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 70;
 }
@@ -346,6 +357,12 @@ FZY_CreateGroupViewControllerDelegate
                     return 0;
             }
     } else {
+        if (0 == section) {
+            return 0;
+        }
+        if (1 == section) {
+            return _groupRequest.count;
+        }
         if (2 == section) {
             return _rightArray.count;
         }
@@ -373,9 +390,18 @@ FZY_CreateGroupViewControllerDelegate
             return cell;
         }
     }
-    FZY_GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
-    cell.nameLabel.text = [NSString stringWithFormat:@"%@", _rightArray[indexPath.row]];
-    return cell;
+        if (1 == indexPath.section) {
+            FZY_RequestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IdentifierRight];
+            if (_groupRequest.count) {
+                cell.fzy = _groupRequest[indexPath.row];
+            }
+            return cell;
+        }
+           FZY_GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
+            cell.nameLabel.text = [NSString stringWithFormat:@"%@", _rightArray[indexPath.row]];
+            return cell;
+    
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

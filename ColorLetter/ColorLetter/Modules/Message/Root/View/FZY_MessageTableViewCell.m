@@ -29,7 +29,7 @@
         //self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        
+//        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
         _headImageView.layer.cornerRadius = 30;
         _headImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_headImageView];
@@ -82,6 +82,18 @@
     }
 }
 
+//- (void)setUrlImage:(NSString *)urlImage {
+//    if (_urlImage != urlImage) {
+//        _urlImage = urlImage;
+//        if ((_urlImage = nil)) {
+//            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
+//        }else {
+////            [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
+//            [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage]];
+//        }
+//    }
+//}
+
 - (void)displayNumberOfUnreadMessagesWith:(BOOL)isRead {
     if (!isRead) {
 
@@ -110,7 +122,7 @@
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(@(70));
         make.left.equalTo(self.contentView).offset(10);
-        make.top.equalTo(self.contentView).offset(10);
+        make.top.equalTo(self.contentView).offset(5);
     }];
     
     
