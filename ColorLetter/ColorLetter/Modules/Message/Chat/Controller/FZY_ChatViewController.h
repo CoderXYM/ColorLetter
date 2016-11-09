@@ -11,5 +11,6 @@
 @interface FZY_ChatViewController : UIViewController
 
 @property (nonatomic, copy) NSString *friendName;
+@property (nonatomic, assign) BOOL isGroupChat;
 
 @end

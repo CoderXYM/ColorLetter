@@ -8,6 +8,14 @@
 
 #import "FZYBaseViewController.h"
 
+@protocol FZY_CreateGroupViewControllerDelegate <NSObject>
+
+- (void)insertNewGroupToTableViewWithName:(NSString *)groupName description:(NSString *)groupDescription;
+
+@end
+
 @interface FZY_CreateGroupViewController : FZYBaseViewController
+
+@property (nonatomic, assign) id<FZY_CreateGroupViewControllerDelegate>delegate;
 
 @end

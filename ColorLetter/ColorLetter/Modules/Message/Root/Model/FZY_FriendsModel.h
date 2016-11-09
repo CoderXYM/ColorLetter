@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) long long time;
 @property (nonatomic, copy) NSString *groupID;
+@property (nonatomic, assign) BOOL isGroup;
 @property (nonatomic, assign) int unReadMessageNum;
 @property (nonatomic, copy) NSString *latestMessage;
 

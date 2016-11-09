@@ -388,9 +388,6 @@
 }
 
 - (void)playVoiceWithPath:(NSString *)voicePath {
-//    NSURL *url = [NSURL fileURLWithPath:voicePath];
-//    self.audioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
-    
     
         NSData *data = [NSData dataWithContentsOfFile:voicePath];
         NSError *error = nil;

@@ -31,14 +31,13 @@ EMClientDelegate
     if (!ret) {
         NSLog(@"manager start failed!");
     }
-
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#colorletter"];
-    //    options.apnsCertName = @"chatdemo-dev";
+    options.apnsCertName = @"ColorLetter";
     
     self.error = [[EMClient sharedClient] initializeSDKWithOptions:options];
     if (!_error) {

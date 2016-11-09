@@ -14,10 +14,12 @@
 #import "FZY_RequestModel.h"
 #import "FZY_ChatViewController.h"
 #import "FZY_CreateGroupViewController.h"
+#import "FZY_GroupTableViewCell.h"
 
 static NSString *const leftIdentifier = @"leftCell";
 static NSString *const IdentifierLeft = @"requestLeftCell";
 static NSString *const rightIdentifier = @"rightCell";
+static NSString *const IdentifierRight = @"requestRightCell";
 
 
 @interface TheContactViewController ()
@@ -28,7 +30,8 @@ UITableViewDataSource,
 UITableViewDelegate,
 UISearchResultsUpdating,
 EMContactManagerDelegate,
-EMGroupManagerDelegate
+EMGroupManagerDelegate,
+FZY_CreateGroupViewControllerDelegate
 >
 
 {
@@ -52,7 +55,7 @@ EMGroupManagerDelegate
 @property (nonatomic, strong) UILabel *label;
 
 @property (nonatomic, strong) NSMutableArray *friendRequest;
-
+@property (nonatomic, strong) NSMutableArray *groupRequest;
 @property (nonatomic, assign) BOOL select;
 
 @end
@@ -85,11 +88,14 @@ EMGroupManagerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     slideLength = (WIDTH - 120) / 2;
     self.leftArray = [NSMutableArray array];
     self.rightArray = [NSMutableArray array];
     self.searchLeftArray = [NSMutableArray array];
     self.friendRequest = [NSMutableArray array];
+    self.groupRequest = [NSMutableArray array];
+    
     _select = 1;
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
@@ -103,6 +109,7 @@ EMGroupManagerDelegate
     [self create];
 }
 
+#pragma mark - 获取群, 好友列表
 - (void)getFriendList {
     EMError *error = nil;
     if (_leftArray.count > 0) {
@@ -112,7 +119,18 @@ EMGroupManagerDelegate
     if (!error) {
         [_leftArray addObjectsFromArray:userlist];
     }
+    
+    if (_rightArray.count > 0) {
+        [_rightArray removeAllObjects];
+    }
+    EMError *groupError = nil;
+    NSArray *myGroups = [[EMClient sharedClient].groupManager getMyGroupsFromServerWithError:&groupError];
+    if (!groupError) {
+        NSLog(@"获取群列表成功 -- %@",myGroups);
 
+        [_rightArray addObjectsFromArray:myGroups];
+
+    }
 }
 
 #pragma mark - 收到进群申请
@@ -128,6 +146,23 @@ EMGroupManagerDelegate
     NSLog(@"----- %@", aMessage);
 }
 
+#pragma mark - 用户A邀请用户B入群,用户B接收到该回调
+- (void)groupInvitationDidReceive:(NSString *)aGroupId
+                          inviter:(NSString *)aInviter
+                          message:(NSString *)aMessage {
+    NSLog(@"%@, %@, %@", aGroupId, aInviter, aMessage);
+    
+    NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
+    NSDictionary *groupDic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aInviter], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage]};
+    FZY_RequestModel *model = [FZY_RequestModel modelWithDic:groupDic];
+    model.isGroup = YES;
+    [_groupRequest insertObject:model atIndex:0];
+    [_rightTableView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
+    [_rightTableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    
+    
+}
+
 #pragma mark - 收到好友邀请回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {
@@ -141,6 +176,7 @@ EMGroupManagerDelegate
     }
     NSDictionary *dic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aUsername], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage]};
     FZY_RequestModel *fzy = [FZY_RequestModel modelWithDic:dic];
+    fzy.isGroup = NO;
     [_friendRequest insertObject:fzy atIndex:0];
     [_leftTabeleView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
     [_leftTabeleView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -239,10 +275,6 @@ EMGroupManagerDelegate
             _downScrollView.contentOffset = CGPointMake(0 , 0);
         }];
     }
-//    [UIView animateWithDuration:0.1 animations:^{
-//        _downScrollView.contentOffset = CGPointMake(x * WIDTH / slideLength, 0);
-//    }];
-//    
 }
 
 #pragma mark - scrollView 关联滑块
@@ -262,13 +294,6 @@ EMGroupManagerDelegate
                 
         }
     
-
-            
-        //}
-
-//    [UIView animateWithDuration:0.1 animations:^{
-//        _sliderScrollView.transform = CGAffineTransformMakeTranslation(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 0);
-//    }];
 }
 
 #pragma mark - 创建 downScrollView, tableView
@@ -290,14 +315,15 @@ EMGroupManagerDelegate
     [_downScrollView addSubview:_leftTabeleView];
     [_leftTabeleView registerClass:[FZY_FriendsTableViewCell class] forCellReuseIdentifier:leftIdentifier];
     [_leftTabeleView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierLeft];
-    
-    self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 40) style:UITableViewStylePlain];
-    //_rightTableView.backgroundColor = [UIColor blueColor];
+
+    self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
+
     _rightTableView.delegate = self;
     _rightTableView.dataSource = self;
     _rightTableView.separatorStyle = UITableViewCellAccessoryNone;
     [_downScrollView addSubview:_rightTableView];
-    [_rightTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:rightIdentifier];
+    [_rightTableView registerClass:[FZY_GroupTableViewCell class] forCellReuseIdentifier:rightIdentifier];
+    [_rightTableView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierRight];
     
     UIView *myView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, WIDTH, 50)];
     [self.view addSubview:myView];
@@ -314,11 +340,9 @@ EMGroupManagerDelegate
 }
 
 #pragma mark - tableView 协议
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([tableView isEqual:_leftTabeleView]) {
-        return 70;
-    }
-    return 0;
+    return 70;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -333,8 +357,19 @@ EMGroupManagerDelegate
                     }
                     return 0;
             }
+    } else {
+        if (0 == section) {
+            return 0;
         }
-    return _rightArray.count;
+        if (1 == section) {
+            return _groupRequest.count;
+        }
+        if (2 == section) {
+            return _rightArray.count;
+        }
+        return 0;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -356,8 +391,18 @@ EMGroupManagerDelegate
             return cell;
         }
     }
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
-    return cell;
+        if (1 == indexPath.section) {
+            FZY_RequestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IdentifierRight];
+            if (_groupRequest.count) {
+                cell.fzy = _groupRequest[indexPath.row];
+            }
+            return cell;
+        }
+           FZY_GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
+            cell.nameLabel.text = [NSString stringWithFormat:@"%@", _rightArray[indexPath.row]];
+            return cell;
+    
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -402,6 +447,10 @@ EMGroupManagerDelegate
                 [self.navigationController pushViewController:chat animated:YES];
             }
             
+        }
+    } else {
+        if (2 == indexPath.section) {
+            NSLog(@"群");
         }
     }
 }
@@ -470,7 +519,16 @@ EMGroupManagerDelegate
 #pragma mark - 创建群组
 - (void)creatGroupButton:(UIButton *)button {
     FZY_CreateGroupViewController *createGroupVC = [[FZY_CreateGroupViewController alloc] init];
+    createGroupVC.delegate = self;
     [self presentViewController:createGroupVC animated:YES completion:nil];
+}
+
+#pragma mark - 实现自定义协议
+- (void)insertNewGroupToTableViewWithName:(NSString *)groupName description:(NSString *)groupDescription {
+    
+    [_rightArray addObject:groupName];
+    [_rightTableView reloadData];
+    
 }
 
 #pragma mark - 群组列表
@@ -509,14 +567,17 @@ EMGroupManagerDelegate
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *name = _leftArray[indexPath.row];
-    // 删除好友
-    EMError *error = [[EMClient sharedClient].contactManager deleteContact:name];
-    if (!error) {
-        NSLog(@"删除成功");
+    if (tableView == _leftTabeleView) {
+        NSString *name = _leftArray[indexPath.row];
+        // 删除好友
+        EMError *error = [[EMClient sharedClient].contactManager deleteContact:name];
+        if (!error) {
+            NSLog(@"删除成功");
+        }
+        [_leftArray removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
     }
-    [_leftArray removeObjectAtIndex:indexPath.row];
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+   
 }
 
 #pragma mark - 重写父类方法传值
