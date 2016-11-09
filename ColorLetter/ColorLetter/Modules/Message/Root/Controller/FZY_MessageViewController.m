@@ -86,6 +86,7 @@ EMChatManagerDelegate
         FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
         if (con.type == EMConversationTypeChat) {
             model.name = con.conversationId;
+            NSLog(@"%@", con.conversationId);
             model.isGroup = NO;
         } else{
             // 群聊
@@ -157,13 +158,17 @@ EMChatManagerDelegate
     FZY_FriendsModel *model = _conversationArray[indexPath.row];
     for (FZY_User *user in _objectArray) {
         if (model.name == user.name) {
-            NSLog(@"%@", user.name);
+            NSLog(@"%@ ???? %@", model.name, user.name);
+            NSLog(@"%@", user.imageUrl);
             self.user = user;
+            cell.urlImage = _user.imageUrl;
+            cell.model = model;
+            NSLog(@"li :%@", model.name);
+            
         }
+        cell.model = model;
     }
-    NSLog(@"%@", _user.imageUrl);
-    cell.urlImage = _user.imageUrl;
-    cell.model = model;
+    NSLog(@"wai : %@", model.name);
     
     return cell;
 }

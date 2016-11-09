@@ -65,7 +65,7 @@
             _headImageView.image = [UIImage imageNamed:@"bg-mob"];
         } else {
             _nameLabel.text = model.name;
-            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
+//            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
         }
         
         _timeLabel.text = [NSData intervalSinceNow:model.time];
@@ -85,7 +85,12 @@
 - (void)setUrlImage:(NSString *)urlImage {
     if (_urlImage != urlImage) {
         _urlImage = urlImage;
-        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
+        if ((_urlImage = nil)) {
+            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
+        }else {
+//            [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
+            [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage]];
+        }
     }
 }
 
@@ -117,7 +122,7 @@
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(@(70));
         make.left.equalTo(self.contentView).offset(10);
-        make.top.equalTo(self.contentView).offset(10);
+        make.top.equalTo(self.contentView).offset(5);
     }];
     
     
