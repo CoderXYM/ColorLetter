@@ -12,7 +12,7 @@
 #import "FZY_LoginOrRegisterViewController.h"
 #import "FZY_BmobObject.h"
 #import "FZY_LoginAndRegisterViewController.h"
-
+#import "FZY_HelpViewController.h"
 
 static NSString *const cellIdentifier = @"drawerCell";
 
@@ -108,8 +108,8 @@ UINavigationControllerDelegate
 }
 
 - (void)createArray {
-    self.imageArray = @[@"shezhi", @"help", @"log Out"];
-    self.nameArray = @[@"Setting", @"Help", @"Log Out"];
+    self.imageArray = @[@"help", @"log Out"];
+    self.nameArray = @[@"Help", @"Log Out"];
 }
 
 - (void)createTableView {
@@ -274,36 +274,35 @@ UINavigationControllerDelegate
     return cell;
 }
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:{
-            FZY_SettingViewController *setting = [[FZY_SettingViewController alloc] init];
-            CATransition * animation = [CATransition animation];
-            animation.duration = 0.5;
-            animation.type = kCATransitionFade;
-            [self.view.window.layer addAnimation:animation forKey:nil];
-            [self dismissViewControllerAnimated:NO completion:^{
-                [_viewController presentViewController:setting animated:YES completion:nil];
-            }];
-//            [self.navigationController pushViewController:setting animated:YES];
+            FZY_HelpViewController *helpViewControllView = [[FZY_HelpViewController alloc]init];
+
+            [self presentViewController:helpViewControllView animated:YES completion:nil];
+            
+            NSLog(@"你点击了help");
             break;
         }
         case 1:{
-            
-            break;
-        }
-        default:{
-            EMError *error = [[EMClient sharedClient] logout:YES];
+        
+            EMError *error = [[EMClient sharedClient]logout:YES];
             if (!error) {
                 NSLog(@"退出成功");
-                FZY_LoginAndRegisterViewController *lorVC = [[FZY_LoginAndRegisterViewController alloc] init];
-//                lorVC.position = WIDTH / 4 * 3;
-//                lorVC.scrollPosition = WIDTH;
+                FZY_LoginOrRegisterViewController *lorVC = [[FZY_LoginOrRegisterViewController alloc]init];
                 self.view.window.rootViewController = lorVC;
+                
             }
-            break;
+        
         }
-    }
+            break;
+            
+        default:
+            break;
+    }    
+    
 }
 
 - (void)didReceiveMemoryWarning {
