@@ -31,7 +31,6 @@
 		495CD64F1DCA120800E4F9A4 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 495CD64C1DCA120800E4F9A4 /* libmp3lame.a */; };
 		495CD6501DCA120800E4F9A4 /* Mp3Recorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 495CD64E1DCA120800E4F9A4 /* Mp3Recorder.m */; };
 		495CD6531DCA125C00E4F9A4 /* NSDate+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 495CD6511DCA125C00E4F9A4 /* NSDate+Utils.m */; };
-		4969E14D1DB85D6A007D0A06 /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E14C1DB85D6A007D0A06 /* AddViewController.m */; };
 		4969E1511DB85EDB007D0A06 /* FZYTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E1501DB85EDB007D0A06 /* FZYTabBarViewController.m */; };
 		4969E1891DB8AF78007D0A06 /* DrawerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4969E1881DB8AF78007D0A06 /* DrawerTableViewCell.m */; };
 		4975B1C21DBD9B9A00B6987D /* FZY_BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4975B1C11DBD9B9A00B6987D /* FZY_BaseTableViewCell.m */; };
@@ -251,8 +250,6 @@
 		495CD64E1DCA120800E4F9A4 /* Mp3Recorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp3Recorder.m; sourceTree = "<group>"; };
 		495CD6511DCA125C00E4F9A4 /* NSDate+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utils.m"; sourceTree = "<group>"; };
 		495CD6521DCA125C00E4F9A4 /* NSDate+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utils.h"; sourceTree = "<group>"; };
-		4969E14B1DB85D6A007D0A06 /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
-		4969E14C1DB85D6A007D0A06 /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
 		4969E14F1DB85EDB007D0A06 /* FZYTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZYTabBarViewController.h; sourceTree = "<group>"; };
 		4969E1501DB85EDB007D0A06 /* FZYTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZYTabBarViewController.m; sourceTree = "<group>"; };
 		4969E1871DB8AF78007D0A06 /* DrawerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerTableViewCell.h; sourceTree = "<group>"; };
@@ -787,15 +784,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		4969E1421DB85C98007D0A06 /* Add */ = {
-			isa = PBXGroup;
-			children = (
-				4969E14B1DB85D6A007D0A06 /* AddViewController.h */,
-				4969E14C1DB85D6A007D0A06 /* AddViewController.m */,
-			);
-			path = Add;
-			sourceTree = "<group>";
-		};
 		4969E1441DB85C9B007D0A06 /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -1140,7 +1128,6 @@
 			isa = PBXGroup;
 			children = (
 				49E640201DC0484600149AF1 /* FriendRequests */,
-				4969E1421DB85C98007D0A06 /* Add */,
 				4969E1801DB8A8FD007D0A06 /* Drawer */,
 				492AEE7A1DB9C8500014E9BB /* Help */,
 				49B0329A1DB79D3E00D36732 /* Home */,
@@ -2082,7 +2069,6 @@
 				49CE084D1DC0C1F70022B6B8 /* MJRefreshBackFooter.m in Sources */,
 				49CE088E1DC0C1F70022B6B8 /* UIViewController+HUD.m in Sources */,
 				49CE089C1DC0C1F70022B6B8 /* EaseViewController.m in Sources */,
-				4969E14D1DB85D6A007D0A06 /* AddViewController.m in Sources */,
 				49CE086C1DC0C1F70022B6B8 /* EMSDWebImageDownloaderOperation.m in Sources */,
 				49473E221DC385FA0004834B /* FZY_FriendsTableViewCell.m in Sources */,
 				49CE08631DC0C1F70022B6B8 /* MWPhotoBrowser.m in Sources */,

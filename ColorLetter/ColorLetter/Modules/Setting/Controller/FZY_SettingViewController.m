@@ -32,13 +32,12 @@ UITableViewDataSource
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.titleLabel.text = @"设置";
-    [self goBack];
     [self createTableView];
 
 }
@@ -107,26 +106,6 @@ UITableViewDataSource
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
-}
-
-- (void)goBack {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
-    [button handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        CATransition * animation = [CATransition animation];
-        animation.duration = 0.5;
-        animation.type = kCATransitionFade;
-        [self.view.window.layer addAnimation:animation forKey:nil];
-        [self dismissViewControllerAnimated:YES completion:nil];
-//        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    [self.view addSubview:button];
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(20);
-        make.top.equalTo(self.view.mas_top).offset(20);
-        make.height.equalTo(@50);
-        make.width.equalTo(@50);
-    }];
 }
 
 - (void)didReceiveMemoryWarning {

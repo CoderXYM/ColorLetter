@@ -127,6 +127,7 @@ EMGroupManagerDelegate
 - (void)didJoinGroup:(EMGroup *)aGroup inviter:(NSString *)aInviter message:(NSString *)aMessage {
     NSLog(@"----- %@", aMessage);
 }
+
 #pragma mark - 收到好友邀请回调
 - (void)didReceiveFriendInvitationFromUsername:(NSString *)aUsername
                                        message:(NSString *)aMessage {

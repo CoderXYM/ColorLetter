@@ -9,7 +9,7 @@
 #import "FZYTabBarViewController.h"
 #import "FZY_MessageViewController.h"
 #import "TheContactViewController.h"
-#import "AddViewController.h"
+#import "FZY_SettingViewController.h"
 
 @interface FZYTabBarViewController ()
 
@@ -53,14 +53,14 @@
     UINavigationController *theContactNav = [[UINavigationController alloc] initWithRootViewController:theContact];
     [theContactNav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    AddViewController *add = [[AddViewController alloc] init];
-    add.title = @"Add";
-    UIImage *imageAdd = [UIImage imageNamed:@"tab-bookmark"];
-    UIImage *selectedImageAdd = [UIImage imageNamed:@"tab-bookmark-on"];
+    FZY_SettingViewController *add = [[FZY_SettingViewController alloc] init];
+    add.title = @"Setting";
+    UIImage *imageAdd = [UIImage imageNamed:@"setting1"];
+    UIImage *selectedImageAdd = [UIImage imageNamed:@"setting2"];
     // 保持原图不被渲染
     imageAdd = [imageAdd imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     selectedImageAdd = [selectedImageAdd imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    add.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Add" image:imageAdd selectedImage:selectedImageAdd];
+    add.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Setting" image:imageAdd selectedImage:selectedImageAdd];
     UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:add];
     [addNav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
