@@ -357,6 +357,7 @@ BMKMapViewDelegate
                     
                     model.fromUser = message.from;
                     model.remoteVoicePath = body.remotePath;
+                    model.localVoicePath = body.localPath;
                     model.isSelf = NO;
                     model.isPhoto= NO;
                     model.isVoice = YES;
@@ -426,6 +427,7 @@ BMKMapViewDelegate
                     NSLog(@"发送语音消息");
                     EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
                     model.fromUser = message.from;
+                    model.remoteVoicePath = body.remotePath;
                     model.localVoicePath = body.localPath;
                     model.isSelf = YES;
                     model.isPhoto= NO;
@@ -864,10 +866,13 @@ BMKMapViewDelegate
     if (model.isPhoto) {
         return 240;
     } else {
-        
-        //根据文字确定显示大小
-        CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
-        return size.height + 50;
+        if (model.isVoice) {
+            return 60;
+        }else {
+            //根据文字确定显示大小
+            CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
+            return size.height + 50;
+        }
     }
     
 }

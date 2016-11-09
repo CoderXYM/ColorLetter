@@ -87,9 +87,7 @@
     
     if (cTime > 1) {
         [self audio_PCMtoMP3];
-//        if ([_delegate respondsToSelector:@selector(beginConvert)]) {
-//            [_delegate beginConvert];
-//        }
+
     }else {
 
         [_recorder deleteRecording];

@@ -46,6 +46,15 @@
 @property (nonatomic, assign) BOOL isPlayVoice;
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+
+@property (nonatomic, strong) UIImageView *lefeVoice;
+
+@property (nonatomic, strong) UIImageView *rightVoice;
+
+@property (nonatomic, strong) NSTimer *timer;
+
+@property (nonatomic, assign) float i;
+
 @end
 
 @implementation FZY_ChatTableViewCell
@@ -149,12 +158,39 @@
         [_leftVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_leftVoiceButton];
         
+        self.lefeVoice = [[UIImageView alloc] initWithFrame:CGRectMake(60, 15, 25, 25)];
+        self.lefeVoice.image = [UIImage imageNamed:@"chat_animation3"];
+        self.lefeVoice.animationImages = [NSArray arrayWithObjects:
+                                           [UIImage imageNamed:@"chat_animation1"],
+                                           [UIImage imageNamed:@"chat_animation2"],
+                                           [UIImage imageNamed:@"chat_animation3"],nil];
+        self.lefeVoice.animationDuration = 1;
+        self.lefeVoice.animationRepeatCount = 0;
+        self.lefeVoice.userInteractionEnabled = NO;
+        self.lefeVoice.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_lefeVoice];
+
+        
         // 右语音
         self.rightVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rightVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.contentView addSubview:_rightVoiceButton];
         
+        self.rightVoice = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH - 100 , 15, 25, 25)];
+        self.rightVoice.image = [UIImage imageNamed:@"chat_animation_white3"];
+        self.rightVoice.animationImages = [NSArray arrayWithObjects:
+                                           [UIImage imageNamed:@"chat_animation_white1"],
+                                           [UIImage imageNamed:@"chat_animation_white2"],
+                                           [UIImage imageNamed:@"chat_animation_white3"],nil];
+        self.rightVoice.animationDuration = 1;
+        self.rightVoice.animationRepeatCount = 0;
+        self.rightVoice.userInteractionEnabled = NO;
+        self.rightVoice.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:_rightVoice];
         
+
+        self.i = 0;
+
     }
     
     return self;
@@ -179,7 +215,8 @@
             
             // 图片
             if (model.isPhoto) {
-                
+                self.lefeVoice.hidden = YES;
+                self.rightVoice.hidden = YES;
                 self.leftPhotoImageView.hidden = YES;
                 self.rightPhotoImageView.hidden = NO;
                 self.leftVoiceButton.hidden = YES;
@@ -201,6 +238,9 @@
                 
                 // 语音
                 if (model.isVoice) {
+                    self.lefeVoice.hidden = YES;
+                    self.rightVoice.hidden = NO;
+
                     self.leftPhotoImageView.hidden = YES;
                     self.rightPhotoImageView.hidden = YES;
                     
@@ -209,17 +249,20 @@
                     
                     int w = (WIDTH / 60) * model.voiceDuration;
                     
-                    _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80, 0, 100, 35);
-                    [_rightVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
-                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 90, 0, 100 + 20, 35);
+                    _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80 - w, 10, 100 + w, 35);
+                    [_rightVoiceButton setTitle:[NSString stringWithFormat:@"%d's", model.voiceDuration] forState:UIControlStateNormal];
+                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 70 - w, 10, 100 + 20 + w, 35);
                     
                     [_rightVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-                        NSLog(@"%@", model.localVoicePath);
+                        _i = 0;
+                        [self.rightVoice startAnimating];
                         [self playVoiceWithPath:model.localVoicePath];
                     }];
                     
                 } else {
                     // 文字
+                    self.lefeVoice.hidden = YES;
+                    self.rightVoice.hidden = YES;
                     self.leftPhotoImageView.hidden = YES;
                     self.rightPhotoImageView.hidden = YES;
                     self.leftVoiceButton.hidden = YES;
@@ -255,6 +298,8 @@
             
             // 图片
             if (model.isPhoto) {
+                self.lefeVoice.hidden = YES;
+                self.rightVoice.hidden = YES;
                 self.leftPhotoImageView.hidden = NO;
                 self.rightPhotoImageView.hidden = YES;
                 self.leftVoiceButton.hidden = YES;
@@ -275,6 +320,9 @@
                 
                 // 语音
                 if (model.isVoice) {
+                    self.lefeVoice.hidden = NO;
+                    self.rightVoice.hidden = YES;
+
                     self.leftPhotoImageView.hidden = YES;
                     self.rightPhotoImageView.hidden = YES;
                     
@@ -283,17 +331,20 @@
                     
                     int w = (WIDTH / 60) * model.voiceDuration;
                     
-                    _leftVoiceButton.frame = CGRectMake(60, 0, 100, 35);
-                    [_leftVoiceButton setTitle:[NSString stringWithFormat:@"%d秒", model.voiceDuration] forState:UIControlStateNormal];
-                    self.leftBubble.frame = CGRectMake(50, 0, 120, 35);
+                    _leftVoiceButton.frame = CGRectMake(80, 10, 100 + w, 35);
+                    [_leftVoiceButton setTitle:[NSString stringWithFormat:@"%d's", model.voiceDuration] forState:UIControlStateNormal];
+                    self.leftBubble.frame = CGRectMake(50, 10, 120 + w, 35);
                     
                     [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-                        NSLog(@"%@", model.remoteVoicePath);
+                        _i = 0;
+                        [self.lefeVoice startAnimating];
                         [self playVoiceWithPath:model.localVoicePath];
                     }];
                     
                 } else {
                     // 文字
+                    self.lefeVoice.hidden = YES;
+                    self.rightVoice.hidden = YES;
                     self.leftVoiceButton.hidden = YES;
                     self.rightVoiceButton.hidden = YES;
                     self.leftPhotoImageView.hidden = YES;
@@ -316,48 +367,58 @@
     }
 }
 
-- (void)playVoiceWithPath:(NSString *)voicePath {
-   
-//    NSURL *url = [[NSURL alloc] init];
-//    NSData *data = [[NSData alloc] init];
-    // 将路径字符串转化成 url, 从本地读取文件, 需要使用 fileURL
-//    if (_model.isSelf) {
-//        url = [NSURL fileURLWithPath:voicePath];
-       NSData *data = [NSData dataWithContentsOfFile:voicePath];
-//    } else {
-//        url = [NSURL URLWithString:voicePath];
-//        NSLog(@"url : %@", url);
-//        NSString *string = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+- (void)AVAudioPlayerDidFinishPlay {
+    [self.audioPlayer stop];
+    [self.lefeVoice stopAnimating];
+    [self.rightVoice stopAnimating];
+}
 
-//        string = [string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        
-    
-//        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/octet-stream"];
-//        
-//        [manager GET:voicePath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//            NSLog(@"请求打印成功要做的事 : %@", responseObject);
-//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//            NSLog(@"error : %@", error);
-//        }];
-//        
-//    }
-    
-   
-    NSError *error = nil;
-    
-    // 初始化音频播放器
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
-    if (error) {
-        NSLog(@"error : %@", error);
+
+//处理监听触发事件
+-(void)sensorStateChange:(NSNotificationCenter *)notification;
+{
+    if ([[UIDevice currentDevice] proximityState] == YES){
+        NSLog(@"Device is close to user");
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
     }
-    [self.audioPlayer setVolume:1];
-    // 设置循环播放 0 -> 语音只会播放一次
-    [self.audioPlayer setNumberOfLoops:0];
-    [self.audioPlayer prepareToPlay];
-    [self.audioPlayer play];
+    else{
+        NSLog(@"Device is not close to user");
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    }
+}
+
+- (void)playVoiceWithPath:(NSString *)voicePath {
     
+        NSData *data = [NSData dataWithContentsOfFile:voicePath];
+        NSError *error = nil;
+        // 初始化音频播放器
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
+        if (error) {
+            NSLog(@"error : %@", error);
+        }
+        [self.audioPlayer setVolume:1];
+        // 设置循环播放 0 -> 语音只会播放一次
+        [self.audioPlayer setNumberOfLoops:0];
+        [self.audioPlayer prepareToPlay];
+        [self.audioPlayer play];
+         self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(change) userInfo:nil repeats:YES];
+
+
+}
+
+-(void)change
+{
+    
+    self.i += 0.1;
+    NSLog(@"%f",_i);
+    
+    
+    if (_i > (float)_model.voiceDuration) {
+        //清除定时器
+        [self.timer invalidate];
+        [self AVAudioPlayerDidFinishPlay];
+        
+    }
 }
 
 @end

@@ -12,7 +12,7 @@
 #import "FZY_LoginOrRegisterViewController.h"
 #import "FZY_BmobObject.h"
 #import "FZY_LoginAndRegisterViewController.h"
-
+#import "FZY_HelpViewController.h"
 
 static NSString *const cellIdentifier = @"drawerCell";
 
@@ -270,26 +270,42 @@ UINavigationControllerDelegate
     return cell;
 }
 
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:{
+
+            FZY_HelpViewController *helpViewControllView = [[FZY_HelpViewController alloc]init];
+
+            [self presentViewController:helpViewControllView animated:YES completion:nil];
             
+            NSLog(@"你点击了help");
             break;
         }
         case 1:{
+            
             EMError *error = [[EMClient sharedClient] logout:YES];
             if (!error) {
                 NSLog(@"退出成功");
                 FZY_LoginAndRegisterViewController *lorVC = [[FZY_LoginAndRegisterViewController alloc] init];
                 //                lorVC.position = WIDTH / 4 * 3;
                 //                lorVC.scrollPosition = WIDTH;
+        
+            EMError *error = [[EMClient sharedClient]logout:YES];
+            if (!error) {
+                NSLog(@"退出成功");
+                FZY_LoginOrRegisterViewController *lorVC = [[FZY_LoginOrRegisterViewController alloc]init];
                 self.view.window.rootViewController = lorVC;
+                
+                }
             }
         }
             break;
         default:
             break;
     }
+    
 }
 
 - (void)didReceiveMemoryWarning {
