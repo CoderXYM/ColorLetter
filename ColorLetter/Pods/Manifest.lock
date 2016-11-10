@@ -4,8 +4,11 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
+  - HexColors (2.2.1)
   - HyphenateFullSDK (3.1.5)
   - Masonry (1.0.2)
+  - TSMessages (0.9.12):
+    - HexColors (~> 2.2.0)
 
 DEPENDENCIES:
   - AVOSCloud (~> 3.6.1)
@@ -13,14 +16,17 @@ DEPENDENCIES:
   - FMDB (~> 2.6.2)
   - HyphenateFullSDK (~> 3.1.5)
   - Masonry (~> 1.0.2)
+  - TSMessages (~> 0.9.12)
 
 SPEC CHECKSUMS:
   AVOSCloud: cc9b567da2d30f07e3da1e4db682cad9ff56a1b6
   BaiduMapKit: 4cfaedb118cff7e157e9771859a4bf65a261b2a1
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  HexColors: abfd172e329dab59888614ccba6f216cec59289d
   HyphenateFullSDK: 536f76eeb0914dba766b1d5d30dee083f0805da2
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
 
-PODFILE CHECKSUM: 1ae803158d156774e9803677237823625a9dc215
+PODFILE CHECKSUM: 50ff569d302954c8d653bf99d481781985b6a71c
 
 COCOAPODS: 1.0.1

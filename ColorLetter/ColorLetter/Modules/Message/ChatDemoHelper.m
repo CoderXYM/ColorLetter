@@ -88,17 +88,6 @@ static ChatDemoHelper *helper = nil;
 #if DEMO_CALL == 1
     self.callLock = [[NSObject alloc] init];
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
-    
-//    NSString *file = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"calloptions.data"];
-//    EMCallOptions *options = nil;
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:file]) {
-//        options = [NSKeyedUnarchiver unarchiveObjectWithFile:file];
-//    } else {
-//        options = [[EMClient sharedClient].callManager getCallOptions];
-//        options.isSendPushIfOffline = NO;
-//    }
-//    [[EMClient sharedClient].callManager setCallOptions:options];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeCall:) name:KNOTIFICATION_CALL object:nil];
 #endif
 }
