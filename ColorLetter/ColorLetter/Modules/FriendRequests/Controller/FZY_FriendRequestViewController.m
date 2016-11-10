@@ -73,20 +73,22 @@ UITextFieldDelegate
         make.width.equalTo(@25);
     }];
     
+    UIImageView *placeHoder = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 60, WIDTH, 50)];
     _textField.delegate = self;
-    _textField.clipsToBounds = YES;
-    //_textField.layer.cornerRadius = _textField.frame.size.height / 2;
+    _textField.leftView = placeHoder;
+    //_textField.leftViewMode = UITextFieldViewModeAlways;//此处用来设置leftview现实时机
     _textField.backgroundColor = [UIColor lightGrayColor];
     _textField.clearButtonMode = UITextFieldViewModeAlways;
-    _textField.placeholder = @"               Please enter a user name to add";
+    _textField.placeholder = @"   Please enter a user name to add";
     [_textField setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [self.view addSubview:_textField];
     
     self.groupTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 150, WIDTH, 50)];
     _groupTextField.delegate = self;
-    _groupTextField.clipsToBounds = YES;
-    _groupTextField.layer.cornerRadius = _textField.frame.size.height / 2;
+    _groupTextField.leftView = placeHoder;
+    _groupTextField.leftViewMode = UITextFieldViewModeAlways;
     _groupTextField.backgroundColor = [UIColor lightGrayColor];
     _groupTextField.clearButtonMode = UITextFieldViewModeAlways;
     _groupTextField.placeholder = @"   请输入要加入的群名称";

@@ -15,7 +15,7 @@
 @property (nonatomic, copy) NSString *aMessage;
 
 @property (nonatomic, assign) BOOL isGroup;
-@property (nonatomic, copy) NSString *groupName;
-@property (nonatomic, copy) NSString *groupDescription;
+@property (nonatomic, copy) NSString *aInviter;
+@property (nonatomic, copy) NSString *aGroupId;
 
 @end

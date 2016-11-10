@@ -32,6 +32,7 @@
         _nameLabel.textColor = [UIColor blackColor];
         [self.contentView addSubview:_nameLabel];
         
+        
     }
     return self;
 }
