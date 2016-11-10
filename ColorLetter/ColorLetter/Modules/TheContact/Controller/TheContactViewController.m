@@ -58,6 +58,9 @@ FZY_CreateGroupViewControllerDelegate
 @property (nonatomic, strong) NSMutableArray *groupRequest;
 @property (nonatomic, assign) BOOL select;
 
+@property (nonatomic, strong) NSArray *objectArray;
+
+
 @end
 
 @implementation TheContactViewController
@@ -72,6 +75,8 @@ FZY_CreateGroupViewControllerDelegate
     [super viewWillAppear:YES];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     [self getFriendList];
+    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
+
 
 }
 
@@ -381,10 +386,29 @@ FZY_CreateGroupViewControllerDelegate
             return cell;
         }else {
             FZY_FriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:leftIdentifier];
+            
+//            for (FZY_User *user in _objectArray) {
+//                if (_searchLeftArray[indexPath.row] == user.name) {
+//                    cell.imageUrl = user.imageUrl;
+//                }
+//            }
+
             if (_searchController.active) {
+                for (FZY_User *user in _objectArray) {
+                    if (_searchLeftArray[indexPath.row] == user.name) {
+                        cell.imageUrl = user.imageUrl;
+                    }
+                }
+                
                 cell.nameLabel.text = _searchLeftArray[indexPath.row];
             }
             else {
+                
+                for (FZY_User *user in _objectArray) {
+                    if (_leftArray[indexPath.row] == user.name) {
+                        cell.imageUrl = user.imageUrl;
+                    }
+                }
                 cell.nameLabel.text = _leftArray[indexPath.row];
             }
             return cell;
