@@ -32,8 +32,8 @@ FZY_FriendsListViewControllerDelegate
 #pragma mark - 返回按钮
 - (void)backButton {
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(20, 30, 20, 20);
-    [backButton setBackgroundImage:[UIImage imageNamed:@"btn-back"] forState:UIControlStateNormal];
+    backButton.frame = CGRectMake(20, 30, 15, 15);
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     [backButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [self dismissViewControllerAnimated:YES completion:nil];
     }];

@@ -22,7 +22,7 @@
     [self.view addSubview:upView];
     
     UIButton *backImage = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backImage setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backImage setBackgroundImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     [backImage handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -30,28 +30,23 @@
    
     [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view.mas_left).offset(5);
-            make.top.equalTo(self.view.mas_top).offset(30                                                             );
-            make.height.equalTo(@20);
-            make.width.equalTo(@25);
+            make.top.equalTo(self.view.mas_top).offset(35                                                             );
+            make.height.equalTo(@15);
+            make.width.equalTo(@15);
     }];
     
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 20, 50, 50)];
-    [backButton setTitle:@"Back" forState:UIControlStateNormal];
+    [backButton setTitle:@"Help" forState:UIControlStateNormal];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];    
     [upView addSubview:backButton];
    [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
        
-       make.left.equalTo(self.view.mas_left).offset(20);
-       make.top.equalTo(self.view.mas_top).offset(25);
+       make.centerX.equalTo(self.view.mas_left).offset(WIDTH / 2);
+       make.top.equalTo(self.view.mas_top).offset(30);
        make.height.equalTo(@30);
        make.width.equalTo(@50);
    }];
-    [backButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         
-        [self dismissViewControllerAnimated:YES completion:nil];
-        
-    }];
-    
        
    
 }

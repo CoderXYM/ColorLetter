@@ -157,7 +157,7 @@ UITextFieldDelegate
     
     // 返回
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setBackgroundImage:[UIImage imageNamed:@"x"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     
     //button的 封装的block方法
     [backButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
@@ -168,8 +168,8 @@ UITextFieldDelegate
     [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_upView.mas_centerY).offset(10);
         make.left.equalTo(_upView).offset(10);
-        make.width.equalTo(@20);
-        make.height.equalTo(@20);
+        make.width.equalTo(@15);
+        make.height.equalTo(@15);
     }];
     
     

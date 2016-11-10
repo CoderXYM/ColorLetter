@@ -45,21 +45,19 @@ UITextFieldDelegate
 
 - (void)create {
     
-//    UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [cancel setTitle:@"Back" forState:UIControlStateNormal];
-//    cancel.titleLabel.textColor = [UIColor whiteColor];
-//    cancel.backgroundColor = [UIColor clearColor];
-//    [cancel handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }];
-//    [self.view addSubview:cancel];
-//    [cancel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view.mas_left).offset(20);
-//        make.top.equalTo(self.view.mas_top).offset(25);
-//        make.height.equalTo(@30);
-//        make.width.equalTo(@50);
-//    }];
-//    
+    UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancel setTitle:@"Add" forState:UIControlStateNormal];
+    cancel.titleLabel.textColor = [UIColor whiteColor];
+    cancel.backgroundColor = [UIColor clearColor];
+   
+    [self.view addSubview:cancel];
+    [cancel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_left).offset(WIDTH / 2);
+        make.top.equalTo(self.view.mas_top).offset(30);
+        make.height.equalTo(@30);
+        make.width.equalTo(@50);
+    }];
+    
     UIButton *backImage = [UIButton buttonWithType:UIButtonTypeCustom];
     [backImage setBackgroundImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     [backImage handleControlEvent:UIControlEventTouchUpInside withBlock:^{
