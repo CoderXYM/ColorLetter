@@ -11,6 +11,7 @@
 		490022971DD2CF5200AF6C8E /* FZY_HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490022961DD2CF5200AF6C8E /* FZY_HelpViewController.m */; };
 		490327801DD1768D009F9D3E /* FZY_FriendsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4903277E1DD1768D009F9D3E /* FZY_FriendsListViewController.m */; };
 		4907FF561DD2C37C0026E95A /* FZY_GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4907FF551DD2C37C0026E95A /* FZY_GroupTableViewCell.m */; };
+		4907FF911DD467260026E95A /* FZY_ChatterInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4907FF901DD467260026E95A /* FZY_ChatterInfoViewController.m */; };
 		491424491DC6F69100EC39A5 /* FZY_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 491424481DC6F69100EC39A5 /* FZY_User.m */; };
 		4914244C1DC6F69F00EC39A5 /* FZY_DataHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */; };
 		491656AC1DBA56E100975DE6 /* FZY_SliderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */; };
@@ -212,6 +213,8 @@
 		4903277E1DD1768D009F9D3E /* FZY_FriendsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendsListViewController.m; sourceTree = "<group>"; };
 		4907FF541DD2C37C0026E95A /* FZY_GroupTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_GroupTableViewCell.h; sourceTree = "<group>"; };
 		4907FF551DD2C37C0026E95A /* FZY_GroupTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_GroupTableViewCell.m; sourceTree = "<group>"; };
+		4907FF8F1DD467260026E95A /* FZY_ChatterInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_ChatterInfoViewController.h; sourceTree = "<group>"; };
+		4907FF901DD467260026E95A /* FZY_ChatterInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatterInfoViewController.m; sourceTree = "<group>"; };
 		491424421DC6ECED00EC39A5 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		491424471DC6F69100EC39A5 /* FZY_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_User.h; sourceTree = "<group>"; };
 		491424481DC6F69100EC39A5 /* FZY_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_User.m; sourceTree = "<group>"; };
@@ -647,6 +650,23 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		4907FF8A1DD466270026E95A /* ChatterInfo */ = {
+			isa = PBXGroup;
+			children = (
+				4907FF8B1DD466420026E95A /* Controller */,
+			);
+			name = ChatterInfo;
+			sourceTree = "<group>";
+		};
+		4907FF8B1DD466420026E95A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4907FF8F1DD467260026E95A /* FZY_ChatterInfoViewController.h */,
+				4907FF901DD467260026E95A /* FZY_ChatterInfoViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		491656A81DBA56E100975DE6 /* Encapsulation */ = {
 			isa = PBXGroup;
 			children = (
@@ -791,6 +811,7 @@
 		4969E1441DB85C9B007D0A06 /* Message */ = {
 			isa = PBXGroup;
 			children = (
+				4907FF8A1DD466270026E95A /* ChatterInfo */,
 				49BC0A2E1DC5F5D00094EFE8 /* VideoChat */,
 				4975B1C61DBDB15C00B6987D /* Chat */,
 				4975B1B91DBD9A7700B6987D /* Root */,
@@ -2123,6 +2144,7 @@
 				49CE08411DC0C1F70022B6B8 /* EMCDDeviceManager+Microphone.m in Sources */,
 				49CE08911DC0C1F70022B6B8 /* EaseMessageReadManager.m in Sources */,
 				495CD6461DCA11E100E4F9A4 /* UUMessage.m in Sources */,
+				4907FF911DD467260026E95A /* FZY_ChatterInfoViewController.m in Sources */,
 				49CE08A11DC0C1F70022B6B8 /* EaseMessageTimeCell.m in Sources */,
 				495CD6481DCA11E100E4F9A4 /* UUMessageFrame.m in Sources */,
 				4975B27B1DBE42FB00B6987D /* UIImage+Categories.m in Sources */,

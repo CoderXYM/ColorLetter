@@ -126,28 +126,25 @@ FZY_CreateGroupViewControllerDelegate
     EMError *groupError = nil;
     NSArray *myGroups = [[EMClient sharedClient].groupManager getMyGroupsFromServerWithError:&groupError];
     if (!groupError) {
-        NSLog(@"获取群列表成功 -- %@",myGroups);
+        
         [_rightArray addObjectsFromArray:myGroups];
 
     }
 }
 
 #pragma mark - 收到进群申请
-// 用户A向群组G发送入群申请，群组G的群主会接收到该回调
+// 群组的群主收到用户的入群申请，群的类型是EMGroupStylePublicJoinNeedApproval
 - (void)didReceiveJoinGroupApplication:(EMGroup *)aGroup
                              applicant:(NSString *)aApplicant
                                 reason:(NSString *)aReason {
     NSLog(@"%@", aApplicant);
-}
-
-#pragma mark - 收到群组邀请回调
-- (void)didJoinGroup:(EMGroup *)aGroup inviter:(NSString *)aInviter message:(NSString *)aMessage {
-    NSLog(@"----- %@", aMessage);
+    [TSMessage showNotificationWithTitle:[NSString stringWithFormat:@"%@想要加入您的群", aApplicant] subtitle:aReason type:TSMessageNotificationTypeWarning];
 }
 
 // 用户B同意用户A的入群邀请后，用户A接收到该回调
 - (void)groupInvitationDidAccept:(EMGroup *)aGroup
                          invitee:(NSString *)aInvitee {
+    [TSMessage showNotificationWithTitle:[NSString stringWithFormat:@"%@已接收了您的邀请", aInvitee] subtitle:nil type:TSMessageNotificationTypeSuccess];
     
 }
 // 用户B拒绝用户A的入群邀请后，用户A接收到该回调
@@ -155,6 +152,7 @@ FZY_CreateGroupViewControllerDelegate
                           invitee:(NSString *)aInvitee
                            reason:(NSString *)aReason {
     
+    [TSMessage showNotificationWithTitle:[NSString stringWithFormat:@"%@拒绝您的邀请", aInvitee] subtitle:aReason type:TSMessageNotificationTypeError];
 }
 // 群列表发生了变化
 - (void)groupListDidUpdate:(NSArray *)aGroupList {
