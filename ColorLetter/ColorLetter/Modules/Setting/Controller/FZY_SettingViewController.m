@@ -60,21 +60,17 @@ UITableViewDataSource
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (0 == section) {
-        return @"Account";
-    }else if (1 == section) {
         return @"Options";
     }
     return @"ColorLetter";
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (0 == section) {
-        return 1;
-    }else if (1 == section) {
         return 1;
     }
     return 2;
@@ -83,15 +79,11 @@ UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FZY_SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (0 == indexPath.section) {
-        cell.cellName = @"个人账号";
-    }else if (1 == indexPath.section) {
         FZY_SwitchTableViewCell *cells = [tableView dequeueReusableCellWithIdentifier:IdentifierCell];
         if (0 == indexPath.row) {
             cells.cellName = @"通知";
         }
-        else if ( 1 == indexPath.row) {
-            cells.cellName = @"夜间模式";
-        }
+               
         cells.selectionStyle = UITableViewCellSelectionStyleNone;
         return cells;
     }else {

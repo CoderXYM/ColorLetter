@@ -18,6 +18,8 @@
 		492AEE791DB9B42C0014E9BB /* FZY_SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEE781DB9B42C0014E9BB /* FZY_SettingViewController.m */; };
 		492AEEAA1DBA0B440014E9BB /* FZY_SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEEA91DBA0B440014E9BB /* FZY_SettingTableViewCell.m */; };
 		492AEEAD1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 492AEEAC1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m */; };
+		492D93491DD45E91009426A9 /* 1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 492D93481DD45E91009426A9 /* 1.gif */; };
+		492D934D1DD46D36009426A9 /* 3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 492D934C1DD46D36009426A9 /* 3.gif */; };
 		493623071DCDB29400D69FB6 /* CallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 493623041DCDB29400D69FB6 /* CallViewController.m */; };
 		493623081DCDB29400D69FB6 /* ChatDemoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 493623061DCDB29400D69FB6 /* ChatDemoHelper.m */; };
 		49473E1E1DC385B10004834B /* TheContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49473E1D1DC385B10004834B /* TheContactViewController.m */; };
@@ -227,6 +229,8 @@
 		492AEEA91DBA0B440014E9BB /* FZY_SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SettingTableViewCell.m; sourceTree = "<group>"; };
 		492AEEAB1DBA30E90014E9BB /* FZY_SwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_SwitchTableViewCell.h; sourceTree = "<group>"; };
 		492AEEAC1DBA30E90014E9BB /* FZY_SwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_SwitchTableViewCell.m; sourceTree = "<group>"; };
+		492D93481DD45E91009426A9 /* 1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1.gif; sourceTree = "<group>"; };
+		492D934C1DD46D36009426A9 /* 3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 3.gif; sourceTree = "<group>"; };
 		493623031DCDB29400D69FB6 /* CallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallViewController.h; sourceTree = "<group>"; };
 		493623041DCDB29400D69FB6 /* CallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallViewController.m; sourceTree = "<group>"; };
 		493623051DCDB29400D69FB6 /* ChatDemoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDemoHelper.h; sourceTree = "<group>"; };
@@ -1034,6 +1038,8 @@
 				49B032781DB79C0800D36732 /* Supporting Files */,
 				49B0327B1DB79C0800D36732 /* AppDelegate.h */,
 				49B0327C1DB79C0800D36732 /* AppDelegate.m */,
+				492D93481DD45E91009426A9 /* 1.gif */,
+				492D934C1DD46D36009426A9 /* 3.gif */,
 				49B032841DB79C0800D36732 /* Assets.xcassets */,
 				49B032891DB79C0800D36732 /* Info.plist */,
 				49B032861DB79C0800D36732 /* LaunchScreen.storyboard */,
@@ -1942,7 +1948,9 @@
 				49B032851DB79C0800D36732 /* Assets.xcassets in Resources */,
 				49EB5EB41DD09D62002A860D /* FZY_CreateGroupViewController.xib in Resources */,
 				49CE085A1DC0C1F70022B6B8 /* MJRefresh.bundle in Resources */,
+				492D934D1DD46D36009426A9 /* 3.gif in Resources */,
 				49CE08851DC0C1F70022B6B8 /* MWPhotoBrowser.bundle in Resources */,
+				492D93491DD45E91009426A9 /* 1.gif in Resources */,
 				49CE08B51DC0D6D80022B6B8 /* EaseUIResource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
