@@ -81,22 +81,22 @@ EMClientDelegate
     
     [ChatDemoHelper shareHelper];
     
-    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
-    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            [[FZY_DataHandle shareDatahandle] open];
-            [[FZY_DataHandle shareDatahandle] deleteAll];
-            for (AVObject *userPhoto in objects) {
-                AVObject *user = [userPhoto objectForKey:@"userName"];
-                FZY_User *use = [[FZY_User alloc] init];
-                AVFile *file = [userPhoto objectForKey:@"image"];
-                use.name = [NSString stringWithFormat:@"%@", user];
-                use.imageUrl = file.url;
-                use.userId = userPhoto.objectId;
-                [[FZY_DataHandle shareDatahandle] insert:use];
-            }
-        }
-    }];
+//    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
+//    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            [[FZY_DataHandle shareDatahandle] open];
+//            [[FZY_DataHandle shareDatahandle] deleteAll];
+//            for (AVObject *userPhoto in objects) {
+//                AVObject *user = [userPhoto objectForKey:@"userName"];
+//                FZY_User *use = [[FZY_User alloc] init];
+//                AVFile *file = [userPhoto objectForKey:@"image"];
+//                use.name = [NSString stringWithFormat:@"%@", user];
+//                use.imageUrl = file.url;
+//                use.userId = userPhoto.objectId;
+//                [[FZY_DataHandle shareDatahandle] insert:use];
+//            }
+//        }
+//    }];
     
     return YES;
 
@@ -118,22 +118,22 @@ EMClientDelegate
  *  @param aError 错误信息
  */
 - (void)didAutoLoginWithError:(EMError *)aError {
-//    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
-//    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            [[FZY_DataHandle shareDatahandle] open];
-//            [[FZY_DataHandle shareDatahandle] deleteAll];
-//            for (AVObject *userPhoto in objects) {
-//                AVObject *user = [userPhoto objectForKey:@"userName"];
-//                FZY_User *use = [[FZY_User alloc] init];
-//                AVFile *file = [userPhoto objectForKey:@"image"];
-//                use.name = [NSString stringWithFormat:@"%@", user];
-//                use.imageUrl = file.url;
-//                use.userId = userPhoto.objectId;
-//                [[FZY_DataHandle shareDatahandle] insert:use];
-//            }
-//        }
-//    }];
+    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
+    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [[FZY_DataHandle shareDatahandle] open];
+            [[FZY_DataHandle shareDatahandle] deleteAll];
+            for (AVObject *userPhoto in objects) {
+                AVObject *user = [userPhoto objectForKey:@"userName"];
+                FZY_User *use = [[FZY_User alloc] init];
+                AVFile *file = [userPhoto objectForKey:@"image"];
+                use.name = [NSString stringWithFormat:@"%@", user];
+                use.imageUrl = file.url;
+                use.userId = userPhoto.objectId;
+                [[FZY_DataHandle shareDatahandle] insert:use];
+            }
+        }
+    }];
     [TSMessage showNotificationWithTitle:@"Automatic Login Success" subtitle:@"自动登录成功" type:TSMessageNotificationTypeSuccess];
 
 }
