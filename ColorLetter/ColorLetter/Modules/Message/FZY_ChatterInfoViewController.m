@@ -7,6 +7,7 @@
 //
 
 #import "FZY_ChatterInfoViewController.h"
+#import "FZY_ChatterInfoTableViewCell.h"
 
 @interface FZY_ChatterInfoViewController ()
 <
@@ -37,13 +38,21 @@ UITableViewDataSource
     self.tableViwe = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _tableViwe.delegate = self;
     _tableViwe.dataSource = self;
-    [_tableViwe registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
+    [_tableViwe registerClass:[FZY_ChatterInfoTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:_tableViwe];
     
     UIView *upView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 200)];
-    
+    [self.view addSubview:upView];
+    // 设置模糊效果
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    // 创建模糊效果的视图
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    // 添加到有模糊效果的控件上
+    effectView.frame = upView.bounds;
+    [upView addSubview:effectView];
+
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.image =  [UIImage imageNamed:@"tab-home"];
+    imageView.image =  [UIImage imageNamed:@"mood-unhappy"];
     [upView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(upView.mas_centerY).offset(-20);
@@ -63,15 +72,15 @@ UITableViewDataSource
     }];
     _tableViwe.tableHeaderView = upView;
     
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld", indexPath.row];
+    FZY_ChatterInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.blackList = _friendName;
+    cell.textLabel.text = @"加入黑名单";
     return cell;
 }
 
