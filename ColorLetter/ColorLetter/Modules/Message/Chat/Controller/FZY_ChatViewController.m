@@ -63,32 +63,29 @@ BMKMapViewDelegate
 @property (nonatomic, assign) double longitude;
 @property (nonatomic, copy) NSString *address;
 
+@property (nonatomic, strong) NSArray *objectArray;
+
+@property (nonatomic, copy) NSString *userImage;
+
+@property (nonatomic, copy) NSString *friendImage;
+
+
 @end
 
 @implementation FZY_ChatViewController
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-//    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
-//    pointAnnotation.coordinate = CLLocationCoordinate2DMake(_latitude, _longitude);
-////    pointAnnotation.title = [NSString stringWithFormat:@"%@", _address];
-//    
-//    [_mapView addAnnotation:pointAnnotation];
 }
 
 - (void)displayGeographicInformationLAT:(double)latitude LON:(double)longitude {
     BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
-        pointAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-//        pointAnnotation.title = [NSString stringWithFormat:@"%@", add];
-        [_mapView addAnnotation:pointAnnotation];
-    NSLog(@"%f, %f", latitude, longitude);
+    pointAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    [_mapView addAnnotation:pointAnnotation];
     [self mapView:_mapView viewForAnnotation:(id)self];
 }
 
-- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
-{
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation {
     if ([annotation isKindOfClass:[BMKPointAnnotation class]])
     {
         static NSString *pointReuseIndentifier = @"pointReuseIndentifier";
@@ -113,6 +110,14 @@ BMKMapViewDelegate
     [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
     [_mapView viewWillAppear];
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+     self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
+    for (FZY_User *user in _objectArray) {
+        if (user.name == [[EMClient sharedClient] currentUsername]) {
+            _userImage = user.imageUrl;
+        }else if (_friendName == user.name) {
+            _friendImage = user.imageUrl;
+        }
+    }
 }
 
 - (void)viewDidLoad {
@@ -244,6 +249,8 @@ BMKMapViewDelegate
                             } else{
                                 model.isSelf = NO;
                             }
+                            model.width = imageBody.size.width;
+                            model.height = imageBody.size.height;
                             model.fromUser = mes.from;
                             model.time = mes.localTime;
                             model.isPhoto = YES;
@@ -339,6 +346,8 @@ BMKMapViewDelegate
                     // 图片消息
                     EMImageMessageBody *body = ((EMImageMessageBody *)msgBody);
                     model.photoName = body.remotePath;
+                    model.width = body.size.width;
+                    model.height = body.size.height;
                     model.isSelf = NO;
                     model.isPhoto = YES;
                     model.fromUser = message.to;
@@ -872,6 +881,8 @@ BMKMapViewDelegate
     }
     // 取数据
     FZY_ChatModel *model = _dataSourceArray[indexPath.row];
+    cell.leftImage = _friendImage;
+    cell.rightImage = _userImage;
     cell.model = model;
 
     return cell;

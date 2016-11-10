@@ -20,11 +20,16 @@
 // 图片
 @property (nonatomic, assign) BOOL isPhoto;
 @property (nonatomic, copy) NSString *photoName;
+@property (nonatomic, assign) float width;
+@property (nonatomic, assign) float height;
+
 
 // 语音
 @property (nonatomic, assign) BOOL isVoice;
 @property (nonatomic, assign) int voiceDuration;
 @property (nonatomic, copy) NSString *localVoicePath;
 @property (nonatomic, copy) NSString *remoteVoicePath;
+
+
 
 @end

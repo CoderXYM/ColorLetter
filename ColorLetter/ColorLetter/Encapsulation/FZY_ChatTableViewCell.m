@@ -67,21 +67,19 @@
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         // 左头像
-        self.leftIconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, 40, 40)];
-        _leftIconImageView.image = [UIImage imageNamed:@"mood-confused"];
+        self.leftIconImageView = [[UIImageView alloc] init];
         _leftIconImageView.layer.cornerRadius = 5;
         _leftIconImageView.clipsToBounds = YES;
         [self.contentView addSubview:_leftIconImageView];
         
         // 右头像
-        self.rightIconImageView = [[UIImageView alloc]initWithFrame:CGRectMake(WIDTH - 45, 5, 40, 40)];
-        _rightIconImageView.image = [UIImage imageNamed:@"mood-unhappy"];
+        self.rightIconImageView = [[UIImageView alloc] init];
         _rightIconImageView.layer.cornerRadius = 5;
         _rightIconImageView.clipsToBounds = YES;
         [self.contentView addSubview:_rightIconImageView];
         
         // 左名字
-        self.leftName = [[UILabel alloc]initWithFrame:CGRectMake(5, 46, 40, 10)];
+        self.leftName = [[UILabel alloc]init];
         _leftName.text = @"左用户";
         _leftName.textAlignment = NSTextAlignmentCenter;
         _leftName.font = [UIFont systemFontOfSize:8];
@@ -89,7 +87,7 @@
         [self.contentView addSubview:_leftName];
         
         // 右名字
-        self.rightName = [[UILabel alloc]initWithFrame:CGRectMake(WIDTH - 45, 46, 40, 10)];
+        self.rightName = [[UILabel alloc] init];
         _rightName.text = @"右用户";
         _rightName.textAlignment = NSTextAlignmentCenter;
         _rightName.font = [UIFont systemFontOfSize:8];
@@ -105,28 +103,29 @@
         rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
         
         // 左气泡
-        self.leftBubble = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 180, 40)];
+        self.leftBubble = [[UIImageView alloc] init];
         _leftBubble.image = leftImage;
         _leftBubble.userInteractionEnabled = YES;
         [self.contentView addSubview:_leftBubble];
         // 右气泡
-        self.rightBubble = [[UIImageView alloc]initWithFrame:CGRectMake(190, 5, 180, 40)];
+        self.rightBubble = [[UIImageView alloc] init];
         _rightBubble.image = rightImage;
         _rightBubble.userInteractionEnabled = YES;
         [self.contentView addSubview:_rightBubble];
         
         // 气泡上的文字
-        self.leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 160, 30)];
+        self.leftLabel = [[UILabel alloc] init];
         _leftLabel.numberOfLines = 0;
+        [_leftLabel sizeToFit];
         [_leftBubble addSubview:_leftLabel];
         
-        self.rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, 160, 30)];
+        self.rightLabel = [[UILabel alloc] init];
         _rightLabel.numberOfLines = 0;
+        [_rightLabel sizeToFit];
         [_rightBubble addSubview:_rightLabel];
         
         // 左图片
         self.leftPhotoImageView = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftPhotoImageView.frame = CGRectMake(10, 10, 200, 200);
         [_leftBubble addSubview:_leftPhotoImageView];
         [_leftPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             NSLog(@"fjsdf"); 
@@ -134,9 +133,7 @@
         
         // 右图片
         self.rightPhotoImageView = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rightPhotoImageView.frame = CGRectMake(10, 10, 200, 200);
         [_rightBubble addSubview:_rightPhotoImageView];
-      
         [_rightPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             NSLog(@"sb"); 
         }];
@@ -156,9 +153,9 @@
         // 左语音
         self.leftVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_leftVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self.contentView addSubview:_leftVoiceButton];
+        [_leftBubble addSubview:_leftVoiceButton];
         
-        self.lefeVoice = [[UIImageView alloc] initWithFrame:CGRectMake(60, 15, 25, 25)];
+        self.lefeVoice = [[UIImageView alloc] init];
         self.lefeVoice.image = [UIImage imageNamed:@"chat_animation3"];
         self.lefeVoice.animationImages = [NSArray arrayWithObjects:
                                            [UIImage imageNamed:@"chat_animation1"],
@@ -168,15 +165,15 @@
         self.lefeVoice.animationRepeatCount = 0;
         self.lefeVoice.userInteractionEnabled = NO;
         self.lefeVoice.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_lefeVoice];
+        [_leftBubble addSubview:_lefeVoice];
 
         
         // 右语音
         self.rightVoiceButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_rightVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self.contentView addSubview:_rightVoiceButton];
+        [_rightBubble addSubview:_rightVoiceButton];
         
-        self.rightVoice = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH - 100 , 15, 25, 25)];
+        self.rightVoice = [[UIImageView alloc] init];
         self.rightVoice.image = [UIImage imageNamed:@"chat_animation_white3"];
         self.rightVoice.animationImages = [NSArray arrayWithObjects:
                                            [UIImage imageNamed:@"chat_animation_white1"],
@@ -186,7 +183,7 @@
         self.rightVoice.animationRepeatCount = 0;
         self.rightVoice.userInteractionEnabled = NO;
         self.rightVoice.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:_rightVoice];
+        [_rightBubble addSubview:_rightVoice];
         
 
         self.i = 0;
@@ -196,12 +193,28 @@
     return self;
 }
 
+- (void)setLeftImage:(NSString *)leftImage {
+    if (_leftImage != leftImage) {
+        _leftImage = leftImage;
+        [_leftIconImageView sd_setImageWithURL:[NSURL URLWithString:_leftImage] placeholderImage:[UIImage imageNamed:@"mood-confused"]];
+    }
+}
+
+- (void)setRightImage:(NSString *)rightImage {
+    if (_rightImage != rightImage) {
+        _rightImage = rightImage;
+        [_rightIconImageView sd_setImageWithURL:[NSURL URLWithString:_rightImage] placeholderImage:[UIImage imageNamed:@"mood-unhappy"]];
+    }
+}
+
 - (void)setModel:(FZY_ChatModel *)model {
     if (_model != model) {
         _model = model;
         
         //根据文字确定显示大小
         CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
+        
+        
         if (model.isSelf) {
             //只显示右侧气泡
             self.leftBubble.hidden = YES;
@@ -230,10 +243,24 @@
                     
                     [UIImageAvatarBrowser showImage:_rightPhotoImageView.imageView];
                 }];               
-                self.rightBubble.frame = CGRectMake(WIDTH - 200 - 30 - 50, 0, 220, 220);
                 
                 
-            }
+                
+                [_rightBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(self.contentView.mas_right).offset(-50);
+                    make.top.equalTo(self.contentView.mas_top).offset(10);
+                    make.width.equalTo(@220);
+                    make.height.equalTo(@(model.height * 220 / model.width));
+                }];
+                
+
+                [_rightPhotoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(_rightBubble.mas_left);
+                    make.top.equalTo(_rightBubble.mas_top);
+                    make.bottom.equalTo(_rightBubble.mas_bottom);
+                    make.right.equalTo(_rightBubble.mas_right).offset(-5);
+                }];
+        }
             else {
                 
                 // 语音
@@ -246,17 +273,34 @@
                     
                     self.leftVoiceButton.hidden = YES;
                     self.rightVoiceButton.hidden = NO;
-                    
+
                     int w = (WIDTH / 60) * model.voiceDuration;
                     
-                    _rightVoiceButton.frame = CGRectMake(WIDTH - 100 - 80 - w, 10, 100 + w, 35);
                     [_rightVoiceButton setTitle:[NSString stringWithFormat:@"%d's", model.voiceDuration] forState:UIControlStateNormal];
-                    self.rightBubble.frame = CGRectMake(WIDTH - 100 - 70 - w, 10, 100 + 20 + w, 35);
                     
                     [_rightVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         _i = 0;
                         [self.rightVoice startAnimating];
                         [self playVoiceWithPath:model.localVoicePath];
+                    }];
+                    
+                    [_rightBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.right.equalTo(self.contentView.mas_right).offset(-50);
+                        make.top.equalTo(self.contentView.mas_top).offset(10);
+                        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+                        make.width.equalTo(@(120 + w));
+                    }];
+                    [_rightVoiceButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(_rightBubble.mas_left);
+                        make.height.equalTo(_rightBubble.mas_height);
+                        make.top.equalTo(_rightBubble.mas_top);
+                        make.width.equalTo(@(100 + w));
+                    }];
+                    
+                    [_rightVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.right.equalTo(_rightBubble.mas_right).offset(-15);
+                        make.top.equalTo(_rightBubble.mas_top).offset(10);
+                        make.width.height.equalTo(@25);
                     }];
                     
                 } else {
@@ -268,8 +312,20 @@
                     self.leftVoiceButton.hidden = YES;
                     self.rightVoiceButton.hidden = YES;
                     //调整坐标 根据label文字自适应
-                    self.rightLabel.frame = CGRectMake(10, 10, size.width, size.height);
-                    self.rightBubble.frame = CGRectMake(WIDTH - size.width - 30 - 50, 0, size.width + 30, size.height + 30);
+                    [_rightBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.right.equalTo(self.contentView.mas_right).offset(-50);
+                        make.top.equalTo(self.contentView.mas_top).offset(10);
+                        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+                        make.width.equalTo(@(size.width + 30));
+                    }];
+                    
+                    [_rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(_rightBubble.mas_left);
+                        make.top.equalTo(_rightBubble.mas_top);
+                        make.centerY.equalTo(_rightBubble.mas_centerY);
+                        make.right.equalTo(_rightBubble.mas_right);
+                    }];
+                    
                 }
                 
             }
@@ -304,7 +360,6 @@
                 self.rightPhotoImageView.hidden = YES;
                 self.leftVoiceButton.hidden = YES;
                 self.rightVoiceButton.hidden = YES;
-                
                 NSURL *url = [NSURL URLWithString:model.photoName];
                 NSData *imageData = [NSData dataWithContentsOfURL:url];
                 UIImage *image = [UIImage imageWithData:imageData];
@@ -314,8 +369,28 @@
                     
                     [UIImageAvatarBrowser showImage:_leftPhotoImageView.imageView];
                 }];
-                self.leftBubble.frame = CGRectMake(50, 10, 220, 220);
-            
+                
+                [_leftBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.contentView.mas_left).offset(50);
+                    make.top.equalTo(self.contentView.mas_top).offset(10);
+                    if (model.width > model.height) {
+                        make.width.equalTo(@220);
+                        make.height.equalTo(@(model.height * 220 / model.width));
+                    }else {
+                        make.height.equalTo(@220);
+                        make.width.equalTo(@(model.width * 220 / model.height));
+
+                    }
+                }];
+                
+                
+                [_leftPhotoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(_leftBubble.mas_left).offset(5);
+                    make.top.equalTo(_leftBubble.mas_top);
+                    make.right.equalTo(_leftBubble.mas_right);
+                    make.bottom.equalTo(_leftBubble.mas_bottom);
+                }];
+                
             } else {
                 
                 // 语音
@@ -331,15 +406,35 @@
                     
                     int w = (WIDTH / 60) * model.voiceDuration;
                     
-                    _leftVoiceButton.frame = CGRectMake(80, 10, 100 + w, 35);
                     [_leftVoiceButton setTitle:[NSString stringWithFormat:@"%d's", model.voiceDuration] forState:UIControlStateNormal];
-                    self.leftBubble.frame = CGRectMake(50, 10, 120 + w, 35);
                     
                     [_leftVoiceButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         _i = 0;
                         [self.lefeVoice startAnimating];
                         [self playVoiceWithPath:model.localVoicePath];
                     }];
+                    
+                    [_leftBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(self.contentView.mas_left).offset(50);
+                        make.top.equalTo(self.contentView.mas_top).offset(10);
+                        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+                        make.width.equalTo(@(120 + w));
+                    }];
+                    
+                    
+                    [_leftVoiceButton mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.right.equalTo(_leftBubble.mas_right).offset(-10);
+                        make.height.equalTo(_leftBubble.mas_height);
+                        make.top.equalTo(_leftBubble.mas_top);
+                        make.width.equalTo(@(100 + w));
+                    }];
+                    
+                    [_lefeVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(_leftBubble.mas_left).offset(15);
+                        make.top.equalTo(_leftBubble.mas_top).offset(10);
+                        make.width.height.equalTo(@25);
+                    }];
+
                     
                 } else {
                     // 文字
@@ -349,8 +444,19 @@
                     self.rightVoiceButton.hidden = YES;
                     self.leftPhotoImageView.hidden = YES;
                     self.rightPhotoImageView.hidden = YES;
-                    self.leftLabel.frame = CGRectMake(10, 10, size.width, size.height);
-                    self.leftBubble.frame = CGRectMake(50, 0, size.width + 30, size.height + 30);
+
+                    [_leftBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(self.contentView.mas_left).offset(50);
+                        make.top.equalTo(self.contentView.mas_top).offset(10);
+                        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+                        make.width.equalTo(@(size.width + 30));
+                    }];
+                    [_leftLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(_leftBubble.mas_left).offset(5);
+                        make.top.equalTo(_leftBubble.mas_top).offset(5);
+                        make.centerY.equalTo(_leftBubble.mas_centerY);
+                        make.right.equalTo(_leftBubble.mas_right).offset(-10);
+                    }];
                 }
             }
             self.leftLabel.text = model.context;
@@ -365,6 +471,76 @@
         }
         
     }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [_leftIconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left).offset(5);
+        make.top.equalTo(self.contentView.mas_top).offset(5);
+        make.width.height.equalTo(@40);
+    }];
+    
+    [_rightIconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView.mas_right).offset(-5);
+        make.top.equalTo(self.contentView.mas_top).offset(5);
+        make.width.height.equalTo(@40);
+    }];
+    
+    [_leftName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_leftIconImageView.mas_bottom).offset(2);
+        make.centerX.equalTo(_leftIconImageView.mas_centerX);
+        make.width.equalTo(_leftIconImageView.mas_width);
+    }];
+    
+    [_rightName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_rightIconImageView.mas_bottom).offset(2);
+        make.centerX.equalTo(_rightIconImageView.mas_centerX);
+        make.width.equalTo(_rightIconImageView.mas_width);
+    }];
+    
+//    [_leftBubble mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_leftIconImageView.mas_right).offset(5);
+//        make.top.equalTo(self.contentView.mas_top).offset(5);
+//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+//    }];
+//    
+//    [_rightBubble mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(_rightIconImageView.mas_left).offset(-5);
+//        make.top.equalTo(self.contentView.mas_top).offset(5);
+//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+//    }];
+//    
+//    [_leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_leftBubble.mas_left).offset(5);
+//        make.top.equalTo(_leftBubble.mas_top).offset(5);
+//        make.right.equalTo(_leftBubble.mas_right).offset(-5);
+//        make.bottom.equalTo(_leftBubble.mas_bottom).offset(-5);
+//    }];
+//    
+//    [_rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_rightBubble.mas_left).offset(5);
+//        make.top.equalTo(_rightBubble.mas_top).offset(5);
+//        make.right.equalTo(_rightBubble.mas_right).offset(-5);
+//        make.bottom.equalTo(_rightBubble.mas_bottom).offset(-5);
+//    }];
+//    
+//    [_leftPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_leftBubble.mas_left).offset(5);
+//        make.top.equalTo(_leftBubble.mas_top).offset(5);
+//        make.right.equalTo(_leftBubble.mas_right).offset(-5);
+//        make.bottom.equalTo(_leftBubble.mas_bottom).offset(-5);
+//    }];
+//    
+//    [_rightPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_rightBubble.mas_left).offset(5);
+//        make.top.equalTo(_rightBubble.mas_top).offset(5);
+//        make.right.equalTo(_rightBubble.mas_right).offset(-5);
+//        make.bottom.equalTo(_rightBubble.mas_bottom).offset(-5);
+//    }];
+    
+    
+    
 }
 
 - (void)AVAudioPlayerDidFinishPlay {
@@ -419,6 +595,13 @@
         [self AVAudioPlayerDidFinishPlay];
         
     }
+}
+
++ (CGFloat)getImageHeight:(NSString *)imageName withWidth:(CGFloat)width{
+    NSURL *imageURL = [NSURL URLWithString:imageName];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
+    CGFloat imageHeight = image.size.height / image.size.width * width;
+    return imageHeight;
 }
 
 @end

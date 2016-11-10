@@ -14,4 +14,10 @@
 
 @property (nonatomic, strong) FZY_ChatModel *model;
 
+@property (nonatomic, copy) NSString *leftImage;
+
+@property (nonatomic, copy) NSString *rightImage;
+
+@property (nonatomic, assign) float height;
+
 @end

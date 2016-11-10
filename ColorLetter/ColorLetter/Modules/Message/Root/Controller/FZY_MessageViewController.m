@@ -45,9 +45,7 @@ EMChatManagerDelegate
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     self.navigationController.navigationBar.hidden = YES;
     
-    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
-    NSLog(@"%ld", (unsigned long)_objectArray.count);
-    
+    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];    
     // 载入所有会话
     [self loadAllConversations];
     
