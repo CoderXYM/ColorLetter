@@ -127,7 +127,6 @@ FZY_CreateGroupViewControllerDelegate
     NSArray *myGroups = [[EMClient sharedClient].groupManager getMyGroupsFromServerWithError:&groupError];
     if (!groupError) {
         NSLog(@"获取群列表成功 -- %@",myGroups);
-
         [_rightArray addObjectsFromArray:myGroups];
 
     }
@@ -460,9 +459,10 @@ FZY_CreateGroupViewControllerDelegate
                 //创建一个取消和一个确定按钮
                 UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     
-                    [[EMClient sharedClient].groupManager declineGroupInvitation:fzy.aGroupId inviter:fzy.aInviter reason:@"去屎吧" completion:^(EMError *aError) {
+                    [[EMClient sharedClient].groupManager declineGroupInvitation:fzy.aGroupId inviter:fzy.aInviter reason:@"不不" completion:^(EMError *aError) {
                         if (!aError) {
-                            NSLog(@"拒绝成功");
+                            
+                            [TSMessage showNotificationWithTitle:@"Success" subtitle:@"拒绝成功" type:TSMessageNotificationTypeSuccess];
                             [_groupRequest removeObjectAtIndex:indexPath.row];
                             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
                             [_rightTableView reloadData];
@@ -475,7 +475,7 @@ FZY_CreateGroupViewControllerDelegate
                     [[EMClient sharedClient].groupManager acceptInvitationFromGroup:fzy.aGroupId inviter:fzy.aInviter completion:^(EMGroup *aGroup, EMError *aError) {
                         
                         if (!aError) {
-                            [UIView showMessage:@"加入成功"];
+                            [TSMessage showNotificationWithTitle:@"Success" subtitle:@"加入成功" type:TSMessageNotificationTypeSuccess];
                             [_groupRequest removeObjectAtIndex:indexPath.row];
                             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
                             [self getFriendList];
@@ -493,7 +493,24 @@ FZY_CreateGroupViewControllerDelegate
             
         }
         if (2 == indexPath.section) {
-            NSLog(@"群");
+            
+            if (_rightArray.count) {
+               
+                NSLog(@"%@", _rightArray[indexPath.row]);
+                
+                FZY_ChatViewController *chat = [[FZY_ChatViewController alloc] init];
+                chat.friendName = @"1478743651027";
+                chat.isGroupChat = YES;
+                [self.navigationController pushViewController:chat animated:YES];
+//                if (_leftArray.count > 0) {
+//                    chat.friendName = _leftArray[indexPath.row];
+//                    [self.navigationController pushViewController:chat animated:YES];
+//                }else {
+//                    chat.friendName = _searchLeftArray[indexPath.row];
+//                    [self.navigationController pushViewController:chat animated:YES];
+//                }
+            }
+            
         }
     }
 }
