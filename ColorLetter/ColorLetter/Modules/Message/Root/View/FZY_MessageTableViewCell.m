@@ -113,7 +113,7 @@
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(@(70));
         make.left.equalTo(self.contentView).offset(10);
-        make.top.equalTo(self.contentView).offset(5);
+        make.top.equalTo(self.contentView).offset(15);
     }];
     
     _headImageView.layer.cornerRadius = 35;

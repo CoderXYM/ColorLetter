@@ -37,7 +37,7 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text = @"设置";
+    self.titleLabel.text = @"Setting";
     [self createTableView];
 
 }
@@ -81,17 +81,17 @@ UITableViewDataSource
     if (0 == indexPath.section) {
         FZY_SwitchTableViewCell *cells = [tableView dequeueReusableCellWithIdentifier:IdentifierCell];
         if (0 == indexPath.row) {
-            cells.cellName = @"通知";
+            cells.cellName = @"Notifications";
         }
                
         cells.selectionStyle = UITableViewCellSelectionStyleNone;
         return cells;
     }else {
         if (0 == indexPath.row) {
-            cell.cellName = @"关于我们";
+            cell.cellName = @"About";
         }
         else if (1 == indexPath.row){
-            cell.cellName = @"分享";
+            cell.cellName = @"Share";
         }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
