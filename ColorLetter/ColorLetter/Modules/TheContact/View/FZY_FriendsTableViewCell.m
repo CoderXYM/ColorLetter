@@ -16,7 +16,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] init];
-        _headImageView.image = [UIImage imageNamed:@"mood-confused"];
+//        _headImageView.image = [UIImage imageNamed:@"mood-confused"];
         [self.contentView addSubview:_headImageView];
         
         self.nameLabel = [[UILabel alloc] init];
@@ -38,6 +38,9 @@
         make.height.equalTo(@(self.contentView.frame.size.height - 20));
     }];
     
+    _headImageView.layer.cornerRadius = 25;
+    _headImageView.clipsToBounds = YES;
+    
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_headImageView.mas_right).offset(20);
         make.centerY.equalTo(self.contentView.mas_centerY);
@@ -46,7 +49,12 @@
 
 }
 
-
+- (void)setImageUrl:(NSString *)imageUrl {
+    if (_imageUrl != imageUrl) {
+        _imageUrl = imageUrl;
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_imageUrl] placeholderImage:[UIImage imageNamed:@"mood-confused"]];
+    }
+}
 
 
 - (void)awakeFromNib {
