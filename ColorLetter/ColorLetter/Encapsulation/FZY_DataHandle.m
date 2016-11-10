@@ -31,7 +31,6 @@
 - (void)open {
     //1.获得数据库文件的路径
     NSString *doc =[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES)  lastObject];
-    NSLog(@"doc :%@", doc);
     
     NSString *fileName = [doc stringByAppendingPathComponent:@"user.sqlite"];
     
@@ -55,9 +54,9 @@
         
         NSString *sql = [NSString stringWithFormat:@"insert into user values (null, '%@', '%@', '%@')", name, imageUrl, userId];
         if ([db executeUpdate:sql]) {
-            NSLog(@"插入成功");
+//            NSLog(@"插入成功");
         }else {
-            NSLog(@"插入失败");
+//            NSLog(@"插入失败");
         }
         
     }];
@@ -69,9 +68,9 @@
         
         NSString *sql = [NSString stringWithFormat:@"insert into user values (null, '%@', '%@', '%@')", user.name, user.imageUrl, user.userId];
         if ([db executeUpdate:sql]) {
-            NSLog(@"插入成功");
+//            NSLog(@"插入成功");
         }else {
-            NSLog(@"插入失败");
+//            NSLog(@"插入失败");
         }
         
     }];
@@ -80,9 +79,9 @@
 - (void)deleteAll {
     [self.myQueue inDatabase:^(FMDatabase *db) {
         if ([db executeUpdateWithFormat:@"delete from user"]) {
-            NSLog(@"删除成功");
+//            NSLog(@"删除成功");
         }else {
-            NSLog(@"删除失败");
+//            NSLog(@"删除失败");
         }
     }];
 }
@@ -90,9 +89,9 @@
 - (void)update:(NSString *)old new:(NSString *)newUrl {
     [self.myQueue inDatabase:^(FMDatabase *db) {
         if ([db executeUpdate:[NSString stringWithFormat:@"update user set imageurl = '%@' where imageUrl = '%@'", newUrl, old]]) {
-            NSLog(@"修改成功");
+//            NSLog(@"修改成功");
         }else {
-            NSLog(@"修改失败");
+//            NSLog(@"修改失败");
         }
     }];
 

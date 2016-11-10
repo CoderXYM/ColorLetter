@@ -29,9 +29,6 @@
         //self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-//        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
-        _headImageView.layer.cornerRadius = 30;
-        _headImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_headImageView];
         
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -85,12 +82,7 @@
 - (void)setUrlImage:(NSString *)urlImage {
     if (_urlImage != urlImage) {
         _urlImage = urlImage;
-        if ((_urlImage = nil)) {
-            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
-        }else {
-//            [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
-            [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage]];
-        }
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:_urlImage] placeholderImage:[UIImage imageNamed:@"mood-happy"]];
     }
 }
 
@@ -125,6 +117,9 @@
         make.top.equalTo(self.contentView).offset(5);
     }];
     
+    _headImageView.layer.cornerRadius = 35;
+    _headImageView.layer.masksToBounds = YES;
+
     
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_headImageView.mas_right).offset(10);

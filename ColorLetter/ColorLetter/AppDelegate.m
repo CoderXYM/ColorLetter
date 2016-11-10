@@ -106,7 +106,8 @@ EMClientDelegate
 //            }
 //        }
 //    }];
-    [UIView showMessage:@"自动登录成功"];
+    [TSMessage showNotificationWithTitle:@"Automatic Login Success" subtitle:@"自动登录成功" type:TSMessageNotificationTypeSuccess];
+
 }
 
 /*
@@ -115,7 +116,7 @@ EMClientDelegate
 - (void)didLoginFromOtherDevice {
 
     self.window.rootViewController = [[FZY_LoginAndRegisterViewController alloc] init];
-    [UIView showMessage:@"该账号已在其他设备登录"];
+    [TSMessage showNotificationWithTitle:@"Warning" subtitle:@"该账号已在其他设备登录" type:TSMessageNotificationTypeWarning];
 }
 
 /*
@@ -124,7 +125,8 @@ EMClientDelegate
 - (void)didRemovedFromServer {
     NSLog(@"sddasff");
     self.window.rootViewController = [[FZY_LoginAndRegisterViewController alloc] init];
-    [UIView showMessage:@"该账号已被从服务器端删除"];
+    [TSMessage showNotificationWithTitle:@"Warning" subtitle:@"该账号已被从服务器端删除" type:TSMessageNotificationTypeWarning];
+
 }
 
 /*!

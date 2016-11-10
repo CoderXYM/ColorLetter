@@ -37,6 +37,8 @@ UINavigationControllerDelegate
 
 @property (nonatomic, strong) FZY_User *user;
 
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+
 @end
 
 @implementation DrawerViewController
@@ -198,7 +200,14 @@ UINavigationControllerDelegate
 //    NSLog(@"%@", newPhoto);
     //把newPhono设置成头像
     _imageView.image = newPhoto;
-    
+    self.view.userInteractionEnabled = NO;
+    self.activityIndicatorView=[[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    self.activityIndicatorView.center=self.view.center;
+    [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [self.activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self.activityIndicatorView setBackgroundColor:[UIColor lightGrayColor]];
+    [self.view addSubview:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
     //关闭当前界面，即回到主界面去
     [self dismissViewControllerAnimated:YES completion:^{
         NSData *imageData = UIImageJPEGRepresentation(newPhoto, 0.5);
@@ -213,9 +222,14 @@ UINavigationControllerDelegate
                 if (succeeded) {
                     [[FZY_DataHandle shareDatahandle] update:_user.imageUrl new:file.url];
                     [_imageView sd_setImageWithURL:[NSURL URLWithString:file.url]];
-                    NSLog(@"更新成功");
+                    [TSMessage showNotificationWithTitle:@"Success" subtitle:@"更新成功" type:TSMessageNotificationTypeSuccess];
+                    [self.activityIndicatorView stopAnimating];
+                    self.view.userInteractionEnabled = NO;
+
                 }else {
-                    NSLog(@"更新失败");
+                    [TSMessage showNotificationWithTitle:@"Error" subtitle:@"更新失败" type:TSMessageNotificationTypeError];
+                    [self.activityIndicatorView stopAnimating];
+                    self.view.userInteractionEnabled = NO;
                 }
             }];
         }else {
@@ -227,10 +241,15 @@ UINavigationControllerDelegate
                     // 存储成功
                     NSLog(@"上传成功");
                     [[FZY_DataHandle shareDatahandle] inset:[[EMClient sharedClient] currentUsername] imageUrl:file.url userId:userPhoto.objectId];
+                    [TSMessage showNotificationWithTitle:@"Success" subtitle:@"上传成功" type:TSMessageNotificationTypeSuccess];
+                    [self.activityIndicatorView stopAnimating];
+                    self.view.userInteractionEnabled = NO;
                     
                 } else {
                     // 失败的话，请检查网络环境以及 SDK 配置是否正确
-                    NSLog(@"上传失败");
+                    [TSMessage showNotificationWithTitle:@"Error" subtitle:@"上传失败" type:TSMessageNotificationTypeError];
+                    [self.activityIndicatorView stopAnimating];
+                    self.view.userInteractionEnabled = NO;
                 }
             }];
 
@@ -284,23 +303,13 @@ UINavigationControllerDelegate
             break;
         }
         case 1:{
-            
-            EMError *error = [[EMClient sharedClient] logout:YES];
-            if (!error) {
-                NSLog(@"退出成功");
-                FZY_LoginAndRegisterViewController *lorVC = [[FZY_LoginAndRegisterViewController alloc] init];
-                //                lorVC.position = WIDTH / 4 * 3;
-                //                lorVC.scrollPosition = WIDTH;
-        
             EMError *error = [[EMClient sharedClient]logout:YES];
             if (!error) {
-                NSLog(@"退出成功");
-                FZY_LoginOrRegisterViewController *lorVC = [[FZY_LoginOrRegisterViewController alloc]init];
-                self.view.window.rootViewController = lorVC;
+                FZY_LoginAndRegisterViewController *larVC = [[FZY_LoginAndRegisterViewController                                                 alloc] init];
+                self.view.window.rootViewController = larVC;
                 
                 }
             }
-        }
             break;
         default:
             break;
