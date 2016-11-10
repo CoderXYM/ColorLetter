@@ -46,31 +46,29 @@ UITextFieldDelegate
 - (void)create {
     
     UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancel setTitle:@"Back" forState:UIControlStateNormal];
+    [cancel setTitle:@"Add" forState:UIControlStateNormal];
     cancel.titleLabel.textColor = [UIColor whiteColor];
     cancel.backgroundColor = [UIColor clearColor];
-    [cancel handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
+   
     [self.view addSubview:cancel];
     [cancel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(20);
-        make.top.equalTo(self.view.mas_top).offset(25);
+        make.centerX.equalTo(self.view.mas_left).offset(WIDTH / 2);
+        make.top.equalTo(self.view.mas_top).offset(30);
         make.height.equalTo(@30);
         make.width.equalTo(@50);
     }];
     
     UIButton *backImage = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backImage setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backImage setBackgroundImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     [backImage handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [self.view addSubview:backImage];
     [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(5);
-        make.top.equalTo(self.view.mas_top).offset(30                                                             );
-        make.height.equalTo(@20);
-        make.width.equalTo(@25);
+        make.top.equalTo(self.view.mas_top).offset(35                                                             );
+        make.height.equalTo(@15);
+        make.width.equalTo(@15);
     }];
     
     UIImageView *placeHoder = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
@@ -78,7 +76,7 @@ UITextFieldDelegate
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 60, WIDTH, 50)];
     _textField.delegate = self;
     _textField.leftView = placeHoder;
-    //_textField.leftViewMode = UITextFieldViewModeAlways;//此处用来设置leftview现实时机
+    //_textField.leftViewMode = UITextFieldViewModeWhileEditing;//此处用来设置leftview现实时机
     _textField.backgroundColor = [UIColor lightGrayColor];
     _textField.clearButtonMode = UITextFieldViewModeAlways;
     _textField.placeholder = @"   Please enter a user name to add";
@@ -91,7 +89,7 @@ UITextFieldDelegate
     _groupTextField.leftViewMode = UITextFieldViewModeAlways;
     _groupTextField.backgroundColor = [UIColor lightGrayColor];
     _groupTextField.clearButtonMode = UITextFieldViewModeAlways;
-    _groupTextField.placeholder = @"   请输入要加入的群名称";
+    _groupTextField.placeholder = @"   请输入要加入的群ID";
     [_groupTextField setValue:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [self.view addSubview:_groupTextField];
     
@@ -115,7 +113,6 @@ UITextFieldDelegate
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
     return _dataArray.count;
    
 }
@@ -123,7 +120,6 @@ UITextFieldDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
 
     cell.textLabel.text = _dataArray[indexPath.row];
 
@@ -214,8 +210,6 @@ UITextFieldDelegate
             
             EMError *error = nil;
             [[EMClient sharedClient].groupManager applyJoinPublicGroup:searchString message:[NSString stringWithFormat:@"%@", textField.text] error:&error];
-            
-            NSLog(@"%@", error);
             if (!error) {
                 [TSMessage showNotificationWithTitle:@"等待群主受理你的请求" subtitle:@"Wait for him to accept your request" type:TSMessageNotificationTypeWarning];
             } else {

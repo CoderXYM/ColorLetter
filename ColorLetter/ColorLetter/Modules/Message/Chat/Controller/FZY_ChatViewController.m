@@ -12,7 +12,7 @@
 #import "FZY_KeyboardCollectionViewCell.h"
 #import "Mp3Recorder.h"
 #import "UUProgressHUD.h"
-
+#import "FZY_ChatterInfoViewController.h"
 
 @interface FZY_ChatViewController ()
 
@@ -124,6 +124,8 @@ BMKMapViewDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    [self createRightItem];
+    
     self.title = _friendName;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     
@@ -165,6 +167,17 @@ BMKMapViewDelegate
     _mapView.delegate = nil; // 不用时，置nil
 }
 
+#pragma mark - 好友详情
+- (void)createRightItem {
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"tab-home"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarAction)];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+- (void)rightBarAction {
+    FZY_ChatterInfoViewController *chatterInfoVC = [[FZY_ChatterInfoViewController alloc] init];
+    chatterInfoVC.friendName = _friendName;
+    [self.navigationController pushViewController:chatterInfoVC animated:YES];
+    
+}
 //实现相关delegate 处理位置信息更新
 //处理方向变更信息
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
@@ -312,6 +325,25 @@ BMKMapViewDelegate
 
 /*!
  @method
+ @brief 接收到一条及以上cmd消息
+ */
+- (void)didReceiveCmdMessages:(NSArray *)aCmdMessages {
+    
+    for (EMMessage *mes in aCmdMessages) {
+        
+        // cmd消息中的扩展属性
+        NSDictionary *ext = mes.ext;
+        if ([@"对方正在输入..." isEqualToString:ext[@"name"]]) {
+            self.title = @"对方正在输入...";
+        }
+        else if ([@"end" isEqualToString:ext[@"name"]]) {
+            self.title = _friendName;
+        }
+    }
+}
+
+/*!
+ @method
  @brief 接收到一条及以上非cmd消息
  */
 - (void)didReceiveMessages:(NSArray *)aMessages {
@@ -345,6 +377,7 @@ BMKMapViewDelegate
                 {
                     // 图片消息
                     EMImageMessageBody *body = ((EMImageMessageBody *)msgBody);
+                    
                     model.photoName = body.remotePath;
                     model.width = body.size.width;
                     model.height = body.size.height;
@@ -454,6 +487,12 @@ BMKMapViewDelegate
                         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_dataSourceArray.count - 1 inSection:0];
                         [self insertMessageIntoTableViewWith:indexPath];
                     }
+                    
+                }
+                    break;
+                case EMMessageBodyTypeCmd:
+                {
+                    NSLog(@"发送 cmd 消息");
                     
                 }
                     break;
@@ -906,10 +945,39 @@ BMKMapViewDelegate
 }
 
 #pragma mark - TextViewDelegate
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    // 构造透传消息
+    EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:@"对方正在输入..."];
+    NSString *from = [[EMClient sharedClient] currentUsername];
+    NSDictionary *dic = @{@"name" : @"对方正在输入..."};
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:_friendName body:body ext:dic];
+    if (_isGroupChat) {
+        message.chatType = EMChatTypeGroupChat;
+    } else {
+        message.chatType = EMChatTypeChat;
+    }
+    [self sendMessageWithEMMessage:message];
+}
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    NSLog(@"end");
+    // 构造透传消息
+    EMCmdMessageBody *body = [[EMCmdMessageBody alloc] initWithAction:@"end"];
+    NSDictionary *dic = @{@"name" : @"end"};
+    NSString *from = [[EMClient sharedClient] currentUsername];
+    EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:_friendName body:body ext:dic];
+    if (_isGroupChat) {
+        message.chatType = EMChatTypeGroupChat;
+    } else {
+        message.chatType = EMChatTypeChat;
+    }
+    [self sendMessageWithEMMessage:message];
+}
 
 - (void)textViewDidChange:(UITextView *)textView
 {
     [self changeSendBtnWithPhoto:textView.text.length>0?NO:YES];
+    
+   
 }
 
 - (void)changeSendBtnWithPhoto:(BOOL)isPhoto

@@ -224,12 +224,12 @@ UINavigationControllerDelegate
                     [_imageView sd_setImageWithURL:[NSURL URLWithString:file.url]];
                     [TSMessage showNotificationWithTitle:@"Success" subtitle:@"更新成功" type:TSMessageNotificationTypeSuccess];
                     [self.activityIndicatorView stopAnimating];
-                    self.view.userInteractionEnabled = NO;
+                    self.view.userInteractionEnabled = YES;
 
                 }else {
                     [TSMessage showNotificationWithTitle:@"Error" subtitle:@"更新失败" type:TSMessageNotificationTypeError];
                     [self.activityIndicatorView stopAnimating];
-                    self.view.userInteractionEnabled = NO;
+                    self.view.userInteractionEnabled = YES;
                 }
             }];
         }else {
@@ -243,13 +243,13 @@ UINavigationControllerDelegate
                     [[FZY_DataHandle shareDatahandle] inset:[[EMClient sharedClient] currentUsername] imageUrl:file.url userId:userPhoto.objectId];
                     [TSMessage showNotificationWithTitle:@"Success" subtitle:@"上传成功" type:TSMessageNotificationTypeSuccess];
                     [self.activityIndicatorView stopAnimating];
-                    self.view.userInteractionEnabled = NO;
+                    self.view.userInteractionEnabled = YES;
                     
                 } else {
                     // 失败的话，请检查网络环境以及 SDK 配置是否正确
                     [TSMessage showNotificationWithTitle:@"Error" subtitle:@"上传失败" type:TSMessageNotificationTypeError];
                     [self.activityIndicatorView stopAnimating];
-                    self.view.userInteractionEnabled = NO;
+                    self.view.userInteractionEnabled = YES;
                 }
             }];
 
