@@ -78,11 +78,13 @@ BMKMapViewDelegate
 //    [_mapView addAnnotation:pointAnnotation];
 }
 
-- (void)displayGeographicInformationLAT:(double)latitude LON:(double)longitude Add:(NSString *)add{
+- (void)displayGeographicInformationLAT:(double)latitude LON:(double)longitude {
     BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
         pointAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        pointAnnotation.title = [NSString stringWithFormat:@"%@", add];
+//        pointAnnotation.title = [NSString stringWithFormat:@"%@", add];
         [_mapView addAnnotation:pointAnnotation];
+    NSLog(@"%f, %f", latitude, longitude);
+    [self mapView:_mapView viewForAnnotation:(id)self];
 }
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
@@ -163,6 +165,9 @@ BMKMapViewDelegate
 - (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
 {
     [_mapView updateLocationData:userLocation];
+    _latitude = userLocation.location.coordinate.latitude;
+    _longitude = userLocation.location.coordinate.longitude;
+
 
 
 }
@@ -171,6 +176,8 @@ BMKMapViewDelegate
 {
 //    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_mapView updateLocationData:userLocation];
+    _latitude = userLocation.location.coordinate.latitude;
+    _longitude = userLocation.location.coordinate.longitude;
 
 }
 
@@ -278,10 +285,7 @@ BMKMapViewDelegate
                         case EMMessageBodyTypeLocation: {
                             EMLocationMessageBody *body = (EMLocationMessageBody *)msgBody;
                             if (![mes.from isEqualToString:userName]) {
-//                                self.latitude = body.latitude;
-//                                self.longitude = body.longitude;
-//                                self.address = body.address;
-                                [self displayGeographicInformationLAT:body.latitude LON:body.longitude Add:body.address];
+                                [self displayGeographicInformationLAT:body.latitude LON:body.longitude];
                             }
                         }
                             break;
@@ -350,11 +354,7 @@ BMKMapViewDelegate
                     break;
                 case EMMessageBodyTypeLocation: {
                     EMLocationMessageBody *body = (EMLocationMessageBody *)msgBody;
-                    if ([message.to isEqualToString:[[EMClient sharedClient] currentUsername]]) {
-                        self.latitude = body.latitude;
-                        self.longitude = body.longitude;
-                        self.address = body.address;
-                    }
+                    [self displayGeographicInformationLAT:body.latitude LON:body.longitude];
                 }
                     break;
                 case EMMessageBodyTypeVoice: {
@@ -766,7 +766,7 @@ BMKMapViewDelegate
                 NSString *from = [[EMClient sharedClient] currentUsername];
             
                 // 生成message
-                EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:[[EMClient sharedClient] currentUsername] body:body ext:nil];
+                EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:_friendName body:body ext:nil];
             if (_isGroupChat) {
                 message.chatType = EMChatTypeGroupChat;
             } else {

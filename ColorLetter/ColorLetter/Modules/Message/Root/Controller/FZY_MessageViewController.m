@@ -167,8 +167,6 @@ EMChatManagerDelegate
     
     for (FZY_User *user in _objectArray) {
         if (model.name == user.name) {
-            NSLog(@"%@ ???? %@", model.name, user.name);
-            NSLog(@"%@", user.imageUrl);
             self.user = user;
             cell.urlImage = user.imageUrl;
         }
