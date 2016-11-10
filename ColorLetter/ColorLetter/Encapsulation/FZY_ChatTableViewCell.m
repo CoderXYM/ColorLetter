@@ -67,19 +67,19 @@
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         // 左头像
-        self.leftIconImageView = [[UIImageView alloc] init];
+        self.leftIconImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _leftIconImageView.layer.cornerRadius = 5;
         _leftIconImageView.clipsToBounds = YES;
         [self.contentView addSubview:_leftIconImageView];
         
         // 右头像
-        self.rightIconImageView = [[UIImageView alloc] init];
+        self.rightIconImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _rightIconImageView.layer.cornerRadius = 5;
         _rightIconImageView.clipsToBounds = YES;
         [self.contentView addSubview:_rightIconImageView];
         
         // 左名字
-        self.leftName = [[UILabel alloc]init];
+        self.leftName = [[UILabel alloc]initWithFrame:CGRectZero];
         _leftName.text = @"左用户";
         _leftName.textAlignment = NSTextAlignmentCenter;
         _leftName.font = [UIFont systemFontOfSize:8];
@@ -87,7 +87,7 @@
         [self.contentView addSubview:_leftName];
         
         // 右名字
-        self.rightName = [[UILabel alloc] init];
+        self.rightName = [[UILabel alloc] initWithFrame:CGRectZero];
         _rightName.text = @"右用户";
         _rightName.textAlignment = NSTextAlignmentCenter;
         _rightName.font = [UIFont systemFontOfSize:8];
@@ -103,40 +103,40 @@
         rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
         
         // 左气泡
-        self.leftBubble = [[UIImageView alloc] init];
+        self.leftBubble = [[UIImageView alloc] initWithFrame:CGRectZero];
         _leftBubble.image = leftImage;
         _leftBubble.userInteractionEnabled = YES;
         [self.contentView addSubview:_leftBubble];
         // 右气泡
-        self.rightBubble = [[UIImageView alloc] init];
+        self.rightBubble = [[UIImageView alloc] initWithFrame:CGRectZero];
         _rightBubble.image = rightImage;
         _rightBubble.userInteractionEnabled = YES;
         [self.contentView addSubview:_rightBubble];
         
         // 气泡上的文字
-        self.leftLabel = [[UILabel alloc] init];
+        self.leftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _leftLabel.numberOfLines = 0;
+        _leftLabel.textAlignment = NSTextAlignmentCenter;
         [_leftLabel sizeToFit];
         [_leftBubble addSubview:_leftLabel];
         
-        self.rightLabel = [[UILabel alloc] init];
+        self.rightLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _rightLabel.numberOfLines = 0;
+        _rightLabel.textAlignment = NSTextAlignmentCenter;
         [_rightLabel sizeToFit];
         [_rightBubble addSubview:_rightLabel];
         
         // 左图片
         self.leftPhotoImageView = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftPhotoImageView.frame = CGRectMake(0, 0, 220, 200);
         [_leftBubble addSubview:_leftPhotoImageView];
-        [_leftPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-            NSLog(@"fjsdf"); 
-        }];
+        
         
         // 右图片
         self.rightPhotoImageView = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightPhotoImageView.frame = CGRectMake(0, 0, 220, 200);
         [_rightBubble addSubview:_rightPhotoImageView];
-        [_rightPhotoImageView handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-            NSLog(@"sb"); 
-        }];
+       
         
         
         // 时间Label
@@ -155,7 +155,7 @@
         [_leftVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_leftBubble addSubview:_leftVoiceButton];
         
-        self.lefeVoice = [[UIImageView alloc] init];
+        self.lefeVoice = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.lefeVoice.image = [UIImage imageNamed:@"chat_animation3"];
         self.lefeVoice.animationImages = [NSArray arrayWithObjects:
                                            [UIImage imageNamed:@"chat_animation1"],
@@ -173,7 +173,7 @@
         [_rightVoiceButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_rightBubble addSubview:_rightVoiceButton];
         
-        self.rightVoice = [[UIImageView alloc] init];
+        self.rightVoice = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.rightVoice.image = [UIImage imageNamed:@"chat_animation_white3"];
         self.rightVoice.animationImages = [NSArray arrayWithObjects:
                                            [UIImage imageNamed:@"chat_animation_white1"],
@@ -244,13 +244,19 @@
                     [UIImageAvatarBrowser showImage:_rightPhotoImageView.imageView];
                 }];               
                 
-                
-                
                 [_rightBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.right.equalTo(self.contentView.mas_right).offset(-50);
                     make.top.equalTo(self.contentView.mas_top).offset(10);
                     make.width.equalTo(@220);
-                    make.height.equalTo(@(model.height * 220 / model.width));
+                    make.height.equalTo(@220);
+//                    if (model.width > model.height) {
+//                        make.width.equalTo(@220);
+//                        make.height.equalTo(@(model.height * 220 / model.width));
+//                    }else {
+//                        make.height.equalTo(@220);
+//                        make.width.equalTo(@(model.width * 220 / model.height));
+//                    }
+                    
                 }];
                 
 
@@ -296,12 +302,12 @@
                         make.top.equalTo(_rightBubble.mas_top);
                         make.width.equalTo(@(100 + w));
                     }];
-                    
-                    [_rightVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.right.equalTo(_rightBubble.mas_right).offset(-15);
-                        make.top.equalTo(_rightBubble.mas_top).offset(10);
-                        make.width.height.equalTo(@25);
-                    }];
+//
+//                    [_rightVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                        make.right.equalTo(_rightBubble.mas_right).offset(-15);
+//                        make.top.equalTo(_rightBubble.mas_top).offset(10);
+//                        make.width.height.equalTo(@25);
+//                    }];
                     
                 } else {
                     // 文字
@@ -319,12 +325,12 @@
                         make.width.equalTo(@(size.width + 30));
                     }];
                     
-                    [_rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.equalTo(_rightBubble.mas_left);
-                        make.top.equalTo(_rightBubble.mas_top);
-                        make.centerY.equalTo(_rightBubble.mas_centerY);
-                        make.right.equalTo(_rightBubble.mas_right);
-                    }];
+//                    [_rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                        make.left.equalTo(_rightBubble.mas_left);
+//                        make.top.equalTo(_rightBubble.mas_top);
+//                        make.centerY.equalTo(_rightBubble.mas_centerY);
+//                        make.right.equalTo(_rightBubble.mas_right);
+//                    }];
                     
                 }
                 
@@ -333,12 +339,12 @@
             self.rightLabel.text = model.context;
             self.rightName.text = model.fromUser;
             self.rightTimeLabel.text = [NSData intervalSinceNow:model.time];
-            [_rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_rightBubble.mas_centerX).offset(0);
-                make.top.equalTo(_rightBubble.mas_bottom).offset(0);
-                make.width.equalTo(@100);
-                make.height.equalTo(@10);
-            }];
+//            [_rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerX.equalTo(_rightBubble.mas_centerX).offset(0);
+//                make.top.equalTo(_rightBubble.mas_bottom).offset(0);
+//                make.width.equalTo(@100);
+//                make.height.equalTo(@10);
+//            }];
 
         }else{
             
@@ -373,23 +379,24 @@
                 [_leftBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(self.contentView.mas_left).offset(50);
                     make.top.equalTo(self.contentView.mas_top).offset(10);
-                    if (model.width > model.height) {
-                        make.width.equalTo(@220);
-                        make.height.equalTo(@(model.height * 220 / model.width));
-                    }else {
-                        make.height.equalTo(@220);
-                        make.width.equalTo(@(model.width * 220 / model.height));
-
-                    }
+                    make.width.equalTo(@220);
+                    make.height.equalTo(@220);
+//                    if (model.width > model.height) {
+//                        make.width.equalTo(@220);
+//                        make.height.equalTo(@(model.height * 220 / model.width));
+//                    }else {
+//                        make.height.equalTo(@220);
+//                        make.width.equalTo(@(model.width * 220 / model.height));
+//                    }
                 }];
-                
-                
                 [_leftPhotoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(_leftBubble.mas_left).offset(5);
                     make.top.equalTo(_leftBubble.mas_top);
                     make.right.equalTo(_leftBubble.mas_right);
                     make.bottom.equalTo(_leftBubble.mas_bottom);
                 }];
+
+                
                 
             } else {
                 
@@ -429,11 +436,11 @@
                         make.width.equalTo(@(100 + w));
                     }];
                     
-                    [_lefeVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.equalTo(_leftBubble.mas_left).offset(15);
-                        make.top.equalTo(_leftBubble.mas_top).offset(10);
-                        make.width.height.equalTo(@25);
-                    }];
+//                    [_lefeVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                        make.left.equalTo(_leftBubble.mas_left).offset(15);
+//                        make.top.equalTo(_leftBubble.mas_top).offset(10);
+//                        make.width.height.equalTo(@25);
+//                    }];
 
                     
                 } else {
@@ -451,23 +458,23 @@
                         make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
                         make.width.equalTo(@(size.width + 30));
                     }];
-                    [_leftLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.left.equalTo(_leftBubble.mas_left).offset(5);
-                        make.top.equalTo(_leftBubble.mas_top).offset(5);
-                        make.centerY.equalTo(_leftBubble.mas_centerY);
-                        make.right.equalTo(_leftBubble.mas_right).offset(-10);
-                    }];
+//                    [_leftLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                        make.left.equalTo(_leftBubble.mas_left).offset(5);
+//                        make.top.equalTo(_leftBubble.mas_top).offset(5);
+//                        make.centerY.equalTo(_leftBubble.mas_centerY);
+//                        make.right.equalTo(_leftBubble.mas_right).offset(-10);
+//                    }];
                 }
             }
             self.leftLabel.text = model.context;
             self.leftName.text = model.fromUser;
             self.leftTimeLabel.text = [NSData intervalSinceNow:model.time];
-            [_leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(_leftBubble.mas_centerX).offset(0);
-                make.top.equalTo(_leftBubble.mas_bottom).offset(0);
-                make.width.equalTo(@100);
-                make.height.equalTo(@10);
-            }];
+//            [_leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerX.equalTo(_leftBubble.mas_centerX).offset(0);
+//                make.top.equalTo(_leftBubble.mas_bottom).offset(0);
+//                make.width.equalTo(@100);
+//                make.height.equalTo(@10);
+//            }];
         }
         
     }
@@ -499,47 +506,60 @@
         make.width.equalTo(_rightIconImageView.mas_width);
     }];
     
-//    [_leftBubble mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_leftIconImageView.mas_right).offset(5);
-//        make.top.equalTo(self.contentView.mas_top).offset(5);
-//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
-//    }];
-//    
-//    [_rightBubble mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(_rightIconImageView.mas_left).offset(-5);
-//        make.top.equalTo(self.contentView.mas_top).offset(5);
-//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
-//    }];
-//    
-//    [_leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_leftBubble.mas_left).offset(5);
-//        make.top.equalTo(_leftBubble.mas_top).offset(5);
-//        make.right.equalTo(_leftBubble.mas_right).offset(-5);
-//        make.bottom.equalTo(_leftBubble.mas_bottom).offset(-5);
-//    }];
-//    
-//    [_rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_rightBubble.mas_left).offset(5);
-//        make.top.equalTo(_rightBubble.mas_top).offset(5);
+//    [_rightPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(_rightBubble.mas_left);
+//        make.top.equalTo(_rightBubble.mas_top);
+//        make.bottom.equalTo(_rightBubble.mas_bottom);
 //        make.right.equalTo(_rightBubble.mas_right).offset(-5);
-//        make.bottom.equalTo(_rightBubble.mas_bottom).offset(-5);
 //    }];
-//    
+    
+    [_rightVoice mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(_rightBubble.mas_right).offset(-15);
+        make.top.equalTo(_rightBubble.mas_top).offset(10);
+        make.width.height.equalTo(@25);
+    }];
+    
+    [_rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_rightBubble.mas_left);
+        make.top.equalTo(_rightBubble.mas_top);
+        make.centerY.equalTo(_rightBubble.mas_centerY);
+        make.right.equalTo(_rightBubble.mas_right);
+    }];
+
 //    [_leftPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(_leftBubble.mas_left).offset(5);
-//        make.top.equalTo(_leftBubble.mas_top).offset(5);
-//        make.right.equalTo(_leftBubble.mas_right).offset(-5);
-//        make.bottom.equalTo(_leftBubble.mas_bottom).offset(-5);
+//        make.top.equalTo(_leftBubble.mas_top);
+//        make.right.equalTo(_leftBubble.mas_right);
+//        make.bottom.equalTo(_leftBubble.mas_bottom);
 //    }];
-//    
-//    [_rightPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_rightBubble.mas_left).offset(5);
-//        make.top.equalTo(_rightBubble.mas_top).offset(5);
-//        make.right.equalTo(_rightBubble.mas_right).offset(-5);
-//        make.bottom.equalTo(_rightBubble.mas_bottom).offset(-5);
-//    }];
+
     
+    [_lefeVoice mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_leftBubble.mas_left).offset(15);
+        make.top.equalTo(_leftBubble.mas_top).offset(10);
+        make.width.height.equalTo(@25);
+    }];
     
+    [_leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_leftBubble.mas_left).offset(5);
+        make.top.equalTo(_leftBubble.mas_top).offset(5);
+        make.centerY.equalTo(_leftBubble.mas_centerY);
+        make.right.equalTo(_leftBubble.mas_right).offset(-10);
+    }];
+    
+    [_leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_leftBubble.mas_centerX).offset(0);
+        make.top.equalTo(_leftBubble.mas_bottom).offset(0);
+        make.width.equalTo(@100);
+        make.height.equalTo(@10);
+    }];
+    
+    [_rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_rightBubble.mas_centerX).offset(0);
+        make.top.equalTo(_rightBubble.mas_bottom).offset(0);
+        make.width.equalTo(@100);
+        make.height.equalTo(@10);
+    }];
     
 }
 
@@ -569,6 +589,9 @@
         NSError *error = nil;
         // 初始化音频播放器
         self.audioPlayer = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    if (_audioPlayer.isPlaying) {
+        [_audioPlayer stop];
+    }
         if (error) {
             NSLog(@"error : %@", error);
         }
@@ -582,18 +605,18 @@
 
 }
 
--(void)change
-{
+-(void)change {
     
     self.i += 0.1;
-    NSLog(@"%f",_i);
     
-    
-    if (_i > (float)_model.voiceDuration) {
+        if (_i > (float)_model.voiceDuration) {
         //清除定时器
-        [self.timer invalidate];
-        [self AVAudioPlayerDidFinishPlay];
-        
+        if (![_audioPlayer isPlaying]) {
+            [self.timer invalidate];
+            [self AVAudioPlayerDidFinishPlay];
+
+        }
+    
     }
 }
 

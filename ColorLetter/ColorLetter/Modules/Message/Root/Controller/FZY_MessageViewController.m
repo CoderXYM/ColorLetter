@@ -29,7 +29,7 @@ EMChatManagerDelegate
 
 @property (nonatomic, strong) NSArray *objectArray;
 
-@property (nonatomic, strong) FZY_User *user;
+//@property (nonatomic, strong) FZY_User *user;
 
 @end
 
@@ -161,11 +161,9 @@ EMChatManagerDelegate
     
     FZY_FriendsModel *model = _conversationArray[indexPath.row];
     
-    NSLog(@"%ld", _objectArray.count);
-    
     for (FZY_User *user in _objectArray) {
         if (model.name == user.name) {
-            self.user = user;
+//            self.user = user;
             cell.urlImage = user.imageUrl;
         }
     }

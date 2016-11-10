@@ -113,7 +113,7 @@
     [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.equalTo(@(70));
         make.left.equalTo(self.contentView).offset(10);
-        make.top.equalTo(self.contentView).offset(5);
+        make.top.equalTo(self.contentView).offset(15);
     }];
     
     _headImageView.layer.cornerRadius = 35;
@@ -123,8 +123,8 @@
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_headImageView.mas_right).offset(10);
         make.width.equalTo(@(self.contentView.frame.size.width / 2));
-        make.top.equalTo(self.contentView).offset(10);
-        make.height.equalTo(@(h / 2));
+        make.top.equalTo(self.contentView).offset(5);
+        make.height.equalTo(@(h / 2 - 10));
     }];
     
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,7 +138,7 @@
         make.left.equalTo(_headImageView.mas_right).offset(10);
         make.right.equalTo(self.contentView).offset(-10);
         make.top.equalTo(_nameLabel.mas_bottom).offset(0);
-        make.height.equalTo(@(h / 2));
+        make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
 }

@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) UILabel *nameLabel;
 
+@property (nonatomic, copy) NSString *imageUrl;
+
 @end
