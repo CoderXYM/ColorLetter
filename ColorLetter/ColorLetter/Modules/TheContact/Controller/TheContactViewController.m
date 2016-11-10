@@ -146,6 +146,21 @@ FZY_CreateGroupViewControllerDelegate
     NSLog(@"----- %@", aMessage);
 }
 
+// 用户B同意用户A的入群邀请后，用户A接收到该回调
+- (void)groupInvitationDidAccept:(EMGroup *)aGroup
+                         invitee:(NSString *)aInvitee {
+    
+}
+// 用户B拒绝用户A的入群邀请后，用户A接收到该回调
+- (void)groupInvitationDidDecline:(EMGroup *)aGroup
+                          invitee:(NSString *)aInvitee
+                           reason:(NSString *)aReason {
+    
+}
+// 群列表发生了变化
+- (void)groupListDidUpdate:(NSArray *)aGroupList {
+    [_rightTableView reloadData];
+}
 #pragma mark - 用户A邀请用户B入群,用户B接收到该回调
 - (void)groupInvitationDidReceive:(NSString *)aGroupId
                           inviter:(NSString *)aInviter
@@ -153,7 +168,7 @@ FZY_CreateGroupViewControllerDelegate
     NSLog(@"%@, %@, %@", aGroupId, aInviter, aMessage);
     
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
-    NSDictionary *groupDic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aInviter], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage]};
+    NSDictionary *groupDic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aInviter], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage], @"aGroupId" : [NSString stringWithFormat:@"%@", aGroupId]};
     FZY_RequestModel *model = [FZY_RequestModel modelWithDic:groupDic];
     model.isGroup = YES;
     [_groupRequest insertObject:model atIndex:0];
@@ -426,7 +441,6 @@ FZY_CreateGroupViewControllerDelegate
                     [UIView showMessage:@"添加成功"];
                     [_friendRequest removeObjectAtIndex:indexPath.row];
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-//                    [_leftArray addObject:fzy.aUsername];
                     [self getFriendList];
                     [_leftTabeleView reloadData];
                 }
@@ -448,6 +462,48 @@ FZY_CreateGroupViewControllerDelegate
             
         }
     } else {
+        if (1 == indexPath.section) {
+            
+            if (_groupRequest.count) {
+                
+                FZY_RequestModel *fzy = _groupRequest[indexPath.row];
+                
+                UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"是否加入%@群?", fzy.aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
+                //创建一个取消和一个确定按钮
+                UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    
+                    [[EMClient sharedClient].groupManager declineGroupInvitation:fzy.aGroupId inviter:fzy.aInviter reason:@"去屎吧" completion:^(EMError *aError) {
+                        if (!aError) {
+                            NSLog(@"拒绝成功");
+                            [_groupRequest removeObjectAtIndex:indexPath.row];
+                            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                            [_rightTableView reloadData];
+                        }
+                    }];
+                    
+                }];
+                //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
+                UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                    [[EMClient sharedClient].groupManager acceptInvitationFromGroup:fzy.aGroupId inviter:fzy.aInviter completion:^(EMGroup *aGroup, EMError *aError) {
+                        
+                        if (!aError) {
+                            [UIView showMessage:@"加入成功"];
+                            [_groupRequest removeObjectAtIndex:indexPath.row];
+                            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                            [self getFriendList];
+                            [_rightTableView reloadData];
+                        }
+                    }];
+                    
+                }];
+                //将取消和确定按钮添加进弹框控制器
+                [alert addAction:actionCancle];
+                [alert addAction:actionOk];
+                //显示弹框控制器
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+            
+        }
         if (2 == indexPath.section) {
             NSLog(@"群");
         }

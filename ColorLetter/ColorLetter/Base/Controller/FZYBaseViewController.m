@@ -75,7 +75,7 @@ ChatDemoHelperDelegate
     }];
     
     self.searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_searchButton setImage:[UIImage imageNamed:@"btn-search"] forState:UIControlStateNormal];
+    [_searchButton setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
     [_searchButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         FZY_FriendRequestViewController *friend = [[FZY_FriendRequestViewController alloc] init];
         [self presentViewController:friend animated:YES completion:nil];

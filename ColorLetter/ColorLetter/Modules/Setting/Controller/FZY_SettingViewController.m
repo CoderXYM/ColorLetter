@@ -77,7 +77,7 @@ UITableViewDataSource
     }else if (1 == section) {
         return 1;
     }
-    return 3;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -100,8 +100,6 @@ UITableViewDataSource
         }
         else if (1 == indexPath.row){
             cell.cellName = @"分享";
-        }else {
-            cell.cellName = @"通知";
         }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
