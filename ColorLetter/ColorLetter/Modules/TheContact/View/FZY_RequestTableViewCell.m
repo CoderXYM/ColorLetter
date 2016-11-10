@@ -28,7 +28,6 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] init];
-        
         [self.contentView addSubview:_headImageView];
         
         self.nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -56,6 +55,8 @@
         make.width.equalTo(@(self.contentView.frame.size.height - 20));
         make.height.equalTo(@(self.contentView.frame.size.height - 20));
     }];
+    _headImageView.layer.cornerRadius = (self.contentView.frame.size.height - 20) / 2;
+    _headImageView.clipsToBounds = YES;
     
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_headImageView.mas_right).offset(20);

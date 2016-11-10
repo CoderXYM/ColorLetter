@@ -76,7 +76,7 @@ FZY_FriendsListViewControllerDelegate
     EMError *error = nil;
     EMGroupOptions *setting = [[EMGroupOptions alloc] init];
     setting.maxUsersCount = [self.maxMembers.text integerValue];
-    setting.style = EMGroupStylePublicJoinNeedApproval; //  公开群组，Owner可以邀请用户加入; 非群成员用户发送入群申请，经Owner同意后才能入组
+    setting.style = EMGroupStylePublicOpenJoin; //  公开群组，Owner可以邀请用户加入; 非群成员用户发送入群申请，经Owner同意后才能入组
     
     if (setting.maxUsersCount <= 2000) {
         EMGroup *group = [[EMClient sharedClient].groupManager createGroupWithSubject:self.groupName.text description:self.groupDescription.text invitees:self.groupMembersArray message:@"邀请您加入群组" setting:setting error:&error];

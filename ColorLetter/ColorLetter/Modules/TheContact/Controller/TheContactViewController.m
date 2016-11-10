@@ -99,7 +99,7 @@ FZY_CreateGroupViewControllerDelegate
     _select = 1;
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
-    
+
     //注册好友回调
     [[EMClient sharedClient].contactManager addDelegate:self delegateQueue:nil];
     
@@ -159,7 +159,6 @@ FZY_CreateGroupViewControllerDelegate
     [_groupRequest insertObject:model atIndex:0];
     [_rightTableView insertRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationRight];
     [_rightTableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    
     
 }
 

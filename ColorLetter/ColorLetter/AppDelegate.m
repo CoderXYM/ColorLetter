@@ -39,10 +39,30 @@ EMClientDelegate
     EMOptions *options = [EMOptions optionsWithAppkey:@"1137161019178010#colorletter"];
     options.apnsCertName = @"ColorLetter";
     
+    // 自动添加成员进群
+    options.isAutoAcceptGroupInvitation = YES;
+    
     self.error = [[EMClient sharedClient] initializeSDKWithOptions:options];
     if (!_error) {
         NSLog(@"初始化成功");
     }
+    //------- 注册 APNS --------
+    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+        [application registerForRemoteNotifications];
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge |
+        UIUserNotificationTypeSound |
+        UIUserNotificationTypeAlert;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    else{
+        
+        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
+        UIRemoteNotificationTypeSound |
+        UIRemoteNotificationTypeAlert;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+    }
+    // ------------------------
     
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
     if (isAutoLogin) {
@@ -77,11 +97,19 @@ EMClientDelegate
             }
         }
     }];
-
-    
     
     return YES;
 
+}
+
+// 将得到的deviceToken传给SDK
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    [[EMClient sharedClient] bindDeviceToken:deviceToken];
+}
+
+// 注册deviceToken失败
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    NSLog(@"error -- %@",error);
 }
 
 /*
@@ -141,7 +169,6 @@ EMClientDelegate
 - (void)didConnectionStateChanged:(EMConnectionState)aConnectionState {
     NSLog(@"正在重连...");
 }
-
 
 
 

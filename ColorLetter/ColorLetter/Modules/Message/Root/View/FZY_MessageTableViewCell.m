@@ -62,7 +62,7 @@
             _headImageView.image = [UIImage imageNamed:@"bg-mob"];
         } else {
             _nameLabel.text = model.name;
-//            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
+            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
         }
         
         _timeLabel.text = [NSData intervalSinceNow:model.time];

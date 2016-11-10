@@ -44,9 +44,13 @@ EMChatManagerDelegate
 - (void)viewWillAppear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     self.navigationController.navigationBar.hidden = YES;
+    
+    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
+    NSLog(@"%ld", (unsigned long)_objectArray.count);
+    
     // 载入所有会话
     [self loadAllConversations];
-    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
+    
 }
 
 - (void)viewDidLoad {
@@ -87,6 +91,7 @@ EMChatManagerDelegate
         if (con.type == EMConversationTypeChat) {
             model.name = con.conversationId;
             NSLog(@"%@", con.conversationId);
+            
             model.isGroup = NO;
         } else{
             // 群聊
@@ -98,7 +103,7 @@ EMChatManagerDelegate
         EMMessage *latestMess = con.latestMessage;
         EMTextMessageBody *textBody = (EMTextMessageBody *)latestMess.body;
         NSString *txt = nil;
-
+        
         switch (textBody.type) {
             case EMMessageBodyTypeImage:
                  txt = @"图片";
@@ -156,20 +161,23 @@ EMChatManagerDelegate
     FZY_MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"messageCell"];
     
     FZY_FriendsModel *model = _conversationArray[indexPath.row];
-    for (FZY_User *user in _objectArray) {
-        if (model.name == user.name) {
-            NSLog(@"%@ ???? %@", model.name, user.name);
-            NSLog(@"%@", user.imageUrl);
-            self.user = user;
-            cell.urlImage = _user.imageUrl;
-            cell.model = model;
-            NSLog(@"li :%@", model.name);
-            
-        }
-        cell.model = model;
-    }
-    NSLog(@"wai : %@", model.name);
     
+//    NSLog(@"%ld", _objectArray.count);
+//    
+//    for (FZY_User *user in _objectArray) {
+//        if (model.name == user.name) {
+//            NSLog(@"%@ ???? %@", model.name, user.name);
+//            NSLog(@"%@", user.imageUrl);
+//            self.user = user;
+//            cell.urlImage = user.imageUrl;
+//            
+//            NSLog(@"li :%@", model.name);
+//            
+//        }
+//    }
+//    NSLog(@"wai : %@", model.name);
+    
+    cell.model = model;
     return cell;
 }
 
