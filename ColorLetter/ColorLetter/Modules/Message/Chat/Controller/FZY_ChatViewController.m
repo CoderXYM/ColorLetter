@@ -78,6 +78,13 @@ BMKMapViewDelegate
 //    [_mapView addAnnotation:pointAnnotation];
 }
 
+- (void)displayGeographicInformationLAT:(double)latitude LON:(double)longitude Add:(NSString *)add{
+    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
+        pointAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        pointAnnotation.title = [NSString stringWithFormat:@"%@", add];
+        [_mapView addAnnotation:pointAnnotation];
+}
+
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[BMKPointAnnotation class]])
@@ -265,10 +272,11 @@ BMKMapViewDelegate
                             break;
                         case EMMessageBodyTypeLocation: {
                             EMLocationMessageBody *body = (EMLocationMessageBody *)msgBody;
-                            if ([mes.from isEqualToString:_friendName]) {
-                                self.latitude = body.latitude;
-                                self.longitude = body.longitude;
-                                self.address = body.address;
+                            if (![mes.from isEqualToString:userName]) {
+//                                self.latitude = body.latitude;
+//                                self.longitude = body.longitude;
+//                                self.address = body.address;
+                                [self displayGeographicInformationLAT:body.latitude LON:body.longitude Add:body.address];
                             }
                         }
                             break;
@@ -753,12 +761,6 @@ BMKMapViewDelegate
                         NSLog(@"发送失败: %@", error);
                     }
                 }];
-
-            BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
-            pointAnnotation.coordinate = CLLocationCoordinate2DMake(_latitude, _longitude);
-            //    pointAnnotation.title = [NSString stringWithFormat:@"%@", _address];
-            
-            [_mapView addAnnotation:pointAnnotation];
         }
             break;
         case 3:

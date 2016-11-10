@@ -26,7 +26,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        //self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_headImageView];
@@ -62,7 +62,6 @@
             _headImageView.image = [UIImage imageNamed:@"bg-mob"];
         } else {
             _nameLabel.text = model.name;
-            _headImageView.image = [UIImage imageNamed:@"mood-happy"];
         }
         
         _timeLabel.text = [NSData intervalSinceNow:model.time];
