@@ -178,7 +178,12 @@ BMKMapViewDelegate
 - (void)loadConversationHistory {
     [_dataSourceArray removeAllObjects];
     
-    self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
+    if (_isGroupChat) {
+        self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeGroupChat createIfNotExist:YES];
+    } else {
+        self.conversation = [[EMClient sharedClient].chatManager getConversation:_friendName type:EMConversationTypeChat createIfNotExist:YES];
+    }
+    
     // 获取当前用户名
     NSString *userName = [[EMClient sharedClient] currentUsername];
     //  从数据库获取指定数量的消息，取到的消息按时间排序，并且不包含参考的消息，如果参考消息的ID为空，则从最新消息取
@@ -563,7 +568,12 @@ BMKMapViewDelegate
             NSString *userName = [[EMClient sharedClient] currentUsername];
             // 生成 Message
             EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:userName to:_friendName body:body ext:nil];
-            message.chatType = EMChatTypeChat; // 设置为单聊信息
+            if (_isGroupChat) {
+                message.chatType = EMChatTypeGroupChat; // 设置为群聊聊信息
+            } else {
+                message.chatType = EMChatTypeChat; // 设置为单聊信息
+            }
+            
             [self sendMessageWithEMMessage:message];
             self.isAbleToSendTextMessage = NO;
         }else {
@@ -659,7 +669,12 @@ BMKMapViewDelegate
     
     // 生成 语音message
     EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:_friendName body:body ext:nil];
-    message.chatType = EMChatTypeChat;
+    if (_isGroupChat) {
+       message.chatType = EMChatTypeGroupChat;
+    } else {
+       message.chatType = EMChatTypeChat;
+    }
+    
     [self sendMessageWithEMMessage:message];
 
 }
@@ -752,7 +767,12 @@ BMKMapViewDelegate
             
                 // 生成message
                 EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:[[EMClient sharedClient] currentUsername] body:body ext:nil];
+            if (_isGroupChat) {
+                message.chatType = EMChatTypeGroupChat;
+            } else {
                 message.chatType = EMChatTypeChat;// 设置为单聊消息
+            }
+            
                 [[EMClient sharedClient].chatManager sendMessage:message progress:nil completion:^(EMMessage *message, EMError *error) {
                     if (!error) {
             
@@ -767,7 +787,12 @@ BMKMapViewDelegate
         {
             NSLog(@"视频");
             if ([self canOpenCamera]) {
-               [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
+                if (_isGroupChat) {
+                    [TSMessage showNotificationWithTitle:@"视屏通话失败" subtitle:@"群聊时无法视屏通话" type:TSMessageNotificationTypeError];
+                } else {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_CALL object:@{@"chatter":self.conversation.conversationId, @"type":[NSNumber numberWithInt:1]}];
+                }
+               
             } else {
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"没有相机权限" message:@"请去设置-隐私-相机中进行授权" preferredStyle:UIAlertControllerStyleAlert];
                 
@@ -815,7 +840,12 @@ BMKMapViewDelegate
     
     //生成Message
     EMMessage *message = [[EMMessage alloc] initWithConversationID:_friendName from:from to:_friendName body:body ext:nil];
-    message.chatType = EMChatTypeChat;// 设置为单聊消息
+    if (_isGroupChat) {
+       message.chatType = EMChatTypeGroupChat;
+    } else {
+       message.chatType = EMChatTypeChat;
+    }
+    
     //关闭当前界面，即回到主界面去
     [self dismissViewControllerAnimated:YES completion:nil];
     

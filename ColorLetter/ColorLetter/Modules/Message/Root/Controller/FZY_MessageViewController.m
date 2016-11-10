@@ -182,8 +182,14 @@ EMChatManagerDelegate
     FZY_ChatViewController *chatVC = [[FZY_ChatViewController alloc] init];
     
     FZY_FriendsModel *model = _conversationArray[indexPath.row];
-    chatVC.friendName = model.name;
     
+    if (model.isGroup) {
+        chatVC.friendName = model.groupID;
+        chatVC.isGroupChat = YES;
+    } else {
+        chatVC.friendName = model.name;
+        chatVC.isGroupChat = NO;
+    }
     // 设置消息为已读
     EMConversation *con = [[EMClient sharedClient].chatManager getConversation:model.name type:EMConversationTypeChat createIfNotExist:YES];
     if (con.unreadMessagesCount) {
