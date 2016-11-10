@@ -315,7 +315,7 @@ FZY_CreateGroupViewControllerDelegate
     [_leftTabeleView registerClass:[FZY_FriendsTableViewCell class] forCellReuseIdentifier:leftIdentifier];
     [_leftTabeleView registerClass:[FZY_RequestTableViewCell class] forCellReuseIdentifier:IdentifierLeft];
 
-    self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 50) style:UITableViewStylePlain];
+    self.rightTableView = [[UITableView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT - 64 - 49 - 40) style:UITableViewStylePlain];
 
     _rightTableView.delegate = self;
     _rightTableView.dataSource = self;

@@ -45,32 +45,32 @@ UITextFieldDelegate
 
 - (void)create {
     
-    UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancel setTitle:@"Back" forState:UIControlStateNormal];
-    cancel.titleLabel.textColor = [UIColor whiteColor];
-    cancel.backgroundColor = [UIColor clearColor];
-    [cancel handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [self.view addSubview:cancel];
-    [cancel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(20);
-        make.top.equalTo(self.view.mas_top).offset(25);
-        make.height.equalTo(@30);
-        make.width.equalTo(@50);
-    }];
-    
+//    UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [cancel setTitle:@"Back" forState:UIControlStateNormal];
+//    cancel.titleLabel.textColor = [UIColor whiteColor];
+//    cancel.backgroundColor = [UIColor clearColor];
+//    [cancel handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }];
+//    [self.view addSubview:cancel];
+//    [cancel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.view.mas_left).offset(20);
+//        make.top.equalTo(self.view.mas_top).offset(25);
+//        make.height.equalTo(@30);
+//        make.width.equalTo(@50);
+//    }];
+//    
     UIButton *backImage = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backImage setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backImage setBackgroundImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     [backImage handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [self.view addSubview:backImage];
     [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left).offset(5);
-        make.top.equalTo(self.view.mas_top).offset(30                                                             );
-        make.height.equalTo(@20);
-        make.width.equalTo(@25);
+        make.top.equalTo(self.view.mas_top).offset(35                                                             );
+        make.height.equalTo(@15);
+        make.width.equalTo(@15);
     }];
     
     self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 60, WIDTH, 50)];

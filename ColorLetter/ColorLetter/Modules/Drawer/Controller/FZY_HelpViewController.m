@@ -16,32 +16,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     UIView *upView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 64)];
     upView.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1.0];
+    [self.view addSubview:upView];
+    
+    UIButton *backImage = [UIButton buttonWithType:UIButtonTypeCustom];
+    [backImage setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [backImage handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [upView addSubview:backImage];
+   
+    [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view.mas_left).offset(5);
+            make.top.equalTo(self.view.mas_top).offset(30                                                             );
+            make.height.equalTo(@20);
+            make.width.equalTo(@25);
+    }];
+    
     UIButton *backButton = [[UIButton alloc]initWithFrame:CGRectMake(10, 20, 50, 50)];
     [backButton setTitle:@"Back" forState:UIControlStateNormal];
     [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];    
-    [self.view addSubview:upView];
     [upView addSubview:backButton];
+   [backButton mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+       make.left.equalTo(self.view.mas_left).offset(20);
+       make.top.equalTo(self.view.mas_top).offset(25);
+       make.height.equalTo(@30);
+       make.width.equalTo(@50);
+   }];
     [backButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         
         [self dismissViewControllerAnimated:YES completion:nil];
         
     }];
+    
+       
    
-//    UIButton *backImage = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [backImage setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-//    [backImage handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }];
-//    [upView addSubview:backImage];
-//    [backImage mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view.mas_left).offset(5);
-//        make.top.equalTo(self.view.mas_top).offset(30                                                             );
-//        make.height.equalTo(@20);
-//        make.width.equalTo(@25);
-//    }];
-
 }
 
 - (void)didReceiveMemoryWarning {
