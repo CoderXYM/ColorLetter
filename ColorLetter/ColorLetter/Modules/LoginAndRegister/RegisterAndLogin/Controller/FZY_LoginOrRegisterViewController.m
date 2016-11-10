@@ -140,52 +140,6 @@ UITextFieldDelegate
         make.height.equalTo(@1);
         
     }];
-
-//    UIButton *registerButton = [[UIButton alloc]init];
-//    registerButton.backgroundColor = [UIColor yellowColor];
-//    [registerButton setTitle:@"注册" forState:UIControlStateNormal];
-//     [registerButton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-//    [registerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-//        EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:_passwordTextField.text];
-//        
-//#pragma mark - 注册
-//        if (error == nil) {
-//            NSLog(@"注册成功");
-//        }else {
-//            NSLog(@"注册失败");
-//        
-//        }
-//        
-//
-//        //提示框
-//        UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"注册成功"] message:nil preferredStyle:UIAlertControllerStyleAlert];
-//
-//        //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
-//        UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-//            
-//            self.loginAccountTextField.text = _accountTextField.text;
-//            self.loginPasswordTextField.text = _passwordTextField.text;
-//            self.downScrollView.contentOffset = CGPointMake(WIDTH, 0);
-//        
-//                      
-//            
-//        }];
-//       
-//        //将取消和确定按钮添加进弹框控制器
-//        [alert addAction:actionOk];
-//        
-//        //显示弹框控制器
-//        [self presentViewController:alert animated:YES completion:nil];
-//    }];
-    
-//    [_downScrollView addSubview:registerButton];
-//    [registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_downScrollView.mas_top).offset(400);
-//        make.centerX.equalTo(_downScrollView.mas_centerX);
-//        make.height.equalTo(@40);
-//        make.width.equalTo(@160);
-//        
-//    }];
     
 }
 
@@ -266,15 +220,6 @@ UITextFieldDelegate
 #pragma mark - 登录的downScrollView
 -(void)creatLoginView {
 
-//    UIView *loginView = [[UIView alloc]init];
-//    loginView.backgroundColor = [UIColor yellowColor];
-//    [_downScrollView addSubview:loginView];
-//    [loginView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_downScrollView.mas_top).offset(100);
-//        make.left.equalTo(_downScrollView.mas_left).offset(WIDTH + 40);
-//        make.height.equalTo(@140);
-//        make.width.equalTo(@(WIDTH - 80));
-//    }];
     
     self.myImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_header"]];
     _myImageView.userInteractionEnabled = YES;
@@ -352,67 +297,6 @@ UITextFieldDelegate
         
     }];
     
-//    UIImageView *headImageView = [[UIImageView alloc]init];
-//    headImageView.image = [UIImage imageNamed:@"head"];
-//    [_downScrollView addSubview:headImageView];
-//    [headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.equalTo(loginView.mas_top).offset(7);
-//        make.height.equalTo(@(HEIGHT
-//                             / 8.95));
-//        make.centerX.equalTo(passwordLineView.mas_centerX);
-//        make.width.equalTo(@(WIDTH / 2.65));
-//        
-//    }];
-//    UIImageView *lefthandImageView = [[UIImageView alloc]init];
-//    lefthandImageView.image = [UIImage imageNamed:@"hand"];
-//    [_downScrollView addSubview:lefthandImageView];
-//    [lefthandImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(headImageView.mas_left).offset(10);
-//        make.bottom.equalTo(loginView.mas_top).offset(15);
-//        make.height.equalTo(@30);
-//        make.width.equalTo(@20);
-//        
-//    }];
-//    
-//    UIImageView *righthandImageView = [[UIImageView alloc]init];
-//    righthandImageView.image = [UIImage imageNamed:@"hand"];
-//    [_downScrollView addSubview:righthandImageView];
-//    [righthandImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(headImageView.mas_right).offset(-10);
-//        make.bottom.equalTo(loginView.mas_top).offset(15);
-//        make.height.equalTo(@30);
-//        make.width.equalTo(@20);
-//    }];
-    
-//    UIButton *LoginButton = [[UIButton alloc]init];
-//    LoginButton.backgroundColor = [UIColor yellowColor];
-//    [LoginButton setTitle:@"登录" forState:UIControlStateNormal];
-//    [LoginButton setTitleColor:[UIColor blackColor]forState:UIControlStateNormal];
-//    [_downScrollView addSubview:LoginButton];
-//    
-//    [LoginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-//        _error = [[EMClient sharedClient] loginWithUsername:_loginAccountTextField.text password:_loginPasswordTextField.text];
-//
-//#pragma mark - 登录
-//        if (!_error) {
-//            NSLog(@"登录成功");
-//        }else {
-//            NSLog(@"登录失败");
-//        }
-//        FZYTabBarViewController *messageVC = [[FZYTabBarViewController alloc] init];
-//        [self.navigationController pushViewController:messageVC animated:YES];
-//    
-//    
-//    
-//    }];
-//    
-//    [LoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_downScrollView.mas_top).offset(400);
-//        make.centerX.equalTo(_downScrollView.mas_centerX).offset(WIDTH);
-//        make.height.equalTo(@40);
-//        make.width.equalTo(@160);
-//        
-//    }];
   
 }
 
@@ -467,17 +351,14 @@ UITextFieldDelegate
         EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:_passwordTextField.text];
 #pragma mark - 注册
         if (error == nil) {
-            NSLog(@"注册成功");
-
-            [UIView showMessage:@"注册成功"];
+            [TSMessage showNotificationWithTitle:@"Success" subtitle:@"注册成功" type:TSMessageNotificationTypeSuccess];
             [_passwordTextField resignFirstResponder];
             self.loginAccountTextField.text = _accountTextField.text;
             self.loginPasswordTextField.text = _passwordTextField.text;
             self.downScrollView.contentOffset = CGPointMake(WIDTH, 0);
 
         }else {
-            NSLog(@"注册失败");
-            [UIView showMessage:@"注册失败"];
+            [TSMessage showNotificationWithTitle:@"Error" subtitle:@"注册失败" type:TSMessageNotificationTypeError];
 
         }
         
@@ -502,7 +383,7 @@ UITextFieldDelegate
                     }
                 }
             }];
-            [UIView showMessage:@"登录成功"];
+            [TSMessage showNotificationWithTitle:@"Success" subtitle:@"登录成功" type:TSMessageNotificationTypeSuccess];
             [_loginPasswordTextField endEditing:YES];
             [self dismissViewControllerAnimated:NO completion:^{
                 [_VC dismissViewControllerAnimated:YES completion:nil];
@@ -516,8 +397,7 @@ UITextFieldDelegate
             self.view.window.rootViewController = [[FZYTabBarViewController alloc] init];
                         
         }else {
-             NSLog(@"登录失败");
-             [UIView showMessage:@"登录失败"];
+            [TSMessage showNotificationWithTitle:@"Error" subtitle:@"登录失败" type:TSMessageNotificationTypeError];
         }
         
     }

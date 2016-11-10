@@ -148,6 +148,7 @@ EMChatManagerDelegate
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.rowHeight = 80;
+    _tableView.separatorStyle = NO;
     [self.view addSubview:_tableView];
     [_tableView registerClass:[FZY_MessageTableViewCell class] forCellReuseIdentifier:@"messageCell"];
     
@@ -162,21 +163,16 @@ EMChatManagerDelegate
     
     FZY_FriendsModel *model = _conversationArray[indexPath.row];
     
-//    NSLog(@"%ld", _objectArray.count);
-//    
-//    for (FZY_User *user in _objectArray) {
-//        if (model.name == user.name) {
-//            NSLog(@"%@ ???? %@", model.name, user.name);
-//            NSLog(@"%@", user.imageUrl);
-//            self.user = user;
-//            cell.urlImage = user.imageUrl;
-//            
-//            NSLog(@"li :%@", model.name);
-//            
-//        }
-//    }
-//    NSLog(@"wai : %@", model.name);
+    NSLog(@"%ld", _objectArray.count);
     
+    for (FZY_User *user in _objectArray) {
+        if (model.name == user.name) {
+            NSLog(@"%@ ???? %@", model.name, user.name);
+            NSLog(@"%@", user.imageUrl);
+            self.user = user;
+            cell.urlImage = user.imageUrl;
+        }
+    }
     cell.model = model;
     return cell;
 }

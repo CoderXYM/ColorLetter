@@ -159,12 +159,12 @@ UITextFieldDelegate
         
         NSString *loginUsername = [[EMClient sharedClient] currentUsername];
         if ([searchString isEqualToString:loginUsername]) {
-            [UIView showMessage:@"can't add yourself as a friend"];
+            [TSMessage showNotificationWithTitle:@"不能添加自己为好友" subtitle:@"can't add yourself as a friend" type:TSMessageNotificationTypeError];
             return YES;
         }
         for (NSString *string in _array) {
             if ([searchString isEqualToString:string]) {
-                [UIView showMessage:[NSString stringWithFormat:@"%@已经是你的好友啦", searchString]];
+                [TSMessage showNotificationWithTitle:[NSString stringWithFormat:@"%@已经是你的好友啦", searchString] subtitle:[NSString stringWithFormat:@"%@ is already a good friend of yours.", searchString] type:TSMessageNotificationTypeError];
                 return YES;
             }
         }
@@ -186,8 +186,9 @@ UITextFieldDelegate
             UITextField *textField = alert.textFields.firstObject;
             EMError *error = [[EMClient sharedClient].contactManager addContact:searchString message:[NSString stringWithFormat:@"%@", textField.text]];
             if (!error) {
-                NSLog(@"%@, %@", textField.text, searchString);
-                [UIView showMessage:@"等待对方受理你的请求"];
+                [TSMessage showNotificationWithTitle:@"等待对方受理你的请求" subtitle:@"                 Wait for the other person to accept your request" type:TSMessageNotificationTypeWarning];
+            }else {
+                [TSMessage showNotificationWithTitle:@"Error" subtitle:@"添加失败" type:TSMessageNotificationTypeError];
             }
         }];
         //将取消和确定按钮添加进弹框控制器
@@ -214,10 +215,9 @@ UITextFieldDelegate
             
             NSLog(@"%@", error);
             if (!error) {
-                NSLog(@"%@, %@", textField.text, searchString);
-                [UIView showMessage:@"等待群主受理你的请求"];
+                [TSMessage showNotificationWithTitle:@"等待群主受理你的请求" subtitle:@"Wait for him to accept your request" type:TSMessageNotificationTypeWarning];
             } else {
-                NSLog(@"%@", error);
+                [TSMessage showNotificationWithTitle:@"Error" subtitle:@"添加失败" type:TSMessageNotificationTypeWarning];
             }
             
         }];

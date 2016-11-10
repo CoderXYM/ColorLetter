@@ -78,6 +78,13 @@ BMKMapViewDelegate
 //    [_mapView addAnnotation:pointAnnotation];
 }
 
+- (void)displayGeographicInformationLAT:(double)latitude LON:(double)longitude Add:(NSString *)add{
+    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
+        pointAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        pointAnnotation.title = [NSString stringWithFormat:@"%@", add];
+        [_mapView addAnnotation:pointAnnotation];
+}
+
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[BMKPointAnnotation class]])
@@ -265,10 +272,11 @@ BMKMapViewDelegate
                             break;
                         case EMMessageBodyTypeLocation: {
                             EMLocationMessageBody *body = (EMLocationMessageBody *)msgBody;
-                            if ([mes.from isEqualToString:_friendName]) {
-                                self.latitude = body.latitude;
-                                self.longitude = body.longitude;
-                                self.address = body.address;
+                            if (![mes.from isEqualToString:userName]) {
+//                                self.latitude = body.latitude;
+//                                self.longitude = body.longitude;
+//                                self.address = body.address;
+                                [self displayGeographicInformationLAT:body.latitude LON:body.longitude Add:body.address];
                             }
                         }
                             break;
@@ -345,16 +353,8 @@ BMKMapViewDelegate
                 }
                     break;
                 case EMMessageBodyTypeVoice: {
-                    NSLog(@"===========接收语音消息");
                     // 语音
                     EMVoiceMessageBody *body = ((EMVoiceMessageBody *)msgBody);
-                    NSLog(@"音频remote路径 -- %@"      ,body.remotePath);
-                    NSLog(@"音频local路径 -- %@"       ,body.localPath); // 需要使用sdk提供的下载方法后才会存在（音频会自动调用）
-                    NSLog(@"音频的secret -- %@"        ,body.secretKey);
-                    NSLog(@"音频文件大小 -- %lld"       ,body.fileLength);
-                    NSLog(@"音频文件的下载状态 -- %u"   ,body.downloadStatus);
-                    NSLog(@"音频的时间长度 -- %d"      ,body.duration);
-                    
                     model.fromUser = message.from;
                     model.remoteVoicePath = body.remotePath;
                     model.localVoicePath = body.localPath;
@@ -489,8 +489,6 @@ BMKMapViewDelegate
         make.height.width.equalTo(@40);
     }];
 
-//    _optionVioceButton.layer.cornerRadius = 20;
-//    _optionVioceButton.clipsToBounds = YES;
     
 
     // 切换发送消息类型
@@ -508,9 +506,6 @@ BMKMapViewDelegate
             make.centerY.equalTo(_downView.mas_centerY).offset(0);
             make.height.width.equalTo(@40);
     }];
-//    [_sendMessageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-//        [self optionsCollectionViewFrameChange];
-//    }];
     
     // 输入框
     self.importTextField = [[UITextView alloc] initWithFrame:CGRectMake(80, 5, WIDTH / 2, 40)];
@@ -521,8 +516,6 @@ BMKMapViewDelegate
     _importTextField.layer.borderWidth = 1;
     _importTextField.layer.borderColor = [[[UIColor lightGrayColor] colorWithAlphaComponent:0.4] CGColor];
     _importTextField.backgroundColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:1.0];
-//    _importTextField.layer.cornerRadius = 10;
-//    _importTextField.clipsToBounds = YES;
     [_downView addSubview:_importTextField];
     
     [_importTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -574,7 +567,7 @@ BMKMapViewDelegate
             [self sendMessageWithEMMessage:message];
             self.isAbleToSendTextMessage = NO;
         }else {
-            [UIView showMessage:@"发送消息不能为空"];
+            [TSMessage showNotificationWithTitle:@"Warning" subtitle:@"发送消息不能为空" type:TSMessageNotificationTypeWarning];
         }
     }
     else{
@@ -768,12 +761,6 @@ BMKMapViewDelegate
                         NSLog(@"发送失败: %@", error);
                     }
                 }];
-
-            BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
-            pointAnnotation.coordinate = CLLocationCoordinate2DMake(_latitude, _longitude);
-            //    pointAnnotation.title = [NSString stringWithFormat:@"%@", _address];
-            
-            [_mapView addAnnotation:pointAnnotation];
         }
             break;
         case 3:
@@ -887,10 +874,6 @@ BMKMapViewDelegate
 - (void)changeSendBtnWithPhoto:(BOOL)isPhoto
 {
     self.isAbleToSendTextMessage = !isPhoto;
-//    [self.sendMessageButton setTitle:isPhoto?@"":@"send" forState:UIControlStateNormal];
-//    self.sendMessageButton.frame = RECT_CHANGE_width(self.btnSendMessage, isPhoto?30:35);
-//    self.sendMessageButton.frame = CGRectMake(_sendMessageButton.frame.origin.x, _sendMessageButton.frame.origin.y, /*isPhoto?30:35*/ 35, _sendMessageButton.frame.size.height)
-    ;
     UIImage *image = [UIImage imageNamed:isPhoto?@"optionAdd":@"send"];
     [self.sendMessageButton setBackgroundImage:image forState:UIControlStateNormal];
 }

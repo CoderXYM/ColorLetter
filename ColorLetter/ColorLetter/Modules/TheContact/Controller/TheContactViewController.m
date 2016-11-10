@@ -187,13 +187,7 @@ FZY_CreateGroupViewControllerDelegate
  @brief 用户A发送加用户B为好友的申请，用户B同意后，用户A会收到这个回调
  */
 - (void)didReceiveAgreedFromUsername:(NSString *)aUsername {
-    UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@已同意你的请求", aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
-    //创建一个取消和一个确定按钮
-    UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-    //将取消和确定按钮添加进弹框控制器
-    [alert addAction:actionCancle];
-    //显示弹框控制器
-    [self presentViewController:alert animated:YES completion:nil];
+    [TSMessage showNotificationWithTitle:@"Success" subtitle:[NSString stringWithFormat:@"%@已同意你的请求", aUsername] type:TSMessageNotificationTypeSuccess];
     [_leftTabeleView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
@@ -202,13 +196,7 @@ FZY_CreateGroupViewControllerDelegate
  @brief 用户A发送加用户B为好友的申请，用户B拒绝后，用户A会收到这个回调
  */
 - (void)didReceiveDeclinedFromUsername:(NSString *)aUsername{
-    UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@拒绝添加您为好友", aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
-    //创建一个取消和一个确定按钮
-    UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-       //将取消和确定按钮添加进弹框控制器
-    [alert addAction:actionCancle];
-    //显示弹框控制器
-    [self presentViewController:alert animated:YES completion:nil];
+    [TSMessage showNotificationWithTitle:@"Refuse" subtitle:[NSString stringWithFormat:@"%@拒绝你的请求", aUsername] type:TSMessageNotificationTypeWarning];
 }
 
 #pragma mark - 创建滑块
@@ -423,7 +411,7 @@ FZY_CreateGroupViewControllerDelegate
             UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
                 if (!error) {
-                    [UIView showMessage:@"添加成功"];
+                    [TSMessage showNotificationWithTitle:@"Success" subtitle:@"添加成功" type:TSMessageNotificationTypeSuccess];
                     [_friendRequest removeObjectAtIndex:indexPath.row];
                     [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
 //                    [_leftArray addObject:fzy.aUsername];
@@ -571,7 +559,7 @@ FZY_CreateGroupViewControllerDelegate
         // 删除好友
         EMError *error = [[EMClient sharedClient].contactManager deleteContact:name];
         if (!error) {
-            NSLog(@"删除成功");
+            [TSMessage showNotificationWithTitle:@"Delete" subtitle:@"删除成功" type:TSMessageNotificationTypeSuccess];
         }
         [_leftArray removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
