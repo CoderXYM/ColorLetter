@@ -74,7 +74,7 @@
     removeBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     removeBtn.layer.borderWidth = 1.;
     
-    [removeBtn setTitle:@"进入彩笺" forState:UIControlStateNormal];
+    [removeBtn setTitle:@"Enter The ColorLetter" forState:UIControlStateNormal];
     [removeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     removeBtn.titleLabel.font = [UIFont systemFontOfSize:18.];
      //********************自定义结束**********************************//
@@ -90,15 +90,15 @@
 
 + (void)load{
     
-//    NSString* versoin = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-//    NSString* versionCache = [[NSUserDefaults standardUserDefaults] objectForKey:FIRST_IN_KEY];
+    NSString* versoin = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString* versionCache = [[NSUserDefaults standardUserDefaults] objectForKey:FIRST_IN_KEY];
     //启动时候首先判断是不是第一次
     
-//    if ([versoin isEqualToString:versionCache]) {
-//        return;
-//    }
+    if ([versoin isEqualToString:versionCache]) {
+        return;
+    }
     
-   // 以下代码只在程序安装初次运行时候执行
+    // 以下代码只在程序安装初次运行时候执行
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
