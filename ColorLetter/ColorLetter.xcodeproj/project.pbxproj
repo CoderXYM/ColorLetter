@@ -684,13 +684,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		4907FF961DD4944F0026E95A /* KSGuidViewController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = KSGuidViewController;
-			sourceTree = "<group>";
-		};
 		491656A81DBA56E100975DE6 /* Encapsulation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,7 +1173,6 @@
 		49B032981DB79D2600D36732 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				4907FF961DD4944F0026E95A /* KSGuidViewController */,
 				49E640201DC0484600149AF1 /* FriendRequests */,
 				4969E1801DB8A8FD007D0A06 /* Drawer */,
 				49B0329A1DB79D3E00D36732 /* Home */,
