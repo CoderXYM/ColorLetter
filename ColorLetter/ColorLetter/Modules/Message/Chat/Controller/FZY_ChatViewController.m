@@ -173,6 +173,7 @@ BMKMapViewDelegate
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 - (void)rightBarAction {
+    
     FZY_ChatterInfoViewController *chatterInfoVC = [[FZY_ChatterInfoViewController alloc] init];
     chatterInfoVC.friendImage  =_friendImage;
     chatterInfoVC.friendName = _friendName;

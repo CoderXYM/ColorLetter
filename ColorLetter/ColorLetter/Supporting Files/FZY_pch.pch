@@ -73,6 +73,8 @@
 
 #import <TSMessage.h>
 
+#import "UIView+ShowMessage.h"
+
 #endif
 
 #define WIDTH [UIScreen mainScreen].bounds.size.width

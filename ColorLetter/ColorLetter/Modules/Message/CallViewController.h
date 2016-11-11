@@ -21,7 +21,7 @@
     
     UIView *_topView;
     UILabel *_nameLabel;
-    UIImageView *_headerImageView;
+//    UIImageView *_headerImageView;
     
     //操作按钮显示
     UIView *_actionView;

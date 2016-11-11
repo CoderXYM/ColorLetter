@@ -358,7 +358,9 @@ UITextFieldDelegate
             self.downScrollView.contentOffset = CGPointMake(WIDTH, 0);
 
         }else {
-            [TSMessage showNotificationWithTitle:@"Error" subtitle:@"注册失败" type:TSMessageNotificationTypeError];
+//            [TSMessage showNotificationWithTitle:@"Error" subtitle:@"注册失败" type:TSMessageNotificationTypeError];
+            [UIView showMessage:@"注册失败"];
+            
 
         }
         
