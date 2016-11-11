@@ -13,7 +13,6 @@
 		4907FF561DD2C37C0026E95A /* FZY_GroupTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4907FF551DD2C37C0026E95A /* FZY_GroupTableViewCell.m */; };
 		4907FF911DD467260026E95A /* FZY_ChatterInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4907FF901DD467260026E95A /* FZY_ChatterInfoViewController.m */; };
 		4907FF951DD48A450026E95A /* FZY_ChatterInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4907FF941DD48A450026E95A /* FZY_ChatterInfoTableViewCell.m */; };
-		4907FF991DD4944F0026E95A /* UIViewController+KSGuid.m in Sources */ = {isa = PBXBuildFile; fileRef = 4907FF981DD4944F0026E95A /* UIViewController+KSGuid.m */; };
 		491424491DC6F69100EC39A5 /* FZY_User.m in Sources */ = {isa = PBXBuildFile; fileRef = 491424481DC6F69100EC39A5 /* FZY_User.m */; };
 		4914244C1DC6F69F00EC39A5 /* FZY_DataHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914244B1DC6F69F00EC39A5 /* FZY_DataHandle.m */; };
 		491656AC1DBA56E100975DE6 /* FZY_SliderScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 491656AB1DBA56E100975DE6 /* FZY_SliderScrollView.m */; };
@@ -221,8 +220,6 @@
 		4907FF901DD467260026E95A /* FZY_ChatterInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatterInfoViewController.m; sourceTree = "<group>"; };
 		4907FF931DD48A450026E95A /* FZY_ChatterInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_ChatterInfoTableViewCell.h; sourceTree = "<group>"; };
 		4907FF941DD48A450026E95A /* FZY_ChatterInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatterInfoTableViewCell.m; sourceTree = "<group>"; };
-		4907FF971DD4944F0026E95A /* UIViewController+KSGuid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KSGuid.h"; sourceTree = "<group>"; };
-		4907FF981DD4944F0026E95A /* UIViewController+KSGuid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KSGuid.m"; sourceTree = "<group>"; };
 		491424421DC6ECED00EC39A5 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		491424471DC6F69100EC39A5 /* FZY_User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_User.h; sourceTree = "<group>"; };
 		491424481DC6F69100EC39A5 /* FZY_User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_User.m; sourceTree = "<group>"; };
@@ -690,8 +687,6 @@
 		4907FF961DD4944F0026E95A /* KSGuidViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4907FF971DD4944F0026E95A /* UIViewController+KSGuid.h */,
-				4907FF981DD4944F0026E95A /* UIViewController+KSGuid.m */,
 			);
 			path = KSGuidViewController;
 			sourceTree = "<group>";
@@ -2064,7 +2059,6 @@
 				49CE08511DC0C1F70022B6B8 /* MJRefreshAutoGifFooter.m in Sources */,
 				4975B2131DBDEB5900B6987D /* FZYBaseViewController.m in Sources */,
 				49CE08A71DC0C1F70022B6B8 /* EaseBubbleView+Video.m in Sources */,
-				4907FF991DD4944F0026E95A /* UIViewController+KSGuid.m in Sources */,
 				49CE086E1DC0C1F70022B6B8 /* EMSDWebImagePrefetcher.m in Sources */,
 				49CE08B21DC0C1F70022B6B8 /* EaseConversationCell.m in Sources */,
 				49CE08A51DC0C1F70022B6B8 /* EaseBubbleView+Location.m in Sources */,

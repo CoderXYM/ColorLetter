@@ -29,12 +29,13 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT * 0.55)];
     imageView.image = [UIImage imageNamed:@"bg-mob"];
     [self.view addSubview:imageView];
+    [self.view sendSubviewToBack:imageView];
     
     // app 名字 
     UIImageView *headImage = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH * 0, 10, WIDTH / 3, 45)];
-   
     headImage.image = [UIImage imageNamed:@"logo"];
     [self.view addSubview:headImage];
+    [self.view sendSubviewToBack:headImage];
 
     // app 介绍
     UILabel *bottomLabel = [[UILabel alloc] init];
@@ -80,7 +81,7 @@
     UIButton *registerButton = [[UIButton alloc]init];
     registerButton.layer.cornerRadius = 15;
     registerButton.backgroundColor = [UIColor colorWithRed:0.26f green:0.55f blue:0.82f alpha:1.00f];
-    registerButton.font = [UIFont fontWithName:@"Helvetica" size:22];
+    registerButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:22];
     [registerButton setTitle:@"Sign up" forState:UIControlStateNormal];
     [registerButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
@@ -105,7 +106,7 @@
     UIButton *loginButton = [[UIButton alloc]init];
      loginButton.layer.cornerRadius = 15;
     loginButton.backgroundColor = [UIColor colorWithRed:0.32 green:0.78 blue:0.48 alpha:1.0];
-    loginButton.font = [UIFont fontWithName:@"Helvetica" size:22];
+    loginButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:22];
     [loginButton setTitle:@"Log in" forState:UIControlStateNormal];
     [loginButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal]; 
     

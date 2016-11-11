@@ -38,6 +38,7 @@ UITableViewDataSource
     self.tableViwe = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _tableViwe.delegate = self;
     _tableViwe.dataSource = self;
+    _tableViwe.separatorStyle = NO;
     [_tableViwe registerClass:[FZY_ChatterInfoTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:_tableViwe];
     
@@ -52,7 +53,8 @@ UITableViewDataSource
     [upView addSubview:effectView];
 
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.image =  [UIImage imageNamed:@"mood-unhappy"];
+//    imageView.image =  [UIImage imageNamed:@"mood-unhappy"];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:_friendImage] placeholderImage:[UIImage imageNamed:@"mood-unhappy"]];
     [upView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(upView.mas_centerY).offset(-20);
@@ -81,6 +83,7 @@ UITableViewDataSource
     FZY_ChatterInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.blackList = _friendName;
     cell.textLabel.text = @"加入黑名单";
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
