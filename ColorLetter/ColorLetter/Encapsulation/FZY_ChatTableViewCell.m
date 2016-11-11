@@ -245,21 +245,13 @@
                 }];               
                 
                 [_rightBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.right.equalTo(self.contentView.mas_right).offset(-50);
-                    make.top.equalTo(self.contentView.mas_top).offset(10);
-                    make.width.equalTo(@220);
-                    make.height.equalTo(@220);
-//                    if (model.width > model.height) {
-//                        make.width.equalTo(@220);
-//                        make.height.equalTo(@(model.height * 220 / model.width));
-//                    }else {
-//                        make.height.equalTo(@220);
-//                        make.width.equalTo(@(model.width * 220 / model.height));
-//                    }
-                    
+                        make.right.equalTo(self.contentView.mas_right).offset(-50);
+                        make.top.equalTo(self.contentView.mas_top).offset(10);
+                        make.width.equalTo(@220);
+                        make.height.equalTo(@220);
                 }];
                 
-
+              
                 [_rightPhotoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(_rightBubble.mas_left);
                     make.top.equalTo(_rightBubble.mas_top);
@@ -377,18 +369,13 @@
                 }];
                 
                 [_leftBubble mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.contentView.mas_left).offset(50);
-                    make.top.equalTo(self.contentView.mas_top).offset(10);
-                    make.width.equalTo(@220);
-                    make.height.equalTo(@220);
-//                    if (model.width > model.height) {
-//                        make.width.equalTo(@220);
-//                        make.height.equalTo(@(model.height * 220 / model.width));
-//                    }else {
-//                        make.height.equalTo(@220);
-//                        make.width.equalTo(@(model.width * 220 / model.height));
-//                    }
+                        make.left.equalTo(self.contentView.mas_left).offset(50);
+                        make.top.equalTo(self.contentView.mas_top).offset(10);
+                        make.width.equalTo(@220);
+                        make.height.equalTo(@(model.height * 220 / model.width));
                 }];
+
+               
                 [_leftPhotoImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.left.equalTo(_leftBubble.mas_left).offset(5);
                     make.top.equalTo(_leftBubble.mas_top);
