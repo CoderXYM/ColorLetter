@@ -15,7 +15,8 @@
 @interface FZYBaseViewController ()
 <
 EMCallManagerDelegate,
-ChatDemoHelperDelegate
+ChatDemoHelperDelegate,
+EMChatManagerDelegate
 >
 @end
 
@@ -36,9 +37,14 @@ ChatDemoHelperDelegate
     
     // 注册实时通话回调
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
+    //注册消息回调
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
 
 }
 
+- (void)didReceiveMessages:(NSArray *)aMessages {
+    [self.delegate refreshTableView];
+}
 
 - (void)create {
     self.titleLabel = [[UILabel alloc] init];

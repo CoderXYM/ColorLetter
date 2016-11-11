@@ -15,7 +15,8 @@
 <
 UITableViewDataSource,
 UITableViewDelegate,
-EMChatManagerDelegate
+EMChatManagerDelegate,
+FZYBaseViewControllerDelegate
 >
 
 {
@@ -66,6 +67,13 @@ EMChatManagerDelegate
     _locService.delegate = (id)self;
     //启动LocationService
     [_locService startUserLocationService];
+    
+    FZYBaseViewController *base = [[FZYBaseViewController alloc] init];
+    base.delegate = self;
+}
+- (void)refreshTableView {
+    [self loadAllConversations];
+    [_tableView reloadData];
 }
 
 //处理位置坐标更新
