@@ -16,7 +16,7 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         self.headImageView = [[UIImageView alloc] init];
-//        _headImageView.image = [UIImage imageNamed:@"mood-confused"];
+        _headImageView.image = [UIImage imageNamed:@"mood-happy"];
         [self.contentView addSubview:_headImageView];
         
         self.nameLabel = [[UILabel alloc] init];

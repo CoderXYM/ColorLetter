@@ -13,6 +13,7 @@
 #import "FZY_BmobObject.h"
 #import "FZY_LoginAndRegisterViewController.h"
 #import "FZY_HelpViewController.h"
+#import "FZY_CreateGroupViewController.h"
 
 static NSString *const cellIdentifier = @"drawerCell";
 
@@ -110,8 +111,8 @@ UINavigationControllerDelegate
 }
 
 - (void)createArray {
-    self.imageArray = @[@"help", @"log Out"];
-    self.nameArray = @[@"Help", @"Log Out"];
+    self.imageArray = @[@"groups", @"help", @"log Out"];
+    self.nameArray = @[@"Creat Group", @"Help", @"Log Out"];
 }
 
 - (void)createTableView {
@@ -257,26 +258,6 @@ UINavigationControllerDelegate
     }];
 }
 
-//- (void)creatNSDictionary {
-//    NSBundle *mainBundle = [NSBundle mainBundle];
-//    NSString *path = [mainBundle bundlePath];
-//    NSString *path1 = [path stringByAppendingPathComponent:@"abc.jpg"];
-//    NSString *path2 = [path stringByAppendingPathComponent:@"abc.zip"];
-//    NSString *path3 = [path stringByAppendingPathComponent:@"abc.text"];
-//    NSData *data1 = [NSData dataWithContentsOfFile:path1];
-//    NSData *data2 = [NSData dataWithContentsOfFile:path2];
-//    NSData *data3 = [NSData dataWithContentsOfFile:path3];
-//    
-//    NSDictionary *dic1 = [[NSDictionary alloc] initWithObjectsAndKeys:@"abc.jpg",@"filename",data1,@"data",nil];
-//    NSDictionary *dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:@"abc.zip",@"filename",data2,@"data",nil];
-//    NSDictionary *dic3 = [[NSDictionary alloc] initWithObjectsAndKeys:@"abc.txt",@"filename",data3,@"data",nil];
-//    
-//    NSArray *array = @[dic1,dic2,dic3];    
-//
-//    [Bmobpro]
-//
-//}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _imageArray.count;
 }
@@ -289,27 +270,31 @@ UINavigationControllerDelegate
     return cell;
 }
 
-
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.row) {
         case 0:{
 
-            FZY_HelpViewController *helpViewControllView = [[FZY_HelpViewController alloc]init];
+            FZY_CreateGroupViewController *createGroupVC = [[FZY_CreateGroupViewController alloc] init];
+            [self presentViewController:createGroupVC animated:YES completion:nil];
 
+        }
+            break;
+        case 1:{
+            FZY_HelpViewController *helpViewControllView = [[FZY_HelpViewController alloc]init];
+            
             [self presentViewController:helpViewControllView animated:YES completion:nil];
             
             NSLog(@"你点击了help");
-            break;
         }
-        case 1:{
+            break;
+        case 2:{
             EMError *error = [[EMClient sharedClient]logout:YES];
             if (!error) {
                 FZY_LoginAndRegisterViewController *larVC = [[FZY_LoginAndRegisterViewController                                                 alloc] init];
                 self.view.window.rootViewController = larVC;
                 
-                }
             }
+        }
             break;
         default:
             break;

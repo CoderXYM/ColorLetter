@@ -68,12 +68,14 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         // 左头像
         self.leftIconImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _leftIconImageView.image = [UIImage imageNamed:@"mood-confused"];
         _leftIconImageView.layer.cornerRadius = 5;
         _leftIconImageView.clipsToBounds = YES;
         [self.contentView addSubview:_leftIconImageView];
         
         // 右头像
         self.rightIconImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _rightIconImageView.image = [UIImage imageNamed:@"mood-unhappy"];
         _rightIconImageView.layer.cornerRadius = 5;
         _rightIconImageView.clipsToBounds = YES;
         [self.contentView addSubview:_rightIconImageView];
@@ -99,8 +101,8 @@
         UIImage * rightImage = [UIImage imageNamed:@"chatto_bg_normal"];
 
         // 2、抓取像素拉伸
-        leftImage = [leftImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
-        rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:17];
+        leftImage = [leftImage stretchableImageWithLeftCapWidth:15 topCapHeight:40];
+        rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:40];
         
         // 左气泡
         self.leftBubble = [[UIImageView alloc] initWithFrame:CGRectZero];

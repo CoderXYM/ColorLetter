@@ -125,8 +125,12 @@ BMKMapViewDelegate
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     [self createRightItem];
+    if (_isGroupChat) {
+        self.title = [NSString stringWithFormat:@"在%@群聊中", _friendName];
+    } else {
+        self.title = [NSString stringWithFormat:@"与%@聊天中", _friendName];
+    }
     
-    self.title = _friendName;
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     
     self.navigationController.navigationBar.translucent = NO;
@@ -175,8 +179,13 @@ BMKMapViewDelegate
 - (void)rightBarAction {
     
     FZY_ChatterInfoViewController *chatterInfoVC = [[FZY_ChatterInfoViewController alloc] init];
-    chatterInfoVC.friendImage  =_friendImage;
+    if (_isGroupChat) {
+        chatterInfoVC.friendImage = @"bg-mob";
+    } else {
+        chatterInfoVC.friendImage  =_friendImage;
+    }
     chatterInfoVC.friendName = _friendName;
+    
     [self.navigationController pushViewController:chatterInfoVC animated:YES];
     
 }

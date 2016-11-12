@@ -42,7 +42,8 @@ UITableViewDataSource
     [_tableViwe registerClass:[FZY_ChatterInfoTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:_tableViwe];
     
-    UIView *upView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 200)];
+    UIImageView *upView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 200)];
+    upView.image = [UIImage imageNamed:@"chatterInfoImage"];
     [self.view addSubview:upView];
     // 设置模糊效果
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
@@ -53,7 +54,7 @@ UITableViewDataSource
     [upView addSubview:effectView];
 
     UIImageView *imageView = [[UIImageView alloc] init];
-//    imageView.image =  [UIImage imageNamed:@"mood-unhappy"];
+
     [imageView sd_setImageWithURL:[NSURL URLWithString:_friendImage] placeholderImage:[UIImage imageNamed:@"mood-unhappy"]];
     [upView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -65,11 +66,12 @@ UITableViewDataSource
     UILabel *nameLabel = [[UILabel alloc] init];
     nameLabel.text = _friendName;
     nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.textColor = [UIColor whiteColor];
     [upView addSubview:nameLabel];
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(upView.mas_bottom).offset(-20);
         make.centerX.equalTo(upView.mas_centerX).offset(0);
-        make.width.equalTo(@100);
+        make.width.equalTo(@200);
         make.height.equalTo(@30);
     }];
     _tableViwe.tableHeaderView = upView;
@@ -80,6 +82,7 @@ UITableViewDataSource
     return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     FZY_ChatterInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.blackList = _friendName;
     cell.textLabel.text = @"加入黑名单";

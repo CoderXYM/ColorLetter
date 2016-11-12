@@ -22,7 +22,6 @@ static NSString *const IdentifierLeft = @"requestLeftCell";
 static NSString *const rightIdentifier = @"rightCell";
 static NSString *const IdentifierRight = @"requestRightCell";
 
-
 @interface TheContactViewController ()
 <
 FZY_SliderScrollViewDelegate,
@@ -43,6 +42,8 @@ FZY_CreateGroupViewControllerDelegate
 @property (nonatomic, strong) FZY_SliderScrollView *sliderScrollView;
 @property (nonatomic, strong) UIView *upView;
 @property (nonatomic, assign) CGFloat count;
+@property (nonatomic, strong) UIButton *friendsButton;
+@property (nonatomic, strong) UIButton *groupButton;
 
 @property (nonatomic, strong)UISearchController *searchController;
 
@@ -58,7 +59,7 @@ FZY_CreateGroupViewControllerDelegate
 @property (nonatomic, strong) NSMutableArray *friendRequest;
 @property (nonatomic, strong) NSMutableArray *groupRequest;
 @property (nonatomic, assign) BOOL select;
-
+@property (nonatomic, assign) BOOL isHidden;
 @property (nonatomic, strong) NSArray *objectArray;
 
 
@@ -77,8 +78,6 @@ FZY_CreateGroupViewControllerDelegate
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     [self getFriendList];
     self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
-
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -103,6 +102,8 @@ FZY_CreateGroupViewControllerDelegate
     self.groupRequest = [NSMutableArray array];
     
     _select = 1;
+    self.isHidden = NO;
+    
     [self creatDownScrollView];
     [self ChooseSingleOrGroup];
 
@@ -111,6 +112,9 @@ FZY_CreateGroupViewControllerDelegate
     
     // 注册群组回调
     [[EMClient sharedClient].groupManager addDelegate:self delegateQueue:nil];
+    
+    FZY_CreateGroupViewController *createGroupVC = [[FZY_CreateGroupViewController alloc] init];
+    createGroupVC.delegate = self;
     
     [self create];
 }
@@ -168,7 +172,6 @@ FZY_CreateGroupViewControllerDelegate
 - (void)groupInvitationDidReceive:(NSString *)aGroupId
                           inviter:(NSString *)aInviter
                           message:(NSString *)aMessage {
-    NSLog(@"%@, %@, %@", aGroupId, aInviter, aMessage);
     
     NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:1];
     NSDictionary *groupDic = @{@"aUsername" : [NSString stringWithFormat:@"%@", aInviter], @"aMessage" : [NSString stringWithFormat:@"%@", aMessage], @"aGroupId" : [NSString stringWithFormat:@"%@", aGroupId]};
@@ -234,32 +237,32 @@ FZY_CreateGroupViewControllerDelegate
     _sliderScrollView.clipsToBounds = YES;
     [_upView addSubview:_sliderScrollView];
     
-    UIButton *friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
-    [friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
-    [friendsButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    self.friendsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_friendsButton setTitle:@"Friends" forState:UIControlStateNormal];
+    [_friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
+    [_friendsButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [UIView animateWithDuration:0.2 animations:^{
             _downScrollView.contentOffset = CGPointMake(0, 0);
         }];
     }];
-    [_upView addSubview:friendsButton];
-    [friendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_upView addSubview:_friendsButton];
+    [_friendsButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_upView).offset(30);
         make.width.equalTo(@70);
         make.top.equalTo(_upView).offset(5);
         make.bottom.equalTo(_upView.mas_bottom).offset(-5);
     }];
     
-    UIButton *groudButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [groudButton setTitle:@"Group" forState:UIControlStateNormal];
-    [groudButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] forState:UIControlStateNormal];
-    [groudButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    self.groupButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_groupButton setTitle:@"Group" forState:UIControlStateNormal];
+    [_groupButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_groupButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [UIView animateWithDuration:0.2 animations:^{
             _downScrollView.contentOffset = CGPointMake(WIDTH, 0);
         }];
     }];
-    [_upView addSubview:groudButton];
-    [groudButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_upView addSubview:_groupButton];
+    [_groupButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_upView).offset(-30);
         make.width.equalTo(@70);
         make.top.equalTo(_upView).offset(5);
@@ -270,35 +273,53 @@ FZY_CreateGroupViewControllerDelegate
 
 #pragma mark - 实现自定义协议 获取滑块位置
 - (void)getSliderPostionX:(CGFloat)x {
-    NSLog(@"%f, %f",x, slideLength);
+    
     if (x > (slideLength / 2)) {
         [UIView animateWithDuration:0.2 animations:^{
             _downScrollView.contentOffset = CGPointMake(WIDTH , 0);
+            [self changeButtonTitleColorWith:NO];
         }];
     }else if (x < (slideLength / 2)){
         [UIView animateWithDuration:0.2 animations:^{
             _downScrollView.contentOffset = CGPointMake(0 , 0);
+            [self changeButtonTitleColorWith:YES];
         }];
+    }
+}
+
+- (void)changeButtonTitleColorWith:(BOOL)willChange {
+    if (willChange) {
+        [_friendsButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0] forState:UIControlStateNormal];
+        [_groupButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    } else {
+        [_friendsButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
+        [_groupButton setTitleColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0] forState:UIControlStateNormal];
     }
 }
 
 #pragma mark - scrollView 关联滑块
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.x < WIDTH / 2) {
+        [self changeButtonTitleColorWith:YES];
+    } else {
+        [self changeButtonTitleColorWith:NO];
+    }
         
-            if ([scrollView isEqual:_downScrollView]) {
-                if (scrollView.contentOffset.y == 0) {
-                    NSInteger i = 0;
-                    if (scrollView.contentOffset.x > _count) {
-                        i = -3;
-                    } else {
-                        i = 3;
-                    }
-                    _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
-                    self.count = scrollView.contentOffset.x ;
-                }
+    if ([scrollView isEqual:_downScrollView]) {
+        if (scrollView.contentOffset.y == 0) {
+            NSInteger i = 0;
+            if (scrollView.contentOffset.x > _count) {
+                i = -3;
+            } else {
+                i = 3;
+            }
+                _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
+                self.count = scrollView.contentOffset.x ;
+            }
                 
         }
-    
+   
 }
 
 #pragma mark - 创建 downScrollView, tableView
@@ -363,14 +384,16 @@ FZY_CreateGroupViewControllerDelegate
                     return 0;
             }
     } else {
+        
         if (0 == section) {
-            return 0;
-        }
-        if (1 == section) {
             return _groupRequest.count;
         }
-        if (2 == section) {
-            return _rightArray.count;
+        if (1 == section) {
+            if (_isHidden) {
+                return 0;
+            }else {
+                return _rightArray.count;
+            }
         }
         return 0;
     }
@@ -387,13 +410,7 @@ FZY_CreateGroupViewControllerDelegate
             return cell;
         }else {
             FZY_FriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:leftIdentifier];
-            
-//            for (FZY_User *user in _objectArray) {
-//                if (_searchLeftArray[indexPath.row] == user.name) {
-//                    cell.imageUrl = user.imageUrl;
-//                }
-//            }
-
+        
             if (_searchController.active) {
                 for (FZY_User *user in _objectArray) {
                     if (_searchLeftArray[indexPath.row] == user.name) {
@@ -415,7 +432,7 @@ FZY_CreateGroupViewControllerDelegate
             return cell;
         }
     }
-        if (1 == indexPath.section) {
+        if (0 == indexPath.section) {
             FZY_RequestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IdentifierRight];
             if (_groupRequest.count) {
                 cell.fzy = _groupRequest[indexPath.row];
@@ -425,7 +442,6 @@ FZY_CreateGroupViewControllerDelegate
            FZY_GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
             cell.nameLabel.text = [NSString stringWithFormat:@"%@", _rightArray[indexPath.row]];
             return cell;
-    
     
 }
 
@@ -472,7 +488,7 @@ FZY_CreateGroupViewControllerDelegate
             
         }
     } else {
-        if (1 == indexPath.section) {
+        if (0 == indexPath.section) {
             
             if (_groupRequest.count) {
                 
@@ -515,23 +531,14 @@ FZY_CreateGroupViewControllerDelegate
             }
             
         }
-        if (2 == indexPath.section) {
+        if (1 == indexPath.section) {
             
             if (_rightArray.count) {
-               
-                NSLog(@"%@", _rightArray[indexPath.row]);
-                
+                EMGroup *group = _rightArray[indexPath.row];
                 FZY_ChatViewController *chat = [[FZY_ChatViewController alloc] init];
-                chat.friendName = @"1478743651027";
+                chat.friendName = group.groupId;
                 chat.isGroupChat = YES;
                 [self.navigationController pushViewController:chat animated:YES];
-//                if (_leftArray.count > 0) {
-//                    chat.friendName = _leftArray[indexPath.row];
-//                    [self.navigationController pushViewController:chat animated:YES];
-//                }else {
-//                    chat.friendName = _searchLeftArray[indexPath.row];
-//                    [self.navigationController pushViewController:chat animated:YES];
-//                }
             }
             
         }
@@ -540,12 +547,8 @@ FZY_CreateGroupViewControllerDelegate
 
 #pragma mark - 分区数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if ([tableView isEqual: _leftTabeleView]) {
-        return 2;
-    } else {
-        return 3;
-    }
-}
+    return 2;
+ }
 
 #pragma mark - 改变分区头标题高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -572,10 +575,7 @@ FZY_CreateGroupViewControllerDelegate
     } if ([tableView isEqual: _rightTableView]) {
         UIButton *sectionButton = [UIButton buttonWithType:UIButtonTypeCustom];
         sectionButton.frame = sectionView.bounds;
-        if (0 == section) {
-            [sectionButton setTitle:@"Create" forState:UIControlStateNormal];
-            [sectionButton addTarget:self action:@selector(creatGroupButton:) forControlEvents:UIControlEventTouchUpInside];
-        }else if (1 == section) {
+       if (0 == section) {
             [sectionButton setTitle:@"Requests" forState:UIControlStateNormal];
         } else {
             [sectionButton setTitle:@"List" forState:UIControlStateNormal];
@@ -599,13 +599,6 @@ FZY_CreateGroupViewControllerDelegate
     [_leftTabeleView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-#pragma mark - 创建群组
-- (void)creatGroupButton:(UIButton *)button {
-    FZY_CreateGroupViewController *createGroupVC = [[FZY_CreateGroupViewController alloc] init];
-    createGroupVC.delegate = self;
-    [self presentViewController:createGroupVC animated:YES completion:nil];
-}
-
 #pragma mark - 实现自定义协议
 - (void)insertNewGroupToTableViewWithName:(NSString *)groupName description:(NSString *)groupDescription {
     
@@ -616,7 +609,14 @@ FZY_CreateGroupViewControllerDelegate
 
 #pragma mark - 群组列表
 -(void)groupListButtonAction:(UIButton *)button {
-    NSLog(@"点击了群组列表");
+
+    if (NO == _isHidden) {
+        _isHidden = YES;
+    } else {
+        _isHidden = NO;
+    }
+    [_rightTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+    
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
