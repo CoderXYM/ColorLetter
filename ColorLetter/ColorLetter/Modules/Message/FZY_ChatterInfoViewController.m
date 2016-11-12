@@ -81,6 +81,7 @@ UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FZY_ChatterInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -89,6 +90,7 @@ UITableViewDataSource
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
