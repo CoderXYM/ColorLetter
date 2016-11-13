@@ -30,10 +30,11 @@
     [super layoutSubviews];
     
     [_blackListSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView).offset(-70);
+        make.right.equalTo(self.contentView).offset(-30);
         make.top.equalTo(self.contentView).offset(5);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-5);
     }];
+    
 }
 
 - (void)switchChange:(UISwitch *)switchValue {

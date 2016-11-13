@@ -118,6 +118,7 @@ EMClientDelegate
  *  @param aError 错误信息
  */
 - (void)didAutoLoginWithError:(EMError *)aError {
+    [TSMessage showNotificationWithTitle:@"Automatic Login Success" subtitle:@"自动登录成功" type:TSMessageNotificationTypeSuccess];
     AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
     [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -134,7 +135,7 @@ EMClientDelegate
             }
         }
     }];
-    [TSMessage showNotificationWithTitle:@"Automatic Login Success" subtitle:@"自动登录成功" type:TSMessageNotificationTypeSuccess];
+   
 
 }
 
