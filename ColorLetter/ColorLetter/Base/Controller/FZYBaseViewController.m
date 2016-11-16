@@ -22,6 +22,12 @@ EMChatManagerDelegate
 
 @implementation FZYBaseViewController
 
+- (void)dealloc {
+    [ChatDemoHelper shareHelper].delegate = nil;
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 //    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
     self.navigationController.navigationBar.hidden = YES;
@@ -37,13 +43,7 @@ EMChatManagerDelegate
     
     // 注册实时通话回调
     [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
-    //注册消息回调
-    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
 
-}
-
-- (void)didReceiveMessages:(NSArray *)aMessages {
-    [self.delegate refreshTableView];
 }
 
 - (void)create {
@@ -63,13 +63,15 @@ EMChatManagerDelegate
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
         DrawerViewController *drawerVC = [[DrawerViewController alloc] init];
-         drawerVC.myImage = [UIImage captureImageFromView: self.view];
-        CATransition * animation = [CATransition animation];
-        animation.duration = 0.5;
-        animation.type = kCATransitionPush;
+//         drawerVC.myImage = [UIImage captureImageFromView: self.view];
+//        CATransition * animation = [CATransition animation];
+//        animation.duration = 0.5;
+//        animation.type = kCATransitionPush;
+        drawerVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        drawerVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         drawerVC.viewController = self;
-         [self.view.window.layer addAnimation:animation forKey:nil];      
-        [self presentViewController:drawerVC animated:YES completion:nil];
+//         [self.view.window.layer addAnimation:animation forKey:nil];      
+        [self presentViewController:drawerVC animated:NO completion:nil];
         
     }];
     [self.view addSubview:_drawerButton];

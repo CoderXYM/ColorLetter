@@ -11,6 +11,7 @@
 
 #import "FZY_LoginAndRegisterViewController.h"
 #import "ChatDemoHelper.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
 <
@@ -47,20 +48,28 @@ EMClientDelegate
         NSLog(@"初始化成功");
     }
     //------- 注册 APNS --------
-    if ([application respondsToSelector:@selector(registerForRemoteNotifications)]) {
+    if ([[UIDevice currentDevice] systemVersion].floatValue < 8.0f) {
+        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
+    }else if (([[UIDevice currentDevice] systemVersion].floatValue >= 8.0f) && ([[UIDevice currentDevice] systemVersion].floatValue < 10.0f)) {
+        // 注册通知设置
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil]];
+        // 注册远程通知 (请求token)
         [application registerForRemoteNotifications];
-        UIUserNotificationType notificationTypes = UIUserNotificationTypeBadge |
-        UIUserNotificationTypeSound |
-        UIUserNotificationTypeAlert;
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
-        [application registerUserNotificationSettings:settings];
-    }
-    else{
+    }else {
+        UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+        [notificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            // 授权成功
+            if (granted) {
+                NSLog(@"成功");
+                [notificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                    NSLog(@"setting : %@", settings);
+                }];
+            }else {
+                NSLog(@"Authorization error : %@",error);
+            }
+        }];
+        [application registerForRemoteNotifications];
         
-        UIRemoteNotificationType notificationTypes = UIRemoteNotificationTypeBadge |
-        UIRemoteNotificationTypeSound |
-        UIRemoteNotificationTypeAlert;
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
     }
     // ------------------------
     
@@ -102,6 +111,8 @@ EMClientDelegate
 
 }
 
+
+
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     [[EMClient sharedClient] bindDeviceToken:deviceToken];
@@ -109,7 +120,7 @@ EMClientDelegate
 
 // 注册deviceToken失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    NSLog(@"error -- %@",error);
+    NSLog(@"register error :%@", error);
 }
 
 /*

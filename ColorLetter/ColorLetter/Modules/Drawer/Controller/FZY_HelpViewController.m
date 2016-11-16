@@ -43,7 +43,7 @@
    
     UILabel *label = [[UILabel alloc] init];
     label.text = @"ColorLetter Help Center";
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     [label setTextColor:[UIColor whiteColor]];
     [self.view addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {

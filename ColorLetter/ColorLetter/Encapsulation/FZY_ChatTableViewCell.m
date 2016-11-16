@@ -250,7 +250,7 @@
                         make.right.equalTo(self.contentView.mas_right).offset(-50);
                         make.top.equalTo(self.contentView.mas_top).offset(10);
                         make.width.equalTo(@220);
-                        make.height.equalTo(@220);
+                    make.height.equalTo(self.contentView.mas_height).offset(-20);
                 }];
                 
               
@@ -296,12 +296,6 @@
                         make.top.equalTo(_rightBubble.mas_top);
                         make.width.equalTo(@(100 + w));
                     }];
-//
-//                    [_rightVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                        make.right.equalTo(_rightBubble.mas_right).offset(-15);
-//                        make.top.equalTo(_rightBubble.mas_top).offset(10);
-//                        make.width.height.equalTo(@25);
-//                    }];
                     
                 } else {
                     // 文字
@@ -319,13 +313,6 @@
                         make.width.equalTo(@(size.width + 30));
                     }];
                     
-//                    [_rightLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                        make.left.equalTo(_rightBubble.mas_left);
-//                        make.top.equalTo(_rightBubble.mas_top);
-//                        make.centerY.equalTo(_rightBubble.mas_centerY);
-//                        make.right.equalTo(_rightBubble.mas_right);
-//                    }];
-                    
                 }
                 
             }
@@ -333,12 +320,6 @@
             self.rightLabel.text = model.context;
             self.rightName.text = model.fromUser;
             self.rightTimeLabel.text = [NSData intervalSinceNow:model.time];
-//            [_rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.centerX.equalTo(_rightBubble.mas_centerX).offset(0);
-//                make.top.equalTo(_rightBubble.mas_bottom).offset(0);
-//                make.width.equalTo(@100);
-//                make.height.equalTo(@10);
-//            }];
 
         }else{
             
@@ -374,7 +355,8 @@
                         make.left.equalTo(self.contentView.mas_left).offset(50);
                         make.top.equalTo(self.contentView.mas_top).offset(10);
                         make.width.equalTo(@220);
-                        make.height.equalTo(@(model.height * 220 / model.width));
+//                        make.height.equalTo(@(model.height * 220 / model.width));
+                    make.height.equalTo(self.contentView.mas_height).offset(-20);
                 }];
 
                
@@ -425,13 +407,6 @@
                         make.width.equalTo(@(100 + w));
                     }];
                     
-//                    [_lefeVoice mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                        make.left.equalTo(_leftBubble.mas_left).offset(15);
-//                        make.top.equalTo(_leftBubble.mas_top).offset(10);
-//                        make.width.height.equalTo(@25);
-//                    }];
-
-                    
                 } else {
                     // 文字
                     self.lefeVoice.hidden = YES;
@@ -447,23 +422,13 @@
                         make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
                         make.width.equalTo(@(size.width + 30));
                     }];
-//                    [_leftLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                        make.left.equalTo(_leftBubble.mas_left).offset(5);
-//                        make.top.equalTo(_leftBubble.mas_top).offset(5);
-//                        make.centerY.equalTo(_leftBubble.mas_centerY);
-//                        make.right.equalTo(_leftBubble.mas_right).offset(-10);
-//                    }];
+
                 }
             }
             self.leftLabel.text = model.context;
             self.leftName.text = model.fromUser;
             self.leftTimeLabel.text = [NSData intervalSinceNow:model.time];
-//            [_leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//                make.centerX.equalTo(_leftBubble.mas_centerX).offset(0);
-//                make.top.equalTo(_leftBubble.mas_bottom).offset(0);
-//                make.width.equalTo(@100);
-//                make.height.equalTo(@10);
-//            }];
+
         }
         
     }

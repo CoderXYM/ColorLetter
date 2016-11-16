@@ -25,7 +25,7 @@
         _switchController.thumbTintColor = [UIColor whiteColor];
         [_switchController setOn:YES animated:YES];
         [_switchController addTarget:self action:@selector(switchValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [self addSubview:_switchController];
+        [self.contentView addSubview:_switchController];
     }
     return self;
 }
@@ -33,8 +33,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     [_switchController mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right);
-        make.centerY.equalTo(self.mas_centerY);
+        make.right.equalTo(self.contentView.mas_right);
+        make.centerY.equalTo(self.contentView.mas_centerY);
         make.width.equalTo(@100);
         make.height.equalTo(@35);
     }];

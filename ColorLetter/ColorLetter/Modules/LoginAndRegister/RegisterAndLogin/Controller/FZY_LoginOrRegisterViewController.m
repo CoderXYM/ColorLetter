@@ -33,6 +33,14 @@ UITextFieldDelegate
 
 @implementation FZY_LoginOrRegisterViewController
 
+- (void)dealloc {
+    _downScrollView.delegate = nil;
+    _accountTextField.delegate = nil;
+    _passwordTextField.delegate = nil;
+    _loginAccountTextField.delegate = nil;
+    _loginPasswordTextField.delegate = nil;
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:YES];
 //    [self.delegate dismissViewController];

@@ -18,9 +18,15 @@ FZY_FriendsListViewControllerDelegate
 @property (weak, nonatomic) IBOutlet UITextView *groupDescription;
 @property (weak, nonatomic) IBOutlet UITextField *maxMembers;
 @property (nonatomic, strong) NSMutableArray *groupMembersArray;
+@property (nonatomic, strong)  FZY_FriendsListViewController *friendsListVC;
 @end
 
 @implementation FZY_CreateGroupViewController
+
+- (void)dealloc {
+    _groupDescription.delegate = nil;
+    _friendsListVC.delegate = nil;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,6 +34,9 @@ FZY_FriendsListViewControllerDelegate
     
     [self backButton];
     [self completeButton];
+    // 添加手势收起键盘
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(screenTap:)];
+    [self.view addGestureRecognizer:tap];
 }
 #pragma mark - 返回按钮
 - (void)backButton {
@@ -97,9 +106,9 @@ FZY_FriendsListViewControllerDelegate
 #pragma mark - 邀请群成员
 - (IBAction)inviteGroupMembers:(id)sender {
     
-    FZY_FriendsListViewController *friendsListVC = [[FZY_FriendsListViewController alloc] init];
-    friendsListVC.delegate = self;
-    [self presentViewController:friendsListVC animated:YES completion:nil];
+    self.friendsListVC = [[FZY_FriendsListViewController alloc] init];
+    _friendsListVC.delegate = self;
+    [self presentViewController:_friendsListVC animated:YES completion:nil];
 }
 
 - (void)getInvitedFriendsName:(NSMutableArray *)array {

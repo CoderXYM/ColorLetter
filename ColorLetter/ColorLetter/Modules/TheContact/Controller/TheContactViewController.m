@@ -71,6 +71,12 @@ FZY_CreateGroupViewControllerDelegate
     //移除好友回调
     [[EMClient sharedClient].contactManager removeDelegate:self];
     [[EMClient sharedClient].groupManager removeDelegate:self];
+    _leftTabeleView.delegate = nil;
+    _leftTabeleView.dataSource = nil;
+    _rightTableView.delegate = nil;
+    _rightTableView.dataSource = nil;
+    _searchController.delegate = nil;
+    _sliderScrollView.delegate = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

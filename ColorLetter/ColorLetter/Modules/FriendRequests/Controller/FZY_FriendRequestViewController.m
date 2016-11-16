@@ -30,6 +30,12 @@ UITextFieldDelegate
 
 @implementation FZY_FriendRequestViewController
 
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _textField.delegate = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

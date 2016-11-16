@@ -25,6 +25,12 @@ UITableViewDataSource
 @end
 
 @implementation FZY_FriendsListViewController
+
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self getFriendList];
