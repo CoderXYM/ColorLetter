@@ -71,6 +71,8 @@ BMKMapViewDelegate
 @property (nonatomic, strong) UIImagePickerController *PickerImage;
 @property (nonatomic, strong) UIImagePickerController *pickerImage;
 
+@property (nonatomic, assign) BOOL change;
+
 
 @end
 
@@ -458,7 +460,7 @@ BMKMapViewDelegate
 }
 
 - (void)didReceiveHasReadAcks:(NSArray *)aMessages {
-    NSLog(@"%ld", aMessages.count);
+    self.change = YES;
 }
 
 #pragma mark - 发送消息
@@ -958,6 +960,7 @@ BMKMapViewDelegate
     cell.leftImage = _friendImage;
     cell.rightImage = _userImage;
     cell.model = model;
+    cell.change = _change;
 //    [cell performSelector:@selector(setModel:) withObject:model afterDelay:0.f inModes:@[NSDefaultRunLoopMode]];
 
     return cell;
