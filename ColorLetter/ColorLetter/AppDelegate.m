@@ -62,8 +62,7 @@ EMClientDelegate
         
     } else {
         // iOS 10.0
-        
-        UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+         UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         [notificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
             // 授权成功
             if (granted) {
@@ -125,6 +124,8 @@ EMClientDelegate
 
 }
 
+
+
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     [[EMClient sharedClient] bindDeviceToken:deviceToken];
@@ -133,7 +134,7 @@ EMClientDelegate
 
 // 注册deviceToken失败
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
-    NSLog(@"error -- %@",error);
+    NSLog(@"register error :%@", error);
 }
 
 /*

@@ -10,7 +10,6 @@
 #import "DrawerTableViewCell.h"                           
 #import "FZY_SettingViewController.h"
 #import "FZY_LoginOrRegisterViewController.h"
-#import "FZY_BmobObject.h"
 #import "FZY_LoginAndRegisterViewController.h"
 #import "FZY_HelpViewController.h"
 #import "FZY_CreateGroupViewController.h"
@@ -22,8 +21,7 @@ static NSString *const cellIdentifier = @"drawerCell";
 <
 UITableViewDelegate,
 UITableViewDataSource,
-UIImagePickerControllerDelegate,
-UINavigationControllerDelegate
+UIImagePickerControllerDelegate
 >
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -40,9 +38,24 @@ UINavigationControllerDelegate
 
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
+@property (nonatomic, strong) UIImagePickerController *PickerImage;
+
+@property (nonatomic, strong) UIVisualEffectView *effectView;
+
+@property (nonatomic, strong) UIView *myView;
+
+@property (nonatomic, strong) UIImagePickerController *pickerImage;
+
 @end
 
 @implementation DrawerViewController
+
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _PickerImage.delegate = nil;
+    
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
@@ -61,6 +74,15 @@ UINavigationControllerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.myView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH / 7 * 5, HEIGHT)];
+    [self.view addSubview:_myView];
+    // 设置模糊效果
+    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    // 创建模糊效果的视图
+    self.effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    // 添加到有模糊效果的控件上
+    _effectView.frame = _myView.bounds;
+    [_myView addSubview:_effectView];
     self.flag = NO;
     self.objectArray = [NSMutableArray array];
     
@@ -92,7 +114,7 @@ UINavigationControllerDelegate
     //    [UIView animateWithDuration:0.001 animations:^{
     //        self.view.transform = CGAffineTransformMakeTranslation(-500, 0);
     //    }];
-    //    [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
     CATransition * animation = [CATransition animation];
     animation.duration = 0.5;
 //    animation.type = @"suckEffect";
@@ -116,22 +138,14 @@ UINavigationControllerDelegate
 }
 
 - (void)createTableView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH / 7 * 5, HEIGHT)];
-    [self.view addSubview:view];
-    // 设置模糊效果
-    UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    // 创建模糊效果的视图
-    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-    // 添加到有模糊效果的控件上
-    effectView.frame = view.bounds;
-    [view addSubview:effectView];
+    
     
     
     //头像
    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake((WIDTH - WIDTH / 7 * 2 - 100) * 0.5, (HEIGHT - HEIGHT / 3 * 2 - 100) * 0.5, 100, 100)];
    _imageView.image = [UIImage imageNamed:@"mood-confused"];
 
-    [effectView addSubview:_imageView];
+    [_effectView addSubview:_imageView];
     
     //把头像设置成圆形
     _imageView.layer.cornerRadius = _imageView.frame.size.width / 2;
@@ -155,7 +169,7 @@ UINavigationControllerDelegate
     _tableView.delegate = self;
     _tableView.rowHeight = 80;
     _tableView.dataSource = self;
-    [view addSubview:_tableView];
+    [_myView addSubview:_tableView];
     [_tableView registerClass:[DrawerTableViewCell class] forCellReuseIdentifier:cellIdentifier];
 
 }
@@ -167,24 +181,24 @@ UINavigationControllerDelegate
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-        PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.pickerImage = [[UIImagePickerController alloc]init];
+        _pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
          //允许编辑，即放大裁剪
-        PickerImage.allowsEditing = YES;
+        _pickerImage.allowsEditing = YES;
         //自代理
-        PickerImage.delegate = self;
+        _pickerImage.delegate = (id)self;
          //页面跳转
-        [self presentViewController:PickerImage animated:YES completion:nil];
+        [self presentViewController:_pickerImage animated:YES completion:nil];
         
     }]];   
     
     [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+        self.PickerImage = [[UIImagePickerController alloc]init];
        //获取方式:通过相机
-        PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
-        PickerImage.allowsEditing = YES;
-        PickerImage.delegate = self;
-        [self presentViewController:PickerImage animated:YES completion:nil];
+        _PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
+        _PickerImage.allowsEditing = YES;
+        _PickerImage.delegate = (id)self;
+        [self presentViewController:_PickerImage animated:YES completion:nil];
     }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];

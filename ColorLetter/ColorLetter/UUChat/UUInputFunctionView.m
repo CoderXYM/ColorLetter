@@ -199,13 +199,11 @@
 
 #pragma mark - TextViewDelegate
 
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
+- (void)textViewDidBeginEditing:(UITextView *)textView {
     placeHold.hidden = self.TextViewInput.text.length > 0;
 }
 
-- (void)textViewDidChange:(UITextView *)textView
-{
+- (void)textViewDidChange:(UITextView *)textView {
     [self changeSendBtnWithPhoto:textView.text.length>0?NO:YES];
     placeHold.hidden = textView.text.length>0;
 }
@@ -214,7 +212,6 @@
 {
     self.isAbleToSendTextMessage = !isPhoto;
     [self.btnSendMessage setTitle:isPhoto?@"":@"send" forState:UIControlStateNormal];
-//    self.btnSendMessage.frame = RECT_CHANGE_width(self.btnSendMessage, isPhoto?30:35);
     self.btnSendMessage.frame = CGRectMake(_btnSendMessage.frame.origin.x, _btnSendMessage.frame.origin.y, isPhoto?30:35, _btnSendMessage.frame.size.height);
     UIImage *image = [UIImage imageNamed:isPhoto?@"Chat_take_picture":@"chat_send_message"];
     [self.btnSendMessage setBackgroundImage:image forState:UIControlStateNormal];

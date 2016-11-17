@@ -199,6 +199,7 @@
 		49CE08B21DC0C1F70022B6B8 /* EaseConversationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CE083C1DC0C1F70022B6B8 /* EaseConversationCell.m */; };
 		49CE08B51DC0D6D80022B6B8 /* EaseUIResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */; };
 		49CEFED41DC0519F0022B6B8 /* FZY_FriendsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */; };
+		49D14BE71DD96DB000A59E94 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D14BE61DD96DB000A59E94 /* UserNotifications.framework */; };
 		49DBEF271DD09E6A00AA29B4 /* UIImageAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DBEF261DD09E6A00AA29B4 /* UIImageAvatarBrowser.m */; };
 		49E640261DC0493000149AF1 /* FZY_FriendRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */; };
 		49EB5EB31DD09D62002A860D /* FZY_CreateGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49EB5EB11DD09D62002A860D /* FZY_CreateGroupViewController.m */; };
@@ -603,8 +604,8 @@
 		49CE08B41DC0D6D80022B6B8 /* EaseUIResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EaseUIResource.bundle; sourceTree = "<group>"; };
 		49CEFED21DC0519F0022B6B8 /* FZY_FriendsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendsModel.h; sourceTree = "<group>"; };
 		49CEFED31DC0519F0022B6B8 /* FZY_FriendsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_FriendsModel.m; sourceTree = "<group>"; };
-		49D64AB61DC43A25000DA016 /* FZY_BmobObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_BmobObject.h; path = ColorLetter/Modules/Drawer/FZY_BmobObject.h; sourceTree = SOURCE_ROOT; };
-		49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FZY_BmobObject.m; path = ColorLetter/Modules/Drawer/FZY_BmobObject.m; sourceTree = SOURCE_ROOT; };
+		49D14BE51DD96D9400A59E94 /* ColorLetter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorLetter.entitlements; sourceTree = "<group>"; };
+		49D14BE61DD96DB000A59E94 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		49DBEF251DD09E6A00AA29B4 /* UIImageAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIImageAvatarBrowser.h; path = ColorLetter/Modules/Message/Root/UIImageAvatarBrowser.h; sourceTree = SOURCE_ROOT; };
 		49DBEF261DD09E6A00AA29B4 /* UIImageAvatarBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIImageAvatarBrowser.m; path = ColorLetter/Modules/Message/Root/UIImageAvatarBrowser.m; sourceTree = SOURCE_ROOT; };
 		49E640241DC0493000149AF1 /* FZY_FriendRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_FriendRequestViewController.h; sourceTree = "<group>"; };
@@ -631,7 +632,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C0EC631DD9EA2C00C01EB5 /* UserNotifications.framework in Frameworks */,
+
+				49D14BE71DD96DB000A59E94 /* UserNotifications.framework in Frameworks */,
 				49C43F901DBEE5690060092C /* libiconv.tbd in Frameworks */,
 				49CE08481DC0C1F70022B6B8 /* libopencore-amrnb.a in Frameworks */,
 				49C43F8E1DBEE5410060092C /* libsqlite3.tbd in Frameworks */,
@@ -890,8 +892,6 @@
 		4969E1861DB8AF44007D0A06 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				49D64AB61DC43A25000DA016 /* FZY_BmobObject.h */,
-				49D64AB71DC43A25000DA016 /* FZY_BmobObject.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1080,7 +1080,8 @@
 		49B032771DB79C0800D36732 /* ColorLetter */ = {
 			isa = PBXGroup;
 			children = (
-				49C0EC641DD9EDDF00C01EB5 /* ColorLetter.entitlements */,
+
+				49D14BE51DD96D9400A59E94 /* ColorLetter.entitlements */,
 				49CE02401DC0B0A60022B6B8 /* ThirdPart */,
 				49B0328F1DB79C7800D36732 /* Base */,
 				49B032901DB79C8700D36732 /* Common */,
@@ -1908,7 +1909,7 @@
 		88BE9261FE5BDA5D941EC341 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				49C0EC621DD9EA2C00C01EB5 /* UserNotifications.framework */,
+				49D14BE61DD96DB000A59E94 /* UserNotifications.framework */,
 				491424421DC6ECED00EC39A5 /* libsqlite3.0.tbd */,
 				49C43F8F1DBEE5690060092C /* libiconv.tbd */,
 				49C43F8D1DBEE5410060092C /* libsqlite3.tbd */,
@@ -2382,7 +2383,8 @@
 					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ColorLetter/VoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FZY.colorletter;
+
+				PRODUCT_BUNDLE_IDENTIFIER = com.colorLetter.fzy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2411,7 +2413,8 @@
 					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ColorLetter/VoiceLib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.FZY.colorletter;
+
+				PRODUCT_BUNDLE_IDENTIFIER = com.colorLetter.fzy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

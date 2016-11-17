@@ -24,7 +24,6 @@ EMChatManagerDelegate,
 UICollectionViewDelegate,
 UICollectionViewDataSource,
 UIImagePickerControllerDelegate,
-UINavigationControllerDelegate,
 Mp3RecorderDelegate,
 BMKMapViewDelegate
 >
@@ -69,10 +68,27 @@ BMKMapViewDelegate
 
 @property (nonatomic, copy) NSString *friendImage;
 
+@property (nonatomic, strong) UIImagePickerController *PickerImage;
+@property (nonatomic, strong) UIImagePickerController *pickerImage;
+
 
 @end
 
 @implementation FZY_ChatViewController
+
+- (void)dealloc {
+    _pickerImage.delegate = nil;
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    _importTextField.delegate = nil;
+    _mapView.delegate = nil;
+    MP3.delegate = nil;
+    _optionsCollectionView.delegate = nil;
+    _optionsCollectionView.dataSource = nil;
+    _PickerImage.delegate = nil;
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];    
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -794,13 +810,13 @@ BMKMapViewDelegate
         case 0:
         {
             NSLog(@"图片");
-            UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
-            PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            self.PickerImage = [[UIImagePickerController alloc]init];
+            _PickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             //自代理
-            PickerImage.delegate = self;
-            PickerImage.allowsEditing = YES;
+            _PickerImage.delegate = (id)self;
+            _PickerImage.allowsEditing = YES;
             //页面跳转
-            [self presentViewController:PickerImage animated:YES completion:nil];
+            [self presentViewController:_PickerImage animated:YES completion:nil];
             
             
         }
@@ -808,12 +824,12 @@ BMKMapViewDelegate
         case 1:
         {
             NSLog(@"相机");
-            UIImagePickerController *PickerImage = [[UIImagePickerController alloc]init];
+            self.pickerImage = [[UIImagePickerController alloc]init];
             //获取方式:通过相机
-            PickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
-            PickerImage.allowsEditing = YES;
-            PickerImage.delegate = self;
-            [self presentViewController:PickerImage animated:YES completion:nil];
+            _pickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
+            _pickerImage.allowsEditing = YES;
+            _pickerImage.delegate = (id)self;
+            [self presentViewController:_pickerImage animated:YES completion:nil];
         }
             break;
         case 2:
@@ -942,13 +958,19 @@ BMKMapViewDelegate
     //取数据
     FZY_ChatModel * model = _dataSourceArray[indexPath.row];
     if (model.isPhoto) {
-        return 240;
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.photoName]]];
+        CGSize size = image.size;
+        CGFloat scale = 220 / image.size.width;
+        CGFloat height = size.height *scale;
+        return height + 20;
+
     } else {
         if (model.isVoice) {
             return 60;
         }else {
+
             //根据文字确定显示大小
-            CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
+            CGSize size = [model.context boundingRectWithSize:CGSizeMake(160, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} context:nil].size;
             return size.height + 50;
         }
     }

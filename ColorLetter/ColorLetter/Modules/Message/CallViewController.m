@@ -35,8 +35,7 @@
 
 - (instancetype)initWithSession:(EMCallSession *)session
                        isCaller:(BOOL)isCaller
-                         status:(NSString *)statusString
-{
+                         status:(NSString *)statusString {
     self = [super init];
     if (self) {
         _callSession = session;

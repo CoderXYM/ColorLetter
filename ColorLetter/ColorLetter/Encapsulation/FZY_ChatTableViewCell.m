@@ -250,7 +250,7 @@
                         make.right.equalTo(self.contentView.mas_right).offset(-50);
                         make.top.equalTo(self.contentView.mas_top).offset(10);
                         make.width.equalTo(@220);
-                        make.height.equalTo(@220);
+                    make.height.equalTo(self.contentView.mas_height).offset(-20);
                 }];
                 
               
@@ -355,7 +355,8 @@
                         make.left.equalTo(self.contentView.mas_left).offset(50);
                         make.top.equalTo(self.contentView.mas_top).offset(10);
                         make.width.equalTo(@220);
-                        make.height.equalTo(@(model.height * 220 / model.width));
+//                        make.height.equalTo(@(model.height * 220 / model.width));
+                    make.height.equalTo(self.contentView.mas_height).offset(-20);
                 }];
 
                
@@ -405,7 +406,6 @@
                         make.top.equalTo(_leftBubble.mas_top);
                         make.width.equalTo(@(100 + w));
                     }];
-                    
                     
                 } else {
                     // 文字

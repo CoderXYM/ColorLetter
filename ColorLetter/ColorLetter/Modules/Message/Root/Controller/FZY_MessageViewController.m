@@ -15,8 +15,7 @@
 <
 UITableViewDataSource,
 UITableViewDelegate,
-EMChatManagerDelegate,
-FZYBaseViewControllerDelegate
+EMChatManagerDelegate
 >
 
 {
@@ -30,11 +29,17 @@ FZYBaseViewControllerDelegate
 
 @property (nonatomic, strong) NSArray *objectArray;
 
-//@property (nonatomic, strong) FZY_User *user;
-
 @end
 
 @implementation FZY_MessageViewController
+
+- (void)dealloc {
+    _tableView.delegate = nil;
+    _tableView.dataSource = nil;
+    //移除消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    
+}
 
 - (void)viewWillDisappear:(BOOL)animated {
      [super viewWillDisappear:animated];
@@ -48,7 +53,8 @@ FZYBaseViewControllerDelegate
     
     self.navigationController.navigationBar.hidden = YES;
     
-    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];    
+    self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     // 载入所有会话
     [self loadAllConversations];
     
@@ -60,7 +66,6 @@ FZYBaseViewControllerDelegate
     self.objectArray = [NSMutableArray array];
 
     self.title = @"Messages";
-    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     
     [self creatTableView];
     [super create];
@@ -70,13 +75,12 @@ FZYBaseViewControllerDelegate
     //启动LocationService
     [_locService startUserLocationService];
     
-    FZYBaseViewController *base = [[FZYBaseViewController alloc] init];
-    base.delegate = self;
 }
-- (void)refreshTableView {
+
+- (void)didReceiveMessages:(NSArray *)aMessages {
     [self loadAllConversations];
-    [_tableView reloadData];
 }
+
 
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
@@ -89,8 +93,9 @@ FZYBaseViewControllerDelegate
 #pragma mark - 获取全部会话
 - (void)loadAllConversations {
     
-    [_conversationArray removeAllObjects];
-    
+    if (_conversationArray.count > 0 ) {
+        [_conversationArray removeAllObjects];
+    }
     NSArray *conversationArray = [[EMClient sharedClient].chatManager getAllConversations];
         
     for (EMConversation *con in conversationArray) {
@@ -98,8 +103,6 @@ FZYBaseViewControllerDelegate
         FZY_FriendsModel *model = [[FZY_FriendsModel alloc] init];
         if (con.type == EMConversationTypeChat) {
             model.name = con.conversationId;
-            NSLog(@"%@", con.conversationId);
-            
             model.isGroup = NO;
         } else{
             // 群聊
