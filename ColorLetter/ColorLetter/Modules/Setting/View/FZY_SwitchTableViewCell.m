@@ -41,7 +41,21 @@
 }
 
 - (void)switchValueChanged:(UISwitch *)switchControl {
-
+    if (switchControl.on) {
+        EMPushOptions *options = [[EMClient sharedClient] pushOptions];
+        options.noDisturbStatus = EMPushNoDisturbStatusClose;
+        EMError *error = [[EMClient sharedClient] uploadLogToServer];
+        if (!error) {
+            NSLog(@"关闭免打扰成功");
+        }
+    } else {
+        EMPushOptions *options = [[EMClient sharedClient] pushOptions];
+        options.noDisturbStatus = EMPushNoDisturbStatusDay;
+        EMError *error = [[EMClient sharedClient] uploadLogToServer];
+        if (!error) {
+            NSLog(@"关闭通知成功");
+        }
+    }
 }
 
 
