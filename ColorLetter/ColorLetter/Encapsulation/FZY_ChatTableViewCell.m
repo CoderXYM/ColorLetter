@@ -98,7 +98,13 @@
         
         // 1、得到图片信息
         UIImage * leftImage = [UIImage imageNamed:@"chatfrom_bg_normal"];
-        UIImage * rightImage = [UIImage imageNamed:@"chatto_bg_normal"];
+         UIImage * rightImage = [[UIImage alloc] init];
+        if (_change == YES) {
+            rightImage = [UIImage imageNamed:@"SenderTextNodeBkg"];
+        }else {
+            rightImage = [UIImage imageNamed:@"chatto_bg_normal"];
+        }
+        
 
         // 2、抓取像素拉伸
         leftImage = [leftImage stretchableImageWithLeftCapWidth:15 topCapHeight:40];

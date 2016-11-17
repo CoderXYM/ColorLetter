@@ -18,6 +18,6 @@
 
 @property (nonatomic, copy) NSString *rightImage;
 
-@property (nonatomic, assign) float height;
+@property (nonatomic, assign) BOOL change;
 
 @end
