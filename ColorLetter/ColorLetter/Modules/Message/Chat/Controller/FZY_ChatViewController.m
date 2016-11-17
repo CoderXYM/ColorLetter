@@ -959,12 +959,13 @@ BMKMapViewDelegate
     if (_dataSourceArray.count <= 0) {
         return cell;
     }
+    cell.change = _change;
+
     // 取数据
     FZY_ChatModel *model = _dataSourceArray[indexPath.row];
     cell.leftImage = _friendImage;
     cell.rightImage = _userImage;
     cell.model = model;
-    cell.change = _change;
 //    [cell performSelector:@selector(setModel:) withObject:model afterDelay:0.f inModes:@[NSDefaultRunLoopMode]];
 
     return cell;

@@ -55,6 +55,8 @@
 
 @property (nonatomic, assign) float i;
 
+@property (nonatomic, strong) UIImage * rightImageChange;
+
 @end
 
 @implementation FZY_ChatTableViewCell
@@ -98,17 +100,14 @@
         
         // 1、得到图片信息
         UIImage * leftImage = [UIImage imageNamed:@"chatfrom_bg_normal"];
-         UIImage * rightImage = [[UIImage alloc] init];
-        if (_change == YES) {
-            rightImage = [UIImage imageNamed:@"SenderTextNodeBkg"];
-        }else {
-            rightImage = [UIImage imageNamed:@"chatto_bg_normal"];
-        }
+        self.rightImageChange = [[UIImage alloc] init];
+        _rightImageChange = [UIImage imageNamed:@"chatto_bg_normal"];
+        
         
 
         // 2、抓取像素拉伸
         leftImage = [leftImage stretchableImageWithLeftCapWidth:15 topCapHeight:40];
-        rightImage = [rightImage stretchableImageWithLeftCapWidth:15 topCapHeight:40];
+        _rightImageChange = [_rightImageChange stretchableImageWithLeftCapWidth:15 topCapHeight:40];
         
         // 左气泡
         self.leftBubble = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -117,7 +116,7 @@
         [self.contentView addSubview:_leftBubble];
         // 右气泡
         self.rightBubble = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _rightBubble.image = rightImage;
+        _rightBubble.image = _rightImageChange;
         _rightBubble.userInteractionEnabled = YES;
         [self.contentView addSubview:_rightBubble];
         
@@ -504,6 +503,22 @@
         make.height.equalTo(@10);
     }];
     
+    if (_change == YES) {
+        _rightImageChange = [UIImage imageNamed:@"SenderTextNodeBkg"];
+    }else {
+        _rightImageChange = [UIImage imageNamed:@"chatto_bg_normal"];
+    }
+    
+    
+    
+}
+
+- (void)prepareForReuse {
+    if (_change == YES) {
+        _rightImageChange = [UIImage imageNamed:@"SenderTextNodeBkg"];
+    }else {
+        _rightImageChange = [UIImage imageNamed:@"chatto_bg_normal"];
+    }
 }
 
 - (void)AVAudioPlayerDidFinishPlay {
