@@ -67,6 +67,8 @@
 		49B032C31DB7A41600D36732 /* AppStoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C21DB7A41600D36732 /* AppStoreUtils.m */; };
 		49B032C61DB7A47900D36732 /* FileManagerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C51DB7A47900D36732 /* FileManagerUtils.m */; };
 		49BFEAB51DC4501800D6DB00 /* FZY_RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BFEAB41DC4501800D6DB00 /* FZY_RequestModel.m */; };
+		49C0EC3A1DD9459100C01EB5 /* UITextField+ExtentRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C0EC391DD9459100C01EB5 /* UITextField+ExtentRange.m */; };
+		49C0EC631DD9EA2C00C01EB5 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C0EC621DD9EA2C00C01EB5 /* UserNotifications.framework */; };
 		49C43F7E1DBEE4590060092C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7D1DBEE4590060092C /* CoreMedia.framework */; };
 		49C43F801DBEE4770060092C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7F1DBEE4770060092C /* AudioToolbox.framework */; };
 		49C43F821DBEE4880060092C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F811DBEE4880060092C /* AVFoundation.framework */; };
@@ -204,6 +206,8 @@
 		49EB5EB41DD09D62002A860D /* FZY_CreateGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49EB5EB21DD09D62002A860D /* FZY_CreateGroupViewController.xib */; };
 		49F137271DD0325B005F3733 /* FZY_ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F137261DD0325B005F3733 /* FZY_ChatViewController.m */; };
 		49F1372A1DD03273005F3733 /* FZY_MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F137291DD03273005F3733 /* FZY_MessageViewController.m */; };
+		49F528A11DDC95D5005FC823 /* FZY_ServeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F5289F1DDC95D5005FC823 /* FZY_ServeViewController.m */; };
+		49F528A21DDC95D5005FC823 /* FZY_ServeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F528A01DDC95D5005FC823 /* FZY_ServeViewController.xib */; };
 		49FAD61B1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */; };
 		49FAD61E1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FAD61D1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.m */; };
 /* End PBXBuildFile section */
@@ -330,6 +334,10 @@
 		49B032C81DB7A59700D36732 /* FZYMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FZYMacro.h; sourceTree = "<group>"; };
 		49BFEAB31DC4501800D6DB00 /* FZY_RequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_RequestModel.h; sourceTree = "<group>"; };
 		49BFEAB41DC4501800D6DB00 /* FZY_RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_RequestModel.m; sourceTree = "<group>"; };
+		49C0EC381DD9459100C01EB5 /* UITextField+ExtentRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+ExtentRange.h"; sourceTree = "<group>"; };
+		49C0EC391DD9459100C01EB5 /* UITextField+ExtentRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+ExtentRange.m"; sourceTree = "<group>"; };
+		49C0EC621DD9EA2C00C01EB5 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		49C0EC641DD9EDDF00C01EB5 /* ColorLetter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorLetter.entitlements; sourceTree = "<group>"; };
 		49C43F7D1DBEE4590060092C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		49C43F7F1DBEE4770060092C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		49C43F811DBEE4880060092C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -609,6 +617,9 @@
 		49F137261DD0325B005F3733 /* FZY_ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ChatViewController.m; sourceTree = "<group>"; };
 		49F137281DD03273005F3733 /* FZY_MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_MessageViewController.h; sourceTree = "<group>"; };
 		49F137291DD03273005F3733 /* FZY_MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_MessageViewController.m; sourceTree = "<group>"; };
+		49F5289E1DDC95D5005FC823 /* FZY_ServeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_ServeViewController.h; sourceTree = "<group>"; };
+		49F5289F1DDC95D5005FC823 /* FZY_ServeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_ServeViewController.m; sourceTree = "<group>"; };
+		49F528A01DDC95D5005FC823 /* FZY_ServeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FZY_ServeViewController.xib; sourceTree = "<group>"; };
 		49FAD6191DC41F6B00636D62 /* FZY_BaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FZY_BaseCollectionViewCell.h; sourceTree = "<group>"; };
 		49FAD61A1DC41F6B00636D62 /* FZY_BaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_BaseCollectionViewCell.m; sourceTree = "<group>"; };
 		49FAD61C1DC41FA200636D62 /* FZY_KeyboardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FZY_KeyboardCollectionViewCell.h; path = ColorLetter/Base/View/FZY_KeyboardCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -621,6 +632,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+
 				49D14BE71DD96DB000A59E94 /* UserNotifications.framework in Frameworks */,
 				49C43F901DBEE5690060092C /* libiconv.tbd in Frameworks */,
 				49CE08481DC0C1F70022B6B8 /* libopencore-amrnb.a in Frameworks */,
@@ -985,6 +997,9 @@
 			children = (
 				4975B25D1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.h */,
 				4975B25E1DBE41F700B6987D /* FZY_LoginOrRegisterViewController.m */,
+				49F5289E1DDC95D5005FC823 /* FZY_ServeViewController.h */,
+				49F5289F1DDC95D5005FC823 /* FZY_ServeViewController.m */,
+				49F528A01DDC95D5005FC823 /* FZY_ServeViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1038,6 +1053,8 @@
 				4975B2721DBE42FB00B6987D /* UIView+Frame.m */,
 				4975B2731DBE42FB00B6987D /* UIView+ShowMessage.h */,
 				4975B2741DBE42FB00B6987D /* UIView+ShowMessage.m */,
+				49C0EC381DD9459100C01EB5 /* UITextField+ExtentRange.h */,
+				49C0EC391DD9459100C01EB5 /* UITextField+ExtentRange.m */,
 			);
 			path = Categoies;
 			sourceTree = "<group>";
@@ -1063,6 +1080,7 @@
 		49B032771DB79C0800D36732 /* ColorLetter */ = {
 			isa = PBXGroup;
 			children = (
+
 				49D14BE51DD96D9400A59E94 /* ColorLetter.entitlements */,
 				49CE02401DC0B0A60022B6B8 /* ThirdPart */,
 				49B0328F1DB79C7800D36732 /* Base */,
@@ -1995,6 +2013,7 @@
 				492D934D1DD46D36009426A9 /* 3.gif in Resources */,
 				49CE08851DC0C1F70022B6B8 /* MWPhotoBrowser.bundle in Resources */,
 				492D93491DD45E91009426A9 /* 1.gif in Resources */,
+				49F528A21DDC95D5005FC823 /* FZY_ServeViewController.xib in Resources */,
 				49CE08B51DC0D6D80022B6B8 /* EaseUIResource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2061,7 +2080,9 @@
 				49CE08511DC0C1F70022B6B8 /* MJRefreshAutoGifFooter.m in Sources */,
 				4975B2131DBDEB5900B6987D /* FZYBaseViewController.m in Sources */,
 				49CE08A71DC0C1F70022B6B8 /* EaseBubbleView+Video.m in Sources */,
+				49C0EC3A1DD9459100C01EB5 /* UITextField+ExtentRange.m in Sources */,
 				49CE086E1DC0C1F70022B6B8 /* EMSDWebImagePrefetcher.m in Sources */,
+				49F528A11DDC95D5005FC823 /* FZY_ServeViewController.m in Sources */,
 				49CE08B21DC0C1F70022B6B8 /* EaseConversationCell.m in Sources */,
 				49CE08A51DC0C1F70022B6B8 /* EaseBubbleView+Location.m in Sources */,
 				49CE08721DC0C1F70022B6B8 /* UIImage+EMGIF.m in Sources */,
@@ -2362,6 +2383,7 @@
 					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ColorLetter/VoiceLib",
 				);
+
 				PRODUCT_BUNDLE_IDENTIFIER = com.colorLetter.fzy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2391,6 +2413,7 @@
 					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ColorLetter/VoiceLib",
 				);
+
 				PRODUCT_BUNDLE_IDENTIFIER = com.colorLetter.fzy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

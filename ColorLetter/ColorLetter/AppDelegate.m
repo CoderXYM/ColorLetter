@@ -47,27 +47,37 @@ EMClientDelegate
     if (!_error) {
         NSLog(@"初始化成功");
     }
+    
     //------- 注册 APNS --------
     if ([[UIDevice currentDevice] systemVersion].floatValue < 8.0f) {
+        // iOS 8.0 之前
         [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
-    }else if (([[UIDevice currentDevice] systemVersion].floatValue >= 8.0f) && ([[UIDevice currentDevice] systemVersion].floatValue < 10.0f)) {
-        // 注册通知设置
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil]];
-        // 注册远程通知 (请求token)
+        
+    } else if (([[UIDevice currentDevice] systemVersion].floatValue) >= 8.0f && ([UIDevice currentDevice].systemVersion.floatValue < 10.0f)) {
+        
+        // iOS 8.0 ~ iOS 10.0
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil]]; // categories 通知的不同的分类
+        // 注册远程通知 (请求 token)
         [application registerForRemoteNotifications];
-    }else {
-        UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+        
+    } else {
+        // iOS 10.0
+         UNUserNotificationCenter *notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         [notificationCenter requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
             // 授权成功
             if (granted) {
-                NSLog(@"成功");
+                NSLog(@"授权成功");
+                
+                // 查看用了哪些通知的设备 (可写可不写)
                 [notificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                    NSLog(@"setting : %@", settings);
+                    NSLog(@"settings : %@", settings);
                 }];
-            }else {
-                NSLog(@"Authorization error : %@",error);
+                
+            } else {
+                NSLog(@"授权失败 , Authorization error : %@", error);
             }
         }];
+        
         [application registerForRemoteNotifications];
         
     }
@@ -75,6 +85,9 @@ EMClientDelegate
     
     BOOL isAutoLogin = [EMClient sharedClient].options.isAutoLogin;
     if (isAutoLogin) {
+        // 推送昵称
+        NSString *str = [EMClient sharedClient].currentUsername;
+        [[EMClient sharedClient] setApnsNickname:str];
        self.window.rootViewController = [[FZYTabBarViewController alloc] init];
     } else {
         self.window.rootViewController = [[FZY_LoginAndRegisterViewController alloc] init];
@@ -83,29 +96,29 @@ EMClientDelegate
     [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
     
     // EaseUI 的初始化
-    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#colorletter" apnsCertName:nil otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
+    [[EaseSDKHelper shareHelper] hyphenateApplication:application didFinishLaunchingWithOptions:launchOptions appkey:@"1137161019178010#colorletter" apnsCertName:@"ColorLetter" otherConfig:@{kSDKConfigEnableConsoleLogger:[NSNumber numberWithBool:YES]}];
     
     // LeanCloud 的初始化
     [AVOSCloud setApplicationId:@"TqOSFbfozHvy7bvJsvRb5iUo-gzGzoHsz" clientKey:@"BVsKxayJdjhnXBz1fXjE4FOp"];
     
     [ChatDemoHelper shareHelper];
     
-//    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
-//    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            [[FZY_DataHandle shareDatahandle] open];
-//            [[FZY_DataHandle shareDatahandle] deleteAll];
-//            for (AVObject *userPhoto in objects) {
-//                AVObject *user = [userPhoto objectForKey:@"userName"];
-//                FZY_User *use = [[FZY_User alloc] init];
-//                AVFile *file = [userPhoto objectForKey:@"image"];
-//                use.name = [NSString stringWithFormat:@"%@", user];
-//                use.imageUrl = file.url;
-//                use.userId = userPhoto.objectId;
-//                [[FZY_DataHandle shareDatahandle] insert:use];
-//            }
-//        }
-//    }];
+    AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
+    [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            [[FZY_DataHandle shareDatahandle] open];
+            [[FZY_DataHandle shareDatahandle] deleteAll];
+            for (AVObject *userPhoto in objects) {
+                AVObject *user = [userPhoto objectForKey:@"userName"];
+                FZY_User *use = [[FZY_User alloc] init];
+                AVFile *file = [userPhoto objectForKey:@"image"];
+                use.name = [NSString stringWithFormat:@"%@", user];
+                use.imageUrl = file.url;
+                use.userId = userPhoto.objectId;
+                [[FZY_DataHandle shareDatahandle] insert:use];
+            }
+        }
+    }];
     
     return YES;
 
@@ -116,6 +129,7 @@ EMClientDelegate
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     [[EMClient sharedClient] bindDeviceToken:deviceToken];
+    
 }
 
 // 注册deviceToken失败
@@ -146,7 +160,6 @@ EMClientDelegate
             }
         }
     }];
-   
 
 }
 
@@ -179,10 +192,8 @@ EMClientDelegate
  *  @param aConnectionState 当前状态
  */
 - (void)didConnectionStateChanged:(EMConnectionState)aConnectionState {
-    NSLog(@"正在重连...");
+    [TSMessage showNotificationWithTitle:@"正在重连..." subtitle:nil type:TSMessageNotificationTypeWarning];
 }
-
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

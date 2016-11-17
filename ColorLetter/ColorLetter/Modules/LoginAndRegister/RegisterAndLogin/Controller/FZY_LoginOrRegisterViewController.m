@@ -10,7 +10,7 @@
 #import "FZY_MessageViewController.h"
 #import "FZYTabBarViewController.h"
 #import "DrawerViewController.h"
-
+#import "FZY_ServeViewController.h"
 @interface FZY_LoginOrRegisterViewController ()
 <
 UIScrollViewDelegate,
@@ -24,10 +24,13 @@ UITextFieldDelegate
 @property (nonatomic, retain) UITextField *passwordTextField;
 @property (nonatomic, retain) UITextField *loginAccountTextField;
 @property (nonatomic, retain) UITextField *loginPasswordTextField;
+@property (nonatomic, retain) UITextField *confirmPasswordTextField;
 
 @property (nonatomic, strong) UIImageView *leftImageView;
 @property (nonatomic, strong) UIImageView *myImageView;
 @property (nonatomic, strong) EMError *error;
+@property (nonatomic, strong) UIButton *signUpButton;
+@property (nonatomic, assign) BOOL agree;
 
 @end
 
@@ -49,6 +52,7 @@ UITextFieldDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.agree = YES;
     
     [self creatLoginOrRegisterButton];
     [self creatDownScrollView];
@@ -58,9 +62,15 @@ UITextFieldDelegate
     [self.view bringSubviewToFront:_triangleImageView];
     [self.view addSubview:_triangleImageView];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [self.view addGestureRecognizer:tap];
+    
+}
+- (void)tapAction:(UITapGestureRecognizer *)tap {
+    [self.view endEditing:YES];
 }
 
-#pragma mark - 创建 downScrollView
+#pragma mark - 创建 downScrollView 注册
 - (void)creatDownScrollView {
     self.downScrollView  = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _upView.frame.size.height, WIDTH, HEIGHT - _upView.frame.size.height)];
     _downScrollView.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
@@ -82,11 +92,9 @@ UITextFieldDelegate
         make.width.equalTo(@(WIDTH));
     }];
 
-    
     self.accountTextField = [[UITextField alloc]init];
-//    _accountTextField.keyboardType = UITextAutocapitalizationTypeWords;
     _accountTextField.textColor = [UIColor whiteColor];
-    _accountTextField.placeholder = @"  Your New Username";
+    _accountTextField.placeholder = @"Your New Username";
     [_accountTextField setValue:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     _accountTextField.clearButtonMode = UITextFieldViewModeAlways;
     [_downScrollView addSubview:_accountTextField];
@@ -97,12 +105,13 @@ UITextFieldDelegate
         make.width.equalTo(@(WIDTH - 120));
         
     }];
-   
+    
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     UIImageView *accountImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     accountImageView.image = [UIImage imageNamed:@"field-email"];
+    [leftView addSubview:accountImageView];
     _accountTextField.leftViewMode = UITextFieldViewModeAlways;
-    _accountTextField.leftView = accountImageView;
-    [_accountTextField addSubview:accountImageView];
+    _accountTextField.leftView = leftView;
     
     UIView *accountLineView = [[UIView alloc]init];
     accountLineView.backgroundColor = [UIColor blackColor];
@@ -113,30 +122,28 @@ UITextFieldDelegate
         make.top.equalTo(_accountTextField).offset(32);
         make.height.equalTo(@1);
     }];
-   
     
     self.passwordTextField = [[UITextField alloc]init];
-//    _passwordTextField.keyboardType = UITextAutocapitalizationTypeWords;
     _passwordTextField.delegate = self;
     _passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
     _passwordTextField.secureTextEntry = YES;
     _passwordTextField.textColor = [UIColor whiteColor];
-    _passwordTextField.placeholder = @"  New Password";
+    _passwordTextField.placeholder = @"New Password";
     [_passwordTextField setValue:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [_downScrollView addSubview:_passwordTextField];
     [_passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_downScrollView.mas_left).offset(60);
-        make.top.equalTo(_downScrollView.mas_top).offset(220);
+        make.top.equalTo(_accountTextField.mas_bottom).offset(30);
         make.height.equalTo(@30);
         make.width.equalTo(@(WIDTH - 120));
-
     }];
     
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     UIImageView *passwordImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     passwordImageView.image = [UIImage imageNamed:@"field-lock"];
-    _passwordTextField.leftViewMode = UITextFieldViewModeAlways;;
-    _passwordTextField.leftView = passwordImageView;
-    [_passwordTextField addSubview:passwordImageView];
+    [rightView addSubview:passwordImageView];
+    _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    _passwordTextField.leftView = rightView;
     
     UIView *passwordLineView = [[UIView alloc]init];
     passwordLineView.backgroundColor = [UIColor blackColor];
@@ -146,9 +153,126 @@ UITextFieldDelegate
         make.right.equalTo(_passwordTextField).offset(0);
         make.top.equalTo(_passwordTextField).offset(32);
         make.height.equalTo(@1);
+    }];
+    
+    self.confirmPasswordTextField = [[UITextField alloc]init];
+    _confirmPasswordTextField.delegate = self;
+    _confirmPasswordTextField.clearButtonMode = UITextFieldViewModeAlways;
+    _confirmPasswordTextField.secureTextEntry = YES;
+    _confirmPasswordTextField.textColor = [UIColor whiteColor];
+    _confirmPasswordTextField.placeholder = @"New password again";
+    [_confirmPasswordTextField setValue:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
+    [_downScrollView addSubview:_confirmPasswordTextField];
+    [_confirmPasswordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_downScrollView.mas_left).offset(60);
+        make.top.equalTo(_passwordTextField.mas_bottom).offset(30);
+        make.height.equalTo(@30);
+        make.width.equalTo(@(WIDTH - 120));
+    }];
+    
+    UIView *conPasswordView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
+    UIImageView *conPasswordImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
+    conPasswordImageView.image = [UIImage imageNamed:@"field-lock"];
+    [conPasswordView addSubview:conPasswordImageView];
+    _confirmPasswordTextField.leftViewMode = UITextFieldViewModeAlways;
+    _confirmPasswordTextField.leftView = conPasswordView;
+
+    UIView *conPasswordLineView = [[UIView alloc]init];
+    conPasswordLineView.backgroundColor = [UIColor blackColor];
+    [_passwordTextField addSubview:conPasswordLineView];
+    [conPasswordLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_confirmPasswordTextField).offset(0);
+        make.right.equalTo(_confirmPasswordTextField).offset(0);
+        make.top.equalTo(_confirmPasswordTextField.mas_bottom).offset(0);
+        make.height.equalTo(@1);
+    }];
+    
+    self.signUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_signUpButton setTitle:@"register" forState:UIControlStateNormal];
+    [_signUpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _signUpButton.backgroundColor = [UIColor colorWithRed:0.30 green:0.79 blue:0.50 alpha:1.0];
+    _signUpButton.layer.cornerRadius = 10;
+    _signUpButton.clipsToBounds = YES;
+    _signUpButton.layer.borderWidth = 1;
+    _signUpButton.layer.borderColor = [UIColor blackColor].CGColor;
+    [self.downScrollView addSubview:_signUpButton];
+    [_signUpButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_confirmPasswordTextField).offset(-20);
+        make.right.equalTo(_confirmPasswordTextField).offset(20);
+        make.top.equalTo(_confirmPasswordTextField.mas_bottom).offset(80);
+        make.height.equalTo(@50);
+    }];
+    [_signUpButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        
+        if (([_accountTextField.text isEqualToString:@""] | [_passwordTextField.text isEqualToString:@""] | [_confirmPasswordTextField.text isEqualToString:@""])) {
+            [UIView showMessage:@"请填写您的注册信息"];
+        } else {
+            
+            if (_agree) {
+                
+                [self register];
+                
+            } else {
+                [UIView showMessage:@"请同意服务协议"];
+            }
+        }
+    }];
+    
+    UIButton *roundImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    roundImageButton.layer.borderColor = [UIColor blackColor].CGColor;
+    roundImageButton.layer.borderWidth = 1;
+    roundImageButton.backgroundColor = [UIColor colorWithRed:0.30 green:0.79 blue:0.50 alpha:1.0];
+    [roundImageButton setBackgroundImage:[UIImage imageNamed:@"agree"] forState:UIControlStateNormal];
+    [self.downScrollView addSubview:roundImageButton];
+    [roundImageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_confirmPasswordTextField).offset(-20);
+        make.top.equalTo(_signUpButton.mas_bottom).offset(20);
+        make.width.equalTo(@20);
+        make.height.equalTo(@20);
+    }];
+    roundImageButton.layer.cornerRadius = 10;
+    roundImageButton.clipsToBounds = YES;
+    [roundImageButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        self.agree = !_agree;
+        if (_agree) {
+            [roundImageButton setBackgroundImage:[UIImage imageNamed:@"agree"] forState:UIControlStateNormal];
+            _signUpButton.backgroundColor = [UIColor colorWithRed:0.30 green:0.79 blue:0.50 alpha:1.0];
+            roundImageButton.backgroundColor = [UIColor colorWithRed:0.30 green:0.79 blue:0.50 alpha:1.0];
+        } else {
+            [roundImageButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+            _signUpButton.backgroundColor = nil;
+            roundImageButton.backgroundColor = nil;
+        }
         
     }];
     
+    UILabel *serveItemLabel = [[UILabel alloc] init];
+    serveItemLabel.text = @"我已阅读并同意";
+    serveItemLabel.font = [UIFont systemFontOfSize:13];
+    serveItemLabel.textColor = [UIColor whiteColor];
+    [self.downScrollView addSubview:serveItemLabel];
+    [serveItemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(roundImageButton.mas_right).offset(5);
+        make.centerY.equalTo(roundImageButton.mas_centerY).offset(0);
+        make.width.equalTo(@100);
+        make.height.equalTo(@30);
+    }];
+    
+    UIButton *serveItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [serveItemButton setTitle:@"服务协议" forState:UIControlStateNormal];
+    serveItemButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [serveItemButton setTitleColor:[UIColor colorWithRed:0.30 green:0.79 blue:0.50 alpha:1.0] forState:UIControlStateNormal];
+    [self.downScrollView addSubview:serveItemButton];
+    [serveItemButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(serveItemLabel.mas_right).offset(5);
+        make.centerY.equalTo(roundImageButton.mas_centerY).offset(0);
+        make.width.equalTo(@80);
+        make.height.equalTo(@30);
+    }];
+    [serveItemButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        FZY_ServeViewController *serveVC = [[FZY_ServeViewController alloc] init];
+        [self presentViewController:serveVC animated:YES completion:nil];
+    }];
 }
 
 // 隐藏键盘
@@ -180,7 +304,6 @@ UITextFieldDelegate
         make.height.equalTo(@15);
     }];
     
-    
     UIButton *LoginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [LoginButton setTitle:@"Log in" forState:UIControlStateNormal];
     [_upView addSubview:LoginButton];
@@ -211,24 +334,21 @@ UITextFieldDelegate
         make.height.equalTo(@40);
     }];
     
-    
     [registerButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [_loginPasswordTextField resignFirstResponder];
         [_loginAccountTextField resignFirstResponder];
         [_accountTextField resignFirstResponder];
         [_passwordTextField resignFirstResponder];
-
-
+        
         self.downScrollView.contentOffset = CGPointMake(0, 0);
     }];
 
     
 }
 
-#pragma mark - 登录的downScrollView
+#pragma mark - 登录
 -(void)creatLoginView {
 
-    
     self.myImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_header"]];
     _myImageView.userInteractionEnabled = YES;
     [_downScrollView addSubview:_myImageView];
@@ -240,10 +360,9 @@ UITextFieldDelegate
     }];
     
     self.loginAccountTextField = [[UITextField alloc]init];
-//    _loginAccountTextField.keyboardType = UITextAutocapitalizationTypeWords;
     _loginAccountTextField.clearButtonMode = UITextFieldViewModeAlways;
     _loginAccountTextField.textColor = [UIColor whiteColor];
-    _loginAccountTextField.placeholder = @"  Username";
+    _loginAccountTextField.placeholder = @"Username";
     [_loginAccountTextField setValue:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [_downScrollView addSubview:_loginAccountTextField];
     [_loginAccountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -254,11 +373,12 @@ UITextFieldDelegate
         
     }];
     
+    UIView *upView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     UIImageView *accountImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     accountImageView.image = [UIImage imageNamed:@"field-email"];
+    [upView addSubview:accountImageView];
     _loginAccountTextField.leftViewMode = UITextFieldViewModeAlways;
-    _loginAccountTextField.leftView = accountImageView;
-    [_loginAccountTextField addSubview:accountImageView];
+    _loginAccountTextField.leftView = upView;
     
     UIView *accountLineView = [[UIView alloc]init];
     accountLineView.backgroundColor = [UIColor blackColor];
@@ -270,14 +390,12 @@ UITextFieldDelegate
         make.height.equalTo(@1);
     }];
     
-    
    self.loginPasswordTextField = [[UITextField alloc]init];
-//    _loginPasswordTextField.keyboardType = UITextAutocapitalizationTypeWords;
     _loginPasswordTextField.delegate = self;
     _loginPasswordTextField.clearButtonMode = UITextFieldViewModeAlways;
     _loginPasswordTextField.secureTextEntry = YES;
     _loginPasswordTextField.textColor = [UIColor whiteColor];
-    _loginPasswordTextField.placeholder = @"  Password";
+    _loginPasswordTextField.placeholder = @"Password";
     [_loginPasswordTextField setValue:[UIColor colorWithRed:1 green:1 blue:1 alpha:1.000] forKeyPath:@"placeholderLabel.textColor"];
     [_downScrollView addSubview:_loginPasswordTextField];
     [_loginPasswordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -285,14 +403,14 @@ UITextFieldDelegate
         make.top.equalTo(_downScrollView.mas_top).offset(220);
         make.height.equalTo(@30);
         make.width.equalTo(@(WIDTH - 120));
-        
     }];
     
+    UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 20)];
     UIImageView *passwordImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 20, 20)];
     passwordImageView.image = [UIImage imageNamed:@"field-lock"];
+    [downView addSubview:passwordImageView];
     _loginPasswordTextField.leftViewMode = UITextFieldViewModeAlways;;
-    _loginPasswordTextField.leftView = passwordImageView;
-    [_loginPasswordTextField addSubview:passwordImageView];
+    _loginPasswordTextField.leftView = downView;
     
     UIView *passwordLineView = [[UIView alloc]init];
     passwordLineView.backgroundColor = [UIColor blackColor];
@@ -302,10 +420,27 @@ UITextFieldDelegate
         make.right.equalTo(_loginPasswordTextField).offset(0);
         make.top.equalTo(_loginPasswordTextField).offset(32);
         make.height.equalTo(@1);
-        
     }];
     
-  
+    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [loginButton setTitle:@"Log in" forState:UIControlStateNormal];
+    [loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    loginButton.backgroundColor = [UIColor colorWithRed:0.30 green:0.79 blue:0.50 alpha:1.0];
+    loginButton.layer.cornerRadius = 10;
+    loginButton.clipsToBounds = YES;
+    loginButton.layer.borderWidth = 1;
+    loginButton.layer.borderColor = [UIColor blackColor].CGColor;
+    [self.downScrollView addSubview:loginButton];
+    [loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_loginPasswordTextField).offset(-20);
+        make.right.equalTo(_loginPasswordTextField).offset(20 );
+        make.centerY.equalTo(_signUpButton.mas_centerY).offset(0);
+        make.height.equalTo(@50);
+    }];
+    [loginButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [self login];
+    }];
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -313,7 +448,6 @@ UITextFieldDelegate
     CGFloat value = scrollView.contentOffset.x;
     
     _upView.backgroundColor = [UIColor colorWithRed:0.32 + value / (WIDTH * 2) green:0.78 blue:0.48 - (WIDTH * 2) / value alpha:1.0];
-
     
     if (self.position == WIDTH / 4 * 3) {
         
@@ -341,7 +475,6 @@ UITextFieldDelegate
          _myImageView.image = [UIImage imageNamed:@"login_header"];
     }else {
         _leftImageView.image = [UIImage imageNamed:@"login_header"];
-
     }
     return YES;
     
@@ -353,63 +486,79 @@ UITextFieldDelegate
     
 }
 
-// 点击return
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ([textField isEqual:_passwordTextField]) {
-        EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:_passwordTextField.text];
 #pragma mark - 注册
+- (void)register {
+    if ([_confirmPasswordTextField.text isEqualToString:_passwordTextField.text]) {
+        EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:_passwordTextField.text];
+
         if (error == nil) {
             [TSMessage showNotificationWithTitle:@"Success" subtitle:@"注册成功" type:TSMessageNotificationTypeSuccess];
-            [_passwordTextField resignFirstResponder];
+            [_confirmPasswordTextField resignFirstResponder];
             self.loginAccountTextField.text = _accountTextField.text;
             self.loginPasswordTextField.text = _passwordTextField.text;
             self.downScrollView.contentOffset = CGPointMake(WIDTH, 0);
-
+            
         }else {
-//            [TSMessage showNotificationWithTitle:@"Error" subtitle:@"注册失败" type:TSMessageNotificationTypeError];
             [UIView showMessage:@"注册失败"];
-            
-
         }
         
-    }else if ([textField isEqual:_loginPasswordTextField]) {
-        _error = [[EMClient sharedClient] loginWithUsername:_loginAccountTextField.text password:_loginPasswordTextField.text];
-        
+    } else {
+        [UIView showMessage:@"确认密码错误,请重新输入"];
+    }
+}
+
 #pragma mark - 登录
-        if (!_error) {
-            AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
-            [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                if (!error) {
-                    [[FZY_DataHandle shareDatahandle] open];
-                    [[FZY_DataHandle shareDatahandle] deleteAll];
-                    for (AVObject *userPhoto in objects) {
-                        AVObject *user = [userPhoto objectForKey:@"userName"];
-                        FZY_User *use = [[FZY_User alloc] init];
-                        AVFile *file = [userPhoto objectForKey:@"image"];
-                        use.name = [NSString stringWithFormat:@"%@", user];
-                        use.imageUrl = file.url;
-                        use.userId = userPhoto.objectId;
-                        [[FZY_DataHandle shareDatahandle] insert:use];
-                    }
+- (void)login {
+    _error = [[EMClient sharedClient] loginWithUsername:_loginAccountTextField.text password:_loginPasswordTextField.text];
+    
+    if (!_error) {
+        AVQuery *userPhoto = [AVQuery queryWithClassName:@"userAvatar"];
+        [userPhoto findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                [[FZY_DataHandle shareDatahandle] open];
+                [[FZY_DataHandle shareDatahandle] deleteAll];
+                for (AVObject *userPhoto in objects) {
+                    AVObject *user = [userPhoto objectForKey:@"userName"];
+                    FZY_User *use = [[FZY_User alloc] init];
+                    AVFile *file = [userPhoto objectForKey:@"image"];
+                    use.name = [NSString stringWithFormat:@"%@", user];
+                    use.imageUrl = file.url;
+                    use.userId = userPhoto.objectId;
+                    [[FZY_DataHandle shareDatahandle] insert:use];
+                    
+                    // 推送昵称
+                    NSString *str = [EMClient sharedClient].currentUsername;
+                    [[EMClient sharedClient] setApnsNickname:str];
                 }
-            }];
-            [TSMessage showNotificationWithTitle:@"Success" subtitle:@"登录成功" type:TSMessageNotificationTypeSuccess];
-            [_loginPasswordTextField endEditing:YES];
-            [self dismissViewControllerAnimated:NO completion:^{
-                [_VC dismissViewControllerAnimated:YES completion:nil];
-            }];
-
-            
-            if (!_error) {
-                [[EMClient sharedClient].options setIsAutoLogin:YES];
             }
-            
-            self.view.window.rootViewController = [[FZYTabBarViewController alloc] init];
-                        
-        }else {
-            [TSMessage showNotificationWithTitle:@"Error" subtitle:@"登录失败" type:TSMessageNotificationTypeError];
+        }];
+        [UIView showMessage:@"登录成功"];
+        
+        [_loginPasswordTextField endEditing:YES];
+        [self dismissViewControllerAnimated:NO completion:^{
+            [_VC dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        if (!_error) {
+            [[EMClient sharedClient].options setIsAutoLogin:YES];
         }
         
+        self.view.window.rootViewController = [[FZYTabBarViewController alloc] init];
+        
+    }else {
+        [UIView showMessage:@"登录失败"];
+    }
+}
+
+// 点击return
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if ([textField isEqual:_confirmPasswordTextField]) {
+        [self register];
+    }
+    
+    if ([textField isEqual:_loginPasswordTextField]) {
+        [self login];
     }
    
     return YES;

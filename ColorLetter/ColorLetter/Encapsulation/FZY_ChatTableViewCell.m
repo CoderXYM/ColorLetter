@@ -422,13 +422,11 @@
                         make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
                         make.width.equalTo(@(size.width + 30));
                     }];
-
                 }
             }
             self.leftLabel.text = model.context;
             self.leftName.text = model.fromUser;
             self.leftTimeLabel.text = [NSData intervalSinceNow:model.time];
-
         }
         
     }
@@ -460,13 +458,6 @@
         make.width.equalTo(_rightIconImageView.mas_width);
     }];
     
-//    [_rightPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_rightBubble.mas_left);
-//        make.top.equalTo(_rightBubble.mas_top);
-//        make.bottom.equalTo(_rightBubble.mas_bottom);
-//        make.right.equalTo(_rightBubble.mas_right).offset(-5);
-//    }];
-    
     [_rightVoice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_rightBubble.mas_right).offset(-15);
         make.top.equalTo(_rightBubble.mas_top).offset(10);
@@ -479,14 +470,6 @@
         make.centerY.equalTo(_rightBubble.mas_centerY);
         make.right.equalTo(_rightBubble.mas_right);
     }];
-
-//    [_leftPhotoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(_leftBubble.mas_left).offset(5);
-//        make.top.equalTo(_leftBubble.mas_top);
-//        make.right.equalTo(_leftBubble.mas_right);
-//        make.bottom.equalTo(_leftBubble.mas_bottom);
-//    }];
-
     
     [_lefeVoice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_leftBubble.mas_left).offset(15);
@@ -573,7 +556,7 @@
     
     }
 }
-
+ 
 + (CGFloat)getImageHeight:(NSString *)imageName withWidth:(CGFloat)width{
     NSURL *imageURL = [NSURL URLWithString:imageName];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageURL]];
