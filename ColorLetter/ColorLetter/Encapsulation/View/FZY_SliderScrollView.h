@@ -14,7 +14,7 @@
 
 @end
 
-@interface FZY_SliderScrollView : UIScrollView
+@interface FZY_SliderScrollView : UIView
 
 @property (nonatomic, assign) id<FZY_SliderScrollViewDelegate>sliderDelegate;
 

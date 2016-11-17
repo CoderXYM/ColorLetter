@@ -76,7 +76,7 @@ FZY_CreateGroupViewControllerDelegate
     _rightTableView.delegate = nil;
     _rightTableView.dataSource = nil;
     _searchController.delegate = nil;
-    _sliderScrollView.delegate = nil;
+    _sliderScrollView.sliderDelegate = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -235,8 +235,6 @@ FZY_CreateGroupViewControllerDelegate
     [self.view addSubview:_upView];
     
     self.sliderScrollView = [[FZY_SliderScrollView alloc] initWithFrame:CGRectMake(3, 2, _upView.frame.size.width / 2, 26)];
-    _sliderScrollView.showsHorizontalScrollIndicator = YES  ;
-    _sliderScrollView.showsVerticalScrollIndicator = YES;
     _sliderScrollView.backgroundColor = [UIColor colorWithRed:0.15 green:0.15 blue:0.21 alpha:1];
     _sliderScrollView.sliderDelegate = self;
     _sliderScrollView.layer.cornerRadius = 13;
