@@ -198,7 +198,7 @@ BMKMapViewDelegate
     if (_isGroupChat) {
         chatterInfoVC.friendImage = @"bg-mob";
     } else {
-        chatterInfoVC.friendImage  =_friendImage;
+        chatterInfoVC.friendImage = _friendImage;
     }
     chatterInfoVC.friendName = _friendName;
     
@@ -379,6 +379,8 @@ BMKMapViewDelegate
             EMMessageBody *msgBody = message.body;
             FZY_ChatModel *model = [[FZY_ChatModel alloc] init];
             
+            
+            
             switch (msgBody.type) {
                 case EMMessageBodyTypeText:
                 {
@@ -449,8 +451,15 @@ BMKMapViewDelegate
                 default:
                     break;
             }
+            // 发送已读回执。在这里写只是为了演示发送，在APP中具体在哪里发送需要开发者自己决定。
+            [[EMClient sharedClient].chatManager sendMessageReadAck:message completion:^(EMMessage *aMessage, EMError *aError) {
+                
+            }];
         }
+}
 
+- (void)didReceiveHasReadAcks:(NSArray *)aMessages {
+    NSLog(@"%@", aMessages);
 }
 
 #pragma mark - 发送消息
@@ -950,6 +959,7 @@ BMKMapViewDelegate
     cell.leftImage = _friendImage;
     cell.rightImage = _userImage;
     cell.model = model;
+//    [cell performSelector:@selector(setModel:) withObject:model afterDelay:0.f inModes:@[NSDefaultRunLoopMode]];
 
     return cell;
 }

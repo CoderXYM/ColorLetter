@@ -115,12 +115,7 @@ UIImagePickerControllerDelegate
     //        self.view.transform = CGAffineTransformMakeTranslation(-500, 0);
     //    }];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
-    CATransition * animation = [CATransition animation];
-    animation.duration = 0.5;
-//    animation.type = @"suckEffect";
-    animation.type = kCATransitionFromRight;
-     [self.view.window.layer addAnimation:animation forKey:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)swipeAction:(UISwipeGestureRecognizer *)swipe {
@@ -158,6 +153,7 @@ UIImagePickerControllerDelegate
     _imageView.layer.borderWidth = 1.5f;
     //允许用户交互
     _imageView.userInteractionEnabled = YES;
+    
     //初始化一个手势
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(alertImageView:)];
    //给imageView添加手势

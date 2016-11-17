@@ -73,6 +73,7 @@ EMChatManagerDelegate
     //启动LocationService
     [_locService startUserLocationService];
     
+    
 }
 
 - (void)didReceiveMessages:(NSArray *)aMessages {
