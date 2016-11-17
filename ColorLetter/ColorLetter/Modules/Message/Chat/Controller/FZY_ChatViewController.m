@@ -456,10 +456,6 @@ BMKMapViewDelegate
                 default:
                     break;
             }
-            // 发送已读回执。在这里写只是为了演示发送，在APP中具体在哪里发送需要开发者自己决定。
-            [[EMClient sharedClient].chatManager sendMessageReadAck:message completion:^(EMMessage *aMessage, EMError *aError) {
-                
-            }];
         }
 }
 
