@@ -250,7 +250,10 @@ BMKMapViewDelegate
                     
                     EMMessageBody *msgBody = mes.body;
                     FZY_ChatModel * model = [[FZY_ChatModel alloc] init];
-                    
+                    // 发送已读回执。在这里写只是为了演示发送，在APP中具体在哪里发送需要开发者自己决定。
+                    [[EMClient sharedClient].chatManager sendMessageReadAck:mes completion:^(EMMessage *aMessage, EMError *aError) {
+                        
+                    }];
                     switch (msgBody.type) {
                         case EMMessageBodyTypeText:
                         {
@@ -455,7 +458,7 @@ BMKMapViewDelegate
 }
 
 - (void)didReceiveHasReadAcks:(NSArray *)aMessages {
-    NSLog(@"%@", aMessages);
+    NSLog(@"%ld", aMessages.count);
 }
 
 #pragma mark - 发送消息
