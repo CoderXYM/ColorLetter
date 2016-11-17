@@ -43,7 +43,9 @@ FZYBaseViewControllerDelegate
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"BackToTabBarViewController" object:nil];
+    
     self.navigationController.navigationBar.hidden = YES;
     
     self.objectArray = [[FZY_DataHandle shareDatahandle] select:nil];    

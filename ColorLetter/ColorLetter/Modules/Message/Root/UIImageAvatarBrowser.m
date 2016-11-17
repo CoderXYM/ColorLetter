@@ -19,7 +19,6 @@ static UIImageView *orginImageView;
     orginImageView = avatarImageView;
     orginImageView.alpha = 0;
    
-    
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
     
     UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];

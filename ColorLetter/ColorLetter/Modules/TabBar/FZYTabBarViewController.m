@@ -69,6 +69,7 @@
     
     // 添加观察者
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hiddenTabBarAction:) name:@"WhenPushPage" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showTabBarAction:) name:@"BackToTabBarViewController" object:nil];
 }
 
