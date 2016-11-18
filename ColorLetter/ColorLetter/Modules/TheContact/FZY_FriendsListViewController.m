@@ -72,7 +72,7 @@ UITableViewDataSource
     // 选择
     self.selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _selectButton.frame = CGRectMake(WIDTH - 75, 20, 50, 30);
-    [_selectButton setTitle:@"选择" forState:UIControlStateNormal];
+    [_selectButton setTitle:@"choose" forState:UIControlStateNormal];
     [_selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:_selectButton];
     [_selectButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
@@ -82,7 +82,7 @@ UITableViewDataSource
         
         if ([_tableView isEditing]) {
             _selectAllButton.hidden = NO;
-            [_selectButton setTitle:@"完成" forState:UIControlStateNormal];
+            [_selectButton setTitle:@"complete" forState:UIControlStateNormal];
         }else {
             [self.delegate getInvitedFriendsName:_dataArray];
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -92,7 +92,7 @@ UITableViewDataSource
     // 全选
     self.selectAllButton = [UIButton buttonWithType:UIButtonTypeSystem];
     _selectAllButton.frame = CGRectMake(WIDTH - 150, 20, 50, 30);
-    [_selectAllButton setTitle:@"全选" forState:UIControlStateNormal];
+    [_selectAllButton setTitle:@"selectAll" forState:UIControlStateNormal];
     [_selectAllButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_selectAllButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         if ([_tableView isEditing]) {

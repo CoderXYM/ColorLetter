@@ -205,7 +205,7 @@ UITextFieldDelegate
     [_signUpButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         
         if (([_accountTextField.text isEqualToString:@""] | [_passwordTextField.text isEqualToString:@""] | [_confirmPasswordTextField.text isEqualToString:@""])) {
-            [UIView showMessage:@"请填写您的注册信息"];
+            [UIView showMessage:@"Please fill in your registration information"];
         } else {
             
             if (_agree) {
@@ -213,7 +213,7 @@ UITextFieldDelegate
                 [self register];
                 
             } else {
-                [UIView showMessage:@"请同意服务协议"];
+                [UIView showMessage:@"Please agree to the service agreement"];
             }
         }
     }];
@@ -247,26 +247,26 @@ UITextFieldDelegate
     }];
     
     UILabel *serveItemLabel = [[UILabel alloc] init];
-    serveItemLabel.text = @"我已阅读并同意";
+    serveItemLabel.text = @"I have read and agreed to";
     serveItemLabel.font = [UIFont systemFontOfSize:13];
     serveItemLabel.textColor = [UIColor whiteColor];
     [self.downScrollView addSubview:serveItemLabel];
     [serveItemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(roundImageButton.mas_right).offset(5);
         make.centerY.equalTo(roundImageButton.mas_centerY).offset(0);
-        make.width.equalTo(@100);
+        make.width.equalTo(@160);
         make.height.equalTo(@30);
     }];
     
     UIButton *serveItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [serveItemButton setTitle:@"服务协议" forState:UIControlStateNormal];
+    [serveItemButton setTitle:@"Service agreement" forState:UIControlStateNormal];
     serveItemButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [serveItemButton setTitleColor:[UIColor colorWithRed:0.30 green:0.79 blue:0.50 alpha:1.0] forState:UIControlStateNormal];
     [self.downScrollView addSubview:serveItemButton];
     [serveItemButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(serveItemLabel.mas_right).offset(5);
         make.centerY.equalTo(roundImageButton.mas_centerY).offset(0);
-        make.width.equalTo(@80);
+        make.width.equalTo(@130);
         make.height.equalTo(@30);
     }];
     [serveItemButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
@@ -492,18 +492,18 @@ UITextFieldDelegate
         EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:_passwordTextField.text];
 
         if (error == nil) {
-            [TSMessage showNotificationWithTitle:@"Success" subtitle:@"注册成功" type:TSMessageNotificationTypeSuccess];
+            [UIView showMessage:@"Registered successfully"];
             [_confirmPasswordTextField resignFirstResponder];
             self.loginAccountTextField.text = _accountTextField.text;
             self.loginPasswordTextField.text = _passwordTextField.text;
             self.downScrollView.contentOffset = CGPointMake(WIDTH, 0);
             
         }else {
-            [UIView showMessage:@"注册失败"];
+            [UIView showMessage:@"Registration failed"];
         }
         
     } else {
-        [UIView showMessage:@"确认密码错误,请重新输入"];
+        [UIView showMessage:@"Confirm password mistake, please enter again"];
     }
 }
 
@@ -532,7 +532,7 @@ UITextFieldDelegate
                 }
             }
         }];
-        [UIView showMessage:@"登录成功"];
+        [UIView showMessage:@"Login successful"];
         
         [_loginPasswordTextField endEditing:YES];
         [self dismissViewControllerAnimated:NO completion:^{
@@ -546,7 +546,7 @@ UITextFieldDelegate
         self.view.window.rootViewController = [[FZYTabBarViewController alloc] init];
         
     }else {
-        [UIView showMessage:@"登录失败"];
+        [UIView showMessage:@"Login failed"];
     }
 }
 
