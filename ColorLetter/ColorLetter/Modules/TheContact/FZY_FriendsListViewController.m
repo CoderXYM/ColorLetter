@@ -63,7 +63,7 @@ UITableViewDataSource
 - (void)createButton {
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(20, 30, 20, 20);
-    [backButton setBackgroundImage:[UIImage imageNamed:@"btn-back"] forState:UIControlStateNormal];
+    [backButton setBackgroundImage:[UIImage imageNamed:@"btn-x"] forState:UIControlStateNormal];
     [backButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -71,18 +71,17 @@ UITableViewDataSource
     
     // 选择
     self.selectButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _selectButton.frame = CGRectMake(WIDTH - 75, 20, 50, 30);
-    [_selectButton setTitle:@"选择" forState:UIControlStateNormal];
+    _selectButton.frame = CGRectMake(WIDTH - 125, 20, 100, 30);
+    [_selectButton setTitle:@"choose" forState:UIControlStateNormal];
     [_selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:_selectButton];
     [_selectButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        
         _tableView.allowsMultipleSelectionDuringEditing = YES;
         _tableView.editing = !_tableView.editing;
         
         if ([_tableView isEditing]) {
             _selectAllButton.hidden = NO;
-            [_selectButton setTitle:@"完成" forState:UIControlStateNormal];
+            [_selectButton setTitle:@"complete" forState:UIControlStateNormal];
         }else {
             [self.delegate getInvitedFriendsName:_dataArray];
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -91,8 +90,8 @@ UITableViewDataSource
     
     // 全选
     self.selectAllButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    _selectAllButton.frame = CGRectMake(WIDTH - 150, 20, 50, 30);
-    [_selectAllButton setTitle:@"全选" forState:UIControlStateNormal];
+    _selectAllButton.frame = CGRectMake(WIDTH - 230, 20, 100, 30);
+    [_selectAllButton setTitle:@"selectAll" forState:UIControlStateNormal];
     [_selectAllButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_selectAllButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         if ([_tableView isEditing]) {

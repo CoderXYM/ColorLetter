@@ -149,9 +149,9 @@ BMKMapViewDelegate
     
     [self createRightItem];
     if (_isGroupChat) {
-        self.title = [NSString stringWithFormat:@"在%@群聊中", _friendName];
+        self.title = [NSString stringWithFormat:@"in %@ chatting", _friendName];
     } else {
-        self.title = [NSString stringWithFormat:@"与%@聊天中", _friendName];
+        self.title = [NSString stringWithFormat:@"with %@ chatting", _friendName];
     }
     
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];

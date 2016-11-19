@@ -78,14 +78,14 @@
     
     if (cha / 3600 < 1) {
         if (cha / 60 < 1) {
-            timeString = @"刚刚";
+            timeString = @"just now";
         } else {
-            timeString = [NSString stringWithFormat:@"%.f分钟前", cha / 60];
+            timeString = [NSString stringWithFormat:@"%.fminutes ago", cha / 60];
         }
     } else if (cha / 3600 > 1 && cha / 86400 < 1) {
-        timeString = [NSString stringWithFormat:@"%.f小时前", cha / 3600];
+        timeString = [NSString stringWithFormat:@"%.fhours before", cha / 3600];
     } else if (cha / 86400 > 1 && cha / 604800 < 1) {
-        timeString = [NSString stringWithFormat:@"%.f天前", cha / 86400];
+        timeString = [NSString stringWithFormat:@"%.fdays ago", cha / 86400];
     } else {
         timeString = [self secondToDate:timeInterval WithFormat:@"yyyy/MM/dd HH:mm"];
     }

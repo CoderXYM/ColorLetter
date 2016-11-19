@@ -91,7 +91,7 @@ UITableViewDataSource
     
     FZY_ChatterInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.blackList = _friendName;
-    cell.textLabel.text = @"加入黑名单";
+    cell.textLabel.text = @"Join the blacklist";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }

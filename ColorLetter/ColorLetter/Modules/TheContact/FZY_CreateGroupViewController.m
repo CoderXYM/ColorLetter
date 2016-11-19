@@ -53,14 +53,14 @@ FZY_FriendsListViewControllerDelegate
 - (void)completeButton {
     UIButton *completeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     completeButton.frame = CGRectMake(WIDTH - 90, 20, 80, 40);
-    [completeButton setTitle:@"完成" forState:UIControlStateNormal];
+    [completeButton setTitle:@"Complete" forState:UIControlStateNormal];
     [completeButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         if (_groupMembersArray.count) {
             [self createGroup];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"群成员数不能为空" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Tip" message:@"Group members cannot be empty" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:alertAction];
             [self presentViewController:alert animated:YES completion:nil];
         }
@@ -72,8 +72,8 @@ FZY_FriendsListViewControllerDelegate
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSInteger count = [self.maxMembers.text integerValue];
     if (count > 2000) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"群成员数不能超过2000人" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Tip" message:@"Group members number cannot exceed2000" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:alertAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
@@ -88,16 +88,14 @@ FZY_FriendsListViewControllerDelegate
     setting.style = EMGroupStylePublicOpenJoin; //  公开群组，Owner可以邀请用户加入; 非群成员用户发送入群申请，经Owner同意后才能入组
     
     if (setting.maxUsersCount <= 2000) {
-        EMGroup *group = [[EMClient sharedClient].groupManager createGroupWithSubject:self.groupName.text description:self.groupDescription.text invitees:self.groupMembersArray message:@"邀请您加入群组" setting:setting error:&error];
+        EMGroup *group = [[EMClient sharedClient].groupManager createGroupWithSubject:self.groupName.text description:self.groupDescription.text invitees:self.groupMembersArray message:@"Invite you to join the group" setting:setting error:&error];
         if (!error) {
-            NSLog(@"创建成功--- %@", group);
-            [TSMessage showNotificationWithTitle:@"Success" subtitle:[NSString stringWithFormat:@"%@创建成功", _groupName.text] type:TSMessageNotificationTypeSuccess];
+            [TSMessage showNotificationWithTitle:@"Success" subtitle:[NSString stringWithFormat:@"Create %@ success", _groupName.text] type:TSMessageNotificationTypeSuccess];
             
             [self.delegate insertNewGroupToTableViewWithName:_groupName.text description:_groupDescription.text];
             
         } else {
-            NSLog(@"创建群组失败--- %@", error);
-            [TSMessage showNotificationWithTitle:@"Error" subtitle:[NSString stringWithFormat:@"%@创建失败", _groupName.text] type:TSMessageNotificationTypeError];
+            [TSMessage showNotificationWithTitle:@"Error" subtitle:[NSString stringWithFormat:@"Create %@ failed", _groupName.text] type:TSMessageNotificationTypeError];
         }
     }
     
@@ -113,7 +111,6 @@ FZY_FriendsListViewControllerDelegate
 
 - (void)getInvitedFriendsName:(NSMutableArray *)array {
     self.groupMembersArray = array;
-    NSLog(@"%@", _groupMembersArray);
 }
 
 - (void)screenTap:(UIGestureRecognizer *)tap {

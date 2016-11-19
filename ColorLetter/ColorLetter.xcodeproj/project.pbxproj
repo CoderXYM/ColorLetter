@@ -68,7 +68,6 @@
 		49B032C61DB7A47900D36732 /* FileManagerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B032C51DB7A47900D36732 /* FileManagerUtils.m */; };
 		49BFEAB51DC4501800D6DB00 /* FZY_RequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BFEAB41DC4501800D6DB00 /* FZY_RequestModel.m */; };
 		49C0EC3A1DD9459100C01EB5 /* UITextField+ExtentRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C0EC391DD9459100C01EB5 /* UITextField+ExtentRange.m */; };
-		49C0EC631DD9EA2C00C01EB5 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C0EC621DD9EA2C00C01EB5 /* UserNotifications.framework */; };
 		49C43F7E1DBEE4590060092C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7D1DBEE4590060092C /* CoreMedia.framework */; };
 		49C43F801DBEE4770060092C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F7F1DBEE4770060092C /* AudioToolbox.framework */; };
 		49C43F821DBEE4880060092C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C43F811DBEE4880060092C /* AVFoundation.framework */; };
@@ -336,8 +335,6 @@
 		49BFEAB41DC4501800D6DB00 /* FZY_RequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FZY_RequestModel.m; sourceTree = "<group>"; };
 		49C0EC381DD9459100C01EB5 /* UITextField+ExtentRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+ExtentRange.h"; sourceTree = "<group>"; };
 		49C0EC391DD9459100C01EB5 /* UITextField+ExtentRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+ExtentRange.m"; sourceTree = "<group>"; };
-		49C0EC621DD9EA2C00C01EB5 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		49C0EC641DD9EDDF00C01EB5 /* ColorLetter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorLetter.entitlements; sourceTree = "<group>"; };
 		49C43F7D1DBEE4590060092C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		49C43F7F1DBEE4770060092C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		49C43F811DBEE4880060092C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -632,7 +629,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				49D14BE71DD96DB000A59E94 /* UserNotifications.framework in Frameworks */,
 				49C43F901DBEE5690060092C /* libiconv.tbd in Frameworks */,
 				49CE08481DC0C1F70022B6B8 /* libopencore-amrnb.a in Frameworks */,
@@ -1080,7 +1076,6 @@
 		49B032771DB79C0800D36732 /* ColorLetter */ = {
 			isa = PBXGroup;
 			children = (
-
 				49D14BE51DD96D9400A59E94 /* ColorLetter.entitlements */,
 				49CE02401DC0B0A60022B6B8 /* ThirdPart */,
 				49B0328F1DB79C7800D36732 /* Base */,
@@ -1857,8 +1852,6 @@
 		49E640201DC0484600149AF1 /* FriendRequests */ = {
 			isa = PBXGroup;
 			children = (
-				49E640231DC0488600149AF1 /* Model */,
-				49E640221DC0487600149AF1 /* View */,
 				49E640211DC0486F00149AF1 /* Controller */,
 			);
 			path = FriendRequests;
@@ -1871,20 +1864,6 @@
 				49E640251DC0493000149AF1 /* FZY_FriendRequestViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		49E640221DC0487600149AF1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		49E640231DC0488600149AF1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		49EB5EAB1DD09BED002A860D /* CreateGroup */ = {
@@ -2383,7 +2362,6 @@
 					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ColorLetter/VoiceLib",
 				);
-
 				PRODUCT_BUNDLE_IDENTIFIER = com.colorLetter.fzy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2413,7 +2391,6 @@
 					"$(PROJECT_DIR)/ColorLetter/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ColorLetter/VoiceLib",
 				);
-
 				PRODUCT_BUNDLE_IDENTIFIER = com.colorLetter.fzy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

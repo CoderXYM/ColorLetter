@@ -318,11 +318,11 @@ FZY_CreateGroupViewControllerDelegate
             } else {
                 i = 3;
             }
-                _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
-                self.count = scrollView.contentOffset.x ;
-            }
-                
+            _sliderScrollView.frame = CGRectMake(scrollView.contentOffset.x * (slideLength / WIDTH) + i, 2, _upView.frame.size.width / 2, 26);
+            self.count = scrollView.contentOffset.x ;
         }
+                
+    }
    
 }
 
@@ -443,9 +443,9 @@ FZY_CreateGroupViewControllerDelegate
             }
             return cell;
         }
-           FZY_GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
-            cell.nameLabel.text = [NSString stringWithFormat:@"%@", _rightArray[indexPath.row]];
-            return cell;
+        FZY_GroupTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:rightIdentifier];
+        cell.nameLabel.text = [NSString stringWithFormat:@"%@", _rightArray[indexPath.row]];
+        return cell;
     
 }
 
@@ -456,63 +456,63 @@ FZY_CreateGroupViewControllerDelegate
             UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"是否添加%@为好友?", fzy.aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
             //创建一个取消和一个确定按钮
             UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
-                if (!error) {
-                    NSLog(@"拒绝成功");
-                    [_friendRequest removeObjectAtIndex:indexPath.row];
-                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-                    [_leftTabeleView reloadData];
-                }
-            }];
-            //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
-            UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
-                if (!error) {
-                    [TSMessage showNotificationWithTitle:@"Success" subtitle:@"添加成功" type:TSMessageNotificationTypeSuccess];
-                    [_friendRequest removeObjectAtIndex:indexPath.row];
-                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-                    [self getFriendList];
-                    [_leftTabeleView reloadData];
-                }
-            }];
-            //将取消和确定按钮添加进弹框控制器
-            [alert addAction:actionCancle];
-            [alert addAction:actionOk];
-            //显示弹框控制器
-            [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            FZY_ChatViewController *chat = [[FZY_ChatViewController alloc] init];
-            if (_leftArray.count > 0) {
-                chat.friendName = _leftArray[indexPath.row];
-                [self.navigationController pushViewController:chat animated:YES];
-            }else {
-                chat.friendName = _searchLeftArray[indexPath.row];
-                [self.navigationController pushViewController:chat animated:YES];
+            EMError *error = [[EMClient sharedClient].contactManager declineInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
+            if (!error) {
+                NSLog(@"拒绝成功");
+                [_friendRequest removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                [_leftTabeleView reloadData];
             }
-            
-        }
+        }];
+        //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
+        UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            EMError *error = [[EMClient sharedClient].contactManager acceptInvitationForUsername:[NSString stringWithFormat:@"%@", fzy.aUsername]];
+            if (!error) {
+                [TSMessage showNotificationWithTitle:@"Success" subtitle:@"添加成功" type:TSMessageNotificationTypeSuccess];
+                [_friendRequest removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                [self getFriendList];
+                [_leftTabeleView reloadData];
+                }
+            }];
+        //将取消和确定按钮添加进弹框控制器
+        [alert addAction:actionCancle];
+        [alert addAction:actionOk];
+        //显示弹框控制器
+        [self presentViewController:alert animated:YES completion:nil];
     } else {
+        FZY_ChatViewController *chat = [[FZY_ChatViewController alloc] init];
+        if (_leftArray.count > 0) {
+            chat.friendName = _leftArray[indexPath.row];
+            [self.navigationController pushViewController:chat animated:YES];
+        }else {
+            chat.friendName = _searchLeftArray[indexPath.row];
+            [self.navigationController pushViewController:chat animated:YES];
+        }
+            
+    }
+  } else {
         if (0 == indexPath.section) {
             
-            if (_groupRequest.count) {
+        if (_groupRequest.count) {
                 
-                FZY_RequestModel *fzy = _groupRequest[indexPath.row];
+            FZY_RequestModel *fzy = _groupRequest[indexPath.row];
                 
-                UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"是否加入%@群?", fzy.aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
-                //创建一个取消和一个确定按钮
-                UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"是否加入%@群?", fzy.aUsername] message:nil preferredStyle:UIAlertControllerStyleAlert];
+            //创建一个取消和一个确定按钮
+            UIAlertAction *actionCancle=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     
-                    [[EMClient sharedClient].groupManager declineGroupInvitation:fzy.aGroupId inviter:fzy.aInviter reason:@"不不" completion:^(EMError *aError) {
-                        if (!aError) {
+            [[EMClient sharedClient].groupManager declineGroupInvitation:fzy.aGroupId inviter:fzy.aInviter reason:@"不不" completion:^(EMError *aError) {
+                    if (!aError) {
                             
-                            [TSMessage showNotificationWithTitle:@"Success" subtitle:@"拒绝成功" type:TSMessageNotificationTypeSuccess];
-                            [_groupRequest removeObjectAtIndex:indexPath.row];
+                        [TSMessage showNotificationWithTitle:@"Success" subtitle:@"拒绝成功" type:TSMessageNotificationTypeSuccess];
+                        [_groupRequest removeObjectAtIndex:indexPath.row];
                             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-                            [_rightTableView reloadData];
-                        }
-                    }];
-                    
+                        [_rightTableView reloadData];
+                    }
                 }];
+                    
+            }];
                 //因为需要点击确定按钮后改变文字的值，所以需要在确定按钮这个block里面进行相应的操作
                 UIAlertAction *actionOk=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                     [[EMClient sharedClient].groupManager acceptInvitationFromGroup:fzy.aGroupId inviter:fzy.aInviter completion:^(EMGroup *aGroup, EMError *aError) {

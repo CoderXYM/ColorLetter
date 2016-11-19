@@ -10,9 +10,10 @@
 #import "UIButton+Block.h"
 #import "YYImage.h"
 #import <YYWebImage/YYWebImage.h>
-@interface FZY_HelpViewController ()
-@property (nonatomic, strong) UIImageView *imageView;
 
+@interface FZY_HelpViewController ()
+
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -56,7 +57,7 @@
         
     UILabel *helpLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, HEIGHT / 2 , WIDTH, HEIGHT * 0.1 + 7)];
     helpLabel.backgroundColor = [UIColor colorWithRed:0.82 green:0.79 blue:0.19 alpha:1.0 ];
-    helpLabel.text = @"This product is instant messaging products,  If you have any questions, please call 8888888";
+    helpLabel.text = @"This product is instant messaging products,  If you have any questions, please call 18641536272";
     helpLabel.font=[UIFont systemFontOfSize:15];
     helpLabel.numberOfLines = 0;
     helpLabel.lineBreakMode = NSLineBreakByCharWrapping;

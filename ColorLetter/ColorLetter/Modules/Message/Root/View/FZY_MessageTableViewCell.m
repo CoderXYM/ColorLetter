@@ -107,7 +107,6 @@
             [_unReadMessageLabel removeFromSuperview];
         }
     }
-    
 }
 
 - (void)layoutSubviews {
@@ -123,7 +122,7 @@
 
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_headImageView.mas_right).offset(10);
-        make.width.equalTo(@(self.contentView.frame.size.width / 2));
+        make.width.equalTo(@(self.contentView.frame.size.width / 2 - 30));
         make.top.equalTo(self.contentView).offset(5);
         make.height.equalTo(@(h / 2 - 10));
     }];
