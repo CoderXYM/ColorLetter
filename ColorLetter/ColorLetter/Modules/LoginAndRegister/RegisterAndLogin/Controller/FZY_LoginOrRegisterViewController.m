@@ -210,7 +210,7 @@ UITextFieldDelegate
             
             if (_agree) {
                 
-                [self register];
+                [self userRegister];
                 
             } else {
                 [UIView showMessage:@"请同意服务协议"];
@@ -487,7 +487,7 @@ UITextFieldDelegate
 }
 
 #pragma mark - 注册
-- (void)register {
+- (void)userRegister {
     if ([_confirmPasswordTextField.text isEqualToString:_passwordTextField.text]) {
         EMError *error = [[EMClient sharedClient] registerWithUsername:_accountTextField.text password:_passwordTextField.text];
 
@@ -554,7 +554,7 @@ UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     if ([textField isEqual:_confirmPasswordTextField]) {
-        [self register];
+        [self userRegister];
     }
     
     if ([textField isEqual:_loginPasswordTextField]) {

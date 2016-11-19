@@ -73,6 +73,7 @@ BMKMapViewDelegate
 
 @property (nonatomic, assign) BOOL change;
 
+@property (nonatomic, retain)UIImageView *myImageView;
 
 @end
 
@@ -96,31 +97,6 @@ BMKMapViewDelegate
     [super viewDidAppear:animated];
 }
 
-- (void)displayGeographicInformationLAT:(double)latitude LON:(double)longitude {
-    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
-    pointAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-    [_mapView addAnnotation:pointAnnotation];
-    [self mapView:_mapView viewForAnnotation:(id)self];
-}
-
-- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation {
-    if ([annotation isKindOfClass:[BMKPointAnnotation class]])
-    {
-        static NSString *pointReuseIndentifier = @"pointReuseIndentifier";
-        BMKPinAnnotationView*annotationView = (BMKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndentifier];
-        if (annotationView == nil)
-        {
-            annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndentifier];
-        }
-        annotationView.canShowCallout= YES;       //设置气泡可以弹出，默认为NO
-        annotationView.animatesDrop = YES;        //设置标注动画显示，默认为NO
-        annotationView.draggable = YES;        //设置标注可以拖动，默认为NO
-        annotationView.pinColor = BMKPinAnnotationColorPurple;
-        return annotationView;
-    }
-    return nil;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     self.navigationController.navigationBar.hidden = NO;
@@ -138,10 +114,39 @@ BMKMapViewDelegate
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    // 移除聊天消息回调
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    [_mapView viewWillDisappear];
+    _mapView.delegate = nil; // 不用时，置nil
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    self.myImageView = [[UIImageView alloc] init];
+    [self.view addSubview:_myImageView];
+    [_myImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view.mas_centerY);
+        make.width.equalTo(@150);
+        make.height.equalTo(@150);
+    }];
+    NSMutableArray *imageArray = [NSMutableArray array];
+    for (int i = 0; i < 93; i++) {
+        NSString *imageName = [NSString stringWithFormat: @"QDArticleLoading_%03d", i];
+        UIImage *image = [UIImage imageNamed:imageName];
+        [imageArray addObject:image];
+    }
+    _myImageView.animationImages = imageArray;
+    _myImageView.animationDuration = 0.05 * imageArray.count;
+    [_myImageView startAnimating];
+
+    
     [self createRightItem];
     if (_isGroupChat) {
         self.title = [NSString stringWithFormat:@"在%@群聊中", _friendName];
@@ -169,7 +174,7 @@ BMKMapViewDelegate
     [self loadConversationHistory];
     
     [self creatChatTableViewAndTextField];
-
+    
     // 接收消息
     // 注册消息回调
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
@@ -180,13 +185,29 @@ BMKMapViewDelegate
  
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    // 移除聊天消息回调
-    [[EMClient sharedClient].chatManager removeDelegate:self];
-    [_mapView viewWillDisappear];
-    _mapView.delegate = nil; // 不用时，置nil
+- (void)displayGeographicInformationLAT:(double)latitude LON:(double)longitude {
+    BMKPointAnnotation *pointAnnotation = [[BMKPointAnnotation alloc] init];
+    pointAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    [_mapView addAnnotation:pointAnnotation];
+    [self mapView:_mapView viewForAnnotation:(id)self];
+}
+
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation {
+    if ([annotation isKindOfClass:[BMKPointAnnotation class]])
+    {
+        static NSString *pointReuseIndentifier = @"pointReuseIndentifier";
+        BMKPinAnnotationView*annotationView = (BMKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndentifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndentifier];
+        }
+        annotationView.canShowCallout= YES;       //设置气泡可以弹出，默认为NO
+        annotationView.animatesDrop = YES;        //设置标注动画显示，默认为NO
+        annotationView.draggable = YES;        //设置标注可以拖动，默认为NO
+        annotationView.pinColor = BMKPinAnnotationColorPurple;
+        return annotationView;
+    }
+    return nil;
 }
 
 #pragma mark - 好友详情
