@@ -247,14 +247,14 @@ UITextFieldDelegate
     }];
     
     UILabel *serveItemLabel = [[UILabel alloc] init];
-    serveItemLabel.text = @"I have read and agreed to";
+    serveItemLabel.text = @"I agreed to";
     serveItemLabel.font = [UIFont systemFontOfSize:13];
     serveItemLabel.textColor = [UIColor whiteColor];
     [self.downScrollView addSubview:serveItemLabel];
     [serveItemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(roundImageButton.mas_right).offset(5);
         make.centerY.equalTo(roundImageButton.mas_centerY).offset(0);
-        make.width.equalTo(@160);
+        make.width.equalTo(@80);
         make.height.equalTo(@30);
     }];
     

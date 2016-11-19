@@ -25,18 +25,16 @@ EMChatManagerDelegate
 - (void)dealloc {
     [ChatDemoHelper shareHelper].delegate = nil;
     //移除消息回调
-    [[EMClient sharedClient].chatManager removeDelegate:self];
+    [[EMClient sharedClient].callManager removeDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-//    self.navigationController.navigationBar.subviews.firstObject.alpha = 0;
     self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-   
 //     背景图片
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-736"]];
     self.view.userInteractionEnabled = YES;
@@ -63,14 +61,9 @@ EMChatManagerDelegate
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WhenPushPage" object:nil];
         DrawerViewController *drawerVC = [[DrawerViewController alloc] init];
-//         drawerVC.myImage = [UIImage captureImageFromView: self.view];
-//        CATransition * animation = [CATransition animation];
-//        animation.duration = 0.5;
-//        animation.type = kCATransitionPush;
         drawerVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         drawerVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         drawerVC.viewController = self;
-//         [self.view.window.layer addAnimation:animation forKey:nil];      
         [self presentViewController:drawerVC animated:NO completion:nil];
         
     }];
@@ -95,10 +88,12 @@ EMChatManagerDelegate
         make.width.equalTo(@30);
         make.height.equalTo(@30);
     }];
+    
     [ChatDemoHelper shareHelper].delegate = self;
+    
+    // ????
     [ChatDemoHelper shareHelper].viewController = self;
     
-
 }
 
 - (void)pushCallVC:(EMCallSession *)session isCaller:(BOOL)isCaller status:(NSString *)status {

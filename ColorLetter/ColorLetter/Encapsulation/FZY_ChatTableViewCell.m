@@ -563,7 +563,7 @@
 
 }
 
--(void)change {
+- (void)change {
     
     self.i += 0.1;
     
